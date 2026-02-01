@@ -1,0 +1,33 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Validate HTML
+        run: |
+          npx html-validate index.html --config '{"extends": ["html-validate:recommended"]}'
+        continue-on-error: true
+        
+      - name: Check CSS Syntax
+        run: |
+          npx stylelint "css/**/*.css" --config '{"extends": "stylelint-config-standard"}'
+        continue-on-error: true
+        
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'

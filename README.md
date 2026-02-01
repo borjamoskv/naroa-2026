@@ -1,74 +1,63 @@
-# Naroa Gutiérrez Gil — Portfolio 2026
+# Naroa 2026 - Static Portfolio
 
-Portafolio artístico vanilla SPA para [naroa.online](https://naroa.online).
+> 🎨 Portafolio digital de Naroa Gutiérrez Gil | Artista Visual | Bilbao
 
-## Stack
+## 🚀 Deploy
 
-- **HTML5** semántico
-- **CSS** modular con variables (design tokens)
-- **JavaScript** vanilla (ES6+, hash-based routing)
-- **Vercel** para deploy
+Desplegado automáticamente en [Vercel](https://vercel.com) cada push a `main`.
 
-## Estructura
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/D0mainsale/naroa-2026)
+
+## 📁 Estructura
 
 ```
 naroa-2026/
-├── index.html              # Entry point
-├── css/
-│   ├── reset.css           # CSS reset
-│   ├── variables.css       # Design tokens
-│   ├── base.css            # Typography, body
-│   ├── layout.css          # Views, hero, containers
-│   ├── components.css      # Nav, buttons, cards
-│   ├── gallery.css         # Gallery grid, lightbox
-│   └── animations.css      # Keyframes, utilities
+├── css/                   # Estilos modulares
+│   ├── variables.css      # Custom properties
+│   ├── typography-2026.css # Satoshi + Switzer
+│   ├── soty-effects.css   # Efectos premium
+│   └── wow-effects.css    # Interacciones WOW
 ├── js/
-│   ├── core/
-│   │   ├── router.js       # Hash-based SPA routing
-│   │   └── app.js          # Bootstrap, initialization
-│   ├── features/
-│   │   ├── gallery.js      # Image grid, lazy loading
-│   │   └── lightbox.js     # Fullscreen viewer
-│   └── systems/            # Ritual effects (WebGL, shaders)
-├── images/
-│   ├── artworks/           # Optimized WebP images
-│   └── thumbnails/         # 400px thumbnails
-├── assets/
-│   ├── fonts/
-│   └── textures/
-└── scripts/                # Build utilities
+│   ├── core/              # Router, App
+│   ├── features/          # Gallery, Lightbox
+│   └── effects/           # Kinetic, Magnetic, Cursor
+├── images/artworks/       # 64 obras optimizadas (.webp)
+├── data/                  # JSON de obras y taxonomía
+└── index.html             # SPA entry point
 ```
 
-## Comandos
+## ⚡ Performance
+
+| Métrica | Objetivo | Estrategia |
+|---------|----------|------------|
+| LCP | < 2.5s | WebP optimizados, lazy loading |
+| FID | < 100ms | JS modular, defer scripts |
+| CLS | < 0.1 | Aspect ratios definidos |
+| Cache | 1 año | Immutable assets con hash |
+
+## 🎨 Tipografía 2026
+
+- **Display:** Switzer (Fontshare)
+- **Body:** Satoshi (Fontshare)
+- **Fallback:** system-ui, sans-serif
+
+## 🔧 Desarrollo Local
 
 ```bash
 # Servidor local
-python3 -m http.server 8889
+npx serve .
 
-# Deploy
-git push origin main  # Auto-deploy Vercel
+# O con Python
+python3 -m http.server 8000
 ```
 
-## Rutas
+## 📦 Deploy Manual
 
-| Ruta | Vista |
-|------|-------|
-| `#/` | Home |
-| `#/portfolio` | Portfolio curado |
-| `#/galeria` | Galería completa |
-| `#/about` | Sobre la artista |
-| `#/contacto` | Contacto |
+```bash
+# Con Vercel CLI
+npx vercel --prod
+```
 
-## Filosofía
+---
 
-1. **Performance First** — 0 frameworks, HTML/CSS/JS puro
-2. **Dark Aesthetic** — Paleta "Piel Bajo Carboncillo"
-3. **Ceremonial UX** — Lazy loading contemplativo
-4. **Accessibility** — WCAG 2.1 AA compliant
-
-## Próximos pasos
-
-- [ ] Integrar 237 assets desde `naroa-assets-master/`
-- [ ] WebGL shaders (delegado a Kimi 2.5 CLI)
-- [ ] PWA manifest
-- [ ] SEO meta tags
+**© 2026 Naroa Gutiérrez Gil** | [naroa.online](https://naroa.online)
