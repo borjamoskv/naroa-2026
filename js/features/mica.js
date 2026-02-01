@@ -1,13 +1,26 @@
 /**
  * MICA - Mineral Intelligence Creative Assistant
  * Naroa's AI companion for conversational navigation
- * Phase 1: Regex-based responses + navigation
+ * Phase 1: Regex-based responses + Brainshop.ai API fallback
+ * 
+ * APIs used (all CORS-enabled, free tier):
+ * - Brainshop.ai: Free AI brain for conversational responses
  */
 
 class MICA {
   constructor() {
     this.isOpen = false;
     this.messages = [];
+    this.useAI = true; // Enable AI fallback when regex doesn't match
+    
+    // Brainshop.ai configuration (free tier)
+    // Get your free brain at https://brainshop.ai
+    this.brainshop = {
+      bid: '178832', // Brain ID - replace with your own
+      key: 'MqMCf0Gg4fhHPV0r', // API Key - replace with your own
+      endpoint: 'http://api.brainshop.ai/get'
+    };
+    
     this.personality = {
       name: 'MICA',
       greeting: '¡Ey, solete! Soy MICA, el brillo mineral de Naroa. ¿Qué te apetece descubrir hoy?',
@@ -158,9 +171,44 @@ class MICA {
       }
     }
     
-    // Fallback
-    this.addMessage(this.personality.fallback, 'mica');
+    // AI fallback using Brainshop.ai
+    if (this.useAI) {
+      this.queryBrainshop(text);
+    } else {
+      this.addMessage(this.personality.fallback, 'mica');
+      this.renderQuickActions();
+    }
+  }
+  
+  async queryBrainshop(text) {
+    try {
+      const uid = 'naroa-' + Math.random().toString(36).substr(2, 9);
+      const url = `${this.brainshop.endpoint}?bid=${this.brainshop.bid}&key=${this.brainshop.key}&uid=${uid}&msg=${encodeURIComponent(text)}`;
+      
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.cnt) {
+        // Wrap AI response with Naroa's personality
+        const aiResponse = this.addNaroaFlavor(data.cnt);
+        this.addMessage(aiResponse, 'mica');
+      } else {
+        this.addMessage(this.personality.fallback, 'mica');
+      }
+    } catch (error) {
+      console.warn('[MICA] Brainshop API error:', error);
+      this.addMessage(this.personality.fallback, 'mica');
+    }
     this.renderQuickActions();
+  }
+  
+  addNaroaFlavor(response) {
+    // Add Naroa's personality touches to generic AI responses
+    const greetings = ['Cariño, ', 'Solete, ', 'Mira, ', ''];
+    const endings = [' 💛', ' ✨', ' 🎨', ''];
+    const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+    const ending = endings[Math.floor(Math.random() * endings.length)];
+    return greeting + response + ending;
   }
   
   navigateRandom() {
