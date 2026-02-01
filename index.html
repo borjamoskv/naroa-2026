@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual. Retratos, murales y obra gráfica desde Bilbao.">
+  <meta name="theme-color" content="#0a0a0a">
+  
+  <title>Naroa Gutiérrez Gil | Artista Visual</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/gallery.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <a href="#/" class="nav__logo">Naroa Gutiérrez Gil</a>
+    <ul class="nav__menu">
+      <li><a href="#/portfolio">Portfolio</a></li>
+      <li><a href="#/galeria">Galería</a></li>
+      <li><a href="#/about">Sobre mí</a></li>
+      <li><a href="#/contacto">Contacto</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Menú" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="app">
+    <!-- Home View -->
+    <section id="view-home" class="view view--home active">
+      <div class="hero">
+        <h1 class="hero__title">
+          <span class="hero__line">Naroa</span>
+          <span class="hero__line">Gutiérrez</span>
+          <span class="hero__line">Gil</span>
+        </h1>
+        <p class="hero__subtitle">Artista Visual · Bilbao</p>
+        <a href="#/portfolio" class="hero__cta">Ver Obra</a>
+      </div>
+    </section>
+
+    <!-- Portfolio View -->
+    <section id="view-portfolio" class="view view--portfolio">
+      <header class="view__header">
+        <h2>Portfolio</h2>
+      </header>
+      <div class="gallery" id="portfolio-gallery">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Gallery View -->
+    <section id="view-galeria" class="view view--galeria">
+      <header class="view__header">
+        <h2>Galería</h2>
+        <div class="gallery__filters" id="gallery-filters">
+          <!-- Filters populated by JS -->
+        </div>
+      </header>
+      <div class="gallery gallery--masonry" id="galeria-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- About View -->
+    <section id="view-about" class="view view--about">
+      <header class="view__header">
+        <h2>Sobre mí</h2>
+      </header>
+      <div class="about__content">
+        <p>Naroa Gutiérrez Gil es una artista visual afincada en Bilbao, especializada en retratos, murales y obra gráfica.</p>
+      </div>
+    </section>
+
+    <!-- Contact View -->
+    <section id="view-contacto" class="view view--contacto">
+      <header class="view__header">
+        <h2>Contacto</h2>
+      </header>
+      <div class="contact__content">
+        <p>Para encargos y colaboraciones:</p>
+        <a href="mailto:info@naroa.online" class="contact__email">info@naroa.online</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" aria-label="Cerrar">&times;</button>
+    <button class="lightbox__prev" aria-label="Anterior">&#8249;</button>
+    <button class="lightbox__next" aria-label="Siguiente">&#8250;</button>
+    <figure class="lightbox__content">
+      <img src="" alt="" class="lightbox__img" id="lightbox-img">
+      <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/core/router.js"></script>
+  <script src="js/core/app.js"></script>
+  <script src="js/features/gallery.js"></script>
+  <script src="js/features/lightbox.js"></script>
+</body>
+</html>

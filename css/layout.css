@@ -1,0 +1,92 @@
+/* Layout - Naroa 2026 */
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* Views */
+.view {
+  display: none;
+  min-height: 100vh;
+  padding-top: 5rem; /* Space for nav */
+}
+
+.view.active {
+  display: block;
+}
+
+.view__header {
+  padding: var(--space-8) 0 var(--space-6);
+  text-align: center;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: var(--space-8);
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hero__line {
+  display: block;
+  font-size: var(--font-size-hero);
+  font-weight: var(--font-weight-light);
+  line-height: 0.95;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.hero__subtitle {
+  margin-top: var(--space-6);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+.hero__cta {
+  margin-top: var(--space-8);
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  border: 1px solid var(--color-text);
+  transition: all var(--duration-base) var(--ease-default);
+}
+
+.hero__cta:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  opacity: 1;
+}
+
+/* About / Contact */
+.about__content,
+.contact__content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--container-padding);
+  text-align: center;
+}
+
+.contact__email {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
+  border-bottom: 1px solid currentColor;
+}
