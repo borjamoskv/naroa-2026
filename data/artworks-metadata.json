@@ -3,7 +3,7 @@
     "version": "4.0.0",
     "generatedBy": "NotebookLM Analysis + IA Alliance Protocol",
     "generatedAt": "2026-02-01T09:30:00Z",
-    "totalArtworks": 196,
+    "totalArtworks": 208,
     "source": "NAROA GUTIÉRREZ GIL - ALBUMS LINKS (NotebookLM)"
   },
   "artworks": [
@@ -224,6 +224,21 @@
     { "id": "viral", "title": "Viral", "series": "amor", "technique": "mixed-media", "year": 2020 },
     { "id": "holy-wood-windows", "title": "Holy Wood (White Windows)", "series": "tributos-musicales", "technique": "mixed-media", "year": 2017 },
     { "id": "pinnacle-pleasure", "title": "The Pinnacle of Pleasure", "series": "amor", "technique": "mixed-media", "year": 2022 },
-    { "id": "sound-of-susi", "title": "The Sound of Susi", "series": "retratos", "technique": "mixed-media", "year": 2021 }
+    { "id": "sound-of-susi", "title": "The Sound of Susi", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+
+    { "id": "Laura", "title": "Laura", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+    { "id": "concurso-con-mi-torso-al-dorso", "title": "Concurso con Mi Torso al Dorso", "series": "amor", "technique": "mixed-media", "year": 2020 },
+    { "id": "denbora-nora-zoaz", "title": "Denbora Nora Zoaz", "series": "amor", "technique": "mixed-media", "year": 2021 },
+    { "id": "denis", "title": "Denis", "series": "retratos", "technique": "pencil", "year": 2020 },
+    { "id": "el-gordo", "title": "El Gordo", "series": "retratos", "technique": "pencil", "year": 2019 },
+    { "id": "es-la-hora", "title": "Es la Hora", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "geisha", "title": "Geisha", "series": "retratos", "technique": "pencil", "year": 2019 },
+    { "id": "la-pensadora", "title": "La Pensadora", "series": "retratos", "technique": "pencil", "year": 2020 },
+    { "id": "maxim", "title": "Maxim", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "papitxulo", "title": "Papitxulo", "series": "retratos", "technique": "pencil", "year": 2020 },
+    { "id": "patxiko-listo", "title": "Patxiko Listo", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+
+    { "id": "rattler", "title": "Rattler", "series": "retratos", "technique": "pencil", "year": 2020 },
+    { "id": "viejuno", "title": "Viejuno", "series": "retratos", "technique": "mixed-media", "year": 2021 }
   ]
 }
