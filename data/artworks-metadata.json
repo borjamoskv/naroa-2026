@@ -80,6 +80,14 @@
     { "id": "wild-not", "title": "Wild Not?", "series": "naturaleza", "technique": "mixed-media", "year": 2021 },
     { "id": "into-the-wild", "title": "Into the Wild", "series": "naturaleza", "technique": "mixed-media", "year": 2020 },
     { "id": "la-llorona", "title": "La Llorona", "series": "naturaleza", "technique": "mixed-media", "year": 2021, "featured": true },
-    { "id": "monster-dragon", "title": "Monster Dragon", "series": "naturaleza", "technique": "mixed-media", "year": 2020 }
+    { "id": "monster-dragon", "title": "Monster Dragon", "series": "naturaleza", "technique": "mixed-media", "year": 2020 },
+
+    { "id": "paul-newman", "title": "Paul Newmum", "series": "retratos", "technique": "mixed-media", "year": 2020, "dimensions": "19.69 x 27.56 in", "artelista": true },
+    { "id": "amazona", "title": "AmazOna", "series": "naturaleza", "technique": "mixed-media", "year": 2021, "description": "Diosa en su viaje acompañada de flores de día y noche" },
+    { "id": "starchild", "title": "Starchild", "series": "tributos-musicales", "technique": "mixed-media", "year": 2022 },
+
+    { "id": "vaivenes-altar", "title": "Altar (Vaivenes)", "series": "amor", "technique": "recycled", "year": 2020, "collection": "vaivenes" },
+    { "id": "vaivenes-mandala", "title": "Mandala (Vaivenes)", "series": "amor", "technique": "recycled", "year": 2020, "collection": "vaivenes" },
+    { "id": "eguzkilore", "title": "Eguzkilore", "series": "naturaleza", "technique": "hand-carved", "year": 2021, "description": "Símbolo vasco de protección tallado a mano sobre alabastro" }
   ]
 }
