@@ -88,6 +88,79 @@
 
     { "id": "vaivenes-altar", "title": "Altar (Vaivenes)", "series": "amor", "technique": "recycled", "year": 2020, "collection": "vaivenes" },
     { "id": "vaivenes-mandala", "title": "Mandala (Vaivenes)", "series": "amor", "technique": "recycled", "year": 2020, "collection": "vaivenes" },
-    { "id": "eguzkilore", "title": "Eguzkilore", "series": "naturaleza", "technique": "hand-carved", "year": 2021, "description": "Símbolo vasco de protección tallado a mano sobre alabastro" }
+    { "id": "eguzkilore", "title": "Eguzkilore", "series": "naturaleza", "technique": "hand-carved", "year": 2021, "description": "Símbolo vasco de protección tallado a mano sobre alabastro" },
+
+    { "id": "candy-queen", "title": "Can-dy Queen", "series": "tributos-musicales", "technique": "mixed-media", "year": 2022 },
+    { "id": "clarinetes-bowie", "title": "Los Clarinetes de Bowie", "series": "tributos-musicales", "technique": "mixed-media", "year": 2021 },
+    { "id": "bowie-shhh", "title": "Bowie Shhh..till Alive", "series": "tributos-musicales", "technique": "mixed-media", "year": 2021 },
+    
+    { "id": "goiri-eder", "title": "Goiri Eder (Chef Jacket)", "series": "facefood", "technique": "textile", "year": 2019 },
+    { "id": "yolanda-chef", "title": "Yolanda (Chef Jacket)", "series": "facefood", "technique": "textile", "year": 2019 },
+    { "id": "diego-chef", "title": "Diego (Chef Jacket)", "series": "facefood", "technique": "textile", "year": 2019 },
+    { "id": "piel-de-chef", "title": "Piel de Chef", "series": "facefood", "technique": "textile", "year": 2018 },
+
+    { "id": "the-munsters", "title": "The Munsters", "series": "tributos-musicales", "technique": "mixed-media", "year": 2020 },
+    { "id": "munsters-family", "title": "The Munsters (with their new) Family", "series": "tributos-musicales", "technique": "mixed-media", "year": 2020 },
+
+    { "id": "en-lata-2", "title": "En.lata.2", "series": "enlatas", "technique": "collage", "year": 2022 },
+
+    { "id": "cuadro-bodorrio", "title": "Cuadro-Álbum Bodorrio (Susana/Denis)", "series": "bodas", "technique": "mixed-media", "year": 2021 },
+    { "id": "boda-mejor-amigo", "title": "La Boda de Mi Mejor Amigo", "series": "bodas", "technique": "mixed-media", "year": 2020 },
+    { "id": "viva-la-novia", "title": "¡Viva la Novia!", "series": "bodas", "technique": "mixed-media", "year": 2019 },
+
+    { "id": "artivismos", "title": "Artivismos", "series": "amor", "technique": "mixed-media", "year": 2020 },
+    { "id": "artivismos-viejunos", "title": "Artivismos viejunos", "series": "amor", "technique": "mixed-media", "year": 2020 },
+
+    { "id": "bicefalo", "title": "Bicéfalo", "series": "naturaleza", "technique": "mixed-media", "year": 2021 },
+    { "id": "flying-dragon", "title": "Flying Dragon", "series": "naturaleza", "technique": "mixed-media", "year": 2020 },
+    { "id": "sunflower-catrina", "title": "Sunflower Catrina", "series": "naturaleza", "technique": "mixed-media", "year": 2022 },
+    { "id": "flores-de-papel", "title": "Flores de Papel", "series": "naturaleza", "technique": "mixed-media", "year": 2021 },
+
+    { "id": "alfredita-krueger", "title": "Alfredita Krueger", "series": "retratos", "technique": "mixed-media", "year": 2019 },
+    { "id": "charlienighena", "title": "Charlienígena", "series": "retratos", "technique": "mixed-media", "year": 2020 },
+    { "id": "dorota-adoro", "title": "Dorota t'adoro", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "denis-bitxo", "title": "Denis (el Bitxo)", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+    { "id": "elene", "title": "Elene", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "el-armigo-atomico", "title": "El Armigo Atómico", "series": "retratos", "technique": "mixed-media", "year": 2020 },
+    { "id": "gloria-lander", "title": "Gloria y Lander (love is the answer)", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+    { "id": "idoia-arkatz", "title": "Idoia (arkatz & bihotz)", "series": "retratos", "technique": "pencil", "year": 2019 },
+    { "id": "im-zu", "title": "I'm Zu", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "izas-a-lapiz", "title": "Izas a Lápiz", "series": "retratos", "technique": "pencil", "year": 2020 },
+    { "id": "janire-bergoi", "title": "Janire & Bergoi bajo el sol del limón", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+    { "id": "jose-manuel-ezquerra", "title": "Jose Manuel Ezquerra: 't'abla' con su mirada", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "julio-iglesias", "title": "Julio Iglesias (como un Reloj Suizo)", "series": "tributos-musicales", "technique": "mixed-media", "year": 2019 },
+    { "id": "la-gitanilla", "title": "La Gitanilla", "series": "retratos", "technique": "mixed-media", "year": 2020 },
+    { "id": "leire", "title": "Leire", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "loving-langstrump", "title": "Loving Långstrump", "series": "tributos-musicales", "technique": "mixed-media", "year": 2021 },
+    { "id": "maite-corazon-orbita", "title": "Maite (Corazón en Órbita)", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+    { "id": "marian-miranda", "title": "Marian de Miranda Luciendo la Pantorrilla", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "mario-moreno", "title": "Mario Moreno (estraza collage)", "series": "tributos-musicales", "technique": "collage", "year": 2020 },
+    { "id": "mireialain", "title": "MireiAlain (Ángeles en Technicolor)", "series": "bodas", "technique": "mixed-media", "year": 2022 },
+    { "id": "olinga-naranja", "title": "Olinga a la Naranja", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "patxi-supino", "title": "Patxi en su-pino", "series": "retratos", "technique": "mixed-media", "year": 2020 },
+    { "id": "peru-pura-natura", "title": "Peru pura natura", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "quino", "title": "Quino", "series": "tributos-musicales", "technique": "mixed-media", "year": 2020 },
+    { "id": "rafa-music", "title": "Rafa.n & music", "series": "retratos", "technique": "mixed-media", "year": 2022 },
+    { "id": "rocka-gipsy", "title": "RockaGipsy", "series": "tributos-musicales", "technique": "mixed-media", "year": 2021 },
+    { "id": "rosetta-piedra", "title": "Rosetta no es de Piedra", "series": "retratos", "technique": "mixed-media", "year": 2020 },
+    { "id": "siempre-susi", "title": "Siempre Susi", "series": "retratos", "technique": "mixed-media", "year": 2021 },
+    { "id": "viuda-negra", "title": "Viuda Negra", "series": "tributos-musicales", "technique": "mixed-media", "year": 2021 },
+    { "id": "wow-lana", "title": "Wow Lana", "series": "tributos-musicales", "technique": "mixed-media", "year": 2022 },
+    { "id": "yoli-grafito", "title": "Yoli al Grafito", "series": "retratos", "technique": "pencil", "year": 2020 },
+
+    { "id": "amaluz", "title": "AmaLuz", "series": "amor", "technique": "mixed-media", "year": 2021 },
+    { "id": "beautiful-collage", "title": "Beauty", "series": "amor", "technique": "mixed-media", "year": 2020 },
+    { "id": "endless-tears", "title": "Endless Tears, Forever Joy", "series": "amor", "technique": "mixed-media", "year": 2022 },
+    { "id": "i-got-you-babe", "title": "I Got You Babe", "series": "amor", "technique": "mixed-media", "year": 2020 },
+    { "id": "keep-it-open", "title": "Keep It Open", "series": "amor", "technique": "mixed-media", "year": 2021 },
+    { "id": "let-me-be", "title": "Let Me Be", "series": "amor", "technique": "mixed-media", "year": 2021 },
+    { "id": "love-in-the-air", "title": "Love in the Air", "series": "amor", "technique": "mixed-media", "year": 2022 },
+    { "id": "more-amor", "title": "More Amor", "series": "amor", "technique": "mixed-media", "year": 2021 },
+    { "id": "on-top-of-love", "title": "On the Top of Love", "series": "amor", "technique": "mixed-media", "year": 2022 },
+    { "id": "the-love-boat", "title": "The Love Boat", "series": "amor", "technique": "mixed-media", "year": 2021 },
+    { "id": "utopia", "title": "Utopía", "series": "amor", "technique": "mixed-media", "year": 2022 },
+
+    { "id": "hello-darkness", "title": "Hello Darkness my Old Friend", "series": "espejos-del-alma", "technique": "mixed-media", "year": 2023 },
+    { "id": "red-red-wine", "title": "Red Red Wine", "series": "espejos-del-alma", "technique": "mixed-media", "year": 2022 }
   ]
 }
