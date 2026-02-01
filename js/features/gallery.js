@@ -322,7 +322,7 @@
       }
 
       // Check for category in URL hash
-      const hashMatch = window.location.hash.match(/#/\/archivo\/(.+)/);
+      const hashMatch = window.location.hash.match(/#\/archivo\/(.+)/);
       if (hashMatch && FILTERS.some(f => f.id === hashMatch[1])) {
         filterGallery(hashMatch[1]);
       } else {

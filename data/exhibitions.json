@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedBy": "NotebookLM Analysis + IA Alliance Protocol",
+    "generatedAt": "2026-02-01T09:21:00Z",
+    "source": "NAROA GUTIÉRREZ GIL - ALBUMS LINKS (NotebookLM)"
+  },
+  "exhibitions": [
+    {
+      "id": "walking-gallery-2022",
+      "title": "Walking Gallery Bilbao",
+      "subtitle": "23 Octubre 2022",
+      "location": "Bilbao Art District",
+      "year": 2022,
+      "type": "group",
+      "description": "Exposición de arte urbano en las calles del casco viejo de Bilbao",
+      "series": "walking-gallery"
+    },
+    {
+      "id": "walking-gallery-2021",
+      "title": "Walking Gallery Bilbao",
+      "subtitle": "Fair Saturday 2021",
+      "location": "Bilbao Art District",
+      "year": 2021,
+      "type": "group",
+      "description": "Participación en Fair Saturday con obras expuestas en escaparates",
+      "series": "walking-gallery"
+    },
+    {
+      "id": "walking-gallery-2017",
+      "title": "Walking Gallery Bilbao Art District",
+      "subtitle": "2017 Edition",
+      "location": "Bilbao",
+      "year": 2017,
+      "type": "group",
+      "series": "walking-gallery"
+    },
+    {
+      "id": "walking-gallery-2013",
+      "title": "Walking Gallery Bilbao",
+      "subtitle": "November 2013",
+      "location": "Bilbao",
+      "year": 2013,
+      "type": "group",
+      "description": "Primera participación en Walking Gallery",
+      "series": "walking-gallery"
+    },
+    {
+      "id": "vi-aniversario-walking-gallery",
+      "title": "VI Aniversario Walking Gallery Bilbao",
+      "location": "Bilbao",
+      "year": 2019,
+      "type": "group",
+      "series": "walking-gallery"
+    },
+    {
+      "id": "repoker-reinas-siarte",
+      "title": "REPÓKER DE REINAS",
+      "location": "Siarte Leku, Bilbao",
+      "year": 2022,
+      "month": "March",
+      "type": "solo",
+      "description": "Exposición individual de pintura y collage en Siarte Leku",
+      "url": "https://siarte.com/2022-03-25-siarte-exposicion-pintura-collage-arte-naroa-gutierrez-gil"
+    },
+    {
+      "id": "facefood-algorta",
+      "title": "facefood en Algorta",
+      "location": "Algorta, Getxo",
+      "year": 2019,
+      "type": "solo",
+      "description": "Exposición de quita y pon - chaquetas de chef intervenidas",
+      "series": "facefood"
+    },
+    {
+      "id": "facefood-expos",
+      "title": "facefood: expos de quita y pon",
+      "location": "Bilbao",
+      "year": 2018,
+      "type": "solo",
+      "series": "facefood"
+    },
+    {
+      "id": "holy-wood",
+      "title": "Holy Wood: REtpLATOS & aMOREs",
+      "location": "Bilbao",
+      "year": 2017,
+      "type": "solo",
+      "description": "Serie de retratos y amores inspirados en Hollywood"
+    },
+    {
+      "id": "urban-market-barakaldo",
+      "title": "Urban Market Barakaldo",
+      "location": "Barakaldo",
+      "year": 2016,
+      "type": "market"
+    },
+    {
+      "id": "the-art-of-living",
+      "title": "The Art Of Living",
+      "location": "Bilbao",
+      "year": 2015,
+      "month": "January",
+      "type": "group"
+    },
+    {
+      "id": "artivismos",
+      "title": "Artivismos",
+      "location": "Bilbao",
+      "year": 2020,
+      "type": "group",
+      "description": "Exposición colectiva de arte activista",
+      "series": "artivismos"
+    }
+  ],
+  "upcoming": []
+}
