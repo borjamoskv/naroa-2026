@@ -1,0 +1,307 @@
+/* WOW Effects 2026 - Naroa Visual Experience */
+
+/* ============================================
+   GRAIN OVERLAY - Film texture
+   ============================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: var(--z-max);
+  mix-blend-mode: overlay;
+}
+
+/* ============================================
+   GLOW EFFECTS - Interactive elements
+   ============================================ */
+.glow-hover {
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.glow-hover:hover {
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.1),
+    0 0 40px rgba(255, 255, 255, 0.05),
+    0 0 60px rgba(255, 255, 255, 0.025);
+}
+
+/* Gallery item glow */
+.gallery-item:hover img {
+  filter: brightness(1.05) contrast(1.02);
+}
+
+/* ============================================
+   MORPHING BLOB - Decorative background
+   ============================================ */
+.blob-bg {
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 70%
+  );
+  animation: morph 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes morph {
+  0%, 100% { 
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: rotate(90deg) scale(1.05);
+  }
+  50% { 
+    border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+    transform: rotate(180deg) scale(1);
+  }
+  75% {
+    border-radius: 70% 30% 40% 60% / 40% 70% 30% 60%;
+    transform: rotate(270deg) scale(0.95);
+  }
+}
+
+/* ============================================
+   TEXT SHIMMER - Premium typography effect
+   ============================================ */
+.text-shimmer {
+  background: linear-gradient(
+    120deg,
+    var(--color-text) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    var(--color-text) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   REVEAL ANIMATIONS - Scroll-triggered
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: 
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: 
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   BUTTON EFFECTS - Premium interactions
+   ============================================ */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s var(--ease-out);
+}
+
+.btn-premium:hover::before {
+  left: 100%;
+}
+
+/* ============================================
+   IMAGE HOVER EFFECTS
+   ============================================ */
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 0.6s var(--ease-out);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.05);
+}
+
+.img-reveal {
+  overflow: hidden;
+}
+
+.img-reveal img {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1s var(--ease-out);
+}
+
+.img-reveal.visible img {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ============================================
+   MARQUEE - Infinite scroll text
+   ============================================ */
+.marquee {
+  display: flex;
+  overflow: hidden;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 4rem;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   GLASSMORPHISM - Modern cards
+   ============================================ */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   CURSOR FOLLOWER - CSS version
+   ============================================ */
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body:hover .cursor-glow {
+  opacity: 1;
+}
+
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-800) 25%,
+    var(--color-gray-700) 50%,
+    var(--color-gray-800) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   REDUCED MOTION OVERRIDE
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .blob-bg,
+  .text-shimmer,
+  .marquee-content,
+  .skeleton {
+    animation: none;
+  }
+  
+  body::after {
+    opacity: 0;
+  }
+}
