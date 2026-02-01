@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "name": "El Lienzo Sonoro de Naroa",
+    "description": "Playlist conceptual vinculando obras con canciones",
+    "generatedAt": "2026-02-01T09:54:00Z",
+    "source": "NotebookLM Inventario Cromático Analysis"
+  },
+  "tracks": [
+    {
+      "artwork": "Mr. Fahrenheit",
+      "song": "Don't Stop Me Now",
+      "artist": "Queen",
+      "connection": "Referencia directa a la letra ('Call me Mr. Fahrenheit')",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Starchild / The Starchild",
+      "song": "Starman",
+      "artist": "David Bowie",
+      "connection": "Alter ego de Bowie y estética espacial",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Asúcar",
+      "song": "La Vida es un Carnaval",
+      "artist": "Celia Cruz",
+      "connection": "El poder del amor de la Reina de la Salsa",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Baroque Farrokh",
+      "song": "Bohemian Rhapsody",
+      "artist": "Queen",
+      "connection": "Nombre real de Freddie Mercury (Farrokh Bulsara)",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Red Red Wine",
+      "song": "Red Red Wine",
+      "artist": "UB40",
+      "connection": "Título homónimo",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Tedás Queen / Can-dy Queen",
+      "song": "Dancing Queen",
+      "artist": "ABBA",
+      "connection": "Juego fonético típico de Naroa",
+      "spotifyId": null
+    },
+    {
+      "artwork": "The Munsters (with their new) Family",
+      "song": "The Munsters Theme",
+      "artist": "Jack Marshall",
+      "connection": "Serie temática televisiva",
+      "spotifyId": null
+    },
+    {
+      "artwork": "I Got You Babe (Autorretrato Colectivo Covid)",
+      "song": "I Got You Babe",
+      "artist": "Sonny & Cher",
+      "connection": "Conexión en el aislamiento pandémico",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Hello Darkness my Old Friend",
+      "song": "The Sound of Silence",
+      "artist": "Simon & Garfunkel",
+      "connection": "Etapa introspectiva (Caos)",
+      "spotifyId": null
+    },
+    {
+      "artwork": "Julio Iglesias, como un Reloj Suizo",
+      "song": "Me olvidé de vivir",
+      "artist": "Julio Iglesias",
+      "connection": "Retrato del cantante español",
+      "spotifyId": null
+    }
+  ],
+  "futureIntegration": {
+    "phase": "MICA 2.0",
+    "apis": ["Spotify API", "Genius API", "LastFm API"],
+    "features": [
+      "Play song when viewing artwork",
+      "Lyrics analysis for word-play titles",
+      "Mood-based recommendations"
+    ]
+  }
+}
