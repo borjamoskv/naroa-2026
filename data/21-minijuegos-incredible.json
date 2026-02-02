@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "estilo": "Incredible Crisis / WarioWare / Rhythm Heaven",
+    "duracion_media": "30-90 segundos por minijuego",
+    "dificultad_escalada": true,
+    "mica_narrador": "Dramático japonés con comentarios absurdos"
+  },
+  "minijuegos": [
+    {
+      "id": 1,
+      "obra": "Sí, yo foio con patatas",
+      "titulo": "¡PELA LAS PATATAS!",
+      "mecanica": "QTE - Pulsa las teclas correctas para pelar mientras el señor te grita",
+      "objetivo": "Pela 20 patatas antes de que el señor explote de frustración",
+      "mica_frases": ["¡MÁS RÁPIDO!", "¡El señor está perdiendo la paciencia!", "¡PATATA PERFECTA!"],
+      "dificultad": "Velocidad de QTE aumenta cada 5 patatas"
+    },
+    {
+      "id": 2,
+      "obra": "Sardine Tin Collage",
+      "titulo": "TETRIS DE SARDINAS",
+      "mecanica": "Puzzle - Encaja sardinas de diferentes formas en la lata",
+      "objetivo": "Llena 3 latas perfectamente sin dejar huecos",
+      "mica_frases": ["¡Esa sardina no cabe!", "¡SARDINA MAESTRA!", "¿Eso es un boquerón?"],
+      "dificultad": "Sardinas bizarras (con gafas, fumando) en niveles altos"
+    },
+    {
+      "id": 3,
+      "obra": "Me parto de risa",
+      "titulo": "RHYTHM CARCAJADA",
+      "mecanica": "Rhythm - Sincroniza tus clicks con las carcajadas",
+      "objetivo": "Mantén la risa contagiosa durante 60 segundos",
+      "mica_frases": ["JAJAJA ¡ESO!", "¡Te has desincronizado!", "¡COMBO DE RISA x10!"],
+      "dificultad": "Patrones de risa cada vez más complejos"
+    },
+    {
+      "id": 4,
+      "obra": "El Gran Dakari",
+      "titulo": "CARRERA ABSURDA",
+      "mecanica": "Runner - Esquiva obstáculos surreales mientras corres",
+      "objetivo": "Llega a la meta evitando flamencos, sandías voladoras y sofás",
+      "mica_frases": ["¡CUIDADO CON EL SOFÁ!", "¿Eso era un pulpo?", "¡VELOCIDAD TURBO!"],
+      "dificultad": "Obstáculos cada vez más absurdos"
+    },
+    {
+      "id": 5,
+      "obra": "Hammock in Tin",
+      "titulo": "EQUILIBRIO EN LATA",
+      "mecanica": "Balance - Mantén el equilibrio en la hamaca de lata",
+      "objetivo": "Sobrevive 45 segundos sin caerte mientras pasan cosas raras",
+      "mica_frases": ["¡Inclínate a la izquierda!", "¡UN PÁJARO!", "¡Equilibrio ZEN!"],
+      "dificultad": "Viento, pájaros, terremotos progresivos"
+    },
+    {
+      "id": 6,
+      "obra": "Lágrimas de Oro",
+      "titulo": "RECOGE LAS LÁGRIMAS",
+      "mecanica": "Catch - Atrapa lágrimas doradas antes de que toquen el suelo",
+      "objetivo": "Recoge 50 lágrimas de oro, las negras te quitan puntos",
+      "mica_frases": ["¡ORO PURO!", "¡Esa era negra!", "¡LÁGRIMA LEGENDARIA!"],
+      "dificultad": "Velocidad y cantidad aumentan"
+    },
+    {
+      "id": 7,
+      "obra": "Geisha",
+      "titulo": "MAQUILLAJE EXTREMO",
+      "mecanica": "Precision - Dibuja el maquillaje perfecto sin salirte",
+      "objetivo": "Completa el maquillaje de geisha en 30 segundos",
+      "mica_frases": ["¡Esa línea torcida!", "¡PERFECCIÓN!", "¡El labio, el LABIO!"],
+      "dificultad": "Terremoto mientras maquillas"
+    },
+    {
+      "id": 8,
+      "obra": "Monster Dragon",
+      "titulo": "HUYE DEL DRAGÓN",
+      "mecanica": "Chase - El dragón te persigue, corre y esquiva",
+      "objetivo": "Sobrevive 60 segundos sin ser alcanzado",
+      "mica_frases": ["¡ESTÁ DETRÁS DE TI!", "¡Casi te come!", "¡SALTO ÉPICO!"],
+      "dificultad": "Dragón cada vez más rápido y fuego"
+    },
+    {
+      "id": 9,
+      "obra": "The Golden Couple",
+      "titulo": "BAILE SINCRONIZADO",
+      "mecanica": "Rhythm - Copia los movimientos de la pareja dorada",
+      "objetivo": "Consigue una puntuación de sincronía del 80%",
+      "mica_frases": ["¡Ese paso no!", "¡QUÍMICA PERFECTA!", "¡Gira, GIRA!"],
+      "dificultad": "Coreografías cada vez más complejas"
+    },
+    {
+      "id": 10,
+      "obra": "Dar la Lata",
+      "titulo": "¡DAR LA LATA!",
+      "mecanica": "Spam - Pulsa el botón lo más rápido posible para molestar",
+      "objetivo": "Llena el medidor de molestia antes de que te ignoren",
+      "mica_frases": ["¡MÁS LATA!", "¡Te están ignorando!", "¡NIVEL DE MOLESTIA: MÁXIMO!"],
+      "dificultad": "Cada nivel requiere más pulsaciones"
+    },
+    {
+      "id": 11,
+      "obra": "En Caja",
+      "titulo": "ESCAPE DE LA CAJA",
+      "mecanica": "Puzzle - Resuelve puzzles para salir de la caja",
+      "objetivo": "Escapa antes de que te envíen por correo",
+      "mica_frases": ["¡El sello de correos!", "¡LIBERTAD!", "¿A dónde te envían?"],
+      "dificultad": "Puzzles cada vez más abstractos"
+    },
+    {
+      "id": 12,
+      "obra": "Es la Hora",
+      "titulo": "CARRERA CONTRA EL TIEMPO",
+      "mecanica": "Speed - Completa tareas antes de que el reloj explote",
+      "objetivo": "10 microtareas en 60 segundos",
+      "mica_frases": ["¡TICK TACK!", "¡5 segundos!", "¡JUSTO A TIEMPO!"],
+      "dificultad": "Tareas cada vez más absurdas"
+    },
+    {
+      "id": 13,
+      "obra": "Espejos del Alma",
+      "titulo": "COPIA TU REFLEJO",
+      "mecanica": "Simon Says - Copia las poses del espejo",
+      "objetivo": "20 poses correctas seguidas",
+      "mica_frases": ["¡Esa pose no!", "¡ESPEJO PERFECTO!", "El reflejo miente..."],
+      "dificultad": "El espejo empieza a distorsionarse"
+    },
+    {
+      "id": 14,
+      "obra": "Soy un amor y tengo alas",
+      "titulo": "VUELO DEL AMOR",
+      "mecanica": "Flappy - Vuela evitando obstáculos románticos",
+      "objetivo": "Vuela 1000 metros sin chocar con corazones rotos",
+      "mica_frases": ["¡ALETEA!", "¡Corazón roto a las 3!", "¡AMOR INFINITO!"],
+      "dificultad": "Gravedad cambiante"
+    },
+    {
+      "id": 15,
+      "obra": "Pink and Sparkles",
+      "titulo": "BRILLA MÁS",
+      "mecanica": "Collection - Recoge todos los brillos antes de que se apaguen",
+      "objetivo": "100 sparkles en 45 segundos",
+      "mica_frases": ["¡ESE BRILLO!", "¡Se apagan!", "¡MODO PURPURINA!"],
+      "dificultad": "Brillos cada vez más pequeños"
+    },
+    {
+      "id": 16,
+      "obra": "Papitxulo",
+      "titulo": "PIROPOS EXTREMOS",
+      "mecanica": "Typing - Escribe piropos absurdos lo más rápido posible",
+      "objetivo": "30 piropos en 60 segundos",
+      "mica_frases": ["¡Ese piropo era MALO!", "¡CASANOVA!", "Papitxulo aprueba"],
+      "dificultad": "Piropos cada vez más largos y absurdos"
+    },
+    {
+      "id": 17,
+      "obra": "Buena Fuente",
+      "titulo": "LANZA MONEDAS",
+      "mecanica": "Aim - Lanza monedas a la fuente con la fuerza correcta",
+      "objetivo": "10 monedas en el centro de la fuente",
+      "mica_frases": ["¡Muy fuerte!", "¡DESEO CONCEDIDO!", "¿Eso era un botón?"],
+      "dificultad": "Viento y distancia aumentan"
+    },
+    {
+      "id": 18,
+      "obra": "Smile and the World Smiles Back",
+      "titulo": "CONTAGIA LA SONRISA",
+      "mecanica": "Chain - Haz sonreír a todos en cadena",
+      "objetivo": "100 personas sonriendo simultáneamente",
+      "mica_frases": ["¡Ese estaba triste!", "¡SONRISA VIRAL!", "¡El mundo sonríe!"],
+      "dificultad": "Gente gruñona que no quiere sonreír"
+    },
+    {
+      "id": 19,
+      "obra": "The World is Yours",
+      "titulo": "CONQUISTA EL MUNDO",
+      "mecanica": "Strategy - Coloca banderas para conquistar territorios",
+      "objetivo": "Conquista el 51% del mapa en 90 segundos",
+      "mica_frases": ["¡Ese territorio era mío!", "¡EMPERADOR!", "¿Eso es Andorra?"],
+      "dificultad": "Enemigos que reconquistan"
+    },
+    {
+      "id": 20,
+      "obra": "Multidimensional Love",
+      "titulo": "AMOR EN 4D",
+      "mecanica": "Puzzle - Conecta corazones entre dimensiones",
+      "objetivo": "10 conexiones interdimensionales",
+      "mica_frases": ["¡Esa dimensión no!", "¡AMOR CUÁNTICO!", "El tiempo es relativo"],
+      "dificultad": "Más dimensiones = más confusión"
+    },
+    {
+      "id": 21,
+      "obra": "Viejuno",
+      "titulo": "NO TE DUERMAS ABUELO",
+      "mecanica": "Keep Awake - Mantén al abuelo despierto durante la siesta",
+      "objetivo": "60 segundos sin que se duerma del todo",
+      "mica_frases": ["¡Se duerme!", "¡ABUELO ACTIVO!", "Un ronquido = game over"],
+      "dificultad": "Cada vez más somnoliento"
+    }
+  ],
+  "sistema": {
+    "puntuacion_global": "Suma de todas las estrellas (max 3 por juego = 63)",
+    "modos": ["Historia (secuencial)", "Arcade (aleatorio)", "Versus (2 jugadores)"],
+    "desbloqueos": "Nuevos skins de MICA según puntuación",
+    "speedrun": "Modo contrarreloj de los 21 juegos seguidos"
+  }
+}
