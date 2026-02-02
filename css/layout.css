@@ -353,3 +353,23 @@
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
   50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
 }
+
+/* Spotify Mini Player Coqueto */
+.hero__spotify {
+  margin-top: 2rem;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hero__spotify:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.hero__spotify iframe {
+  border-radius: 12px;
+  display: block;
+}

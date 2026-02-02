@@ -1,6 +1,6 @@
 /**
- * MICA Cursor - Puntero Mineral Interactivo
- * Textura laminar brillante con estela dorada
+ * MICA Cursor - Puntero Rotativo cada minuto
+ * Cambia entre Risitas, Limone Cat y MICA
  */
 
 class MicaCursor {
@@ -10,7 +10,14 @@ class MicaCursor {
     this.maxTrailLength = 8;
     this.lastX = 0;
     this.lastY = 0;
-    this.shimmerInterval = null;
+    this.currentCursorIndex = 0;
+    
+    // Cursores disponibles
+    this.cursors = [
+      { name: 'risitas', small: 'risitas-32.png', large: 'risitas-48.png' },
+      { name: 'limone', small: 'limone-cat-32.png', large: 'limone-cat-48.png' },
+      { name: 'mica', small: 'mica-pointer-32.png', large: 'mica-pointer-48.png' }
+    ];
     
     this.init();
   }
@@ -25,6 +32,12 @@ class MicaCursor {
     // Activar clase en HTML
     document.documentElement.classList.add('mica-cursor');
     
+    // Aplicar cursor inicial
+    this.applyCursor();
+    
+    // Rotar cada minuto
+    setInterval(() => this.rotateCursor(), 60000);
+    
     // Crear pool de elementos para la estela
     this.createTrailPool();
     
@@ -32,7 +45,47 @@ class MicaCursor {
     document.addEventListener('mousemove', (e) => this.onMouseMove(e));
     document.addEventListener('click', (e) => this.onMouseClick(e));
     
-    console.log('✨ MICA Cursor activado');
+    console.log('✨ Cursor rotativo activado:', this.cursors[this.currentCursorIndex].name);
+  }
+  
+  rotateCursor() {
+    this.currentCursorIndex = (this.currentCursorIndex + 1) % this.cursors.length;
+    this.applyCursor();
+    console.log('🔄 Cursor cambiado a:', this.cursors[this.currentCursorIndex].name);
+  }
+  
+  applyCursor() {
+    const cursor = this.cursors[this.currentCursorIndex];
+    const basePath = 'assets/cursors/';
+    
+    // Crear o actualizar estilos dinámicos
+    let style = document.getElementById('dynamic-cursor-style');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'dynamic-cursor-style';
+      document.head.appendChild(style);
+    }
+    
+    style.textContent = `
+      html.mica-cursor,
+      html.mica-cursor *,
+      html.mica-cursor a,
+      html.mica-cursor button,
+      html.mica-cursor input,
+      html.mica-cursor textarea,
+      html.mica-cursor select {
+        cursor: url('${basePath}${cursor.small}') 4 0, auto !important;
+      }
+      
+      html.mica-cursor a:hover,
+      html.mica-cursor button:hover,
+      html.mica-cursor [role="button"]:hover,
+      html.mica-cursor .gallery-item:hover,
+      html.mica-cursor .mica-toggle:hover,
+      html.mica-cursor .game-card:hover {
+        cursor: url('${basePath}${cursor.large}') 6 0, pointer !important;
+      }
+    `;
   }
   
   createTrailPool() {
@@ -41,49 +94,34 @@ class MicaCursor {
       trail.className = 'mica-cursor-trail';
       trail.style.opacity = '0';
       document.body.appendChild(trail);
-      this.trailElements.push({
-        element: trail,
-        x: 0,
-        y: 0
-      });
+      this.trailElements.push({ element: trail, x: 0, y: 0 });
     }
   }
   
   onMouseMove(e) {
     if (!this.enabled) return;
-    
     const x = e.clientX;
     const y = e.clientY;
-    
-    // Mover estela con delay
     this.updateTrail(x, y);
     
-    // Shimmer ocasional (partículas de mica)
     if (Math.abs(x - this.lastX) > 20 || Math.abs(y - this.lastY) > 20) {
-      if (Math.random() > 0.7) {
-        this.createShimmer(x, y);
-      }
+      if (Math.random() > 0.7) this.createShimmer(x, y);
     }
-    
     this.lastX = x;
     this.lastY = y;
   }
   
   updateTrail(x, y) {
-    // Shift positions
     for (let i = this.trailElements.length - 1; i > 0; i--) {
       this.trailElements[i].x = this.trailElements[i - 1].x;
       this.trailElements[i].y = this.trailElements[i - 1].y;
     }
-    
     this.trailElements[0].x = x;
     this.trailElements[0].y = y;
     
-    // Update positions with easing
     this.trailElements.forEach((trail, i) => {
       const opacity = 1 - (i / this.maxTrailLength);
       const scale = 1 - (i * 0.1);
-      
       trail.element.style.left = trail.x + 'px';
       trail.element.style.top = trail.y + 'px';
       trail.element.style.opacity = opacity * 0.4;
@@ -97,19 +135,13 @@ class MicaCursor {
     shimmer.style.left = (x + (Math.random() - 0.5) * 20) + 'px';
     shimmer.style.top = (y + (Math.random() - 0.5) * 20) + 'px';
     document.body.appendChild(shimmer);
-    
-    // Remove after animation
     setTimeout(() => shimmer.remove(), 800);
   }
   
   onMouseClick(e) {
     if (!this.enabled) return;
-    
-    // Burst de partículas al hacer click
     for (let i = 0; i < 5; i++) {
-      setTimeout(() => {
-        this.createShimmer(e.clientX, e.clientY);
-      }, i * 50);
+      setTimeout(() => this.createShimmer(e.clientX, e.clientY), i * 50);
     }
   }
   
