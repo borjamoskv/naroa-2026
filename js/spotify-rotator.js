@@ -45,7 +45,7 @@ class SpotifyRotator {
     // Aplicar embed de esta semana
     this.applyEmbed();
     
-    console.log(`🎵 Spotify Semanal (Semana ${weekNumber}):`, this.embeds[this.currentIndex].name);
+    console.log('🎵', this.embeds[this.currentIndex].name);
   }
   
   rotate() {
