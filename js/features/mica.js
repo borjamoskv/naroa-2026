@@ -11,7 +11,7 @@ class MICA {
   constructor() {
     this.isOpen = false;
     this.messages = [];
-    this.conversationHistory = [];
+    this.conversationHistory = this.loadConversationHistory();
     this.useAI = true; // Enable AI fallback when regex doesn't match
     
     // Gemini API configuration
@@ -130,6 +130,26 @@ Cuando mencionen una obra o categoría, sugiere navegar.`
     const placeholder = this.placeholders.splice(idx, 1)[0];
     this.usedPlaceholders.push(placeholder);
     return placeholder;
+  }
+  
+  // Memoria persistente con localStorage
+  loadConversationHistory() {
+    try {
+      const saved = localStorage.getItem('mica_conversation');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  }
+  
+  saveConversationHistory() {
+    try {
+      // Guardar últimos 20 mensajes
+      const toSave = this.conversationHistory.slice(-20);
+      localStorage.setItem('mica_conversation', JSON.stringify(toSave));
+    } catch (e) {
+      console.warn('[MICA] No se pudo guardar historial:', e);
+    }
   }
   
   startPlaceholderRotation() {

@@ -82,7 +82,7 @@
       
       const entry = {
         id: Date.now().toString(36),
-        name: playerName.slice(0, 20),
+        name: playerName.toUpperCase().slice(0, 3).padEnd(3, '_'), // 3 letras estilo arcade
         score: Math.floor(score),
         date: new Date().toISOString(),
         ...meta
@@ -184,10 +184,12 @@
             <form class="ranking-form" id="ranking-submit-form">
               <input type="text" 
                      id="ranking-player-name" 
-                     placeholder="Tu nombre..." 
-                     maxlength="20"
-                     class="ranking-input"
-                     autocomplete="off">
+                     placeholder="AAA" 
+                     maxlength="3"
+                     class="ranking-input ranking-input--arcade"
+                     autocomplete="off"
+                     pattern="[A-Za-z]{1,3}"
+                     style="text-transform: uppercase; letter-spacing: 0.3em; font-family: monospace; font-size: 2rem;">
               <button type="submit" class="ranking-btn ranking-btn--primary">
                 Guardar Puntuación
               </button>
