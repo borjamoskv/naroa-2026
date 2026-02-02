@@ -1,105 +1,137 @@
 /**
- * Generador de Palíndromos Infinitos para el Hero
- * Cada visita muestra un palíndromo diferente relacionado con NAROA
- * Incluye efectos audio-reactivos en la rugosidad del texto
+ * GENERADOR INFINITO DE PALÍNDROMOS ÁUREOS
+ * Cada visita = experiencia visual única
+ * Proporciones Áureas (φ = 1.618) aplicadas a tipografía
+ * Textura mica/papel rugosa
  */
 
-const PalindromeHero = (() => {
-  // Biblioteca de palíndromos artísticos relacionados con Naroa/Arte
-  const PALINDROMES = [
-    'ANARO·ARAN',
-    'NAROA·OARAN',
-    'AROAN·AORA',
-    'ROAN·NAOR',
-    'OJO·EL·ARTE·TRA·LE·OJO',
-    'AMA·LA·PINTURA·RUT·NIP·AL·AMA',
-    'RADAR·NAROA·OARAN·RADAR',
-    'SOMOS·O·SOMOS',
-    'RECONOCER',
-    'ANILINA',
-    'SOMETEMOS',
-    'AMOR·A·ROMA',
-    'A·MI·LEMA·ES·AMAR·ES·AMEL·IMA',
-    'OJO·POR·OJO',
-    'NADA·Y·NADAN',
-    'LUZ·AZUL',
-  ];
-
-  // Generador de palíndromos basados en letras de NAROA
-  const NAROA_LETTERS = ['N', 'A', 'R', 'O', 'A'];
+const PalindromeGenerator = (() => {
+  // Ratio Áureo
+  const PHI = 1.618033988749;
+  const PHI_INV = 0.618033988749;
   
-  function generateNaroaPalindrome() {
-    // Crea variaciones aleatorias basadas en NAROA
-    const variations = [
-      () => 'NARO' + '·' + 'ORAN',
-      () => 'AROAN' + '·' + 'NAORA',
-      () => 'OAN' + '·' + 'NAO',
-      () => 'RONA' + '·' + 'ANOR',
-      () => 'ANORA' + '·' + 'ARONA',
-      () => 'ORANA' + '·' + 'ANARO',
-      () => 'NAROAN' + '·' + 'NAORAN',
-    ];
-    return variations[Math.floor(Math.random() * variations.length)]();
+  // Semilla única por visita (timestamp + random)
+  const SEED = Date.now() + Math.random() * 999999;
+  
+  // Letras disponibles para generar palíndromos
+  const NAROA_LETTERS = ['N', 'A', 'R', 'O', 'A'];
+  const ART_LETTERS = ['A', 'R', 'T', 'E'];
+  const VOWELS = ['A', 'E', 'I', 'O', 'U'];
+  const CONSONANTS = ['N', 'R', 'T', 'S', 'L', 'M', 'C', 'D'];
+  
+  // Generador pseudo-aleatorio seedeado (para consistencia)
+  function seededRandom(seed) {
+    let s = seed;
+    return function() {
+      s = Math.sin(s) * 10000;
+      return s - Math.floor(s);
+    };
   }
-
-  // Selecciona palíndromo aleatorio (50% predefinido, 50% generado)
-  function getRandomPalindrome() {
-    if (Math.random() > 0.5) {
-      return PALINDROMES[Math.floor(Math.random() * PALINDROMES.length)];
+  
+  const random = seededRandom(SEED);
+  
+  // Genera palíndromo de longitud variable (3-9 caracteres)
+  function generatePalindrome() {
+    // Longitud basada en proporción áurea
+    const lengths = [3, 5, 7, 9, 11];
+    const lengthIndex = Math.floor(random() * lengths.length);
+    const length = lengths[lengthIndex];
+    
+    // Mitad del palíndromo (redondeando hacia arriba)
+    const halfLength = Math.ceil(length / 2);
+    let half = '';
+    
+    // Construcción con preferencia por letras de NAROA
+    for (let i = 0; i < halfLength; i++) {
+      const useNaroa = random() > PHI_INV; // ~62% NAROA, ~38% otras
+      if (useNaroa) {
+        half += NAROA_LETTERS[Math.floor(random() * NAROA_LETTERS.length)];
+      } else {
+        const useVowel = random() > 0.5;
+        half += useVowel 
+          ? VOWELS[Math.floor(random() * VOWELS.length)]
+          : CONSONANTS[Math.floor(random() * CONSONANTS.length)];
+      }
     }
-    return generateNaroaPalindrome();
+    
+    // Construir palíndromo completo
+    const reversed = half.slice(0, -1).split('').reverse().join('');
+    const palindrome = half + reversed;
+    
+    // Añadir separador áureo en posición φ
+    const separatorPos = Math.floor(palindrome.length * PHI_INV);
+    return palindrome.slice(0, separatorPos) + '·' + palindrome.slice(separatorPos);
   }
-
-  // Inicializa con palíndromo aleatorio
-  function init() {
-    const palindromeElement = document.querySelector('.hero__palindrome-text');
-    if (!palindromeElement) return;
-
-    // Palíndromo aleatorio en cada visita
-    const palindrome = getRandomPalindrome();
-    palindromeElement.textContent = palindrome;
-
-    // Guardar para analytics (opcional)
-    console.log(`🔮 Palíndromo del día: ${palindrome}`);
-
-    // Iniciar efectos audio-reactivos si hay audio activo
-    initAudioReactive(palindromeElement);
+  
+  // Genera secuencia de múltiples palíndromos (modo loop)
+  function generateSequence(count = 5) {
+    const sequence = [];
+    for (let i = 0; i < count; i++) {
+      sequence.push(generatePalindrome());
+    }
+    return sequence;
   }
-
-  // Sistema audio-reactivo: la rugosidad del texto responde al audio
-  function initAudioReactive(element) {
-    // Escuchar eventos del sistema de audio existente
-    window.addEventListener('naroa:audio-levels', (e) => {
-      const { bass, mid, high, average } = e.detail || {};
-      if (average === undefined) return;
-
-      // Rugosidad = blur + distorsión basada en frecuencias
-      const roughness = Math.min(average * 3, 2); // 0-2px max
-      const waveIntensity = bass * 0.1 || 0;
-      
-      element.style.filter = `blur(${0.3 + roughness}px)`;
-      element.style.transform = `
-        translateX(${Math.sin(Date.now() * 0.001) * waveIntensity}%)
-      `;
-    });
-
-    // Si no hay audio, usar variación sutil temporal
+  
+  // Aplica textura mica/rugosidad al texto
+  function applyMicaTexture(element) {
+    if (!element) return;
+    
+    // Variables CSS para rugosidad
+    element.style.setProperty('--mica-roughness', '0.4');
+    element.style.textShadow = `
+      0 0 ${1 * PHI}px rgba(139, 92, 246, 0.1),
+      ${PHI}px ${PHI}px ${PHI * 2}px rgba(0, 0, 0, 0.3)
+    `;
+    
+    // Animación sutil de rugosidad
     let frame = 0;
     function animateRoughness() {
-      frame++;
-      const subtleRoughness = 0.3 + Math.sin(frame * 0.02) * 0.2;
-      element.style.filter = `blur(${subtleRoughness}px)`;
+      frame += 0.02;
+      const roughness = 0.3 + Math.sin(frame) * 0.15;
+      element.style.filter = `blur(${roughness}px)`;
       requestAnimationFrame(animateRoughness);
     }
     animateRoughness();
   }
-
-  // Auto-init cuando el DOM esté listo
+  
+  // Inicialización
+  function init() {
+    const palindromeEl = document.querySelector('.hero__palindrome-text');
+    if (!palindromeEl) return;
+    
+    // Generar palíndromo único para esta visita
+    const palindrome = generatePalindrome();
+    palindromeEl.textContent = palindrome;
+    
+    // Aplicar textura mica
+    applyMicaTexture(palindromeEl);
+    
+    // Log para debugging
+    console.log(`🔮 Palíndromo único: ${palindrome}`);
+    console.log(`📐 Proporción Áurea aplicada: φ = ${PHI.toFixed(6)}`);
+    
+    // Modo loop: cambiar cada 30 segundos (opcional, para exposiciones)
+    if (window.PALINDROME_LOOP_MODE) {
+      const sequence = generateSequence(10);
+      let index = 0;
+      setInterval(() => {
+        index = (index + 1) % sequence.length;
+        palindromeEl.textContent = sequence[index];
+      }, 30000);
+    }
+  }
+  
+  // Auto-init
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
-  return { init, getRandomPalindrome };
+  
+  return { 
+    generatePalindrome, 
+    generateSequence, 
+    PHI, 
+    init 
+  };
 })();

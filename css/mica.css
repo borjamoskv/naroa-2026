@@ -364,3 +364,87 @@
   position: relative;
   z-index: 10;
 }
+
+/* ==========================================================================
+   PUNTERO MICA - Cursor Mineral Personalizado
+   Textura laminar brillante - "El brillo de los ojos de MICA"
+   ========================================================================== */
+
+/* Cursor MICA global */
+html.mica-cursor,
+html.mica-cursor *,
+html.mica-cursor a,
+html.mica-cursor button,
+html.mica-cursor input,
+html.mica-cursor textarea,
+html.mica-cursor select {
+  cursor: url('../assets/cursors/mica-pointer-32.png') 4 0, auto !important;
+}
+
+/* Cursor hover para elementos interactivos */
+html.mica-cursor a:hover,
+html.mica-cursor button:hover,
+html.mica-cursor [role="button"]:hover,
+html.mica-cursor .gallery-item:hover,
+html.mica-cursor .mica-toggle:hover,
+html.mica-cursor .game-card:hover {
+  cursor: url('../assets/cursors/mica-pointer-48.png') 6 0, pointer !important;
+}
+
+/* Estela dorada del cursor MICA */
+.mica-cursor-trail {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+.mica-cursor-trail.fading {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Brillo laminar - partículas de mica */
+.mica-shimmer {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 215, 0, 0.6) 50%,
+    rgba(184, 134, 11, 0.4) 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  animation: mica-shimmer-fade 0.8s ease-out forwards;
+}
+
+@keyframes mica-shimmer-fade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotate(180deg);
+  }
+}
+
+/* Desactivar en móviles */
+@media (hover: none) and (pointer: coarse) {
+  html.mica-cursor,
+  html.mica-cursor * {
+    cursor: auto !important;
+  }
+  
+  .mica-cursor-trail,
+  .mica-shimmer {
+    display: none !important;
+  }
+}
