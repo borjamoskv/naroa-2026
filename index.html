@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/audio-reactive.css">
   <link rel="stylesheet" href="css/gallery-disruptive.css">
   <link rel="stylesheet" href="css/scroll-to-top.css">
+  <link rel="stylesheet" href="css/video-showcase.css">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -213,6 +214,52 @@
           <img data-src="images/artworks/Webps/tedas-queen.webp" alt="Tedas Queen" class="gallery-massive__img">
           <div class="gallery-massive__overlay">
             <h3 class="gallery-massive__title">Tedas Queen</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO SHOWCASE: Cinematic Art Videos -->
+    <section id="view-videos" class="view view--videos video-showcase">
+      <header class="video-showcase__header">
+        <h2 class="video-showcase__title text-shimmer">🎬 Arte en Movimiento</h2>
+        <p class="video-showcase__subtitle">Visualizaciones cinematográficas de mi obra</p>
+      </header>
+      <div class="video-grid">
+        <div class="video-card video-card--featured">
+          <video class="video-card__video" poster="videos/living-photograph-poster.jpg" loop muted playsinline>
+            <source src="videos/living-photograph.webm" type="video/webm">
+          </video>
+          <div class="video-card__play"></div>
+          <div class="video-card__overlay">
+            <h3 class="video-card__title">Fotografía Viva</h3>
+          </div>
+        </div>
+        <div class="video-card">
+          <video class="video-card__video" poster="videos/hot-scene-love-poster.jpg" loop muted playsinline>
+            <source src="videos/hot-scene-love.webm" type="video/webm">
+          </video>
+          <div class="video-card__play"></div>
+          <div class="video-card__overlay">
+            <h3 class="video-card__title">Escena de Amor</h3>
+          </div>
+        </div>
+        <div class="video-card">
+          <video class="video-card__video" poster="videos/scene-dramatic-poster.jpg" loop muted playsinline>
+            <source src="videos/scene-dramatic.webm" type="video/webm">
+          </video>
+          <div class="video-card__play"></div>
+          <div class="video-card__overlay">
+            <h3 class="video-card__title">Escena Dramática</h3>
+          </div>
+        </div>
+        <div class="video-card">
+          <video class="video-card__video" poster="videos/wardrobe-swap-poster.jpg" loop muted playsinline>
+            <source src="videos/wardrobe-swap.webm" type="video/webm">
+          </video>
+          <div class="video-card__play"></div>
+          <div class="video-card__overlay">
+            <h3 class="video-card__title">Transformación</h3>
           </div>
         </div>
       </div>
@@ -648,6 +695,7 @@
   <!-- Disruptive Gallery Engine -->
   <script src="js/features/gallery-disruptive.js"></script>
   <script src="js/features/scroll-to-top.js"></script>
+  <script src="js/features/video-showcase.js"></script>
   
   <!-- Gallery Disruptive 2.0: SVG Filters for Chromatic Aberration -->
   <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">

@@ -1,200 +1,79 @@
 /**
- * NAROA GUTIÉRREZ GIL - COLOR PALETTE 2026
- * Based on her "Hiperrealismo POP" artistic style
- * 
- * Extracted from her artwork analysis:
- * - Deep blacks and shadows (MICA effect)
- * - Vibrant reds (embroidery, passion)
- * - Gold accents (premium, artisanal)
- * - Cool blues (depth, mystery)
- * - Warm skin tones (hyperrealism)
- * - Pop neons (contemporary edge)
+ * NAROA GUTIÉRREZ GIL - MASTER PALETTE 2026: "LA TRINIDAD ETERNA"
+ * REGLA DE ORO: NEGRO, ROJO Y DORADO. NADA MÁS.
+ * REGLA ESTRUCTURAL: SIN LÍNEAS RECTAS. TODO FLUIDO.
  */
 
 :root {
   /* ==========================================
-     PRIMARY PALETTE - NAROA SIGNATURE
+     COLORS: THE TRINITY (Black, Red, Gold)
      ========================================== */
   
-  /* NEGRO MICA - Base profunda */
-  --naroa-black: #050505;
+  /* NEGROS PROFUNDOS */
+  --naroa-black: #000000;
+  --naroa-black-mica: #050505;
   --naroa-black-soft: #0a0a0a;
-  --naroa-charcoal: #1a1a1a;
-  --naroa-graphite: #2d2d2d;
   
-  /* ROJO BORDAR - Hilos de pasión */
-  --naroa-red: #dc2626;
-  --naroa-red-deep: #991b1b;
-  --naroa-red-bright: #ef4444;
-  --naroa-crimson: #b91c1c;
-  --naroa-burgundy: #7f1d1d;
+  /* ROJOS PASIÓN (Hilos de bordar) */
+  --naroa-red: #cc0000;
+  --naroa-red-deep: #800000;
+  --naroa-red-glow: #ff0000;
   
-  /* DORADO ARTESANAL - Acentos premium */
+  /* DORADOS PREMIUM (Metales nobles) */
   --naroa-gold: #ffd700;
-  --naroa-gold-soft: #fbbf24;
-  --naroa-gold-dark: #d97706;
-  --naroa-amber: #f59e0b;
-  --naroa-bronze: #92400e;
+  --naroa-gold-leaf: #fcc201;
+  --naroa-gold-dust: #b8860b;
   
   /* ==========================================
-     SECONDARY PALETTE - HIPERREALISMO
+     ORGANIC GEOMETRY - ANTI-LINEAR
      ========================================== */
   
-  /* AZUL PROFUNDO - Misterio y profundidad */
-  --naroa-blue-deep: #1e3a8a;
-  --naroa-blue-midnight: #0a1628;
-  --naroa-blue-royal: #2563eb;
-  --naroa-blue-ice: #60a5fa;
-  
-  /* PIEL - Tonos cálidos hyperrealistas */
-  --naroa-skin-light: #fde8d4;
-  --naroa-skin-medium: #e8c4a8;
-  --naroa-skin-warm: #d4a574;
-  --naroa-skin-deep: #a67c52;
-  
-  /* VIOLETA MICA - Efecto neblina */
-  --naroa-violet: #8b5cf6;
-  --naroa-violet-deep: #6d28d9;
-  --naroa-violet-soft: #a78bfa;
-  --naroa-purple: #7c3aed;
+  /* Radios extremos para evitar líneas rectas */
+  --radius-organic: 60px 20px 50px 30px;
+  --radius-fluid: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  --radius-blob: 40% 60% 60% 40% / 60% 30% 70% 40%;
+  --radius-circle: 9999px;
   
   /* ==========================================
-     ACCENT PALETTE - POP CONTEMPORÁNEO
+     SEMANTIC OVERRIDES (Restricted to Trinity)
      ========================================== */
   
-  /* NEON POP - Energía contemporánea */
-  --naroa-neon-pink: #ec4899;
-  --naroa-neon-cyan: #06b6d4;
-  --naroa-neon-lime: #84cc16;
-  --naroa-neon-orange: #f97316;
-  
-  /* NEUTROS - Galería de arte */
-  --naroa-white: #fafafa;
-  --naroa-white-warm: #f5f0e8;
-  --naroa-gray-light: #e5e5e5;
-  --naroa-gray: #a3a3a3;
-  --naroa-gray-dark: #525252;
-  
-  /* ==========================================
-     SEMANTIC COLORS
-     ========================================== */
-  
-  /* Estados */
-  --naroa-success: #22c55e;
-  --naroa-warning: #eab308;
-  --naroa-error: #ef4444;
-  --naroa-info: #3b82f6;
-  
-  /* Juegos */
-  --naroa-game-new: #22c55e;
-  --naroa-game-strategy: #8b5cf6;
-  --naroa-game-classic: #f59e0b;
-  --naroa-game-art: #ec4899;
-  
-  /* ==========================================
-     GRADIENTS - NAROA SIGNATURE
-     ========================================== */
-  
-  --naroa-gradient-hero: linear-gradient(
-    145deg,
-    var(--naroa-black) 0%,
-    var(--naroa-charcoal) 50%,
-    var(--naroa-black) 100%
-  );
-  
-  --naroa-gradient-red: linear-gradient(
-    135deg,
-    var(--naroa-red-deep) 0%,
-    var(--naroa-red) 50%,
-    var(--naroa-crimson) 100%
-  );
-  
-  --naroa-gradient-gold: linear-gradient(
-    135deg,
-    var(--naroa-gold-dark) 0%,
-    var(--naroa-gold) 50%,
-    var(--naroa-gold-soft) 100%
-  );
-  
-  --naroa-gradient-mica: linear-gradient(
-    145deg,
-    var(--naroa-violet-deep) 0%,
-    var(--naroa-violet) 50%,
-    var(--naroa-purple) 100%
-  );
-  
-  --naroa-gradient-pop: linear-gradient(
-    90deg,
-    var(--naroa-neon-pink) 0%,
-    var(--naroa-neon-orange) 50%,
-    var(--naroa-gold) 100%
-  );
-  
-  /* ==========================================
-     SHADOWS - DEPTH & DRAMA
-     ========================================== */
-  
-  --naroa-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --naroa-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --naroa-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-  --naroa-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
-  
-  --naroa-shadow-red: 0 8px 32px rgba(220, 38, 38, 0.3);
-  --naroa-shadow-gold: 0 8px 32px rgba(255, 215, 0, 0.2);
-  --naroa-shadow-violet: 0 8px 32px rgba(139, 92, 246, 0.3);
-  
-  /* ==========================================
-     GLASSMORPHISM
-     ========================================== */
-  
-  --naroa-glass-dark: rgba(10, 10, 10, 0.8);
-  --naroa-glass-light: rgba(255, 255, 255, 0.05);
-  --naroa-glass-red: rgba(220, 38, 38, 0.1);
-  --naroa-glass-gold: rgba(255, 215, 0, 0.05);
-  
-  /* ==========================================
-     BORDERS
-     ========================================== */
-  
-  --naroa-border-subtle: 1px solid rgba(255, 255, 255, 0.05);
-  --naroa-border-red: 1px solid rgba(220, 38, 38, 0.3);
-  --naroa-border-gold: 1px solid rgba(255, 215, 0, 0.3);
-  --naroa-border-glow: 1px solid rgba(139, 92, 246, 0.5);
-}
-
-/* ==========================================
-   DARK MODE (default for Naroa)
-   ========================================== */
-
-[data-theme="dark"],
-:root {
   --bg-primary: var(--naroa-black);
-  --bg-secondary: var(--naroa-charcoal);
-  --bg-elevated: var(--naroa-graphite);
+  --bg-secondary: var(--naroa-black-mica);
+  --bg-elevated: var(--naroa-black-soft);
   
-  --text-primary: var(--naroa-white);
-  --text-secondary: var(--naroa-gray);
-  --text-accent: var(--naroa-gold);
+  --text-primary: var(--naroa-gold);
+  --text-secondary: var(--naroa-red);
+  --text-dim: var(--naroa-gold-dust);
   
-  --accent-primary: var(--naroa-red);
-  --accent-secondary: var(--naroa-gold);
-  --accent-tertiary: var(--naroa-violet);
+  --accent: var(--naroa-red);
+  --highlight: var(--naroa-gold);
+  
+  /* ==========================================
+     GRADIENTS (Trinity only)
+     ========================================== */
+  
+  --gradient-gold: linear-gradient(135deg, var(--naroa-gold-dust) 0%, var(--naroa-gold) 50%, var(--naroa-gold-leaf) 100%);
+  --gradient-red: linear-gradient(135deg, var(--naroa-red-deep) 0%, var(--naroa-red) 100%);
+  --gradient-dark: radial-gradient(circle at center, var(--naroa-black-soft) 0%, var(--naroa-black) 100%);
+  
+  /* ==========================================
+     SHADOWS ( Trinity only: Black/Red glow)
+     ========================================== */
+  
+  --shadow-red: 0 0 30px rgba(204, 0, 0, 0.4);
+  --shadow-gold: 0 0 40px rgba(255, 215, 0, 0.2);
 }
 
-/* ==========================================
-   LIGHT MODE (gallery viewing)
-   ========================================== */
+/* Global Anti-Straight Rule */
+* {
+  border-radius: var(--radius-organic);
+}
 
-[data-theme="light"] {
-  --bg-primary: var(--naroa-white-warm);
-  --bg-secondary: var(--naroa-white);
-  --bg-elevated: var(--naroa-gray-light);
-  
-  --text-primary: var(--naroa-charcoal);
-  --text-secondary: var(--naroa-gray-dark);
-  --text-accent: var(--naroa-red-deep);
-  
-  --accent-primary: var(--naroa-red);
-  --accent-secondary: var(--naroa-gold-dark);
-  --accent-tertiary: var(--naroa-violet-deep);
+img, button, .card, .panel, .module {
+  border-radius: var(--radius-fluid) !important;
+}
+
+input, .btn, .tag {
+  border-radius: var(--radius-circle) !important;
 }

@@ -3,10 +3,11 @@
     "version": "4.0.0",
     "generatedBy": "NotebookLM Analysis + IA Alliance Protocol",
     "generatedAt": "2026-02-01T09:30:00Z",
-    "totalArtworks": 208,
+    "totalArtworks": 209,
     "source": "NAROA GUTIÉRREZ GIL - ALBUMS LINKS (NotebookLM)"
   },
   "artworks": [
+    { "id": "the-world-is-yours", "title": "The World is Yours", "series": "retratos", "technique": "mixed-media", "year": 2026, "featured": true },
     { "id": "amy-rocks", "title": "Amy Rocks", "series": "rocks", "technique": "mixed-media", "year": 2023, "featured": true },
     { "id": "johnny-rocks-hq-1", "title": "Johnny Rocks (I)", "series": "rocks", "technique": "mixed-media", "year": 2023 },
     { "id": "johnny-rocks-hq-2", "title": "Johnny Rocks (II)", "series": "rocks", "technique": "mixed-media", "year": 2023 },

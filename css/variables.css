@@ -28,12 +28,12 @@
   --color-warm-300: #f5d0b0;
   
   /* ============================================
-     TYPOGRAPHY - 2026 PREMIUM FONTS
-     Satoshi: Modernist geometric sans (body/UI)
-     Switzer: Neo-grotesque 79% x-height (display)
+     TYPOGRAPHY - 2026 NEO-ARTESANAL (Trinity Edition)
+     Outfit: Hyper-rounded geometric sans (Anti-linear UI)
+     Cinzel: Modern classical (Premium Gold Display)
      ============================================ */
-  --font-family-main: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-family-display: 'Switzer', 'Satoshi', sans-serif;
+  --font-family-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-display: 'Cinzel', serif;
   --font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
   
   /* Font Sizes - GIGANTIC 2026 (user requested MUY MUY MUY grandes) */
