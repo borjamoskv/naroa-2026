@@ -1,0 +1,216 @@
+/* ============================================
+   IMMERSIVE AUDIO UI STYLES
+   Floating audio controls
+   ============================================ */
+
+.audio-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.audio-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(220, 38, 38, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.audio-btn:hover {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: #dc2626;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+}
+
+.audio-icon {
+  font-size: 1.3rem;
+}
+
+/* Audio visualizer indicator */
+.audio-indicator {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+.audio-indicator--active {
+  opacity: 1;
+}
+
+.audio-indicator::before,
+.audio-indicator::after,
+.audio-indicator span {
+  content: '';
+  width: 4px;
+  background: linear-gradient(to top, #dc2626, #ffd700);
+  border-radius: 2px;
+  animation: audio-bar 0.5s ease-in-out infinite alternate;
+}
+
+.audio-indicator--active::before,
+.audio-indicator--active::after {
+  animation-play-state: running;
+}
+
+.audio-indicator::before {
+  height: 8px;
+  animation-delay: 0s;
+}
+
+.audio-indicator::after {
+  height: 16px;
+  animation-delay: 0.2s;
+}
+
+/* Add dynamic bars via JS or keep simple */
+.audio-indicator--active::before {
+  animation: audio-bar 0.4s ease-in-out infinite alternate;
+}
+
+.audio-indicator--active::after {
+  animation: audio-bar 0.6s ease-in-out infinite alternate;
+  animation-delay: 0.1s;
+}
+
+@keyframes audio-bar {
+  0% { height: 4px; }
+  100% { height: 20px; }
+}
+
+/* Volume slider (optional) */
+.audio-volume {
+  width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.audio-controls:hover .audio-volume {
+  opacity: 1;
+}
+
+.audio-volume__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #dc2626, #ffd700);
+  border-radius: 2px;
+  width: 70%;
+}
+
+.audio-volume__handle {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Spatial audio indicator */
+.spatial-audio-hint {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.8rem;
+  color: #ffd700;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.spatial-audio-hint--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spatial-audio-hint::before {
+  content: '🎧';
+  margin-right: 8px;
+}
+
+/* 3D audio position indicator */
+.audio-3d-map {
+  position: fixed;
+  bottom: 80px;
+  right: 80px;
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.audio-controls:hover .audio-3d-map {
+  opacity: 0.7;
+}
+
+.audio-3d-map__dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #dc2626;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.8);
+  transform: translate(-50%, -50%);
+}
+
+.audio-3d-map__listener {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #ffd700;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Mobile: simplified controls */
+@media (max-width: 768px) {
+  .audio-controls {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .audio-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .audio-indicator,
+  .audio-volume,
+  .audio-3d-map {
+    display: none;
+  }
+}
