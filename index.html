@@ -70,60 +70,78 @@
   <!-- Main Content -->
   <main id="app">
     <!-- Home View - UPGRADED 2026 -->
+    <!-- SECCIÓN 1: HERO (LA ORILLA) -->
     <section id="view-home" class="view view--home active">
       <div class="hero hero--premium">
         <!-- Animated gradient background -->
         <div class="hero__gradient-bg"></div>
-        
-        <!-- PALÍNDROMO GIGANTE OVERSIZED -->
+
+        <!-- PALÍNDROMO GIGANTE (Fondo) -->
         <div class="hero__palindrome" aria-hidden="true">
           <span class="hero__palindrome-text">ANARO·ARAN</span>
         </div>
-        
+
         <h1 class="hero__title kinetic-text reveal">
           <span class="hero__line text-shimmer">Naroa</span>
           <span class="hero__line">Gutiérrez</span>
           <span class="hero__line">Gil</span>
         </h1>
-        
+
         <p class="hero__subtitle reveal reveal-delay-1">
           <span class="hero__tag">Hiperrealismo POP</span>
-          <span class="hero__divider">·</span>
-          <span class="hero__location">Bilbao</span>
         </p>
 
-        <!-- Creative WORK IN PROGRESS badge -->
-        <div class="wip-badge reveal reveal-delay-2">
-          <span class="wip-badge__thread"></span>
-          <span class="wip-badge__text">Work in Progress 2026</span>
+        <!-- CHIQUITÓCRATES SECRET QUOTE (Reemplaza al WIP badge) -->
+        <div class="chiquitocrates-badge reveal reveal-delay-2" title="Filosofía del Taller">
+          <span class="chiquito-icon">🏛️</span>
+          <span class="chiquito-text">"Si es Templo, sacerdotes. Si es Taller, GENTE."</span>
         </div>
-        
+
         <div class="hero__cta-group reveal reveal-delay-2">
-          <a href="#/destacada" class="hero__cta hero__cta--primary magnetic-btn btn-premium">Ver Obra</a>
-          <a href="#/juegos" class="hero__cta hero__cta--secondary magnetic-btn">🎮 21 Juegos</a>
+          <span class="hero__cta">Desliza</span>
         </div>
-        
-        <!-- Spotify Mini Player Coqueto - Lo Inmanente -->
-        <div class="hero__spotify reveal reveal-delay-3">
-          <iframe 
-            src="https://open.spotify.com/embed/album/3Kx5S9L4U8XdU8nHrWgZuT?utm_source=generator&theme=0" 
-            width="300" 
-            height="80" 
-            frameBorder="0" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-            loading="lazy"
-            title="Lo Inmanente - Borja Moskv">
-          </iframe>
-        </div>
-        
+
+
+        <!-- Spotify Minimal Pill -->
+        <div class="hero__spotify"></div>
+
         <!-- Scroll indicator -->
         <div class="hero__scroll-indicator">
-          <span>Scroll</span>
-          <div class="hero__scroll-arrow"></div>
+          <div class="hero__scroll-line"></div>
         </div>
       </div>
     </section>
 
+    <!-- SECCIÓN 2: GALERÍA (EL OCÉANO - Horizontal Walk) -->
+    <section id="view-gallery" class="view view--gallery">
+      <div class="gallery-container-horizontal">
+        <div class="gallery-intro">
+          <h2 class="section-title">O·M·O</h2>
+          <p class="section-subtitle">Obra · Mirada · Obra</p>
+        </div>
+        <!-- El contenido de la galería se inyectará aquí verticalmente para convertirlo en horizontal con CSS -->
+        <div id="gallery-grid" class="gallery-track"></div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: JUEGOS (EL ESPEJO) -->
+    <section id="view-games" class="view view--games">
+       <h2 class="section-title">S·O·L·O·S</h2>
+       <p class="section-subtitle">21 Juegos Arcade</p>
+       <div id="games-container" class="games-grid"></div>
+    </section>
+
+    <!-- SECCIÓN 4: CHIQUITOCRES (EL MANIFIESTO OCULTO) -->
+    <section id="view-manifesto" class="view view--manifesto">
+      <div class="manifesto-content">
+        <blockquote class="chiquito-quote">
+          "¡PECADOR!<br>
+          SI TU ESPACIO ES UN TEMPLO, TENDRÁS SACERDOTES.<br>
+          SI TU ESPACIO ES UN TALLER, TENDRÁS GENTE."
+        </blockquote>
+        <cite>— Chiquitocres de la Calzada</cite>
+      </div>
+    </section>
     <!-- Obra Destacada View (DISRUPTIVE GALLERY 2026) -->
     <section id="view-destacada" class="view view--destacada">
       <header class="view__header">
