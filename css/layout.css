@@ -1,4 +1,30 @@
-/* Layout - Naroa 2026 */
+/* Layout - Naroa 2026 - MICA BEACH EDITION (Kimi Redesign) */
+
+/* Variables Redefinition for "Playa Minimal" */
+:root {
+  --color-bg-beach: #fdfcf8; /* Sand/Bone White */
+  --color-sand: #f2efe9;
+  --color-text-deep: #1a1a1a;
+  --color-blue-ocean: #2c5282;
+  --color-gold-mica: #d4af37;
+  
+  --font-display-size: clamp(4rem, 15vw, 16rem);
+}
+
+/* Global Reset Overrides */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory; /* EXPERIENCIA SCROLL 100% INMERSIVA */
+  height: 100%;
+  overflow-y: scroll;
+}
+
+body {
+  background-color: var(--color-bg-beach);
+  color: var(--color-text-deep);
+  height: 100%;
+  overflow-x: hidden;
+}
 
 /* Container */
 .container {
@@ -8,23 +34,23 @@
   padding-inline: var(--container-padding);
 }
 
-/* Views */
+/* Views - SNAP SECTIONS */
 .view {
-  display: none;
+  display: block !important; /* Mostrar todas para scroll continuo */
   min-height: 100vh;
-  padding-top: 5rem; /* Space for nav */
+  width: 100vw;
+  scroll-snap-align: start; /* El scroll se "pega" aquí */
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  padding-top: 0; /* Reset */
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.view.active {
-  display: block;
-}
-
-.view__header {
-  padding: var(--space-8) 0 var(--space-6);
-  text-align: center;
-}
-
-/* Hero - PREMIUM 2026 - GLASS AURORA EDITION */
+/* Hero - MICA BEACH MINIMAL */
 .hero {
   position: relative;
   display: flex;
@@ -35,15 +61,10 @@
   text-align: center;
   padding: var(--space-8);
   overflow: hidden;
+  background: var(--color-bg-beach);
 }
 
-.hero--premium {
-  background: linear-gradient(180deg, #0a0a0f 0%, #0d0d14 50%, #0a0a0f 100%);
-}
-
-/* =================================================================
-   PALÍNDROMO GIGANTE OVERSIZED - LETRAS MÁS GRANDES QUE LA PANTALLA
-   ================================================================= */
+/* Palíndromo "Watermark" - Subtle like footprints in sand */
 .hero__palindrome {
   position: absolute;
   top: 50%;
@@ -51,209 +72,41 @@
   transform: translate(-50%, -50%);
   z-index: 0;
   pointer-events: none;
-  white-space: nowrap;
-  overflow: visible;
-  width: 300vw; /* Sobrepasa la pantalla */
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0.05; /* Barely visible */
 }
 
 .hero__palindrome-text {
   font-family: var(--font-display);
-  font-size: clamp(30vh, 50vw, 60vh); /* GIGANTE */
-  font-weight: 100;
+  font-size: 80vw;
+  font-weight: 900;
+  color: var(--color-gold-mica);
   letter-spacing: -0.05em;
-  text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(139, 92, 246, 0.08);
-  background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.04) 0%,
-    rgba(236, 72, 153, 0.03) 30%,
-    rgba(255, 215, 0, 0.02) 60%,
-    rgba(59, 130, 246, 0.03) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: palindrome-drift 30s linear infinite;
-  filter: blur(0.5px);
-  -webkit-user-select: none;
-  user-select: none;
+  white-space: nowrap;
 }
 
-/* Versión con más contraste en hover del hero */
-.hero--premium:hover .hero__palindrome-text {
-  -webkit-text-stroke: 1px rgba(139, 92, 246, 0.15);
-  background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.08) 0%,
-    rgba(236, 72, 153, 0.06) 30%,
-    rgba(255, 215, 0, 0.04) 60%,
-    rgba(59, 130, 246, 0.06) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  filter: blur(0px);
-  transition: all 2s ease;
-}
-
-@keyframes palindrome-drift {
-  0% { transform: translateX(-5%); }
-  50% { transform: translateX(5%); }
-  100% { transform: translateX(-5%); }
-}
-
-/* Mobile: Ajustar escala */
-@media (max-width: 768px) {
-  .hero__palindrome-text {
-    font-size: clamp(20vh, 40vw, 40vh);
-  }
-}
-
-/* Aurora Borealis Background - Elegante y relajante */
-.hero__gradient-bg {
-  position: absolute;
-  inset: 0;
-  background: 
-    /* Aurora violet-gold */
-    radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
-    /* Terracotta accent suave */
-    radial-gradient(ellipse at 50% 80%, rgba(201, 135, 90, 0.06) 0%, transparent 40%),
-    /* Mica shimmer */
-    radial-gradient(ellipse at 80% 70%, rgba(255, 215, 0, 0.04) 0%, transparent 35%),
-    /* Depth vignette */
-    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
-  pointer-events: none;
-  animation: aurora-shift 20s ease-in-out infinite;
-}
-
-@keyframes aurora-shift {
-  0%, 100% { opacity: 0.9; filter: hue-rotate(0deg); }
-  50% { opacity: 1; filter: hue-rotate(10deg); }
-}
-
-/* Animated light threads */
-.hero__floating {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* Elegant light lines - aurora-like */
-.hero__orb {
-  position: absolute;
-  background: transparent;
-}
-
-.hero__orb--1 {
-  width: 2px;
-  height: 300px;
-  top: 5%;
-  left: 15%;
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    rgba(139, 92, 246, 0.4) 20%, 
-    rgba(139, 92, 246, 0.6) 50%, 
-    rgba(139, 92, 246, 0.4) 80%, 
-    transparent 100%);
-  transform: rotate(-15deg);
-  animation: thread-sway 8s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-}
-
-.hero__orb--2 {
-  width: 1px;
-  height: 250px;
-  top: 15%;
-  right: 20%;
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    rgba(255, 215, 0, 0.3) 30%, 
-    rgba(255, 193, 7, 0.5) 50%, 
-    rgba(255, 215, 0, 0.3) 70%, 
-    transparent 100%);
-  transform: rotate(20deg);
-  animation: thread-sway 10s ease-in-out infinite reverse;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
-}
-
-.hero__orb--3 {
-  width: 2px;
-  height: 280px;
-  bottom: 10%;
-  left: 25%;
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    rgba(59, 130, 246, 0.4) 25%, 
-    rgba(59, 130, 246, 0.6) 50%, 
-    rgba(59, 130, 246, 0.4) 75%, 
-    transparent 100%);
-  transform: rotate(10deg);
-  animation: thread-sway 12s ease-in-out infinite;
-  box-shadow: 0 0 18px rgba(59, 130, 246, 0.3);
-}
-
-/* Additional decorative threads */
-.hero__floating::before,
-.hero__floating::after {
-  content: '';
-  position: absolute;
-  width: 1px;
-  background: linear-gradient(to bottom, 
-    transparent, 
-    rgba(139, 92, 246, 0.3), 
-    transparent);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
-}
-
-.hero__floating::before {
-  height: 200px;
-  top: 30%;
-  right: 10%;
-  transform: rotate(-25deg);
-  animation: thread-sway 9s ease-in-out infinite 1s;
-}
-
-.hero__floating::after {
-  height: 180px;
-  bottom: 25%;
-  right: 30%;
-  transform: rotate(15deg);
-  animation: thread-sway 11s ease-in-out infinite 2s;
-}
-
-@keyframes thread-sway {
-  0%, 100% { 
-    transform: rotate(var(--rotate, -15deg)) translateX(0); 
-    opacity: 0.7;
-  }
-  50% { 
-    transform: rotate(var(--rotate, -15deg)) translateX(10px); 
-    opacity: 1;
-  }
-}
-
+/* Hero Title - Massive & Clean */
 .hero__title {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  line-height: 0.85;
 }
 
 .hero__line {
   display: block;
-  font-size: clamp(4rem, 15vw, 12rem);
-  font-weight: var(--font-weight-light);
-  line-height: 0.9;
-  letter-spacing: var(--letter-spacing-tight);
-  white-space: nowrap;
-  text-align: center;
+  font-size: var(--font-display-size);
+  font-weight: 800; /* Bold */
+  letter-spacing: -0.04em;
+  color: var(--color-text-deep);
+  mix-blend-mode: multiply;
 }
 
+/* Subtitle - Elegant Serif or Clean Sans */
 .hero__subtitle {
   position: relative;
   z-index: 2;
@@ -261,115 +114,205 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
-  font-size: var(--font-size-lg);
-}
-
-.hero__tag {
-  color: rgba(139, 92, 246, 0.9);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-wider);
+  gap: var(--space-4);
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--color-blue-ocean);
+  opacity: 0.8;
 }
 
-.hero__divider {
-  color: var(--color-text-muted);
-}
-
-.hero__location {
-  color: var(--color-text-muted);
-  letter-spacing: var(--letter-spacing-wider);
-  text-transform: uppercase;
-}
-
-/* CTA Group */
+/* CTA - Minimal Text Links (No buttons) */
 .hero__cta-group {
   position: relative;
   z-index: 2;
   display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-8);
+  gap: 3rem;
+  margin-top: 4rem;
 }
 
 .hero__cta {
-  padding: var(--space-4) var(--space-8);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-wider);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border-radius: 50px;
-  transition: all var(--duration-base) var(--ease-out);
+  color: var(--color-text-deep);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 5px;
+  transition: color 0.3s ease;
 }
 
-.hero__cta--primary {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(236, 72, 153, 0.9));
-  color: #fff;
-  border: none;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+/* Underline effect on hover */
+.hero__cta::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-gold-mica);
+  transition: width 0.3s ease;
 }
 
-.hero__cta--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+.hero__cta:hover::after {
+  width: 100%;
 }
 
-.hero__cta--secondary {
-  background: transparent;
-  color: var(--color-text);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.hero__cta:hover {
+  color: var(--color-gold-mica);
 }
 
-.hero__cta--secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.4);
+/* Spotify - Hidden Minimal Pill */
+.hero__spotify {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 10;
+  opacity: 0.6;
+  transform: scale(0.8);
+  transform-origin: bottom left;
+  transition: all 0.3s ease;
+  filter: grayscale(100%); /* B&W to match minimal */
 }
 
-/* Scroll indicator */
+.hero__spotify:hover {
+  opacity: 1;
+  transform: scale(1);
+  filter: grayscale(0%);
+}
+
+/* Visit Counter - Palindrome Number */
+.hero__counter {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: var(--font-mono); /* Monospace */
+  font-size: 0.9rem;
+  color: var(--color-text-deep);
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+
+/* Scroll indicator - Minimal Line */
 .hero__scroll-indicator {
   position: absolute;
-  bottom: var(--space-8);
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
-  letter-spacing: var(--letter-spacing-wider);
-  text-transform: uppercase;
-  animation: bounce-scroll 2s ease-in-out infinite;
+  opacity: 0.4;
 }
 
-.hero__scroll-arrow {
-  width: 24px;
-  height: 24px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
+.hero__scroll-line {
+  width: 1px;
+  height: 60px;
+  background: var(--color-text-deep);
+  animation: scroll-grow 2s ease-in-out infinite;
 }
 
-@keyframes bounce-scroll {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
-  50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
+@keyframes scroll-grow {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* Spotify Mini Player Coqueto */
-.hero__spotify {
-  margin-top: 2rem;
-  opacity: 0.85;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .hero__line {
+    font-size: 15vw;
+  }
+  
+  .hero__cta-group {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .hero__spotify {
+    display: none; /* Hide on mobile to be clean */
+  }
 }
 
-.hero__spotify:hover {
-  opacity: 1;
-  transform: scale(1.02);
+/* MICA BEACH & CHIQUITOCRATES ADDITIONS */
+
+/* Chiquitocrates Badge */
+.chiquitocrates-badge {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-deep);
+    opacity: 0.7;
+    font-style: italic;
+    border: 1px dashed var(--color-gold-mica);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(253, 252, 248, 0.5);
+    cursor: help;
+    transition: all 0.3s ease;
 }
 
-.hero__spotify iframe {
-  border-radius: 12px;
-  display: block;
+.chiquitocrates-badge:hover {
+    transform: scale(1.05) rotate(-1deg);
+    background: #fff;
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+/* Horizontal Gallery Layout */
+.view--gallery {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    background: var(--color-sand);
+    overflow-x: auto; /* Scroll horizontal nativo */
+    scroll-snap-type: x mandatory;
+    width: 100vw;
+}
+
+.gallery-container-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100vh;
+    padding-left: 10vw;
+    width: max-content; /* Permitir que crezca */
+    gap: 4rem;
+}
+
+.gallery-intro {
+    min-width: 40vw;
+    scroll-snap-align: start;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 2rem;
+    padding-right: 10vw;
+}
+
+/* Chiquitocres Manifesto Section */
+.view--manifesto {
+    background: #1a1a1a;
+    color: #f2efe9;
+    text-align: center;
+    scroll-snap-align: start;
+}
+
+.chiquito-quote {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(to right, #d4af37, #f2efe9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.view--manifesto cite {
+    font-size: 1.2rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
 }

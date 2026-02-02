@@ -1,0 +1,41 @@
+{
+  "retratos_coloristas": {
+    "categoria": "Retratos Coloristas",
+    "descripcion": "Serie de retratos vibrantes con técnica mixta",
+    "obras": [
+      {
+        "titulo": "Retrato Colorista #1",
+        "año": 2023,
+        "tecnica": "Óleo sobre lienzo",
+        "dimensiones": "100x80 cm",
+        "fuente": "Facebook Naroa Gutiérrez Gil",
+        "tags": ["retrato", "color", "expresionismo"]
+      }
+    ]
+  },
+  "obras_especificas": [
+    {
+      "titulo": "VAIVENES",
+      "artista_colaborador": "Coper Delloi",
+      "año": 2024,
+      "tipo": "Colaboración",
+      "descripcion": "Obra colaborativa explorando el movimiento y la incertidumbre",
+      "tags": ["colaboracion", "vaivenes", "movimiento"]
+    },
+    {
+      "titulo": "Royshin Muyphy",
+      "año": 2024,
+      "tipo": "Serie experimental",
+      "descripcion": "Exploración de texturas y formas abstractas",
+      "tags": ["abstracto", "experimental", "textura"]
+    },
+    {
+      "titulo": "El Semblante Elegante",
+      "año": 2024,
+      "tipo": "Serie Retratos",
+      "descripcion": "Retrato hiperrealista con toques de elegancia clásica y sofisticación contemporánea",
+      "tecnica": "Óleo sobre lienzo",
+      "tags": ["retrato", "elegancia", "hiperrealismo", "sofisticado"]
+    }
+  ]
+}

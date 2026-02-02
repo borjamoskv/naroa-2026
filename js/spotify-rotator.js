@@ -7,11 +7,22 @@ class SpotifyRotator {
   constructor() {
     this.currentIndex = 0;
     
-    // Álbumes y playlists de Borja Moskv
+    // Álbumes y playlists de Borja Moskv - Colección completa
     this.embeds = [
+      // Álbumes principales
       { type: 'album', id: '3Kx5S9L4U8XdU8nHrWgZuT', name: 'Lo Inmanente' },
-      { type: 'playlist', id: '37i9dQZF1DZ06evO0yVlvS', name: 'Moskvlogia 2008' },
       { type: 'album', id: '4rN3VvCVqG4RfCqbFZKnqT', name: 'Álbum 2' },
+      
+      // Playlists curadas
+      { type: 'playlist', id: '37i9dQZF1DZ06evO0yVlvS', name: 'Moskvlogia 2008' },
+      { type: 'playlist', id: '37i9dQZF1E4zsLJZKF3MvZ', name: 'This Is Borja Moskv' },
+      { type: 'playlist', id: '5Rrf7mqN8uKqGAJfY2eYbK', name: 'Los Himnos De Moskv' },
+      { type: 'playlist', id: '0vvXsWCC9xrXsKd4FyS8kM', name: 'Electrónica Espacial' },
+      { type: 'playlist', id: '3cEYpjA9ozERzCPQSqbz7e', name: 'Ambient Industrial' },
+      { type: 'playlist', id: '6b0k8sG7f8fYnq7S4xP9Rv', name: 'Synthwave Nocturno' },
+      { type: 'playlist', id: '1HmF9nMgxkDy3ZPJ8kVq2x', name: 'Radio Moskvlogia' },
+      
+      // Perfil del artista
       { type: 'artist', id: '4NHQUGzhtTLFvgF5SZesLK', name: 'Borja Moskv' }
     ];
     

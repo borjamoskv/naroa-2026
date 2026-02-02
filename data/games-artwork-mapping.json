@@ -1,0 +1,35 @@
+{
+  "sistema_21_juegos": {
+    "descripcion": "Mapeo de obras de Naroa a cada juego del SH21J",
+    "juegos": [
+      { "id": 1, "nombre": "El Espejo Digital", "artwork": "espejos-del-alma.webp", "artwork_alt": "espejos-del-alma-var3.webp" },
+      { "id": 2, "nombre": "Termómetro del Alma", "artwork": "lagrimas-de-oro.webp" },
+      { "id": 3, "nombre": "Caminata Zen", "artwork": "denbora-nora-zoaz.webp" },
+      { "id": 4, "nombre": "Sinapsis Viva", "artwork": "multidimensional-love.webp" },
+      { "id": 5, "nombre": "Alquimia Emocional", "artwork": "la-pensadora.webp" },
+      { "id": 6, "nombre": "Eco Sincrónico", "artwork": "the-golden-couple.webp" },
+      { "id": 7, "nombre": "Flow State Trainer", "artwork": "james-rocks-hq-3.webp" },
+      { "id": 8, "nombre": "Árbol 7 Hábitos", "artwork": "soy-un-amor-y-tengo-alas.webp" },
+      { "id": 9, "nombre": "Danza de Datos", "artwork": "celia-cruz-asucar.webp" },
+      { "id": 10, "nombre": "Sombra Digital", "artwork": "baroque-farrokh.webp" },
+      { "id": 11, "nombre": "Ayuno Dopamina", "artwork": "geisha.webp" },
+      { "id": 12, "nombre": "Cartografía Miedo", "artwork": "monster-dragon.webp" },
+      { "id": 13, "nombre": "Tribu Digital", "artwork": "walking-gallery-plumas.webp" },
+      { "id": 14, "nombre": "Economía Bienestar", "artwork": "dar-la-lata.webp" },
+      { "id": 15, "nombre": "Cadena Gratitud", "artwork": "love.webp" },
+      { "id": 16, "nombre": "Legado Cósmico", "artwork": "the-world-is-yours.webp" },
+      { "id": 17, "nombre": "Museo Yo Futuro", "artwork": "audrey-hepburn.webp" },
+      { "id": 18, "nombre": "Rito Passage", "artwork": "pink-and-sparkles.webp" },
+      { "id": 19, "nombre": "Juego Infinito", "artwork": "james-dean.webp" },
+      { "id": 20, "nombre": "Mandala Existencia", "artwork": "the-golden-couple-and-balloons.webp" },
+      { "id": 21, "nombre": "Mentoría Inversa", "artwork": "smile-world-smiles-back.webp" }
+    ]
+  },
+  "video_transiciones": [
+    { "from": "espejos-del-alma.webp", "to": "lagrimas-de-oro.webp", "prompt": "Retrato artístico transiciona lentamente, los ojos se llenan de lágrimas doradas" },
+    { "from": "la-pensadora.webp", "to": "multidimensional-love.webp", "prompt": "Pensamiento profundo se transforma en amor multidimensional con partículas doradas" },
+    { "from": "geisha.webp", "to": "celia-cruz-asucar.webp", "prompt": "Elegancia oriental se fusiona con ritmo latino, colores vibrantes emergen" },
+    { "from": "baroque-farrokh.webp", "to": "james-dean.webp", "prompt": "Barroco clásico transiciona a rebeldía moderna, la luz cambia dramáticamente" },
+    { "from": "audrey-hepburn.webp", "to": "pink-and-sparkles.webp", "prompt": "Elegancia clásica explota en burbujas rosas y brillos contemporáneos" }
+  ]
+}
