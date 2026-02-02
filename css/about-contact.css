@@ -1,0 +1,313 @@
+/* ==========================================================================
+   ABOUT & CONTACT - Premium 2026 Edition
+   ========================================================================== */
+
+/* Shared Premium Dark View */
+.view--premium-dark {
+  background: linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   ABOUT SECTION
+   ========================================================================== */
+
+.about__hero {
+  position: relative;
+  padding: 6rem 0 3rem;
+  overflow: hidden;
+}
+
+.about__gradient-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.about__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding) 4rem;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .about__grid {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  
+  .about__card--main {
+    grid-column: 1 / -1;
+  }
+  
+  .about__stats {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Main Bio Card */
+.about__card {
+  padding: 2rem;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about__card:hover {
+  transform: translateY(-4px);
+}
+
+.about__card--main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .about__card--main {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.about__avatar {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.about__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__bio h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.about__tagline {
+  color: rgba(139, 92, 246, 0.9);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.about__description {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.about__description strong {
+  color: var(--color-text);
+}
+
+/* Stats */
+.about__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.about__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.about__stat:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+}
+
+.about__stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(236, 72, 153, 1));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about__stat-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}
+
+/* Technique & Theme Cards */
+.about__card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.about__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about__tags li {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
+}
+
+.about__tags li:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   CONTACT SECTION
+   ========================================================================== */
+
+.contact__container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6rem var(--container-padding) 4rem;
+  text-align: center;
+}
+
+.contact__intro {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+
+.contact__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact__card:hover {
+  transform: translateY(-4px);
+}
+
+.contact__card--email:hover {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.contact__card--instagram:hover {
+  box-shadow: 0 0 40px rgba(236, 72, 153, 0.2);
+  border-color: rgba(236, 72, 153, 0.4);
+}
+
+.contact__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact__label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.contact__value {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* CTA Section */
+.contact__cta {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact__cta p {
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   REVEAL ANIMATIONS
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: reveal-up 0.8s var(--ease-out) forwards;
+}
+
+.reveal-delay-1 { animation-delay: 0.3s; }
+.reveal-delay-2 { animation-delay: 0.5s; }
+
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .about__avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+  
+  .about__card--main {
+    text-align: center;
+  }
+  
+  .about__stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .about__stat-number {
+    font-size: 2rem;
+  }
+}

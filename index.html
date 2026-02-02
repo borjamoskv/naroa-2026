@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/oca-game.css">
   <link rel="stylesheet" href="css/tetris-game.css">
   <link rel="stylesheet" href="css/games-hub.css">
+  <link rel="stylesheet" href="css/about-contact.css">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -51,16 +52,41 @@
 
   <!-- Main Content -->
   <main id="app">
-    <!-- Home View -->
+    <!-- Home View - UPGRADED 2026 -->
     <section id="view-home" class="view view--home active">
-      <div class="hero">
-        <h1 class="hero__title kinetic-text">
-          <span class="hero__line">Naroa</span>
+      <div class="hero hero--premium">
+        <!-- Animated gradient background -->
+        <div class="hero__gradient-bg"></div>
+        
+        <!-- Floating decorative elements -->
+        <div class="hero__floating">
+          <div class="hero__orb hero__orb--1"></div>
+          <div class="hero__orb hero__orb--2"></div>
+          <div class="hero__orb hero__orb--3"></div>
+        </div>
+        
+        <h1 class="hero__title kinetic-text reveal">
+          <span class="hero__line text-shimmer">Naroa</span>
           <span class="hero__line">Gutiérrez</span>
           <span class="hero__line">Gil</span>
         </h1>
-        <p class="hero__subtitle">Artista Visual · Bilbao</p>
-        <a href="#/destacada" class="hero__cta magnetic-btn">Ver Obra</a>
+        
+        <p class="hero__subtitle reveal reveal-delay-1">
+          <span class="hero__tag">Hiperrealismo POP</span>
+          <span class="hero__divider">·</span>
+          <span class="hero__location">Bilbao</span>
+        </p>
+        
+        <div class="hero__cta-group reveal reveal-delay-2">
+          <a href="#/destacada" class="hero__cta hero__cta--primary magnetic-btn btn-premium">Ver Obra</a>
+          <a href="#/juegos" class="hero__cta hero__cta--secondary magnetic-btn">🎮 21 Juegos</a>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="hero__scroll-indicator">
+          <span>Scroll</span>
+          <div class="hero__scroll-arrow"></div>
+        </div>
       </div>
     </section>
 
@@ -87,24 +113,114 @@
       </div>
     </section>
 
-    <!-- About View -->
-    <section id="view-about" class="view view--about">
-      <header class="view__header">
-        <h2>Sobre mí</h2>
-      </header>
-      <div class="about__content">
-        <p>Naroa Gutiérrez Gil es una artista visual afincada en Bilbao, especializada en retratos, murales y obra gráfica.</p>
+    <!-- About View - PREMIUM 2026 -->
+    <section id="view-about" class="view view--about view--premium-dark">
+      <div class="about__hero">
+        <div class="about__gradient-bg"></div>
+        <header class="view__header">
+          <h2 class="text-shimmer">Sobre mí</h2>
+        </header>
+      </div>
+      
+      <div class="about__container">
+        <div class="about__grid">
+          <!-- Main Bio Card -->
+          <article class="about__card about__card--main glass">
+            <div class="about__avatar">
+              <img src="images/artworks/naroa-portrait.webp" alt="Naroa Gutiérrez Gil" loading="lazy" onerror="this.src='images/artworks/retrato-hombre-barba.webp'">
+            </div>
+            <div class="about__bio">
+              <h3>Naroa Gutiérrez Gil</h3>
+              <p class="about__tagline">Hiperrealismo POP · Bilbao</p>
+              <p class="about__description">
+                Artista visual especializada en <strong>retratos hiperrealistas</strong> con un toque contemporáneo. 
+                Mi obra explora la identidad, la emoción y la conexión humana a través del color vibrante 
+                y la técnica meticulosa.
+              </p>
+            </div>
+          </article>
+          
+          <!-- Stats Cards -->
+          <div class="about__stats">
+            <div class="about__stat glass-dark">
+              <span class="about__stat-number">40+</span>
+              <span class="about__stat-label">Obras</span>
+            </div>
+            <div class="about__stat glass-dark">
+              <span class="about__stat-number">10+</span>
+              <span class="about__stat-label">Exposiciones</span>
+            </div>
+            <div class="about__stat glass-dark">
+              <span class="about__stat-number">21</span>
+              <span class="about__stat-label">Juegos</span>
+            </div>
+          </div>
+          
+          <!-- Techniques -->
+          <article class="about__card about__card--techniques glass-dark">
+            <h4>🎨 Técnicas</h4>
+            <ul class="about__tags">
+              <li>Óleo sobre lienzo</li>
+              <li>Acrílico</li>
+              <li>Grafito</li>
+              <li>Murales</li>
+              <li>Collage digital</li>
+            </ul>
+          </article>
+          
+          <!-- Themes -->
+          <article class="about__card about__card--themes glass-dark">
+            <h4>✨ Temas</h4>
+            <ul class="about__tags">
+              <li>Retratos</li>
+              <li>Identidad</li>
+              <li>Feminismo</li>
+              <li>Cultura POP</li>
+              <li>Naturaleza</li>
+            </ul>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- Contact View -->
-    <section id="view-contacto" class="view view--contacto">
-      <header class="view__header">
-        <h2>Contacto</h2>
-      </header>
-      <div class="contact__content">
-        <p>Para encargos y colaboraciones:</p>
-        <a href="mailto:info@naroa.online" class="contact__email">info@naroa.online</a>
+    <!-- Contact View - PREMIUM 2026 -->
+    <section id="view-contacto" class="view view--contacto view--premium-dark">
+      <div class="contact__container">
+        <header class="view__header">
+          <h2 class="text-shimmer">Contacto</h2>
+          <p class="contact__intro">¿Tienes un proyecto en mente? Hablemos.</p>
+        </header>
+        
+        <div class="contact__grid">
+          <!-- Email Card -->
+          <a href="mailto:naroa@naroa.eu" class="contact__card contact__card--email glass">
+            <div class="contact__icon">📧</div>
+            <span class="contact__label">Email</span>
+            <span class="contact__value">naroa@naroa.eu</span>
+          </a>
+          
+          <!-- Instagram Card -->
+          <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener" class="contact__card contact__card--instagram glass">
+            <div class="contact__icon">📷</div>
+            <span class="contact__label">Instagram</span>
+            <span class="contact__value">@naroagutierrezgil</span>
+          </a>
+          
+          <!-- Location Card -->
+          <div class="contact__card contact__card--location glass-dark">
+            <div class="contact__icon">📍</div>
+            <span class="contact__label">Ubicación</span>
+            <span class="contact__value">Bilbao, País Vasco</span>
+          </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="contact__cta">
+          <p>Disponible para encargos, murales y colaboraciones artísticas</p>
+          <a href="mailto:naroa@naroa.eu?subject=Encargo%20artístico" class="btn btn-premium hero__cta--primary magnetic-btn">
+            Solicitar presupuesto
+          </a>
+        </div>
       </div>
     </section>
 

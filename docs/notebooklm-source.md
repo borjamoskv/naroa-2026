@@ -110,7 +110,7 @@ naroa-2026/
 - Press kit descargable
 
 ### 5. Contacto (/contacto)
-- Email: info@naroa.online
+- Email: naroa@naroa.eu
 - Formulario de encargos
 - Links a redes sociales
 
