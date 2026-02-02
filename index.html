@@ -41,21 +41,32 @@
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="nav" id="main-nav">
-    <a href="#/" class="nav__logo">Naroa Gutiérrez Gil</a>
-    <ul class="nav__menu">
-      <li><a href="#/destacada">Obra Destacada</a></li>
-      <li><a href="#/archivo">Archivo</a></li>
-      <li><a href="#/about">Sobre mí</a></li>
-      <li><a href="#/contacto">Contacto</a></li>
-      <li><a href="#/juegos" class="nav__game">🎮 Juegos</a></li>
-    </ul>
-    <button class="nav__toggle" aria-label="Menú" id="nav-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </nav>
+  <!-- MICA: THE COMMAND CENTER (Menuless Navigation) -->
+  <nav class="nav" style="display: none;" aria-hidden="true"></nav>
+
+  <!-- TRINITY OVERLAYS -->
+  <div class="page-transition-overlay" id="page-curtain">
+      <div class="thread"></div>
+  </div>
+  
+  <div class="scroll-progress-container">
+      <div class="scroll-progress-bar" id="scroll-thread">
+          <div class="scroll-progress-thread"></div>
+      </div>
+  </div>
+
+  <!-- WOW FILTERS -->
+  <svg style="position:fixed;width:0;height:0;pointer-events:none">
+      <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise"/>
+          <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 .1  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redP"/>
+          <feOffset in="redP" dx="5" dy="0" result="redPshifted"/>
+          <feMerge>
+              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="redPshifted"/>
+          </feMerge>
+      </filter>
+  </svg>
 
   <!-- Main Content -->
   <main id="app">
@@ -83,6 +94,12 @@
           <span class="hero__divider">·</span>
           <span class="hero__location">Bilbao</span>
         </p>
+
+        <!-- Creative WORK IN PROGRESS badge -->
+        <div class="wip-badge reveal reveal-delay-2">
+          <span class="wip-badge__thread"></span>
+          <span class="wip-badge__text">Work in Progress 2026</span>
+        </div>
         
         <div class="hero__cta-group reveal reveal-delay-2">
           <a href="#/destacada" class="hero__cta hero__cta--primary magnetic-btn btn-premium">Ver Obra</a>

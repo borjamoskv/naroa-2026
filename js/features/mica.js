@@ -33,12 +33,14 @@ class MICA {
     
     this.personality = {
       name: 'MICA',
-      greeting: '¡Ey, solete! Soy MICA, el brillo mineral de Naroa. ¿Qué te apetece descubrir hoy?',
-      fallback: 'Cariño, no te he pillado del todo, pero mira... ¿qué te parece si exploramos juntas?'
+      greeting: '¡Ey, solete! Soy MICA (IA Alliance v3.0). El brillo mineral de Naroa ahora con alma de Génesis Deca-Core. ¿Qué maravilla vamos a descubrir juntas hoy? ✨',
+      fallback: 'Cariño, mis sensores minerales están vibrando pero no te pillo. ¡Dímelo de otra forma! 💛'
     };
     
     // Navigation patterns
     this.patterns = [
+      { regex: /the world is yours|nace una estrella|scarface/i, action: 'navigate', target: '#/archivo', response: '¡Ah! Mi obra más reciente: "The World is Yours". Un destello de 2026 para tu colección. ¿No es brutal?' },
+      { regex: /work in progress|wip|proceso|construccion/i, action: 'info', response: 'Estamos en pleno "Génesis Deca-Core". Mi casa digital está creciendo con hilos rojos y oro. ¡Cuidado con la pintura fresca! 🎨🔥' },
       { regex: /rock|amy|johnny|marilyn|james/i, action: 'navigate', target: '#/archivo/rocks', response: '¡Los Rocks! Mi serie de iconos pop. Mira cómo brillan sus ojos con la mica...' },
       { regex: /galer[ií]a|obras|cuadros|ver todo/i, action: 'navigate', target: '#/galeria', response: 'Te llevo a la galería. 196 obras esperándote...' },
       { regex: /queen|freddie|mercury|fahrenheit/i, action: 'navigate', target: '#/archivo/tributos-musicales', response: 'Ah, Mr. Fahrenheit... Freddie con todo su brillo barroco. Ven a verlo.' },

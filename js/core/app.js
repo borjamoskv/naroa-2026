@@ -135,17 +135,26 @@
       });
 
     // Lifecycle hooks
+    // Lifecycle hooks using the "Golden Curtain"
     router.beforeEach = (to, from) => {
       document.body.classList.add('navigating');
+      const curtain = document.getElementById('page-curtain');
+      if (curtain) curtain.classList.add('active');
     };
 
     router.afterEach = (to, from) => {
-      setTimeout(() => {
-        document.body.classList.remove('navigating');
-      }, CONFIG.animationDuration);
+      const curtain = document.getElementById('page-curtain');
       
-      // Scroll to top on route change
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        // Scroll to top while curtain is closed
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        
+        if (curtain) curtain.classList.remove('active');
+        
+        setTimeout(() => {
+          document.body.classList.remove('navigating');
+        }, 600);
+      }, 400);
     };
 
     router.init();
@@ -155,32 +164,30 @@
   // MOBILE NAVIGATION
   // ===========================================
 
-  function initMobileNav() {
-    const toggle = document.getElementById('nav-toggle');
-    const menu = document.querySelector('.nav__menu');
+  // ===========================================
+  // FLUID SYSTEMS: RED THREAD & MICA
+  // ===========================================
 
-    if (!toggle || !menu) return;
+  function initFluidSystems() {
+    const scrollThread = document.getElementById('scroll-thread');
+    
+    // Smooth Scroll Progress (Hilo Rojo)
+    window.addEventListener('scroll', () => {
+      if (!scrollThread) return;
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      scrollThread.style.width = scrolled + "%";
+    }, { passive: true });
 
-    toggle.addEventListener('click', () => {
-      menu.classList.toggle('open');
-      toggle.classList.toggle('active');
-    });
-
-    // Close menu on link click
-    menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menu.classList.remove('open');
-        toggle.classList.remove('active');
-      });
-    });
-
-    // Close on escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menu.classList.contains('open')) {
-        menu.classList.remove('open');
-        toggle.classList.remove('active');
-      }
-    });
+    // Force MICA presence
+    if (window.micaInstance) {
+      setTimeout(() => {
+        if (!window.micaInstance.isOpen) {
+          console.log('[App] MICA invited to lead the conversation');
+        }
+      }, 2000);
+    }
   }
 
   // ===========================================
@@ -229,7 +236,7 @@
     }
     
     registerRoutes();
-    initMobileNav();
+    initFluidSystems();
 
     // Initialize other modules when ready
     if (window.Lightbox) {
