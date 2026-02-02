@@ -28,16 +28,16 @@ h4 { font-size: var(--font-size-lg); }
 
 p {
   max-width: 65ch;
-  color: var(--naroa-sienna);
+  color: var(--naroa-black);
 }
 
 a {
-  color: var(--naroa-terracotta);
+  color: var(--naroa-blue);
   transition: all var(--duration-fast) var(--ease-default);
 }
 
 a:hover {
-  color: var(--naroa-rose);
+  color: var(--naroa-terracotta);
   opacity: 1;
 }
 
@@ -103,3 +103,18 @@ body::before {
   opacity: 0.4;
 }
 
+/* HIDDEN ELEMENTS (MICA is the only interface) */
+.nav--hidden {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* SVG Filters container */
+.svg-filters {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  overflow: hidden;
+}

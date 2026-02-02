@@ -3,7 +3,7 @@
    Naroa's AI companion - ORGÁNICO PASTEL Edition
    ========================================================================== */
 
-/* Toggle Button - Organic Cloud */
+/* Toggle Button - Organic Orb (4 colores) */
 .mica-toggle {
   position: fixed;
   bottom: 32px;
@@ -11,16 +11,16 @@
   width: 72px;
   height: 72px;
   border-radius: var(--radius-fluid);
-  background: var(--gradient-sky);
-  border: 3px solid var(--naroa-cream);
+  background: var(--naroa-cream);
+  border: 3px solid var(--naroa-blue);
   cursor: pointer;
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 
-    0 10px 40px rgba(168, 196, 217, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.1);
+    0 8px 30px rgba(0, 47, 167, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.5s var(--ease-bounce);
   animation: mica-float 4s ease-in-out infinite;
 }
