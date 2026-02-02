@@ -24,7 +24,7 @@
   text-align: center;
 }
 
-/* Hero - PREMIUM 2026 - HILOS ROJOS DE BORDAR */
+/* Hero - PREMIUM 2026 - GLASS AURORA EDITION */
 .hero {
   position: relative;
   display: flex;
@@ -38,25 +38,33 @@
 }
 
 .hero--premium {
-  background: #050505;
+  background: linear-gradient(180deg, #0a0a0f 0%, #0d0d14 50%, #0a0a0f 100%);
 }
 
-/* Red Embroidery Threads Background */
+/* Aurora Borealis Background - Elegante y relajante */
 .hero__gradient-bg {
   position: absolute;
   inset: 0;
   background: 
-    /* Gold accent */
-    radial-gradient(ellipse at 70% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 35%),
-    /* Red embroidery glow */
-    radial-gradient(ellipse at 20% 80%, rgba(220, 38, 38, 0.08) 0%, transparent 40%),
-    radial-gradient(ellipse at 80% 70%, rgba(185, 28, 28, 0.06) 0%, transparent 35%),
-    /* Deep black vignette */
-    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+    /* Aurora violet-gold */
+    radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+    /* Terracotta accent suave */
+    radial-gradient(ellipse at 50% 80%, rgba(201, 135, 90, 0.06) 0%, transparent 40%),
+    /* Mica shimmer */
+    radial-gradient(ellipse at 80% 70%, rgba(255, 215, 0, 0.04) 0%, transparent 35%),
+    /* Depth vignette */
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
+  animation: aurora-shift 20s ease-in-out infinite;
 }
 
-/* Animated embroidery threads */
+@keyframes aurora-shift {
+  0%, 100% { opacity: 0.9; filter: hue-rotate(0deg); }
+  50% { opacity: 1; filter: hue-rotate(10deg); }
+}
+
+/* Animated light threads */
 .hero__floating {
   position: absolute;
   inset: 0;
@@ -64,7 +72,7 @@
   overflow: hidden;
 }
 
-/* Red thread lines - like embroidery stitches */
+/* Elegant light lines - aurora-like */
 .hero__orb {
   position: absolute;
   background: transparent;
@@ -77,13 +85,13 @@
   left: 15%;
   background: linear-gradient(to bottom, 
     transparent 0%, 
-    rgba(220, 38, 38, 0.6) 20%, 
-    rgba(185, 28, 28, 0.8) 50%, 
-    rgba(220, 38, 38, 0.6) 80%, 
+    rgba(139, 92, 246, 0.4) 20%, 
+    rgba(139, 92, 246, 0.6) 50%, 
+    rgba(139, 92, 246, 0.4) 80%, 
     transparent 100%);
   transform: rotate(-15deg);
   animation: thread-sway 8s ease-in-out infinite;
-  box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
 .hero__orb--2 {
@@ -93,13 +101,13 @@
   right: 20%;
   background: linear-gradient(to bottom, 
     transparent 0%, 
-    rgba(255, 215, 0, 0.4) 30%, 
-    rgba(255, 193, 7, 0.6) 50%, 
-    rgba(255, 215, 0, 0.4) 70%, 
+    rgba(255, 215, 0, 0.3) 30%, 
+    rgba(255, 193, 7, 0.5) 50%, 
+    rgba(255, 215, 0, 0.3) 70%, 
     transparent 100%);
   transform: rotate(20deg);
   animation: thread-sway 10s ease-in-out infinite reverse;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
 }
 
 .hero__orb--3 {
@@ -109,13 +117,13 @@
   left: 25%;
   background: linear-gradient(to bottom, 
     transparent 0%, 
-    rgba(185, 28, 28, 0.5) 25%, 
-    rgba(220, 38, 38, 0.7) 50%, 
-    rgba(185, 28, 28, 0.5) 75%, 
+    rgba(59, 130, 246, 0.4) 25%, 
+    rgba(59, 130, 246, 0.6) 50%, 
+    rgba(59, 130, 246, 0.4) 75%, 
     transparent 100%);
   transform: rotate(10deg);
   animation: thread-sway 12s ease-in-out infinite;
-  box-shadow: 0 0 12px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.3);
 }
 
 /* Additional decorative threads */
@@ -126,9 +134,9 @@
   width: 1px;
   background: linear-gradient(to bottom, 
     transparent, 
-    rgba(220, 38, 38, 0.4), 
+    rgba(139, 92, 246, 0.3), 
     transparent);
-  box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
 }
 
 .hero__floating::before {
