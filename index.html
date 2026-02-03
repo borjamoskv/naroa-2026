@@ -50,9 +50,95 @@
   <link rel="stylesheet" href="css/gallery-disruptive.css">
   <link rel="stylesheet" href="css/scroll-to-top.css">
   <link rel="stylesheet" href="css/video-showcase.css">
+  <link rel="stylesheet" href="css/restaurador-game.css">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  
+  <!-- Schema.org JSON-LD for Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://naroa.online/#artist",
+        "name": "Naroa Gutiérrez Gil",
+        "jobTitle": "Artista Visual",
+        "description": "Artista visual especializada en hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.",
+        "url": "https://naroa.online",
+        "sameAs": [
+          "https://instagram.com/naroagutierrezgil"
+        ],
+        "knowsAbout": ["Hiperrealismo", "Retrato", "Mural", "Arte POP", "Óleo", "Acrílico"],
+        "workLocation": {
+          "@type": "Place",
+          "name": "Bilbao, País Vasco, España"
+        }
+      },
+      {
+        "@type": "ArtGallery",
+        "@id": "https://naroa.online/#gallery",
+        "name": "Naroa Gutiérrez Gil - Galería Digital",
+        "url": "https://naroa.online",
+        "description": "Galería digital inmersiva con más de 50 obras de arte hiperrealista",
+        "founder": {"@id": "https://naroa.online/#artist"}
+      },
+      {
+        "@type": "ItemList",
+        "name": "Obras Destacadas",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "VisualArtwork",
+            "position": 1,
+            "name": "Espejos del Alma",
+            "creator": {"@id": "https://naroa.online/#artist"},
+            "artMedium": "Mixed Media",
+            "dateCreated": "2023",
+            "image": "https://naroa.online/images/artworks/Webps/espejos-del-alma.webp"
+          },
+          {
+            "@type": "VisualArtwork",
+            "position": 2,
+            "name": "Marilyn Rocks",
+            "creator": {"@id": "https://naroa.online/#artist"},
+            "artMedium": "Mixed Media",
+            "dateCreated": "2023",
+            "image": "https://naroa.online/images/artworks/Webps/marilyn-rocks-hq-5.webp"
+          },
+          {
+            "@type": "VisualArtwork",
+            "position": 3,
+            "name": "Amy Rocks",
+            "creator": {"@id": "https://naroa.online/#artist"},
+            "artMedium": "Mixed Media",
+            "dateCreated": "2023",
+            "image": "https://naroa.online/images/artworks/Webps/amy-rocks.webp"
+          },
+          {
+            "@type": "VisualArtwork",
+            "position": 4,
+            "name": "Lágrimas de Oro",
+            "creator": {"@id": "https://naroa.online/#artist"},
+            "artMedium": "Mixed Media",
+            "dateCreated": "2021",
+            "image": "https://naroa.online/images/artworks/Webps/lagrimas-de-oro.webp"
+          },
+          {
+            "@type": "VisualArtwork",
+            "position": 5,
+            "name": "El Gran Dakari",
+            "creator": {"@id": "https://naroa.online/#artist"},
+            "artMedium": "Mixed Media",
+            "dateCreated": "2021",
+            "image": "https://naroa.online/images/artworks/Webps/el-gran-dakari.webp"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Navigation - HIDDEN (MICA is the interface) -->
@@ -579,6 +665,12 @@
           <h3 class="game-card__title">Reversi</h3>
           <p class="game-card__desc">Voltea y conquista</p>
         </a>
+        <a href="#/restaurador" class="game-card game-card--spectacular game-card--web3">
+          <div class="game-card__icon">🎨💀</div>
+          <h3 class="game-card__title">El Restaurador Desastroso</h3>
+          <p class="game-card__desc">"Restaura" retratos en 15s + Mint NFT gratis</p>
+          <span class="game-card__badge">🪙 Web3</span>
+        </a>
       </div>
     </section>
 
@@ -695,6 +787,11 @@
       <header class="view__header"><h2>⚫ Reversi</h2></header>
       <div class="game-container" id="reversi-container"></div>
     </section>
+
+    <!-- El Restaurador Desastroso View (Web3 NFT Game) -->
+    <section id="view-restaurador" class="view view--restaurador game-view">
+      <div class="game-container" id="restaurador-container"></div>
+    </section>
   </main>
 
   <!-- Lightbox -->
@@ -749,6 +846,9 @@
   <script src="js/features/checkers-game.js" defer></script>
   <script src="js/features/connect4-game.js" defer></script>
   <script src="js/features/reversi-game.js" defer></script>
+  <!-- El Restaurador Desastroso (Web3 Game) -->
+  <script src="js/features/restaurador-game.js" defer></script>
+  <script src="js/features/restaurador-web3.js" defer></script>
   <!-- Immersive 3D Spatial Audio Engine -->
   <script src="js/audio/audio-synth.js"></script>
   <script src="js/audio/immersive-audio.js"></script>
