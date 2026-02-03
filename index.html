@@ -27,7 +27,29 @@
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" as="style">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
+  <!-- LCP Preload: Hero image -->
+  <link rel="preload" as="image" href="images/artworks/Webps/espejos-del-alma.webp" fetchpriority="high">
+  
+  <!-- Critical CSS (inline for FCP) -->
+  <style>
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+    button { background: none; border: none; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    /* Core Variables */
+    :root {
+      --color-bg: #0a0a0a; --color-text: #fefefe; --color-accent: #1a1a1a;
+      --font-family-main: 'Outfit', -apple-system, sans-serif;
+      --font-size-hero: clamp(4rem, 3rem + 5vw, 12rem);
+      --space-4: 1rem; --space-6: 2rem; --space-8: 3rem;
+      --duration-base: 300ms; --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+  
+  <!-- Core Styles -->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/naroa-palette.css">
@@ -40,17 +62,23 @@
   <link rel="stylesheet" href="css/soty-effects.css">
   <link rel="stylesheet" href="css/mica.css">
   <link rel="stylesheet" href="css/wow-effects.css">
-  <link rel="stylesheet" href="css/oca-game.css">
-  <link rel="stylesheet" href="css/tetris-game.css">
-  <link rel="stylesheet" href="css/games-hub.css">
-  <link rel="stylesheet" href="css/arcade-leaderboard.css">
+  
+  <!-- Deferred Game Styles (load after interaction) -->
+  <link rel="stylesheet" href="css/oca-game.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/tetris-game.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/games-hub.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/arcade-leaderboard.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/restaurador-game.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/incredible-crisis.css" media="print" onload="this.media='all'">
+  
+  <!-- Secondary Styles -->
   <link rel="stylesheet" href="css/about-contact.css">
   <link rel="stylesheet" href="css/audio-controls.css">
   <link rel="stylesheet" href="css/audio-reactive.css">
   <link rel="stylesheet" href="css/gallery-disruptive.css">
   <link rel="stylesheet" href="css/scroll-to-top.css">
   <link rel="stylesheet" href="css/video-showcase.css">
-  <link rel="stylesheet" href="css/restaurador-game.css">
+
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">

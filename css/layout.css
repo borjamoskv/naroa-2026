@@ -100,8 +100,8 @@ body {
 .hero__line {
   display: block;
   font-size: var(--font-display-size);
-  font-weight: 800; /* Bold */
-  letter-spacing: -0.04em;
+  font-weight: 300; /* MINIMALISMO: Light weight */
+  letter-spacing: -0.02em; /* Más abierto */
   color: var(--color-text-deep);
   mix-blend-mode: multiply;
 }
@@ -163,23 +163,22 @@ body {
   color: var(--color-gold-mica);
 }
 
-/* Spotify - Hidden Minimal Pill */
+/* Spotify - Visible Minimal Pill */
 .hero__spotify {
   position: absolute;
   bottom: 2rem;
   left: 2rem;
   z-index: 10;
-  opacity: 0.6;
-  transform: scale(0.8);
+  opacity: 0.9; /* Más visible */
+  transform: scale(0.9);
   transform-origin: bottom left;
   transition: all 0.3s ease;
-  filter: grayscale(100%); /* B&W to match minimal */
+  filter: none; /* Sin filtro */
 }
 
 .hero__spotify:hover {
   opacity: 1;
   transform: scale(1);
-  filter: grayscale(0%);
 }
 
 /* Visit Counter - Palindrome Number */
@@ -232,7 +231,10 @@ body {
   }
   
   .hero__spotify {
-    display: none; /* Hide on mobile to be clean */
+    display: block; /* Visible en móvil también */
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%) scale(0.85);
   }
 }
 

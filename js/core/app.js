@@ -133,6 +133,10 @@
         const container = document.getElementById('reversi-container');
         if (container && window.initReversiGame) window.initReversiGame(container);
       })
+      .register('#/restaurador', () => {
+        router.showView('view-restaurador');
+        if (window.RestauradorGame) window.RestauradorGame.init();
+      })
       .register('#/videos', () => {
         router.showView('view-videos');
       });

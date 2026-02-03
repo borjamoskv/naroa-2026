@@ -1,0 +1,330 @@
+/**
+ * Restaurador Desastroso - Estilos
+ * Arcade aesthetic with premium polish
+ */
+
+/* Container */
+.restaurador-game {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--space-md);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  font-family: var(--font-body);
+}
+
+/* Header */
+.restaurador-header {
+  text-align: center;
+}
+
+.restaurador-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6b6b, #ffd43b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-xs);
+}
+
+.restaurador-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted, #888);
+}
+
+/* Timer */
+.restaurador-timer {
+  position: relative;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timer-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #69db7c, #ffd43b);
+  transition: width 0.3s ease-out, background 0.3s ease;
+  border-radius: 14px;
+}
+
+.timer-bar.timer-critical {
+  animation: timer-pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Workspace */
+.restaurador-workspace {
+  display: flex;
+  justify-content: center;
+}
+
+.canvas-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+#restaurador-canvas {
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* Palette */
+.restaurador-palette {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: var(--space-sm);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.palette-section h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted, #888);
+  margin-bottom: var(--space-xs);
+}
+
+/* Tools */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.tool-btn.active {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: #ff6b6b;
+}
+
+.tool-emoji {
+  font-size: 1.5rem;
+}
+
+.tool-name {
+  font-size: 0.65rem;
+  color: var(--color-text-muted, #aaa);
+  text-align: center;
+}
+
+/* Colors */
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.color-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.color-btn:hover {
+  transform: scale(1.15);
+}
+
+.color-btn.active {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px #ff6b6b, 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Result Modal */
+.restaurador-result {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  padding: var(--space-md);
+}
+
+.restaurador-result.modal-enter {
+  animation: modal-fade-in 0.4s ease-out;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.result-content {
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.98));
+  border-radius: 24px;
+  padding: var(--space-lg);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+.result-title {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6b6b, #ffd43b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-xs);
+}
+
+.result-subtitle {
+  color: var(--color-text-muted, #888);
+  margin-bottom: var(--space-md);
+}
+
+.result-preview {
+  margin-bottom: var(--space-md);
+}
+
+.result-preview img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Action Buttons */
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-btn {
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-download {
+  background: linear-gradient(135deg, #4dabf7, #748ffc);
+  color: white;
+}
+
+.action-mint {
+  background: linear-gradient(135deg, #ffd43b, #fab005);
+  color: #1a1a1a;
+}
+
+.action-share {
+  background: linear-gradient(135deg, #1da1f2, #0d8ecf);
+  color: white;
+}
+
+.action-retry {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .restaurador-game {
+    padding: var(--space-sm);
+  }
+
+  #restaurador-canvas {
+    width: 100%;
+    height: auto;
+  }
+
+  .tool-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tool-name {
+    display: none;
+  }
+
+  .tool-emoji {
+    font-size: 2rem;
+  }
+}
+
+/* Game Hub Web3 Badge */
+.game-card--web3 {
+  position: relative;
+  border: 2px solid #ffd43b;
+  background: linear-gradient(135deg, rgba(255, 212, 59, 0.1), rgba(255, 107, 107, 0.1));
+}
+
+.game-card__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #ffd43b, #fab005);
+  color: #1a1a1a;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
