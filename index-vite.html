@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual. Retratos, murales y obra gráfica desde Bilbao.">
+  <meta name="theme-color" content="#0a0a0a">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Naroa Gutiérrez Gil | Artista Visual">
+  <meta property="og:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
+  <meta property="og:image" content="https://naroa.online/images/artworks/Webps/espejos-del-alma.webp">
+  <meta property="og:url" content="https://naroa.online">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Naroa Gutiérrez Gil | Artista Visual">
+  <meta name="twitter:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
+  <meta name="twitter:image" content="https://naroa.online/images/artworks/Webps/espejos-del-alma.webp">
+  
+  <title>Naroa Gutiérrez Gil | Artista Visual</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  
+  <!-- Schema.org JSON-LD for Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://naroa.online/#artist",
+        "name": "Naroa Gutiérrez Gil",
+        "jobTitle": "Artista Visual",
+        "description": "Artista visual especializada en hiperrealismo POP",
+        "url": "https://naroa.online"
+      },
+      {
+        "@type": "ArtGallery",
+        "@id": "https://naroa.online/#gallery",
+        "name": "Naroa Gutiérrez Gil - Galería Digital",
+        "url": "https://naroa.online"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Navigation - HIDDEN (MICA is the interface) -->
+  <nav class="nav nav--hidden" aria-hidden="true"></nav>
+
+  <!-- TRINITY OVERLAYS -->
+  <div class="page-transition-overlay" id="page-curtain">
+      <div class="thread"></div>
+  </div>
+  
+  <div class="scroll-progress-container">
+      <div class="scroll-progress-bar" id="scroll-thread">
+          <div class="scroll-progress-thread"></div>
+      </div>
+  </div>
+
+  <!-- WOW FILTERS -->
+  <svg class="svg-filters" aria-hidden="true">
+      <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise"/>
+          <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 .1  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redP"/>
+          <feOffset in="redP" dx="5" dy="0" result="redPshifted"/>
+          <feMerge>
+              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="redPshifted"/>
+          </feMerge>
+      </filter>
+  </svg>
+
+  <!-- Main Content -->
+  <main id="app">
+    <!-- Content will be the same as index.html -->
+    <!-- Copy sections from original index.html here -->
+    <div id="vite-loading" style="display:flex;align-items:center;justify-content:center;height:100vh;color:white;font-family:system-ui;">
+      <p>🎨 Cargando Naroa 2026...</p>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" aria-label="Cerrar">&times;</button>
+    <button class="lightbox__prev" aria-label="Anterior">&#8249;</button>
+    <button class="lightbox__next" aria-label="Siguiente">&#8250;</button>
+    <figure class="lightbox__content">
+      <img src="" alt="" class="lightbox__img" id="lightbox-img">
+      <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <!-- VITE: Single Entry Point (replaces 50+ scripts) -->
+  <script type="module" src="/main.js"></script>
+  
+  <!-- Gallery Disruptive 2.0: SVG Filters -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
+        <feColorMatrix type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+      </filter>
+      <filter id="chromatic-blue" x="-20%" y="-20%" width="140%" height="140%">
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+</body>
+</html>
