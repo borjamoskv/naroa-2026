@@ -32,6 +32,11 @@
         router.showView('view-destacada');
         loadFeatured();
       })
+      .register('#/galeria', () => {
+        // Alias para galería - muestra la vista destacada con todas las obras
+        router.showView('view-destacada');
+        loadGalleryDisruptive();
+      })
       .register('#/archivo', () => {
         router.showView('view-archivo');
         loadArchive();
@@ -212,6 +217,20 @@
     console.log('[App] Loading Archivo...');
     if (window.Gallery) {
       window.Gallery.loadArchive();
+    }
+  }
+
+  function loadGalleryDisruptive() {
+    console.log('[App] Loading Galería Disruptiva...');
+    // First load featured content
+    if (window.Gallery) {
+      window.Gallery.loadFeatured();
+    }
+    // Then initialize the disruptive engine for effects
+    if (window.GalleryDisruptive) {
+      // Reset and reinitialize to ensure lazy loading works
+      window.GalleryDisruptive.initialized = false;
+      window.GalleryDisruptive.init();
     }
   }
 
