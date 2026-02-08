@@ -21,6 +21,10 @@
   <meta name="twitter:image" content="https://naroa.online/images/artworks/Webps/espejos-del-alma.webp">
   
   <title>Naroa Gutiérrez Gil | Artista Visual</title>
+  <style>
+    #vite-loading { display:flex; align-items:center; justify-content:center; height:100vh; color:white; font-family:system-ui; }
+    .svg-filters-hidden { position: absolute; width: 0; height: 0; overflow: hidden; }
+  </style>
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -80,7 +84,7 @@
   <main id="app">
     <!-- Content will be the same as index.html -->
     <!-- Copy sections from original index.html here -->
-    <div id="vite-loading" style="display:flex;align-items:center;justify-content:center;height:100vh;color:white;font-family:system-ui;">
+    <div id="vite-loading">
       <p>🎨 Cargando Naroa 2026...</p>
     </div>
   </main>
@@ -100,7 +104,7 @@
   <script type="module" src="/main.js"></script>
   
   <!-- Gallery Disruptive 2.0: SVG Filters -->
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+  <svg class="svg-filters-hidden" aria-hidden="true">
     <defs>
       <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
         <feColorMatrix type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>

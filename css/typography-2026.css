@@ -1,15 +1,9 @@
-/* ============================================
-   TYPOGRAPHY 2026 - PREMIUM FONT SYSTEM
-   ============================================
-   Fonts:
-   - Switzer: Neo-grotesque display (headers)
-   - Satoshi: Modernist geometric sans (body/UI)
-   
-   Research: Awwwards/FWA 2026 trending fonts
-   ============================================ */
+/* ==========================================================================
+   TYPOGRAPHY 2026 — CYBER-POP EDITION
+   Mono accents, aggressive headings
+   ========================================================================== */
 
-/* === BASE TYPOGRAPHY === */
-
+/* Base */
 body {
   font-family: var(--font-family-main);
   font-weight: var(--font-weight-normal);
@@ -20,224 +14,81 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* === HEADINGS - Switzer Display === */
-
-h1, h2, h3, h4, h5, h6,
-.heading {
+/* Headings */
+h1, h2, h3, h4, h5, h6, .heading {
   font-family: var(--font-family-display);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-tight);
   letter-spacing: var(--letter-spacing-tight);
-  text-wrap: balance;
 }
 
-h1, .h1 {
-  font-size: var(--font-size-hero);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-}
+h1, .h1 { font-size: var(--font-size-hero); font-weight: var(--font-weight-light); letter-spacing: -0.02em; line-height: 0.95; }
+h2, .h2 { font-size: var(--font-size-3xl); letter-spacing: -0.02em; }
+h3, .h3 { font-size: var(--font-size-2xl); }
+h4, .h4 { font-size: var(--font-size-xl); }
+h5, .h5 { font-size: var(--font-size-lg); }
+h6, .h6 { font-size: var(--font-size-base); font-weight: var(--font-weight-medium); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
 
-h2, .h2 {
-  font-size: var(--font-size-3xl);
-  letter-spacing: -0.03em;
-}
+/* Body */
+p { font-size: var(--font-size-base); line-height: var(--line-height-relaxed); max-width: 65ch; }
+.lead { font-size: var(--font-size-lg); font-weight: var(--font-weight-light); color: var(--white-muted); }
+small, .small { font-size: var(--font-size-sm); }
+.fine-print { font-size: var(--font-size-xs); color: var(--white-subtle); letter-spacing: var(--letter-spacing-wide); }
 
-h3, .h3 {
-  font-size: var(--font-size-2xl);
-  letter-spacing: -0.02em;
-}
+/* Kinetic — disabled for minimalism */
+.kinetic-text { position: relative; display: block; }
+.kinetic-text .char { display: inline-block; }
+.kinetic-text:hover .char { animation: none; }
 
-h4, .h4 {
-  font-size: var(--font-size-xl);
-}
+/* Scramble */
+.scramble-text { font-family: var(--font-family-mono); letter-spacing: 0.05em; }
 
-h5, .h5 {
-  font-size: var(--font-size-lg);
-}
-
-h6, .h6 {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wider);
-}
-
-/* === BODY TEXT - Satoshi === */
-
-p {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
-  max-width: 65ch; /* Optimal reading width */
-}
-
-.lead {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-muted);
-}
-
-small, .small {
-  font-size: var(--font-size-sm);
-}
-
-.fine-print {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-/* === KINETIC TYPOGRAPHY UTILITIES === */
-
-/* Split text for per-character animation */
-.kinetic-text {
-  position: relative;
-  display: block;
-}
-
-.kinetic-text .char {
-  display: inline-block;
-  transition: transform 0.4s var(--ease-bounce), opacity 0.3s var(--ease-out);
-}
-
-.kinetic-text:hover .char {
-  animation: kinetic-wave 0.6s ease-out forwards;
-  animation-delay: calc(var(--char-index) * 0.03s);
-}
-
-@keyframes kinetic-wave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-/* Scramble text effect */
-.scramble-text {
-  font-family: var(--font-family-mono);
-  letter-spacing: 0.05em;
-}
-
-/* Reveal on scroll */
+/* Reveal */
 .reveal-text {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-}
-
-.reveal-text.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger children reveal */
-.reveal-stagger > * {
-  opacity: 0;
-  transform: translateY(15px);
+  transform: translateY(10px);
   transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
+.reveal-text.visible { opacity: 1; transform: translateY(0); }
 
-.reveal-stagger.visible > * {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Display utilities */
+.gradient-text { color: var(--white); background: none; -webkit-background-clip: unset; background-clip: unset; -webkit-text-fill-color: unset; }
+.glow-text { text-shadow: none; }
+.outline-text { -webkit-text-stroke: 1px var(--white); -webkit-text-fill-color: transparent; }
+.outline-text:hover { -webkit-text-fill-color: var(--white); transition: all 0.3s; }
 
-.reveal-stagger > *:nth-child(1) { transition-delay: 0.1s; }
-.reveal-stagger > *:nth-child(2) { transition-delay: 0.2s; }
-.reveal-stagger > *:nth-child(3) { transition-delay: 0.3s; }
-.reveal-stagger > *:nth-child(4) { transition-delay: 0.4s; }
-.reveal-stagger > *:nth-child(5) { transition-delay: 0.5s; }
-
-/* === DISPLAY UTILITIES === */
-
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, 
-    var(--color-warm-200) 0%, 
-    var(--color-warm-300) 50%, 
-    var(--color-gray-400) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Glow text */
-.glow-text {
-  text-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.3),
-    0 0 20px rgba(255, 255, 255, 0.2),
-    0 0 30px rgba(255, 255, 255, 0.1);
-}
-
-/* Outline text */
-.outline-text {
-  -webkit-text-stroke: 1px var(--color-text);
-  -webkit-text-fill-color: transparent;
-}
-
-.outline-text:hover {
-  -webkit-text-fill-color: var(--color-text);
-  transition: all 0.3s var(--ease-out);
-}
-
-/* === FONT WEIGHT UTILITIES === */
-
+/* Weight utilities */
 .font-light { font-weight: var(--font-weight-light); }
 .font-normal { font-weight: var(--font-weight-normal); }
 .font-medium { font-weight: var(--font-weight-medium); }
 .font-semibold { font-weight: var(--font-weight-semibold); }
 
-/* === TRACKING UTILITIES === */
-
+/* Tracking utilities */
 .tracking-tight { letter-spacing: var(--letter-spacing-tight); }
 .tracking-normal { letter-spacing: var(--letter-spacing-normal); }
 .tracking-wide { letter-spacing: var(--letter-spacing-wide); }
 .tracking-wider { letter-spacing: var(--letter-spacing-wider); }
 .tracking-widest { letter-spacing: var(--letter-spacing-widest); }
 
-/* === SPECIAL EFFECTS === */
-
-/* Hero title with dancing baseline (like Harmond font) */
-.dancing-baseline .char:nth-child(odd) {
-  transform: translateY(-0.05em);
-}
-
-.dancing-baseline .char:nth-child(even) {
-  transform: translateY(0.05em);
-}
-
-/* Uppercase label style */
+/* Label */
 .label-text {
   font-family: var(--font-family-main);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-widest);
-  color: var(--color-text-muted);
+  color: var(--white-subtle);
 }
 
-/* === RESPONSIVE TYPOGRAPHY === */
+/* Dancing baseline — disabled */
+.dancing-baseline .char:nth-child(odd),
+.dancing-baseline .char:nth-child(even) { transform: none; }
 
+/* Responsive */
 @media (max-width: 768px) {
-  h1, .h1 {
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-  
-  .kinetic-text:hover .char {
-    animation: none; /* Disable on mobile for performance */
-  }
+  h1, .h1 { letter-spacing: -0.02em; line-height: 1; }
 }
-
-/* === ANIMATION PREFERENCE RESPECT === */
 
 @media (prefers-reduced-motion: reduce) {
-  .kinetic-text .char,
-  .reveal-text,
-  .reveal-stagger > * {
-    animation: none;
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
+  .reveal-text { animation: none; transition: none; opacity: 1; transform: none; }
 }

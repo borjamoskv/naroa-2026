@@ -1,0 +1,97 @@
+/**
+ * NAROA 2026 — 360° Infinite Canvas
+ * Uses absolute positioning + oversized container for real scrollable 2D space.
+ * Swarm Navigator uses window.scrollTo(x, y) which works natively.
+ */
+
+/* The main container creates the actual 2D scrollable canvas */
+#app {
+  position: relative;
+  width: 200vw;
+  height: 200vh;
+  overflow: visible;
+}
+
+/* All views are positioned absolutely on the canvas */
+#app > .view {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* ═══ QUADRANT MAP ═══
+ *  (0,0) HOME        (100vw, 0) GALERÍA
+ *  (0,100vh) ABOUT   (100vw, 100vh) CONTACTO
+ */
+
+/* (0, 0) HOME — Top-Left Origin */
+#view-home {
+  left: 0;
+  top: 0;
+}
+
+/* (100vw, 0) GALERÍA — Top-Right */
+#view-gallery {
+  display: none; /* Replaced by view-archivo */
+}
+#view-archivo {
+  left: 100vw;
+  top: 0;
+}
+
+/* (0, 100vh) ABOUT — Bottom-Left */
+#view-about {
+  left: 0;
+  top: 100vh;
+}
+
+/* (100vw, 100vh) CONTACTO — Bottom-Right */
+#view-contacto {
+  left: 100vw;
+  top: 100vh;
+}
+
+/* ═══ SECONDARY VIEWS (stacked below canvas) ═══ */
+#view-exposiciones { left: 0; top: 200vh; }
+#view-destacada { left: 0; top: 0; z-index: 5; }
+#view-games,
+#view-juegos { left: 0; top: 300vh; }
+#view-manifesto { left: 100vw; top: 200vh; }
+
+/* Game views — off-canvas, accessed by direct navigation */
+.game-view { left: 0; top: 400vh; }
+
+/* Other secondary views */
+#view-juego { left: 0; top: 400vh; }
+#view-tetris { left: 0; top: 400vh; }
+#view-mica-dashboard { left: 100vw; top: 300vh; }
+#view-obra { left: 100vw; top: 400vh; }
+
+/* Smooth scrolling on the page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbars for immersive feel */
+body {
+  overflow: scroll;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Navigation Compass */
+.compass-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  z-index: 9999;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}

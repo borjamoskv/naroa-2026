@@ -1,0 +1,347 @@
+/* ==========================================================================
+   KIMI K2.5 CREATIVE IDEAS — All 9 Features
+   Minimalista + WOW
+   ========================================================================== */
+
+/* ─────────────────────────────────────────────
+   #9 FIRMA DIGITAL ANIMADA
+   Hero name writes itself like a real signature
+   ───────────────────────────────────────────── */
+.hero__title .hero__line {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--white) 50%, transparent 50%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: signWrite 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: calc(var(--line-i, 0) * 0.4s);
+}
+
+@keyframes signWrite {
+  0%   { background-position: 100% 0; opacity: 0.3; }
+  100% { background-position: 0% 0; opacity: 1; }
+}
+
+/* Stagger each line */
+.hero__title .hero__line:nth-child(1) { --line-i: 0; }
+.hero__title .hero__line:nth-child(2) { --line-i: 1; }
+.hero__title .hero__line:nth-child(3) { --line-i: 2; }
+
+/* Signature underline accent after last line */
+.hero__title .hero__line:last-child::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--accent, #C4713B);
+  margin-top: 0.3em;
+  animation: underlineGrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.4s forwards;
+}
+
+@keyframes underlineGrow {
+  to { width: 60%; }
+}
+
+/* ─────────────────────────────────────────────
+   #4 PRECIO QUE RESPIRA
+   Available prices breathe, sold are muted
+   ───────────────────────────────────────────── */
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+.price-available {
+  color: var(--accent, #C4713B);
+  font-weight: 500;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.price-sold {
+  color: rgba(255,255,255,0.25);
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+.price-enquire {
+  color: var(--white-muted, rgba(255,255,255,0.6));
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────
+   #10 MODO COLECCIONISTA
+   Toggle that reveals technical specs
+   ───────────────────────────────────────────── */
+.collector-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.collector-toggle:hover {
+  border-color: var(--accent, #C4713B);
+  color: var(--white, #fff);
+}
+
+.collector-toggle__icon {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+body.collector .collector-toggle {
+  border-color: var(--accent, #C4713B);
+  color: var(--accent, #C4713B);
+}
+
+body.collector .collector-toggle__icon {
+  transform: rotate(180deg);
+}
+
+/* Collector mode: show specs, hide casual prices */
+.tech-specs {
+  display: none;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.05em;
+  margin-top: 0.3rem;
+  line-height: 1.5;
+}
+
+body.collector .tech-specs { display: block; }
+body.collector .price-available { animation: none; opacity: 1; }
+
+/* ─────────────────────────────────────────────
+   #2 CURSOR LUPA HIPERREALISTA
+   Zoom circle follows mouse on gallery items
+   ───────────────────────────────────────────── */
+.cursor-lens {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  border: 2px solid var(--accent, #C4713B);
+  border-radius: 50%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  box-shadow: 0 0 20px rgba(196,113,59,0.15);
+  transform: translate(-50%, -50%);
+}
+
+.cursor-lens.active { opacity: 1; }
+
+.cursor-lens__img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  min-width: 200%;
+  min-height: 200%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Hide default cursor on gallery when lens active */
+.gallery__item:hover { cursor: none; }
+
+/* ─────────────────────────────────────────────
+   #1 PARALLAX SCROLL (Gallery depth)
+   Items at different speeds create depth
+   ───────────────────────────────────────────── */
+.gallery__item[data-speed] {
+  will-change: transform;
+  transition: transform 0.08s linear;
+}
+
+/* ─────────────────────────────────────────────
+   #5 TRANSICIÓN CIRCULAR CINEMA
+   clip-path circle expands from click point
+   ───────────────────────────────────────────── */
+.burn-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--accent, #C4713B);
+  clip-path: circle(0% at 50% 50%);
+  pointer-events: none;
+  transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.burn-transition.expanding {
+  clip-path: circle(150% at var(--burn-x, 50%) var(--burn-y, 50%));
+}
+
+.burn-transition.fading {
+  background: var(--black, #000);
+  clip-path: circle(150% at var(--burn-x, 50%) var(--burn-y, 50%));
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+/* ─────────────────────────────────────────────
+   #8 SWIPE GALLERY — Favorites
+   Floating heart + favorites bar
+   ───────────────────────────────────────────── */
+.floating-heart {
+  position: fixed;
+  z-index: 10001;
+  font-size: 2rem;
+  color: var(--accent, #C4713B);
+  pointer-events: none;
+  animation: heartFloat 0.8s ease-out forwards;
+}
+
+@keyframes heartFloat {
+  0%   { opacity: 1; transform: scale(0.5) translateY(0); }
+  50%  { opacity: 1; transform: scale(1.2) translateY(-30px); }
+  100% { opacity: 0; transform: scale(0.8) translateY(-60px); }
+}
+
+.favorites-bar {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  background: rgba(0,0,0,0.7);
+  border-radius: 0.5rem 0 0 0.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-right: none;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  max-height: 50vh;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.favorites-bar.empty {
+  transform: translateY(-50%) translateX(100%);
+}
+
+.favorites-bar__item {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: border-color 0.2s ease;
+}
+
+.favorites-bar__item:hover {
+  border-color: var(--accent, #C4713B);
+}
+
+.favorites-bar__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.favorites-bar__count {
+  text-align: center;
+  font-size: 0.6rem;
+  color: var(--accent, #C4713B);
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0;
+}
+
+/* Swipe hint for mobile */
+.swipe-hint {
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0,0,0,0.8);
+  border-radius: 2rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  z-index: 8001;
+  animation: fadeInUp 0.5s ease 2s forwards;
+  opacity: 0;
+}
+
+@media (pointer: coarse) {
+  .swipe-hint { display: flex; }
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateX(-50%) translateY(-5px); }
+}
+
+/* ─────────────────────────────────────────────
+   #6 MICA CONTEXTUAL
+   Subtle notification when viewing art
+   ───────────────────────────────────────────── */
+.mica-context-bubble {
+  position: fixed;
+  bottom: 5rem;
+  left: 1.5rem;
+  max-width: 280px;
+  padding: 0.8rem 1rem;
+  background: rgba(0,0,0,0.9);
+  border: 1px solid rgba(196,113,59,0.3);
+  border-radius: 0.75rem 0.75rem 0.75rem 0;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  z-index: 8500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.mica-context-bubble.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mica-context-bubble__label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent, #C4713B);
+  margin-bottom: 0.3rem;
+}
+
+/* ─────────────────────────────────────────────
+   Reduced Motion
+   ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero__title .hero__line { animation: none; opacity: 1; }
+  .hero__title .hero__line:last-child::after { animation: none; width: 60%; }
+  .price-available { animation: none; opacity: 1; }
+  .burn-transition { transition: none; }
+  .floating-heart { animation: none; }
+}

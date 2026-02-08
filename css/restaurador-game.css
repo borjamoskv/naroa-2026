@@ -1,6 +1,6 @@
 /**
- * Restaurador Desastroso - Estilos
- * Arcade aesthetic with premium polish
+ * Restaurador Desastroso — CYBER-POP
+ * Arcade aesthetic with red + fluor polish
  */
 
 /* Container */
@@ -23,7 +23,7 @@
 .restaurador-title {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
-  background: linear-gradient(135deg, #ff6b6b, #ffd43b);
+  background: linear-gradient(135deg, var(--red-pop, #ff003c), var(--fluor, #ccff00));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -48,7 +48,7 @@
 .timer-bar {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, #69db7c, #ffd43b);
+  background: linear-gradient(90deg, var(--fluor, #ccff00), var(--red-pop, #ff003c));
   transition: width 0.3s ease-out, background 0.3s ease;
   border-radius: 14px;
 }
@@ -139,8 +139,8 @@
 }
 
 .tool-btn.active {
-  background: rgba(255, 107, 107, 0.2);
-  border-color: #ff6b6b;
+  background: rgba(255, 0, 60, 0.15);
+  border-color: var(--red-pop, #ff003c);
 }
 
 .tool-emoji {
@@ -176,7 +176,7 @@
 
 .color-btn.active {
   border-color: #fff;
-  box-shadow: 0 0 0 2px #ff6b6b, 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 2px var(--red-pop, #ff003c), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Result Modal */
@@ -220,7 +220,7 @@
 .result-title {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ff6b6b, #ffd43b);
+  background: linear-gradient(135deg, var(--red-pop, #ff003c), var(--fluor, #ccff00));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -264,13 +264,13 @@
 }
 
 .action-download {
-  background: linear-gradient(135deg, #4dabf7, #748ffc);
-  color: white;
+  background: var(--fluor, #ccff00);
+  color: #050505;
 }
 
 .action-mint {
-  background: linear-gradient(135deg, #ffd43b, #fab005);
-  color: #1a1a1a;
+  background: var(--red-pop, #ff003c);
+  color: #fff;
 }
 
 .action-share {

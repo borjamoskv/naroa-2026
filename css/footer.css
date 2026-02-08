@@ -1,0 +1,93 @@
+/* ===========================================
+   FOOTER — Naroa 2026 · CYBER-POP
+   =========================================== */
+
+.site-footer {
+  position: relative;
+  padding: 3rem 2rem 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(5,5,5,0.98) 30%);
+  border-top: 2px solid var(--red-pop, #ff003c);
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer__logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.85);
+  background: linear-gradient(135deg, var(--red-pop, #ff003c) 0%, var(--fluor, #ccff00) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer__tagline {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  color: var(--fluor, #ccff00);
+}
+
+.footer__links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.footer__link {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+  color: var(--fluor, #ccff00);
+}
+
+.footer__copy {
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 0, 60, 0.15);
+  letter-spacing: 0.08em;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer__container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer__brand {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .footer__links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

@@ -1,0 +1,83 @@
+/* ============================================
+   GALLERY WOW EFFECTS — Naroa 2026
+   Breathing glow + 3D hover transforms
+   ============================================ */
+
+/* Breathing Glow — activated on hover */
+.gallery__item {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gallery__item::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,
+    rgba(201, 165, 92, 0.4),
+    rgba(147, 112, 219, 0.3),
+    rgba(59, 130, 246, 0.3),
+    rgba(201, 165, 92, 0.4));
+  background-size: 300% 300%;
+  opacity: 0;
+  z-index: -1;
+  animation: glow-breathe 4s ease-in-out infinite;
+  filter: blur(15px);
+  transition: opacity 0.5s ease;
+}
+
+.gallery__item:hover::before {
+  opacity: 1;
+}
+
+@keyframes glow-breathe {
+  0%, 100% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: scale(1.02);
+  }
+}
+
+.gallery__item:hover {
+  z-index: 10;
+}
+
+/* Glassmorphism frame on hover */
+.gallery__item picture,
+.gallery__item > img {
+  border-radius: 8px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gallery__item:hover picture,
+.gallery__item:hover > img {
+  box-shadow:
+    0 35px 70px -15px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(201, 165, 92, 0.3),
+    0 0 60px rgba(201, 165, 92, 0.1);
+}
+
+/* Caption slide-up on hover */
+.gallery__caption {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.gallery__item:hover .gallery__caption {
+  transform: translateY(-4px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gallery__item::before { animation: none; }
+  .gallery__item { transition: none; }
+  .gallery__item picture,
+  .gallery__item > img { transition: none; }
+}

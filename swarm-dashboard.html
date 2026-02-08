@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fractal Swarm v5.5 — Command Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #050507;
+      --bg-secondary: #0d0d12;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a25;
+      --border: #1e1e2e;
+      --text-primary: #e8e8f0;
+      --text-secondary: #8888a0;
+      --text-muted: #555570;
+      --accent-gold: #fbbf24;
+      --accent-blue: #3b82f6;
+      --accent-green: #22c55e;
+      --accent-red: #ef4444;
+      --accent-purple: #a855f7;
+      --accent-cyan: #06b6d4;
+      --glass: rgba(255,255,255,0.03);
+      --glass-border: rgba(255,255,255,0.06);
+      --radius: 12px;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    html { font-size: 14px; scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      grid-template-rows: auto 1fr;
+      gap: 1px;
+      min-height: 100vh;
+      background: var(--border);
+    }
+
+    .header {
+      grid-column: 1 / -1;
+      background: var(--bg-secondary);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header__brand { display: flex; align-items: center; gap: 12px; }
+    .header__logo {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: -0.5px;
+    }
+    .header__version {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.2);
+      border-radius: 99px;
+      color: var(--accent-gold);
+      font-family: var(--font-mono);
+      transition: all 0.3s ease;
+    }
+    .header__stats { display: flex; gap: 24px; }
+    .header__stat { text-align: right; }
+    .header__stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .header__stat-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .main { background: var(--bg-primary); overflow-y: auto; padding: 20px; }
+    .sidebar { background: var(--bg-secondary); overflow-y: auto; padding: 20px; }
+
+    .section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .pool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .specialty-card {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .specialty-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-accent, var(--accent-blue));
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .specialty-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+    .specialty-card:hover::before { opacity: 1; }
+
+    .specialty-card__header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .specialty-card__icon { font-size: 1.2rem; }
+    .specialty-card__name {
+      font-size: 0.8rem; font-weight: 600; color: var(--text-primary);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .specialty-card__count {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--text-muted); margin-left: auto;
+    }
+
+    .agent-dots { display: flex; flex-wrap: wrap; gap: 3px; }
+    .agent-dot {
+      width: 8px; height: 8px; border-radius: 2px;
+      background: var(--accent-green); opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    .agent-dot--busy { background: var(--accent-gold); animation: pulse 1.5s infinite; }
+    .agent-dot--error { background: var(--accent-red); }
+    .agent-dot--inactive { background: var(--text-muted); opacity: 0.3; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .mission-control {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .mission-input-group { display: flex; gap: 8px; margin-bottom: 16px; }
+    .mission-input {
+      flex: 1;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .mission-input:focus { border-color: var(--accent-gold); }
+    .mission-input::placeholder { color: var(--text-muted); }
+
+    .btn {
+      padding: 10px 20px; border: none; border-radius: 8px;
+      font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn--primary {
+      background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+      color: #000;
+    }
+    .btn--primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(251,191,36,0.3); }
+    .btn--primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn--preset {
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+    }
+    .btn--preset:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+
+    .execution-log {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .execution-log__header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .execution-log__status {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-green);
+    }
+    .execution-log__status--running { background: var(--accent-gold); animation: pulse 1s infinite; }
+    .execution-log__title { font-size: 0.75rem; font-weight: 600; }
+
+    .log-entries {
+      max-height: 400px; overflow-y: auto;
+      font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.8;
+    }
+    .log-entry {
+      padding: 4px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      display: flex; gap: 8px; transition: background 0.2s;
+    }
+    .log-entry:hover { background: rgba(255,255,255,0.02); }
+    .log-entry__time { color: var(--text-muted); min-width: 65px; }
+    .log-entry__icon { min-width: 20px; text-align: center; }
+    .log-entry__text { color: var(--text-secondary); }
+    .log-entry--phase .log-entry__text { color: var(--accent-cyan); font-weight: 500; }
+    .log-entry--finding .log-entry__text { color: var(--accent-green); }
+    .log-entry--error .log-entry__text { color: var(--accent-red); }
+    .log-entry--retry .log-entry__text { color: var(--accent-gold); }
+
+    .token-meter {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 16px; margin-bottom: 16px;
+    }
+    .token-meter__header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .token-meter__label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+    .token-meter__value { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-primary); }
+    .token-bar { height: 6px; background: var(--bg-primary); border-radius: 3px; overflow: hidden; }
+    .token-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
+      border-radius: 3px; transition: width 0.5s ease;
+    }
+    .token-bar__fill--warning { background: linear-gradient(90deg, var(--accent-gold), var(--accent-red)); }
+
+    .findings-feed {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 16px;
+    }
+    .findings-feed__header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+    .findings-list { max-height: 300px; overflow-y: auto; }
+    .finding-item {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      font-size: 0.75rem; animation: slideIn 0.3s ease;
+    }
+    .finding-item__agent {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .finding-item__text { color: var(--text-secondary); line-height: 1.5; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .phase-timeline {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 16px; margin-bottom: 16px;
+    }
+    .phase-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+    .phase-item:last-child { border: none; }
+    .phase-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid var(--text-muted); flex-shrink: 0;
+    }
+    .phase-dot--done { background: var(--accent-green); border-color: var(--accent-green); }
+    .phase-dot--active { background: var(--accent-gold); border-color: var(--accent-gold); animation: pulse 1s infinite; }
+    .phase-item__label { font-size: 0.75rem; color: var(--text-secondary); flex: 1; }
+    .phase-item__agents { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); }
+
+    @media (max-width: 900px) {
+      .dashboard { grid-template-columns: 1fr; }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <header class="header">
+      <div class="header__brand">
+        <span class="header__logo">⬡ FRACTAL SWARM</span>
+        <span class="header__version" id="conn-badge">v5.5 · CONNECTING</span>
+      </div>
+      <div class="header__stats">
+        <div class="header__stat">
+          <div class="header__stat-value" id="stat-agents">400</div>
+          <div class="header__stat-label">Agents</div>
+        </div>
+        <div class="header__stat">
+          <div class="header__stat-value" id="stat-specialties">20</div>
+          <div class="header__stat-label">Specialties</div>
+        </div>
+        <div class="header__stat">
+          <div class="header__stat-value" id="stat-missions">0</div>
+          <div class="header__stat-label">Missions</div>
+        </div>
+        <div class="header__stat">
+          <div class="header__stat-value" id="stat-findings">0</div>
+          <div class="header__stat-label">Findings</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="section-title">Mission Control</div>
+      <div class="mission-control">
+        <div class="mission-input-group">
+          <input type="text" class="mission-input" id="mission-goal"
+            placeholder="Escribe un objetivo… ej: 'Audita naroa.online'" />
+          <button class="btn btn--primary" id="launch-btn" onclick="launchMission()">
+            ▶ Launch
+          </button>
+        </div>
+        <div class="mission-input-group" style="gap: 6px; flex-wrap: wrap;">
+          <button class="btn btn--preset" onclick="setGoal('Audita naroa.online completamente')">🔍 Full Audit</button>
+          <button class="btn btn--preset" onclick="setGoal('Investiga competencia de Vercel')">🏢 Competitor</button>
+          <button class="btn btn--preset" onclick="setGoal('Review code del proyecto')">💻 Code Review</button>
+          <button class="btn btn--preset" onclick="setGoal('Crea contenido sobre arte hiperrealista')">✍️ Content</button>
+        </div>
+      </div>
+
+      <div class="section-title">Agent Pool — 400 Agents × 20 Specialties</div>
+      <div class="pool-grid" id="pool-grid"></div>
+
+      <div class="section-title">Execution Log</div>
+      <div class="execution-log">
+        <div class="execution-log__header">
+          <div class="execution-log__status" id="log-status"></div>
+          <span class="execution-log__title" id="log-title">Esperando misión...</span>
+        </div>
+        <div class="log-entries" id="log-entries">
+          <div class="log-entry">
+            <span class="log-entry__time">--:--:--</span>
+            <span class="log-entry__icon">⬡</span>
+            <span class="log-entry__text">Motor inicializado. 400 agentes listos.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="section-title">Token Budget</div>
+      <div class="token-meter">
+        <div class="token-meter__header">
+          <span class="token-meter__label">Usado / Límite</span>
+          <span class="token-meter__value" id="token-value">0 / 100,000</span>
+        </div>
+        <div class="token-bar">
+          <div class="token-bar__fill" id="token-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="section-title">Phase Timeline</div>
+      <div class="phase-timeline" id="phase-timeline">
+        <div style="padding:12px;color:var(--text-muted);font-size:0.75rem;text-align:center;">
+          Lanza una misión para ver fases
+        </div>
+      </div>
+
+      <div class="section-title">Findings Feed</div>
+      <div class="findings-feed">
+        <div class="findings-feed__header">📡 Descubrimientos en Vivo</div>
+        <div class="findings-list" id="findings-list">
+          <div style="padding:20px;color:var(--text-muted);font-size:0.75rem;text-align:center;">
+            Sin hallazgos todavía
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// FRACTAL SWARM DASHBOARD v5.5 — Real-Time WebSocket Client
+// ═══════════════════════════════════════════════════════════
+
+const WS_URL = 'ws://localhost:9400';
+let ws = null;
+let connected = false;
+let reconnectTimer = null;
+
+const SPECIALTIES = [
+  { key: 'web-scraper', name: 'Web Scraper', icon: '🕷️', color: '#3b82f6' },
+  { key: 'code-analyst', name: 'Code Analyst', icon: '🔬', color: '#8b5cf6' },
+  { key: 'seo-auditor', name: 'SEO Auditor', icon: '📈', color: '#22c55e' },
+  { key: 'security-scanner', name: 'Security Scanner', icon: '🛡️', color: '#ef4444' },
+  { key: 'performance-tester', name: 'Performance Tester', icon: '⚡', color: '#f59e0b' },
+  { key: 'accessibility-checker', name: 'Accessibility', icon: '♿', color: '#06b6d4' },
+  { key: 'visual-auditor', name: 'Visual Auditor', icon: '👁️', color: '#ec4899' },
+  { key: 'ux-reviewer', name: 'UX Reviewer', icon: '🎨', color: '#f97316' },
+  { key: 'fact-checker', name: 'Fact Checker', icon: '✅', color: '#10b981' },
+  { key: 'data-extractor', name: 'Data Extractor', icon: '📊', color: '#6366f1' },
+  { key: 'price-tracker', name: 'Price Tracker', icon: '💰', color: '#84cc16' },
+  { key: 'competitor-analyst', name: 'Competitor Analyst', icon: '🏢', color: '#14b8a6' },
+  { key: 'content-writer', name: 'Content Writer', icon: '✍️', color: '#f43f5e' },
+  { key: 'summarizer', name: 'Summarizer', icon: '📝', color: '#a855f7' },
+  { key: 'translator', name: 'Translator', icon: '🌐', color: '#0ea5e9' },
+  { key: 'social-listener', name: 'Social Listener', icon: '📡', color: '#d946ef' },
+  { key: 'pdf-reader', name: 'PDF Reader', icon: '📄', color: '#64748b' },
+  { key: 'api-tester', name: 'API Tester', icon: '🔌', color: '#f97316' },
+  { key: 'patent-researcher', name: 'Patent Research', icon: '📜', color: '#78716c' },
+  { key: 'legal-reviewer', name: 'Legal Reviewer', icon: '⚖️', color: '#a3a3a3' }
+];
+
+// State
+let state = {
+  agents: [],
+  missions: 0,
+  findings: 0,
+  tokensUsed: 0,
+  tokenLimit: 100000,
+  running: false,
+  currentPhases: [],
+  activePhaseIndex: -1
+};
+
+// Init local agents
+SPECIALTIES.forEach((s, si) => {
+  for (let i = 0; i < 20; i++) {
+    state.agents.push({
+      id: `A-${si * 20 + i}`,
+      specialty: s.key,
+      status: 'available',
+      efficiency: +(1.0 + Math.random() * 0.15).toFixed(2),
+      missions: 0
+    });
+  }
+});
+
+// ═══ CONNECTION STATUS ═══
+
+function updateConnectionBadge(status) {
+  const badge = document.getElementById('conn-badge');
+  const styles = {
+    live:       { text: 'v5.5 · LIVE',       border: 'rgba(34,197,94,0.4)',  color: '#22c55e', bg: 'rgba(34,197,94,0.1)' },
+    offline:    { text: 'v5.5 · OFFLINE',     border: 'rgba(239,68,68,0.4)',  color: '#ef4444', bg: 'rgba(239,68,68,0.1)' },
+    connecting: { text: 'v5.5 · CONNECTING',  border: 'rgba(251,191,36,0.4)', color: '#fbbf24', bg: 'rgba(251,191,36,0.1)' }
+  };
+  const s = styles[status] || styles.offline;
+  badge.textContent = s.text;
+  badge.style.borderColor = s.border;
+  badge.style.color = s.color;
+  badge.style.background = s.bg;
+}
+
+// ═══ WEBSOCKET CLIENT ═══
+
+function connectWebSocket() {
+  updateConnectionBadge('connecting');
+  try { ws = new WebSocket(WS_URL); } catch (e) {
+    addLog('WebSocket no disponible — Modo simulación', 'error', '⚠️');
+    updateConnectionBadge('offline');
+    return;
+  }
+
+  ws.onopen = () => {
+    connected = true;
+    updateConnectionBadge('live');
+    addLog('🔗 Conectado al enjambre real (ws://localhost:9400)', 'phase', '⬡');
+    if (reconnectTimer) { clearInterval(reconnectTimer); reconnectTimer = null; }
+  };
+
+  ws.onclose = () => {
+    connected = false;
+    updateConnectionBadge('offline');
+    addLog('⛓️ Conexión perdida — reintentando cada 5s...', 'error', '⚠️');
+    if (!reconnectTimer) {
+      reconnectTimer = setInterval(() => { if (!connected) connectWebSocket(); }, 5000);
+    }
+  };
+
+  ws.onerror = () => updateConnectionBadge('offline');
+
+  ws.onmessage = (event) => {
+    try { handleServerMessage(JSON.parse(event.data)); }
+    catch (e) { console.error('Parse error:', e); }
+  };
+}
+
+function handleServerMessage(msg) {
+  const { type, data, dashboard, cost } = msg;
+
+  // Sync stats
+  if (dashboard) {
+    document.getElementById('stat-agents').textContent = dashboard.pool.total;
+    document.getElementById('stat-missions').textContent = dashboard.stats.completedMissions;
+  }
+  if (cost) { state.tokensUsed = cost.tokens || 0; updateTokenMeter(); }
+
+  switch (type) {
+    case 'init':
+      addLog('📡 Estado sincronizado desde el enjambre', '', '⬡');
+      if (data.registry) {
+        data.registry.forEach(r => {
+          const a = state.agents.find(x => x.id === r.id);
+          if (a) { a.status = r.status === 'DEPLOYED' ? 'busy' : 'available'; a.efficiency = r.efficiency; a.missions = r.missions; }
+        });
+        renderPool();
+      }
+      break;
+
+    case 'mission:accepted':
+      state.running = true;
+      document.getElementById('launch-btn').disabled = true;
+      document.getElementById('log-status').className = 'execution-log__status execution-log__status--running';
+      document.getElementById('log-title').textContent = `Misión: "${data.goal}"`;
+      addLog(`🎬 MISIÓN: "${data.goal}"`, 'phase', '🎬');
+      break;
+
+    case 'plan:created':
+      addLog(`📋 Template: ${data.templateName || data.template}`, '', '📋');
+      if (data.phases) {
+        state.currentPhases = data.phases.map(p => ({
+          label: p.label,
+          specs: p.specialties ? p.specialties.map(s => `${s.type}:${s.count}`) : []
+        }));
+        renderPhases(state.currentPhases);
+      }
+      break;
+
+    case 'phase:start':
+      addLog(`⏳ Fase ${data.order}: ${data.label} [${data.mode}]`, 'phase', '⏳');
+      state.activePhaseIndex = data.order - 1;
+      if (state.currentPhases.length) renderPhases(state.currentPhases, state.activePhaseIndex);
+      break;
+
+    case 'agents:selected': {
+      const spec = SPECIALTIES.find(s => s.key === data.type);
+      addLog(`${spec?.icon || '🤖'} ${data.count} agentes desplegados [${data.type}]`, '', '🎯');
+      data.ids.forEach(id => { const a = state.agents.find(x => x.id === id); if (a) a.status = 'busy'; });
+      renderPool();
+      break;
+    }
+
+    case 'phase:complete':
+      addLog(`✅ Fase ${data.order}: ${data.successes}✅ ${data.failures}❌`, '', '✅');
+      if (state.currentPhases.length) renderPhases(state.currentPhases, data.order);
+      state.agents.forEach(a => { if (a.status === 'busy') a.status = 'available'; });
+      renderPool();
+      if (data.findings) {
+        data.findings.forEach(f => {
+          addFinding(`Fase ${data.order}`, typeof f === 'string' ? f.slice(0, 200) : JSON.stringify(f).slice(0, 200));
+        });
+      }
+      break;
+
+    case 'phase:skip':
+      addLog(`⏭️ Fase ${data.order} saltada: ${data.reason}`, 'retry', '⏭️');
+      break;
+
+    case 'finding':
+      addFinding(data.agentId || 'Enjambre', typeof data === 'string' ? data : JSON.stringify(data).slice(0, 200));
+      break;
+
+    case 'agent:error':
+      addLog(`❌ ${data.agentId} falló: ${data.error}`, 'error', '❌');
+      break;
+
+    case 'codesmith:healed':
+      addLog(`🔧 Code Smith reparó ${data.agentId} → eff:${data.newEfficiency}`, 'retry', '🔧');
+      break;
+
+    case 'retry:attempt':
+      addLog(`🔄 Reintento #${data.attempt}`, 'retry', '🔄');
+      break;
+
+    case 'circuit:break':
+      addLog(`⚡ Circuit breaker: ${data.domain}`, 'error', '⚡');
+      break;
+
+    case 'mission:complete':
+      state.running = false;
+      document.getElementById('launch-btn').disabled = false;
+      document.getElementById('log-status').className = 'execution-log__status';
+      addLog(`🏁 MISIÓN COMPLETA — ${data.allFindings?.length || 0} hallazgos`, 'phase', '🏁');
+      if (state.currentPhases.length) renderPhases(state.currentPhases, state.currentPhases.length);
+      state.agents.forEach(a => a.status = 'available');
+      renderPool();
+      break;
+
+    case 'mission:final':
+      if (data.goal) addLog(`📄 Reporte generado: "${data.goal}"`, '', '📄');
+      break;
+
+    case 'mission:error':
+      state.running = false;
+      document.getElementById('launch-btn').disabled = false;
+      document.getElementById('log-status').className = 'execution-log__status';
+      addLog(`💥 Error: ${data.error || 'Desconocido'}`, 'error', '💥');
+      break;
+  }
+}
+
+// ═══ RENDER ═══
+
+function renderPool() {
+  const grid = document.getElementById('pool-grid');
+  grid.innerHTML = SPECIALTIES.map(s => {
+    const agents = state.agents.filter(a => a.specialty === s.key);
+    const available = agents.filter(a => a.status === 'available').length;
+    const dots = agents.map(a => {
+      const cls = a.status === 'busy' ? 'agent-dot--busy' :
+                  a.status === 'error' ? 'agent-dot--error' : '';
+      return `<div class="agent-dot ${cls}" title="${a.id} (eff:${a.efficiency})"></div>`;
+    }).join('');
+    return `
+      <div class="specialty-card" style="--card-accent: ${s.color}">
+        <div class="specialty-card__header">
+          <span class="specialty-card__icon">${s.icon}</span>
+          <span class="specialty-card__name">${s.name}</span>
+          <span class="specialty-card__count">${available}/${agents.length}</span>
+        </div>
+        <div class="agent-dots">${dots}</div>
+      </div>`;
+  }).join('');
+}
+
+function updateTokenMeter() {
+  const pct = Math.min(Math.round((state.tokensUsed / state.tokenLimit) * 100), 100);
+  document.getElementById('token-value').textContent = `${state.tokensUsed.toLocaleString()} / ${state.tokenLimit.toLocaleString()}`;
+  const fill = document.getElementById('token-fill');
+  fill.style.width = `${pct}%`;
+  fill.className = `token-bar__fill${pct > 80 ? ' token-bar__fill--warning' : ''}`;
+}
+
+function addLog(text, type = '', icon = '▸') {
+  const entries = document.getElementById('log-entries');
+  const now = new Date();
+  const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+  const entry = document.createElement('div');
+  entry.className = `log-entry ${type ? 'log-entry--' + type : ''}`;
+  entry.innerHTML = `<span class="log-entry__time">${time}</span><span class="log-entry__icon">${icon}</span><span class="log-entry__text">${text}</span>`;
+  entries.appendChild(entry);
+  entries.scrollTop = entries.scrollHeight;
+}
+
+function addFinding(agent, text) {
+  state.findings++;
+  document.getElementById('stat-findings').textContent = state.findings;
+  const list = document.getElementById('findings-list');
+  if (list.querySelector('div[style]')) list.innerHTML = '';
+  const item = document.createElement('div');
+  item.className = 'finding-item';
+  item.innerHTML = `<div class="finding-item__agent">${agent}</div><div class="finding-item__text">${text}</div>`;
+  list.prepend(item);
+}
+
+function renderPhases(phases, activeIndex = -1) {
+  const timeline = document.getElementById('phase-timeline');
+  timeline.innerHTML = phases.map((p, i) => {
+    const dotClass = i < activeIndex ? 'phase-dot--done' : i === activeIndex ? 'phase-dot--active' : '';
+    const count = p.specs ? p.specs.reduce((s, sp) => s + parseInt(sp.split(':')[1] || 1), 0) : '?';
+    return `<div class="phase-item"><div class="phase-dot ${dotClass}"></div><span class="phase-item__label">${p.label}</span><span class="phase-item__agents">${count} agentes</span></div>`;
+  }).join('');
+}
+
+// ═══ MISSION LAUNCH ═══
+
+function setGoal(text) { document.getElementById('mission-goal').value = text; }
+
+function launchMission() {
+  const goal = document.getElementById('mission-goal').value.trim();
+  if (!goal || state.running) return;
+
+  if (connected && ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ action: 'launch', goal }));
+  } else {
+    addLog('⚠️ Sin conexión — ejecutando simulación local', 'retry', '⚠️');
+    runLocalSimulation(goal);
+  }
+}
+
+// ═══ LOCAL SIMULATION FALLBACK ═══
+
+async function runLocalSimulation(goal) {
+  state.running = true;
+  state.missions++;
+  document.getElementById('launch-btn').disabled = true;
+  document.getElementById('log-status').className = 'execution-log__status execution-log__status--running';
+  document.getElementById('log-title').textContent = `Simulación: "${goal}"`;
+
+  const phases = [
+    { label: 'Recopilar datos', specs: ['web-scraper:3'] },
+    { label: 'Análisis multidimensional', specs: ['seo-auditor:1','performance-tester:1','accessibility-checker:1'] },
+    { label: 'Sintetizar hallazgos', specs: ['summarizer:1'] }
+  ];
+
+  addLog(`🎬 SIMULACIÓN: "${goal}"`, 'phase', '🎬');
+  renderPhases(phases);
+
+  for (let pi = 0; pi < phases.length; pi++) {
+    const phase = phases[pi];
+    renderPhases(phases, pi);
+    addLog(`Fase ${pi + 1}: ${phase.label}`, 'phase', '⏳');
+
+    const phaseAgents = [];
+    for (const specStr of phase.specs) {
+      const [specKey, count] = specStr.split(':');
+      const available = state.agents.filter(a => a.specialty === specKey && a.status === 'available');
+      const selected = available.slice(0, parseInt(count));
+      selected.forEach(a => { a.status = 'busy'; a.missions++; });
+      phaseAgents.push(...selected);
+    }
+    renderPool();
+
+    for (const agent of phaseAgents) {
+      const spec = SPECIALTIES.find(s => s.key === agent.specialty);
+      await new Promise(r => setTimeout(r, 300 + Math.random() * 600));
+      state.tokensUsed += 1500 + Math.round(Math.random() * 2000);
+      updateTokenMeter();
+      addLog(`${spec.icon} ${spec.name} (${agent.id}): Completado`, 'finding', '📡');
+      addFinding(`${spec.icon} ${agent.id}`, `[SIM] ${spec.name} — "${goal.substring(0, 40)}..."`);
+    }
+
+    phaseAgents.forEach(a => a.status = 'available');
+    renderPool();
+    addLog(`Fase ${pi + 1} completada: ${phaseAgents.length}✅`, '', '✅');
+  }
+
+  renderPhases(phases, phases.length);
+  addLog(`🏁 SIMULACIÓN COMPLETA — ${state.findings} hallazgos`, 'phase', '🏁');
+  document.getElementById('log-status').className = 'execution-log__status';
+  document.getElementById('launch-btn').disabled = false;
+  state.running = false;
+}
+
+// ═══ INIT ═══
+renderPool();
+updateTokenMeter();
+connectWebSocket();
+</script>
+</body>
+</html>

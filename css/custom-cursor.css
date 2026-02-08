@@ -1,9 +1,1 @@
-/* Custom Cursor for Naroa 2026 - Minimal & Elegant */
-body, a, button {
-  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4" fill="rgba(255,255,255,0.9)"/></svg>') 12 12, auto;
-}
-
-/* Hover state - subtle grow */
-a:hover, button:hover, .clickable:hover {
-  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" fill="rgba(212,175,55,0.9)"/></svg>') 12 12, auto;
-}
+/* Custom Cursor — DISABLED for minimalism. Use system cursor. */

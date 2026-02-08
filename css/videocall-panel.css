@@ -1,0 +1,576 @@
+/**
+ * Video Call Sales Panel v1.0 - MICA NOIR
+ * 
+ * Estilos para el panel de contacto y videollamada
+ */
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+.videocall-panel {
+    --vc-bg: #000;
+    --vc-surface: rgba(255, 255, 255, 0.03);
+    --vc-border: rgba(255, 255, 255, 0.08);
+    --vc-green: #32CD32;
+    --vc-green-glow: rgba(50, 205, 50, 0.4);
+    --vc-red: #8B0000;
+    --vc-text: #fff;
+    --vc-text-muted: rgba(255, 255, 255, 0.5);
+    --vc-whatsapp: #25D366;
+    --vc-email: #EA4335;
+}
+
+/* ============================================
+   BASE LAYOUT
+   ============================================ */
+.videocall-panel {
+    min-height: 100vh;
+    background: var(--vc-bg);
+    color: var(--vc-text);
+    padding: 4rem 2rem;
+    position: relative;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.panel-hero {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hero-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--vc-green);
+    background: rgba(50, 205, 50, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(50, 205, 50, 0.2);
+    width: fit-content;
+}
+
+.hero-title {
+    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--vc-green) 0%, #7CFC00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--vc-text-muted);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 500px;
+}
+
+.hero-avatar {
+    position: relative;
+}
+
+.avatar-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--vc-green);
+    box-shadow: 0 0 40px var(--vc-green-glow);
+}
+
+.avatar-status {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--vc-border);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--vc-green);
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ============================================
+   QUICK ACTIONS
+   ============================================ */
+.quick-actions {
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.quick-actions.hidden {
+    display: none;
+}
+
+.action-card {
+    background: var(--vc-surface);
+    border: 1px solid var(--vc-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--vc-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    border-color: var(--vc-green);
+    background: rgba(50, 205, 50, 0.05);
+}
+
+.action-icon {
+    font-size: 2rem;
+}
+
+.action-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+}
+
+.action-info p {
+    font-size: 0.75rem;
+    color: var(--vc-text-muted);
+    margin: 0;
+}
+
+.action-card.whatsapp:hover {
+    border-color: var(--vc-whatsapp);
+    box-shadow: 0 0 30px rgba(37, 211, 102, 0.2);
+}
+
+.action-card.email:hover {
+    border-color: var(--vc-email);
+    box-shadow: 0 0 30px rgba(234, 67, 53, 0.2);
+}
+
+.action-card.videocall:hover {
+    border-color: var(--vc-green);
+    box-shadow: 0 0 30px var(--vc-green-glow);
+}
+
+/* ============================================
+   SCHEDULER SECTION
+   ============================================ */
+.scheduler-section {
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.scheduler-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.scheduler-card {
+    background: var(--vc-surface);
+    border: 1px solid var(--vc-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+}
+
+.scheduler-title {
+    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.title-icon {
+    font-size: 1.5rem;
+}
+
+/* Date Picker */
+.date-picker {
+    margin-bottom: 2rem;
+}
+
+.dates-scroll {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    scrollbar-width: none;
+}
+
+.dates-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.date-btn {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--vc-border);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    color: var(--vc-text);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.4s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.date-btn:hover {
+    border-color: var(--vc-green);
+    background: rgba(50, 205, 50, 0.1);
+}
+
+.date-btn.selected {
+    background: var(--vc-green);
+    border-color: var(--vc-green);
+    color: #000;
+}
+
+.date-day {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.date-num {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.date-month {
+    font-size: 0.625rem;
+    opacity: 0.7;
+}
+
+/* Time Slots */
+.time-slots {
+    margin-bottom: 2rem;
+}
+
+.slots-hint {
+    font-size: 0.875rem;
+    color: var(--vc-text-muted);
+    text-align: center;
+    padding: 1rem;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+}
+
+.time-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--vc-border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--vc-text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.4s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+}
+
+.time-btn:hover {
+    border-color: var(--vc-green);
+    background: rgba(50, 205, 50, 0.1);
+}
+
+.time-btn.selected {
+    background: var(--vc-green);
+    border-color: var(--vc-green);
+    color: #000;
+}
+
+/* ============================================
+   CONTACT FORM
+   ============================================ */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--vc-text-muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--vc-border);
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+    color: var(--vc-text);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--vc-green);
+    box-shadow: 0 0 0 3px rgba(50, 205, 50, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: #1a1a1a;
+    color: var(--vc-text);
+}
+
+.submit-btn {
+    background: var(--vc-red);
+    border: none;
+    border-radius: 30px;
+    padding: 1rem 2rem;
+    color: var(--vc-text);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: #a00000;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) .btn-icon {
+    transform: translateX(4px);
+}
+
+/* ============================================
+   SUCCESS SECTION
+   ============================================ */
+.success-section {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.success-card {
+    background: var(--vc-surface);
+    border: 1px solid var(--vc-green);
+    border-radius: 24px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.success-card h2 {
+    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+}
+
+.success-message {
+    font-size: 1rem;
+    color: var(--vc-text-muted);
+    margin: 0 0 0.5rem;
+}
+
+.success-message strong {
+    color: var(--vc-green);
+}
+
+.success-note {
+    font-size: 0.875rem;
+    color: var(--vc-text-muted);
+    margin: 0 0 2rem;
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid var(--vc-border);
+    border-radius: 30px;
+    padding: 0.875rem 1.5rem;
+    color: var(--vc-text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    border-color: var(--vc-green);
+    color: var(--vc-green);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.panel-footer {
+    max-width: 1000px;
+    margin: 4rem auto 0;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--vc-border);
+}
+
+.panel-footer p {
+    font-size: 0.875rem;
+    color: var(--vc-text-muted);
+    margin: 0;
+}
+
+.mica-link {
+    background: none;
+    border: none;
+    color: var(--vc-green);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.mica-link:hover {
+    opacity: 0.8;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .videocall-panel {
+        padding: 2rem 1rem;
+    }
+
+    .panel-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-content {
+        align-items: center;
+    }
+
+    .hero-avatar {
+        order: -1;
+    }
+
+    .avatar-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .scheduler-card {
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .slots-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Videos — Naroa Art</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; color: #fff; font-family: system-ui; padding: 20px; }
+    h1 { text-align: center; margin-bottom: 30px; font-size: 2rem; background: linear-gradient(135deg, #d4af37, #f5e6a3); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; max-width: 1400px; margin: 0 auto; }
+    .card { background: #1a1a1a; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+    .card video { width: 100%; display: block; }
+    .card .label { padding: 10px 15px; font-size: 0.9rem; color: #aaa; }
+    .card .label span { color: #d4af37; }
+  </style>
+</head>
+<body>
+  <h1>🎬 Videos Veo 3.1 — Proyecto NAROA WEB</h1>
+  <div class="grid" id="grid"></div>
+  <script>
+    const grid = document.getElementById('grid');
+    for (let i = 1; i <= 11; i++) {
+      const num = String(i).padStart(2, '0');
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <video controls loop muted autoplay playsinline>
+          <source src="/videos/flow/flow-video-${num}.mp4" type="video/mp4">
+        </video>
+        <div class="label">Video <span>#${num}</span> — 8s | 720p | H264</div>
+      `;
+      grid.appendChild(card);
+    }
+  </script>
+</body>
+</html>

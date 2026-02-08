@@ -76,12 +76,10 @@ class RevealObserver {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
+        entry.target.classList.add('visible');
         
-        // Optional: Stop observing after reveal (one-time animation)
-        // this.observer.unobserve(entry.target);
-      } else {
-        // Optional: Hide when out of view for re-animation on scroll back
-        // entry.target.classList.remove('revealed');
+        // Stop observing after reveal (one-time animation)
+        this.observer.unobserve(entry.target);
       }
     });
   }

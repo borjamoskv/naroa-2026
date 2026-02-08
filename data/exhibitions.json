@@ -1,10 +1,11 @@
 {
   "meta": {
-    "version": "2.0.0",
+    "version": "2.1.0",
     "generatedBy": "NotebookLM Analysis + IA Alliance Protocol",
-    "generatedAt": "2026-02-01T09:24:00Z",
+    "generatedAt": "2026-02-05T09:10:00Z",
     "source": "NAROA GUTIÉRREZ GIL - ALBUMS LINKS (NotebookLM)",
-    "totalExhibitions": 28
+    "totalExhibitions": 28,
+    "imagesAdded": true
   },
   "exhibitions": [
     {
@@ -14,7 +15,8 @@
       "year": 2025,
       "month": "September",
       "day": 18,
-      "type": "online"
+      "type": "online",
+      "image": "images/artworks/the-world-is-yours.webp"
     },
     {
       "id": "divinos-vaivenes-politena",
@@ -25,7 +27,8 @@
       "month": "May",
       "day": 25,
       "type": "solo",
-      "series": "rocks"
+      "series": "rocks",
+      "image": "images/artworks/amy-rocks.webp"
     },
     {
       "id": "siarte-bosque-oma",
@@ -35,7 +38,8 @@
       "year": 2024,
       "month": "July",
       "day": 22,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/pajarraca-azul.webp"
     },
     {
       "id": "alicia-crece",
@@ -44,7 +48,8 @@
       "year": 2023,
       "month": "May",
       "day": 12,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/espejos-del-alma.webp"
     },
     {
       "id": "afrontar-repentino-tiempo",
@@ -53,7 +58,8 @@
       "year": 2023,
       "month": "April",
       "day": 18,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/multidimensional-love.webp"
     },
     {
       "id": "emakumeen-artean",
@@ -62,7 +68,8 @@
       "year": 2023,
       "month": "January",
       "type": "group",
-      "description": "Colectiva feminista"
+      "description": "Colectiva feminista",
+      "image": "images/artworks/lagrimas-de-oro.webp"
     },
     {
       "id": "rincones-bilbao",
@@ -71,7 +78,8 @@
       "year": 2022,
       "month": "December",
       "day": 20,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/smile-world-smiles-back.webp"
     },
     {
       "id": "repoker-reinas-siarte",
@@ -82,7 +90,8 @@
       "month": "March",
       "day": 25,
       "type": "solo",
-      "url": "https://siarte.com/2022-03-25-siarte-exposicion-pintura-collage-arte-naroa-gutierrez-gil"
+      "url": "https://siarte.com/2022-03-25-siarte-exposicion-pintura-collage-arte-naroa-gutierrez-gil",
+      "image": "images/artworks/audrey-hepburn.webp"
     },
     {
       "id": "euskal-harriak",
@@ -92,7 +101,8 @@
       "year": 2022,
       "month": "March",
       "day": 7,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/james-rocks-hq-3.webp"
     },
     {
       "id": "cp-magazine-gold",
@@ -100,7 +110,8 @@
       "location": "Publicación/Exposición destacada",
       "year": 2021,
       "month": "August",
-      "type": "publication"
+      "type": "publication",
+      "image": "images/artworks/the-golden-couple-and-balloons.webp"
     },
     {
       "id": "vaivenes-artelista",
@@ -108,7 +119,8 @@
       "location": "Artelista / Bilbao",
       "year": 2020,
       "type": "solo",
-      "description": "Exposición de obras creadas durante la pandemia"
+      "description": "Exposición de obras creadas durante la pandemia",
+      "image": "images/artworks/love.webp"
     },
     {
       "id": "espejos-alma-lamiak",
@@ -117,7 +129,8 @@
       "year": 2015,
       "month": "October",
       "type": "solo",
-      "series": "espejos-del-alma"
+      "series": "espejos-del-alma",
+      "image": "images/artworks/espejos-del-alma.webp"
     },
     {
       "id": "the-art-of-living",
@@ -126,7 +139,8 @@
       "year": 2015,
       "month": "January",
       "day": 10,
-      "type": "group"
+      "type": "group",
+      "image": "images/artworks/geisha.webp"
     },
     {
       "id": "walking-gallery-2022",
@@ -136,7 +150,8 @@
       "month": "October",
       "day": 23,
       "type": "group",
-      "series": "walking-gallery"
+      "series": "walking-gallery",
+      "image": "images/artworks/walking-gallery-plumas.webp"
     },
     {
       "id": "walking-gallery-2021",
@@ -144,7 +159,8 @@
       "location": "Bilbao Art District",
       "year": 2021,
       "type": "group",
-      "series": "walking-gallery"
+      "series": "walking-gallery",
+      "image": "images/artworks/baroque-farrokh.webp"
     },
     {
       "id": "walking-gallery-aniversario",
@@ -154,7 +170,8 @@
       "month": "June",
       "day": 26,
       "type": "group",
-      "series": "walking-gallery"
+      "series": "walking-gallery",
+      "image": "images/artworks/james-dean.webp"
     },
     {
       "id": "walking-gallery-2017",
@@ -162,7 +179,8 @@
       "location": "Bilbao",
       "year": 2017,
       "type": "group",
-      "series": "walking-gallery"
+      "series": "walking-gallery",
+      "image": "images/artworks/candy-wedding.webp"
     },
     {
       "id": "walking-gallery-2013",
@@ -172,7 +190,8 @@
       "month": "November",
       "type": "group",
       "series": "walking-gallery",
-      "description": "Primera participación en Walking Gallery"
+      "description": "Primera participación en Walking Gallery",
+      "image": "images/artworks/el-gordo.webp"
     },
     {
       "id": "azoka-lataska",
@@ -180,7 +199,8 @@
       "subtitle": "Pinturas originales en pizarra",
       "location": "Lataska, Sopela",
       "year": 2024,
-      "type": "market"
+      "type": "market",
+      "image": "images/artworks/marilyn-rocks-hq-5.webp"
     },
     {
       "id": "udaberriko-jaia",
@@ -188,14 +208,16 @@
       "subtitle": "Colaboración artística con danzas y bertsolaris",
       "location": "Sopelana",
       "year": 2024,
-      "type": "festival"
+      "type": "festival",
+      "image": "images/artworks/johnny-rocks-hq-4.webp"
     },
     {
       "id": "urban-market-barakaldo",
       "title": "Urban Market Barakaldo",
       "location": "Barakaldo",
       "year": 2016,
-      "type": "market"
+      "type": "market",
+      "image": "images/artworks/dar-la-lata.webp"
     },
     {
       "id": "facefood-algorta",
@@ -204,7 +226,8 @@
       "year": 2019,
       "type": "solo",
       "series": "facefood",
-      "description": "Chaquetas de chef intervenidas"
+      "description": "Chaquetas de chef intervenidas",
+      "image": "images/artworks/buena-fuente.webp"
     },
     {
       "id": "facefood-expos",
@@ -212,21 +235,24 @@
       "location": "Bilbao",
       "year": 2018,
       "type": "solo",
-      "series": "facefood"
+      "series": "facefood",
+      "image": "images/artworks/infusion-de-berto.webp"
     },
     {
       "id": "delirios-color",
       "title": "Delirios de color",
       "location": "Espacio Siarte, Bilbao",
       "year": 2021,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/celia-cruz-asucar.webp"
     },
     {
       "id": "recuerdos-california",
       "title": "Recuerdos de California",
       "location": "Espacio Siarte, Bilbao",
       "year": 2021,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/pink-and-sparkles.webp"
     },
     {
       "id": "recicl-arte",
@@ -234,14 +260,16 @@
       "subtitle": "Enfoque en sostenibilidad ambiental",
       "location": "Espacio Siarte, Bilbao",
       "year": 2020,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/hammock-in-tin.webp"
     },
     {
       "id": "colegio-abogados",
       "title": "Exposición Colegio de Abogados",
       "location": "Ilustre Colegio de la Abogacía de Bizkaia, Bilbao",
       "year": 2021,
-      "type": "solo"
+      "type": "solo",
+      "image": "images/artworks/el-gran-dakari.webp"
     },
     {
       "id": "holy-wood",
@@ -249,7 +277,8 @@
       "location": "Bilbao",
       "year": 2017,
       "type": "solo",
-      "description": "Serie de retratos y amores inspirados en Hollywood"
+      "description": "Serie de retratos y amores inspirados en Hollywood",
+      "image": "images/artworks/peter-rowan.webp"
     }
   ],
   "upcoming": []

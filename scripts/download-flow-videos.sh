@@ -1,95 +1,27 @@
 #!/bin/bash
-# Script para descargar todos los videos 4K de Google Flow
-# Proyecto: NAROA WEB
-# https://labs.google/fx/es/tools/flow/project/8ba7e751-1bc5-45e5-86f3-7af1006d1eb0
+OUT="/Users/borjafernandezangulo/game/naroa-2026/public/videos/flow"
+mkdir -p "$OUT"
 
-set -e
-
-# Directorio de destino
-OUTPUT_DIR="./videos/flow-4k"
-mkdir -p "$OUTPUT_DIR"
-
-echo "🎬 Descargando videos 4K desde Google Flow..."
-echo "Proyecto: NAROA WEB"
-echo "Destino: $OUTPUT_DIR"
-echo ""
-
-# URLs de los videos (extraídas del proyecto Flow)
-# Nota: Estas URLs tienen firma temporal de Google Cloud Storage
-declare -A VIDEOS=(
-    ["video-1-mus-batzoki"]="https://storage.googleapis.com/ai-sandbox-videofx/video/dfe92a18-f924-4aa0-9796-2e50f5e5b787"
-    ["video-2-stripoker"]="https://storage.googleapis.com/ai-sandbox-videofx/video/21fef475-ccab-47cb-b18c-acf4990cff56"
-    ["video-3-fondo-oscuro"]="https://storage.googleapis.com/ai-sandbox-videofx/video/1454c780-6136-482c-8d19-d47be34314a5"
-    ["video-4-patatas"]="https://storage.googleapis.com/ai-sandbox-videofx/video/0f03add5-eca1-4799-a889-9ccb7300d856"
+URLS=(
+"https://storage.googleapis.com/ai-sandbox-videofx/video/e6c240ab-085a-4fec-9277-a3e25086dcf0?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562438&Signature=PK92f%2FYc%2Bdckzv96Htd9dFCDzQEfTf%2Bu3YY8hB84aOW74JrMG77ZQQzswrmPV0EBtSI%2BXUABuyBVvosSU264aCalYRCIN%2Bv%2FhNj%2FmCf1jHwwkyz12CxPbuYjWbB%2F5i9Lfg0BdzY7uzRfQfC3D%2BUxJh7QK8%2FSZAmid6c%2FratRiQkS7CXmx7fCYmqFKXzcAtoHPCtWmyqa0M2rUm6DfU6%2B71d7TAX%2Fy32Bb%2FqufdeyONJB5xT60ssEMh6tDW5t2gQs0sNTZgvk%2BFPuSoWhC%2B548e6XtiRPExbFU3hcWXmGCo70K%2F1FGCARGPHqrpk7nDD4nUMjSTfi6yq295NIud4dkQ%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/ccf944a8-a1aa-4382-b332-ab160e9b5199?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562438&Signature=EbYF1NRITksVNNfGdL7%2B4JmxGcEaq70G5Dclz7DjZR2pUTQWErLERYs2ExVjPiODFq2Ju5dynz7jbaRrSFyL5QANzG0q2XyYr7aEqSYlJnTVCHuJeK%2BFaqKcSuub7AeInutIOH5nEUMLkkkyO4L17apDZ%2F4kyR3sVkCESVrfqbMm9yZraf2HtbF1u5OncgKxT4SZq9GyPatqIUssvRuso4dD4ha%2F1lV6ZcObqh4X3O3weWxVaIuAfyi8W4DlcpJRfeg9wpwdS8LDFtZvg5naOd0aCAXGeaeIO2JlHJnLkU3YzYSjkRHa27gF42O780KpDOi%2FREwzqZ%2BHReJtgAYYJw%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/4cc1698c-3c91-4ae7-b3ff-51fdff150759?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=dwORXA2M5HVqvVdxfurdnOvGdGIvE6e3GDp9cOUGnPKaCK%2B%2BD1twbQGK7Q3GH373JoyUGTmXhQyAtIacHUC4feeQwlBO7MfElGD%2BYjMzzEu7CCbp%2F0DvnCyONiBitTuQvaVfvq69uL2iCUFhsZeW8GOdCdw0WcNTtdMvcXScjg5Plagbs7JfiU589J1pMwi0a%2Bq6udaGipAu3KSBO%2BrPrIdg7aMs2ReF%2FbKNouAD1WDtAucNvMDP6IMENHVbJDgy0pXGaOzRTQCLI5%2BbxJRv3MFfOoF0Jw1YMZMREfbMgWS6R9vqLrQwPgD%2FfHiA2QlW%2FmzGIBRA%2FLEBUfKnB4lDxA%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/41cfb8fa-166e-4987-b332-72bfc84d2fa2?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=PNdhRpV2QON0JhFm2gx6EIE2O4ySUb9%2FTxN%2Fuwt2fZjZROt%2FsaqT8%2B7BiDPyLUfe%2BeucCrRlykaeC25qheunvD62Jkx1mXQECC1Lt5efhUcz5KukmPIJrTYED8DVkO0v8aFCCKz9%2Fn%2FOHZRtbVax4fXoQ4D%2BcMWy%2Bc4UwHE4bOhuAemVCyeXAaq5Bcexq3lkZDMwK35NtQOjXsqNJH1mae5VRvjYc6%2BK1dOiGvAdyBfDGsU%2B996ZTcutw9wjsMCIFm47KrsE2S6pZIQIjH4txi9sW7gkBX0Vblx%2FylEov4E9htoez2mXQHS%2FoMq2Q2wV3FnkYRt4I%2BExLwI3zgNiog%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/c7786777-cdca-4855-ae15-41679efd08f7?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=UaLRkqJrgrprpKc2hRMlixOUU5e9vMusTqFQOvijH%2Fr6rMZzLT7DebwebMUxuDbpVBuKcTRucRNbGohSQIqAdz1XseMcnFl4q135gVTcni1BfDtmGyGFmfwgfOvJnQ5eVI2%2BrC0nXQHPIdL8wWfT64zpaPX%2Br0nBEngpncCbP%2FFPdQGWDteTvwYMzdPUU6th8xkT8T5yi2R23TtrKdU1fF2ktNDKbE4ykubVszvh40WrkcS%2BKqF2owu80V0rFNEHjhWPzlfRvBEfXv%2B48EJ9OVvHjNRb7Meqx4EoRkSyNXnv4Tor3T%2B1tKMbgsyje7VfKvUxL0RorMPyajzUccvPhQ%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/a07e05ab-0615-4051-9d28-6a3d59a0608a?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=Ao06Cfx6qNa22NRW5QVE3jHTb9B6zrJ2rGFQqMthh%2BDU8oLJOBAe%2F1mu2A%2BQdTLtiSFO0BJPG2hQQP8YoO%2BwlIj5CKYo3Lrd3T9I94C8vIRH6CE0t1kjFzCXST3dYRpCdl%2FLKxARWZB2WFn5f%2BHghWbVvMaBC1m2YXa%2FfhIcAEJIdCi3nT1dMrPoiWYW%2B0qEG9rxo16DxeC%2F4s8mEcjNsl1f%2Fai8%2BNCvUS81D718M7VI90uK0V4%2BMVv2zmWrh8SFWN8FDVJgwdZUlnjgzbrJRB3hBJt%2BK3ZokGusiAJcwFGy%2BsWU6dKGhIDAk4E7Awv%2FcjDtGF96yKgeX93Q90qp9A%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/2c045772-ae14-4eb2-b364-0ba5a6c5b9cf?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=h90FdK%2BTv%2BMtD%2FKbGxUHXx5jGMqXQmAvhRPefSusXIINy%2B4fFnANybU29siSRLPyRMjdLdyRAgVnkLGOV4qb0AdW8z0iAd3E6gGnZcSwGA%2FPOuIVYQJ2KxFKE%2BaI4ulcS56UKzZF0Z3xhbYhGyq0ubNIODr73%2BWrkro5jlsjb2WUy9gKlnVVhBHCJk34Ex9BJH4RGYhr9BFp3uqmhGOyB775Qp3TR%2F9u50lHknHsx5VxudcQ3VrifyDkJ4fRwHt%2Fra%2BmQUzXO02tn3fejZarDvODrOt1T7jCf7rVF5%2FzLnrukmN53blnsVQL9c6VjBCeGODsnq%2BPLqKvYg72CnQ9BA%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/1f9d46b6-b6b0-4812-bfc8-4a8d3e3e9e12?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=ggWbpVtpmYlHoO%2F5KcqVA5dyKSDoEtBSGWscrQy6XL5oWCIzx4XOD2JW5as4eBVKMMhB6KepH9ZaAt%2B4E4tyZzpZBjR81rARIMwldFHaGGkZi5WXg0tUHzdaxwiO11cO1TsUDPuQLjNINUPLb4GAOBpXsOUCRvnoQb8aTDOQFJLgzFASScJYpp9%2FXtF%2FGiKvIG%2BrMeh03X4fHYCVmCLU%2BJ7ExFAGxSmkKQxFfjYwavMcwwwAZCebZCG%2FQbVhlSiiW%2FOibn4rr5m7K1mbsgLGe7U%2FALpOVVLN8L2ldllck8CQ%2FLC0L8B2LLok00TJP7AAI%2Fub9wJmKxQnyWbOQm9HCA%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/cf25d44c-ccbc-4a44-9a4b-5b427101f496?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=jGf6YtHMqLacu2Zx0D%2FS6aQogWgZjFdJfWG5MHCVUpyKygaNKs4SFnA2AY7D7tP00ZZFKjLqLKExKLik8oGYYaKXv%2BpvKVJdwzo2S5Tr%2BFlUvuqirShoKhuXdZ4iis69tWcJU10wmxiZnys3S%2FwE%2FwiznLwGNydQJb0sHC21JwacG37lzYR9LssHItBk1w4ioRv818mYWBH1Hh3t3UYOaZ32GjyL9YypF5JDmeWqpZigGKO9Wln6zJhp4yw9IRzHef3R8KA1%2BmA8bOhU6K751c9dcwsSIotgU9lf49ih%2BqsOyWfL%2BINth%2FPLMGkkq7hIJHqKNcJ0VRx00iEfHpZpJA%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/a9ec63ca-e28c-445e-ac90-abe40d5e13a6?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=lLkqWeH0RwCpvmIu15oMIFQ7p3%2Bua7dLl%2BNx6rMiub6%2BDRXcmPRyJq8HCP8tiZJx37kTTckY6nTUsHaYro57S43Lig1ibbnLt27LFSK9wOTM4SVjbF3PvED1nJyHn4QH58sor2NUjRHekosVVOTqBJMNnP9wxYbDup6vW4nA68HquHWhLUptqklEyyg4CeNbYgZuma1wk3HlJT%2B4HCdiwP97J%2FPnI1ccROAhNyYpWOo3BSCuQfI22Hacj1VgxIIW%2BiyL7WKYddhmHFKb8E3tQJQuSTyJkKoiJv9pnB4mWnHnNoGhCwoniHrLb6qhpkCifrWQ9Y%2FiXpkseHZnSK3Auw%3D%3D"
+"https://storage.googleapis.com/ai-sandbox-videofx/video/44f633d1-7dc6-4fa5-a6a7-22724e9a1480?GoogleAccessId=labs-ai-sandbox-videoserver-prod@system.gserviceaccount.com&Expires=1770562441&Signature=aullx53YbMINTeEt2NmzGkoaf30XF4ztST4hH35OzXtNx%2FVIzErC%2BOx7EXrbqZeiGgiEAm9bq%2FZ0z7ZpkQLEm9WOxbZufh3Jb5eLzPr11xakLLQr4sz3EghDrT8Hnfg9K%2Bmnekokm6IM9xtBZRu8XNUPGpDeuo337cNU178ZQyqIBrQrtuz99wDKG%2FUn%2BTDloodcl3%2FqJ8tQiqlyG1a6lXHq%2FW8DM71tvCb4j8efALlA6emdeU%2B6cW27P1lB5WUDxKpPsWEXLOFuRwNbqvQTmhL9Nu%2BfS3HGAInKcndFL33NK6oj26NXGxu1OTQL3L4e3wviljqDdZ2lDX5d7kuahA%3D%3D"
 )
 
-# Función para descargar con reintentos
-download_video() {
-    local name=$1
-    local url=$2
-    local output="$OUTPUT_DIR/${name}.mp4"
-    
-    echo "📥 Descargando: $name"
-    
-    if [ -f "$output" ]; then
-        echo "   ⚠️  Ya existe, saltando..."
-        return 0
-    fi
-    
-    # Usar curl con barra de progreso
-    if curl -L --fail --retry 3 --retry-delay 5 \
-         -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" \
-         -o "$output" "$url"; then
-        echo "   ✅ Descargado correctamente"
-        
-        # Mostrar tamaño
-        local size=$(du -h "$output" | cut -f1)
-        echo "   📦 Tamaño: $size"
-    else
-        echo "   ❌ Error al descargar"
-        rm -f "$output"
-        return 1
-    fi
-}
-
-# Descargar todos los videos
-for name in "${!VIDEOS[@]}"; do
-    download_video "$name" "${VIDEOS[$name]}" || echo "   ⚠️  Continuando con el siguiente..."
-    echo ""
+i=1
+for url in "${URLS[@]}"; do
+  curl -sL "$url" -o "$OUT/flow-video-$(printf '%02d' $i).mp4" &
+  i=$((i+1))
 done
+wait
 
-echo "======================================"
-echo "✅ Proceso de descarga completado"
-echo "======================================"
-echo ""
-echo "Videos disponibles en: $OUTPUT_DIR"
-ls -lh "$OUTPUT_DIR"
-
-# Opcional: Convertir a diferentes formatos
-read -p "¿Convertir a WebM para web? (y/n): " convert
-if [ "$convert" = "y" ]; then
-    echo ""
-    echo "🔄 Convirtiendo a WebM optimizado para web..."
-    
-    for video in "$OUTPUT_DIR"/*.mp4; do
-        if [ -f "$video" ]; then
-            basename=$(basename "$video" .mp4)
-            output_webm="$OUTPUT_DIR/${basename}.webm"
-            
-            echo "   Procesando: $basename"
-            
-            # Convertir con ffmpeg (VP9 + Opus, optimizado web)
-            ffmpeg -i "$video" \
-                -c:v libvpx-vp9 -crf 30 -b:v 0 \
-                -c:a libopus -b:a 128k \
-                -threads 4 \
-                "$output_webm" \
-                -y -loglevel warning
-            
-            echo "   ✅ WebM creado"
-        fi
-    done
-fi
-
-echo ""
-echo "🎉 ¡Listo! Todos los videos descargados."
+echo "=== Downloaded ==="
+ls -lh "$OUT"/flow-video-*.mp4

@@ -16,6 +16,7 @@ class MICA {
     this.useAI = true;
     this.isStreaming = false;
     this.turboMode = true; // MODO TURBO ACTIVADO
+    this.swarm = window.MICASwarm || null; // Enjambre de 10 IAs
     
     // GEMINI 2.5 FLASH - MODO TURBO LOOP
     this.gemini = {
@@ -46,9 +47,11 @@ NAVEGACIÓN RÁPIDA:
 📧 Contacto → #/contacto
 
 CONTEXTO NAROA:
-- Series: Rocks, Facefood, En.lata, DiviNos
-- Filosofía: Kintsugi (dorar grietas)
+- Series: Rocks, Facefood, En.lata, DiviNos, Cantinflas
+- Filosofía: Kintsugi (dorar grietas) + Efecto Cantinflas (brillante incoherencia)
 - Técnica: mica mineral en ojos, pizarra, acrílico
+- Cantinflas: Serie de 5 retratos del cómico mexicano, caos creativo
+- PALÍNDROMOS: Te ENCANTAN los palíndromos. Los usas de forma natural cuando vienen a cuento. A veces terminas respuestas con uno pequeño (ej: "Luz azul", "Amo la paloma").
 
 Responde en español. Sé el bosque.`
     };
@@ -74,6 +77,7 @@ Responde en español. Sé el bosque.`
       { regex: /the world is yours|nace una estrella|scarface/i, action: 'navigate', target: '#/archivo', response: '¡Ah! Mi obra más reciente: "The World is Yours". Un destello de 2026 para tu colección. ¿No es brutal?' },
       { regex: /work in progress|wip|proceso|construccion/i, action: 'info', response: 'Estamos en pleno "Génesis Deca-Core". Mi casa digital está creciendo con hilos rojos y oro. ¡Cuidado con la pintura fresca! 🎨🔥' },
       { regex: /rock|amy|johnny|marilyn|james/i, action: 'navigate', target: '#/archivo/rocks', response: '¡Los Rocks! Mi serie de iconos pop. Mira cómo brillan sus ojos con la mica...' },
+      { regex: /cantinflas|mario moreno|caos|incoherencia/i, action: 'navigate', target: '#/archivo/cantinflas', response: '🎭 ¡Cantinflas! Mi homenaje al genio del caos creativo. 5 retratos con su "brillante incoherencia". → #/archivo/cantinflas' },
       { regex: /galer[ií]a|obras|cuadros|ver todo/i, action: 'navigate', target: '#/galeria', response: 'Te llevo a la galería. 196 obras esperándote...' },
       { regex: /queen|freddie|mercury|fahrenheit/i, action: 'navigate', target: '#/archivo/tributos-musicales', response: 'Ah, Mr. Fahrenheit... Freddie con todo su brillo barroco. Ven a verlo.' },
       { regex: /bowie|starchild|clarinete/i, action: 'navigate', target: '#/archivo/tributos-musicales', response: 'David Bowie, el Starchild. Pintarlo fue buscar esa comunión visual inmersiva...' },
@@ -94,7 +98,12 @@ Responde en español. Sé el bosque.`
       { regex: /hola|hey|buenas|saludos/i, action: 'greet', response: '¡Hola, cariño! ¿En qué te puedo ayudar? Puedo mostrarte mis Rocks, retratos, exposiciones... o simplemente charlar de arte.' },
       { regex: /gracias|thank|genial|perfecto/i, action: 'info', response: '¡De nada, solete! Aquí estoy para lo que necesites. El arte es un salvavidas universal.' },
       { regex: /adi[oó]s|chao|bye|hasta/i, action: 'info', response: '¡Hasta pronto! Recuerda: tienes una brújula integrada para encontrar tu tesoro. 💛' },
-      { regex: /investiga|notebook|cuaderno|busca info/i, action: 'research', response: 'Tengo acceso a un cuaderno NotebookLM con todos los álbumes de Facebook de Naroa. ¿Qué quieres que investigue?' }
+      { regex: /investiga|notebook|cuaderno|busca info/i, action: 'research', response: 'Tengo acceso a un cuaderno NotebookLM con todos los álbumes de Facebook de Naroa. ¿Qué quieres que investigue?' },
+      // NotebookLM Brain Patterns
+      { regex: /divinos|pizarra|latido/i, action: 'navigate', target: '#/archivo/divinos', response: 'DiviNos: Retratos hiperrealistas sobre pizarra natural. El mineral mica en la pintura crea un latido en los ojos. La pizarra es la vuelta a casa.' },
+      { regex: /vaivenes|textil|cable|cobre/i, action: 'navigate', target: '#/archivo/vaivenes', response: 'Vaivenes: Sostenibilidad y movimiento. Uso textiles reciclados, cables y cobre para tejer historias de cambio.' },
+      { regex: /en\.?lata|conserva|reciclaje/i, action: 'navigate', target: '#/archivo/enlatas', response: 'En.lata: Arte en latas de conserva recicladas. Emociones preservadas al vacío, ironía que no caduca.' },
+      { regex: /rasgado|lucha|acrilico.*pegamento/i, action: 'info', response: 'El Rasgado: Mi técnica firma. Nace de una lucha literal entre el acrílico y el pegamento, creando texturas rotas y orgánicas.' }
     ];
     
     this.quickActions = [
@@ -126,7 +135,39 @@ Responde en español. Sé el bosque.`
       'Ver tributos musicales',
       '¿Qué es la mica mineral?',
       'Muéstrame amor en el arte',
-      '¿Tienes obras de Johnny Cash?'
+      '¿Tienes obras de Johnny Cash?',
+      '¿Qué es el efecto Cantinflas?',
+      'Enséñame cuadros de pájaros',
+      '¿Haces envíos internacionales?',
+      'Busco arte para regalar',
+      '¿Qué es Walking Gallery?',
+      'Háblame de "The World is Yours"',
+      '¿Quién es Mr. Fahrenheit?',
+      'Quiero ver la serie Facefood',
+      '¿Tienes cuadros de Marilyn?',
+      '¿Qué significa "dorar las grietas"?',
+      'Muéstrame algo rojo',
+      '¿Qué es Arte en Lata?',
+      '¿Tienes obras de cine?',
+      'Háblame de "Viva la Novia"',
+      '¿Qué es un artivista?',
+      '¿Tienes cuadros de Mick Jagger?',
+      'Enséñame algo con brillos',
+      '¿Qué es "Candy Wedding"?',
+      '¿Tienes obras de Prince?',
+      'Muéstrame la serie Rocks',
+      '¿Haces encargos personalizados?',
+      '¿Quién es la chica del pendiente?',
+      'Háblame de "Génesis Deca-Core"',
+      '¿Tienes obras de Elvis?',
+      '¿Qué es "La Piedad"?',
+      'Muéstrame algo abstracto',
+      '¿Tienes obras de Lennon?',
+      '¿Qué es "MICA"?',
+      'Cuéntame un secreto del bosque',
+      '¿Tienes obras de animales?',
+      '¿Qué es "Amor en Conserva"?',
+      'Muéstrame tu obra favorita'
     ];
     this.usedPlaceholders = [];
     this.placeholderInterval = null;
@@ -134,10 +175,24 @@ Responde en español. Sé el bosque.`
     this.init();
   }
   
-  init() {
+  async init() {
     this.createDOM();
     this.bindEvents();
-    this.addMessage(this.personality.greeting, 'mica');
+    
+    // Load history, brain and catalog asynchronously
+    await Promise.all([
+      this.loadConversationHistory().then(h => this.conversationHistory = h),
+      this.loadBrain(),
+      this.loadCatalog()
+    ]);
+    
+    if (this.conversationHistory.length === 0) {
+        this.addMessage(this.personality.greeting, 'mica');
+    } else {
+        // Replay history in UI (optional, limited to last few)
+        // For now, just welcome back or stay silent
+    }
+
     this.startPlaceholderRotation();
   }
   
@@ -153,24 +208,83 @@ Responde en español. Sé el bosque.`
     return placeholder;
   }
   
-  // Memoria persistente con localStorage
-  loadConversationHistory() {
-    try {
-      const saved = localStorage.getItem('mica_conversation');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
+  // Memoria persistente con MicaMemory (IndexedDB)
+  async loadConversationHistory() {
+    if (window.MICAMemory) {
+        try {
+            const history = await window.MICAMemory.getRecentHistory(20);
+            return history.reverse().map(h => ({
+                role: h.role === 'user' ? 'user' : 'model',
+                parts: [{ text: h.content }]
+            }));
+        } catch (e) {
+            console.warn('[MICA] Error loading from memory:', e);
+            return [];
+        }
     }
+    return [];
+  }
+  
+  async loadBrain() {
+    try {
+      const resp = await fetch('data/mica-brain.json');
+      if (resp.ok) {
+        this.brain = await resp.json();
+        console.log('🧠 MICA Brain loaded from NotebookLM');
+      }
+    } catch (e) {
+      console.warn('[MICA] Brain load failed:', e);
+    }
+  }
+
+  async loadCatalog() {
+    try {
+      const resp = await fetch('data/artworks-metadata.json');
+      if (resp.ok) {
+        const data = await resp.json();
+        this.catalog = data.artworks || [];
+        console.log(`🧠 MICA Catalog loaded: ${this.catalog.length} artworks`);
+      }
+    } catch (e) {
+      console.warn('[MICA] Catalog load failed:', e);
+    }
+  }
+
+  searchCatalog(text) {
+    if (!this.catalog) return [];
+    
+    // Normalize and tokenize query
+    const normalize = (str) => (str || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const queryTokens = normalize(text).split(/\s+/).filter(t => t.length > 2); // Ignore short words
+    
+    if (queryTokens.length === 0) return [];
+
+    const results = this.catalog.map(art => {
+      let score = 0;
+      const titleNorm = normalize(art.title);
+      const seriesNorm = normalize(art.series);
+      const tagsNorm = normalize(art.keywords || art.technique || '');
+
+      // Exact phrase match bonus
+      if (titleNorm.includes(normalize(text))) score += 20;
+
+      queryTokens.forEach(token => {
+        if (titleNorm.includes(token)) score += 10;
+        if (seriesNorm.includes(token)) score += 5;
+        if (tagsNorm.includes(token)) score += 3;
+        // Basic fuzzy check (starts with)
+        if (titleNorm.split(' ').some(w => w.startsWith(token))) score += 2;
+      });
+
+      return { ...art, score };
+    });
+
+    // Filter by score threshold and sort desc
+    return results.filter(r => r.score > 0).sort((a, b) => b.score - a.score);
   }
   
   saveConversationHistory() {
-    try {
-      // Guardar últimos 20 mensajes
-      const toSave = this.conversationHistory.slice(-20);
-      localStorage.setItem('mica_conversation', JSON.stringify(toSave));
-    } catch (e) {
-      console.warn('[MICA] No se pudo guardar historial:', e);
-    }
+    // Deprecated: Now handled by MicaMemory.remember() individually
   }
   
   startPlaceholderRotation() {
@@ -189,11 +303,13 @@ Responde en español. Sé el bosque.`
   rotatePlaceholder() {
     if (!this.elements?.input) return;
     const input = this.elements.input;
-    input.style.transition = 'opacity 0.3s ease';
-    input.style.opacity = '0.3';
+    
+    // Add fading class to trigger CSS transition
+    input.classList.add('mica-input--fading');
+    
     setTimeout(() => {
       input.placeholder = this.getNextPlaceholder();
-      input.style.opacity = '1';
+      input.classList.remove('mica-input--fading');
     }, 300);
   }
   
@@ -284,7 +400,7 @@ Responde en español. Sé el bosque.`
   }
   
   processQuery(text) {
-    // Find matching pattern
+    // Find matching pattern (local patterns first)
     for (const pattern of this.patterns) {
       if (pattern.regex.test(text)) {
         this.addMessage(pattern.response, 'mica');
@@ -299,10 +415,57 @@ Responde en español. Sé el bosque.`
         return;
       }
     }
+
+    // 🕵️‍♀️ CURATOR SEARCH: Check if user is asking for specific artwork
+    const searchResults = this.searchCatalog(text);
+    if (searchResults.length > 0) {
+        // Boost score for exact title match
+        const exactMatch = searchResults.find(r => r.title.toLowerCase() === text.toLowerCase());
+        
+        if (exactMatch) {
+            this.addMessage(`¡Eureka! Aquí tienes "${exactMatch.title}" (${exactMatch.year}).`, 'mica');
+            if (window.GalleryDisruptive) {
+                setTimeout(() => window.GalleryDisruptive.openArtworkById(exactMatch.id), 800);
+            }
+            return;
+        }
+
+        // If strong match (only 1 or 2 results)
+        if (searchResults.length === 1) {
+            const art = searchResults[0];
+            this.addMessage(`He encontrado una obra que encaja: "${art.title}" de la serie ${art.series}. ¿Te la muestro?`, 'mica');
+             if (window.GalleryDisruptive) {
+                setTimeout(() => window.GalleryDisruptive.openArtworkById(art.id), 1500);
+            }
+            return;
+        }
+
+        // If User asks for "Show me Rocks" (Series match)
+        const isSeriesQuery = searchResults.every(r => r.series === searchResults[0].series);
+        if (isSeriesQuery && searchResults.length > 2) {
+             const series = searchResults[0].series;
+             
+             // Check for Facebook Album Link in Brain
+             let fbLink = '';
+             if (this.brain && this.brain.albums && this.brain.albums[series]) {
+                const url = this.brain.albums[series];
+                // Only show if it's a valid URL and not the placeholder
+                if (url && !url.includes('YOUR_ALBUM_ID_HERE')) {
+                   fbLink = `<br><br>👉 <a href="${url}" target="_blank" class="mica-link">Ver Álbum Completo en Facebook</a>`;
+                }
+             }
+
+             this.addMessage(`¡Por supuesto! Tengo ${searchResults.length} obras en la serie "${series}". Te llevo allí.${fbLink}`, 'mica');
+             setTimeout(() => {
+                 window.location.hash = `#/archivo/${series}`;
+             }, 1000);
+             return;
+        }
+    }
     
-    // AI fallback using Gemini 2.5 Flash with Streaming
+    // 🐝 SWARM ROUTING: Enriched query processing
     if (this.useAI) {
-      this.queryGeminiStreaming(text);
+      this.processWithSwarm(text);
     } else {
       this.addMessage(this.personality.fallback, 'mica');
       this.renderQuickActions();
@@ -310,10 +473,33 @@ Responde en español. Sé el bosque.`
   }
   
   /**
+   * 🐝 SWARM INTELLIGENCE: Route through specialized agents
+   */
+  async processWithSwarm(text) {
+    let enrichedPrompt = text;
+    let swarmContext = null;
+    
+    // Route through swarm if available
+    if (this.swarm) {
+      try {
+        swarmContext = await this.swarm.route(text);
+        enrichedPrompt = this.swarm.enrichPrompt(text, swarmContext);
+        console.log(`🐝 Swarm routed to: ${swarmContext.classification.agent.name}`);
+      } catch (e) {
+        console.warn('🐝 Swarm routing failed, using direct:', e);
+      }
+    }
+    
+    // Query with enriched prompt
+    this.queryGeminiStreaming(enrichedPrompt, swarmContext);
+  }
+  
+  /**
    * 2026 BEST TECHNOLOGY: Streaming Responses
    * Real-time typing effect using Server-Sent Events
+   * Now with Swarm context and Emotion Engine integration
    */
-  async queryGeminiStreaming(text) {
+  async queryGeminiStreaming(text, swarmContext = null) {
     if (this.isStreaming) return;
     this.isStreaming = true;
     
@@ -323,19 +509,61 @@ Responde en español. Sé el bosque.`
         role: 'user',
         parts: [{ text }]
       });
+
+      // Persist user message in Memory
+      if (window.MICAMemory) {
+          window.MICAMemory.remember(text, 'chat_user');
+      }
+      
+      // 🎭 EMOTION ENGINE: Get current mood and inject into prompt
+      const mood = window.MICA?.getState?.()?.mood || 'NEUTRAL';
+      const moodEnhancements = {
+        ENERGETIC: '\n[Estado emocional: ENERGÉTICA] Responde con entusiasmo, usa exclamaciones. ¡Vende con pasión!',
+        TIRED: '\n[Estado emocional: CANSADA] Respuestas breves y pausadas. Menos detalles.',
+        GRUMPY: '\n[Estado emocional: GRUÑONA] Sarcástica pero útil. Directa sin florituras.',
+        PLAYFUL: '\n[Estado emocional: JUGUETONA] Usa preguntas retóricas, metáforas del bosque.',
+        SOUL: '\n[Estado emocional: ALMA MÁXIMA] Modo poético máximo. Brilla como la mica.',
+        NEUTRAL: ''
+      };
+      
+      // Build enhanced system prompt
+      let enhancedSystemPrompt = this.gemini.systemPrompt;
+      enhancedSystemPrompt += moodEnhancements[mood] || '';
+      
+      // 🐝 Add swarm context if available
+      if (swarmContext?.artwork) {
+        enhancedSystemPrompt += `\n[Obra detectada: "${swarmContext.artwork.title}" - ${swarmContext.artwork.series || 'Serie única'}]`;
+      }
+      
+      // 🧠 SEMANTIC MEMORY: Add relevant past context
+      if (window.MICAMemory?.isReady) {
+        const memoryContext = await window.MICAMemory.buildContextString(text);
+        if (memoryContext) {
+          enhancedSystemPrompt += memoryContext;
+        }
+        // Remember this interaction
+        window.MICAMemory.remember(`Usuario preguntó: ${text.substring(0, 50)}`, 'interaction');
+      }
+
+      // 🧠 NOTEBOOKLM BRAIN INJECTION
+      if (this.brain) {
+        const brainContext = JSON.stringify(this.brain);
+        // Truncate if too long (unlikely given the JSON size, but safe)
+        enhancedSystemPrompt += `\n\n[MEMORIA PROFUNDA / NOTEBOOKLM]:\nUse this data to answer specific questions about Naroa's biography, techniques (Rasgado, Mica), and philosophy (Kintsugi/Resignification):\n${brainContext}`;
+      }
       
       // Build request
       const requestBody = {
         contents: [
           {
             role: 'user',
-            parts: [{ text: this.gemini.systemPrompt + '\n\nConversación actual:' }]
+            parts: [{ text: enhancedSystemPrompt + '\n\nConversación actual:' }]
           },
           ...this.conversationHistory
         ],
         generationConfig: {
           maxOutputTokens: 200,
-          temperature: 0.7,
+          temperature: mood === 'PLAYFUL' ? 0.9 : mood === 'TIRED' ? 0.5 : 0.7,
           topP: 0.9
         }
       };
@@ -402,7 +630,11 @@ Responde en español. Sé el bosque.`
           this.conversationHistory = this.conversationHistory.slice(-10);
         }
         
-        this.saveConversationHistory();
+        // Persist response in Memory
+        if (window.MICAMemory) {
+            window.MICAMemory.remember(fullText, 'chat_bot');
+        }
+        
         this.checkForNavigationInResponse(fullText);
       } else {
         this.queryGeminiFallback(text, streamMsg);
@@ -444,7 +676,7 @@ Responde en español. Sé el bosque.`
         contents: [
           {
             role: 'user',
-            parts: [{ text: this.gemini.systemPrompt + '\n\nConversación actual:' }]
+            parts: [{ text: this.gemini.systemPrompt + (this.brain ? `\n\n[MEMORIA NOTEBOOKLM]: ${JSON.stringify(this.brain)}` : '') + '\n\nConversación actual:' }]
           },
           ...this.conversationHistory
         ],

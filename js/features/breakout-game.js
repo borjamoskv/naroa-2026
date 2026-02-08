@@ -122,27 +122,45 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    ctx.fillStyle = '#0a0a0a';
+    ctx.fillStyle = '#050505';
     ctx.fillRect(0, 0, W, H);
 
-    // Bricks
-    state.bricks.forEach(b => {
+    // Dot grid
+    ctx.fillStyle = 'rgba(204, 255, 0, 0.03)';
+    for (let gx = 0; gx < W; gx += 24) {
+      for (let gy = 0; gy < H; gy += 24) {
+        ctx.fillRect(gx, gy, 1, 1);
+      }
+    }
+
+    // Bricks — alternating red/fluor rows
+    state.bricks.forEach((b, i) => {
       if (!b.alive) return;
-      ctx.fillStyle = '#a855f7';
+      const row = Math.floor(i / 8);
+      ctx.fillStyle = row % 2 === 0 ? '#ff003c' : '#ccff00';
+      ctx.shadowColor = row % 2 === 0 ? 'rgba(255,0,60,0.4)' : 'rgba(204,255,0,0.4)';
+      ctx.shadowBlur = 6;
       ctx.fillRect(b.x, b.y, b.w, b.h);
-      ctx.strokeStyle = '#fff3';
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
       ctx.strokeRect(b.x, b.y, b.w, b.h);
     });
 
-    // Paddle
-    ctx.fillStyle = '#3b82f6';
+    // Paddle — fluor neon
+    ctx.fillStyle = '#ccff00';
+    ctx.shadowColor = 'rgba(204, 255, 0, 0.6)';
+    ctx.shadowBlur = 10;
     ctx.fillRect(state.paddle.x, state.paddle.y, state.paddle.w, state.paddle.h);
+    ctx.shadowBlur = 0;
 
-    // Ball
-    ctx.fillStyle = '#ffd700';
+    // Ball — white with red glow
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(255, 0, 60, 0.8)';
+    ctx.shadowBlur = 15;
     ctx.beginPath();
     ctx.arc(state.ball.x, state.ball.y, state.ball.r, 0, Math.PI * 2);
     ctx.fill();
+    ctx.shadowBlur = 0;
   }
 
   window.BreakoutGame = { init };

@@ -212,7 +212,6 @@
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
   background: var(--gallery-bg);
@@ -694,6 +693,7 @@
   filter: blur(10px);
   transition: 
     all 0.6s var(--ease-ultra-smooth);
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
   will-change: transform, opacity, filter;
@@ -1178,7 +1178,7 @@
   }
   
   .gallery-hero {
-    min-height: auto;
+    min-height: 0;
     padding: 40px 0;
   }
 }
@@ -1234,4 +1234,70 @@
 .gallery-lightbox__nav:focus-visible {
   outline: 2px solid var(--gallery-gold);
   outline-offset: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   METADATA & LIGHTBOX DETAILS (PREMIUM UPGRADE)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.gallery-massive__meta {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 5px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.15s;
+}
+
+.gallery-massive__item:hover .gallery-massive__meta {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Lightbox Details */
+.gallery-lightbox__details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 20px 60px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+  color: white;
+  pointer-events: none;
+  text-align: center;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.gallery-lightbox.active .gallery-lightbox__details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-lightbox__title {
+  font-family: var(--font-display, sans-serif);
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.gallery-lightbox__meta {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: var(--accent, #d4af37);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .gallery-lightbox__title { font-size: 1.5rem; }
+  .gallery-lightbox__meta { font-size: 0.75rem; }
+  .gallery-lightbox__details { padding-bottom: 80px; } /* Space for nav buttons */
 }

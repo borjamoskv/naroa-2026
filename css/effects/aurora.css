@@ -1,0 +1,107 @@
+/* ============================================
+   AURORA BACKGROUND — Naroa 2026
+   Ambient morphing gradients (from floating-gallery)
+   ============================================ */
+
+.aurora {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aurora::before,
+.aurora::after {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  animation: aurora-morph 20s ease-in-out infinite alternate;
+}
+
+.aurora::before {
+  top: -50%;
+  left: -25%;
+  background: radial-gradient(ellipse at 30% 40%,
+    rgba(201, 165, 92, 0.12) 0%,
+    rgba(147, 112, 219, 0.06) 30%,
+    transparent 60%);
+  animation-delay: 0s;
+}
+
+.aurora::after {
+  bottom: -50%;
+  right: -25%;
+  background: radial-gradient(ellipse at 70% 60%,
+    rgba(59, 130, 246, 0.08) 0%,
+    rgba(201, 165, 92, 0.04) 40%,
+    transparent 70%);
+  animation-delay: -10s;
+}
+
+@keyframes aurora-morph {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33%  { transform: translate(5%, 5%) rotate(3deg) scale(1.05); }
+  66%  { transform: translate(-3%, 2%) rotate(-2deg) scale(0.98); }
+  100% { transform: translate(2%, -3%) rotate(1deg) scale(1.02); }
+}
+
+/* Cursor Spotlight — desktop only */
+.cursor-light {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 165, 92, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+/* Ambient Particles */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--color-accent-gold, #c9a55c);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: particle-float 20s infinite ease-in-out;
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10%      { opacity: 0.3; }
+  50%      { transform: translateY(-100vh) translateX(50px); opacity: 0.5; }
+  90%      { opacity: 0.3; }
+}
+
+/* Mobile: disable cursor effects */
+@media (max-width: 768px) {
+  .cursor-light { display: none; }
+}
+
+/* Reduced motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before,
+  .aurora::after { animation: none; }
+  .particle { animation: none; opacity: 0.15; }
+  .cursor-light { display: none; }
+}

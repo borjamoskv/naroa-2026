@@ -1,368 +1,66 @@
-/**
- * NAROA GUTIÉRREZ GIL - TRITONE PALETTE 2026
- * REGLA ABSOLUTA: SOLO 3 TONOS. ELEGANCIA + ACENTO CÁLIDO.
- * 
- * 1. CREMA - Luz (fondo, espacios respiro)
- * 2. NEGRO SUAVE - Sombra (texto, elementos, contraste)
- * 3. NARANJA DESERT TITANIUM - Acento cálido (iPhone 17 Pro)
- */
+/* ==========================================================================
+   NAROA PALETTE — CYBER-POP EDITION
+   Legacy compat with dark+red+fluor palette
+   ========================================================================== */
 
+/* Disable the global border-radius madness */
+/* All organic geometry rules removed for minimalism */
+
+/* Legacy variable compat — map to variables.css tokens */
 :root {
-  /* ==========================================
-     TRITONO ESENCIAL - The Only 3
-     ========================================== */
-  
-  /* 1. CREMA ORGÁNICO - Light tone */
-  --naroa-cream: #faf7f2;
-  
-  /* 2. NEGRO SUAVE - Dark tone */
-  --naroa-black: #2c2c2c;
-  
-  /* 3. NARANJA DESERT TITANIUM - Warm accent (iPhone 17 Pro) */
-  --naroa-orange: #E5A47B;
-
-  /* ==========================================
-     SEMANTIC MAPPING (Dark Mode Enforced)
-     ========================================== */
-  
-  --bg-primary: var(--naroa-black);
-  --bg-secondary: #222222;
-  --bg-elevated: #333333;
-  
-  --text-primary: var(--naroa-cream);
-  --text-secondary: rgba(250, 247, 242, 0.7);
-  
-  --accent: var(--naroa-orange);
-  --highlight: var(--naroa-orange);
-
-  /* ==========================================
-     GRADIENTS (Tritone)
-     ========================================== */
-  
-  --gradient-subtle: linear-gradient(135deg, var(--naroa-cream) 0%, rgba(44, 44, 44, 0.03) 100%);
-  --gradient-dark: linear-gradient(135deg, var(--naroa-black) 0%, rgba(44, 44, 44, 0.8) 100%);
-  --gradient-warm: linear-gradient(135deg, var(--naroa-orange) 0%, rgba(229, 164, 123, 0.6) 100%);
-  
-  /* ==========================================
-     ORGANIC GEOMETRY
-     ========================================== */
-  
-  --radius-organic: 60px 20px 50px 30px;
-  --radius-fluid: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  --radius-blob: 40% 60% 60% 40% / 60% 30% 70% 40%;
-  --radius-circle: 9999px;
-  
-  /* ==========================================
-     SHADOWS (Tritone)
-     ========================================== */
-  
-  --shadow-soft: 0 4px 20px rgba(44, 44, 44, 0.08);
-  --shadow-medium: 0 8px 30px rgba(44, 44, 44, 0.12);
-  --shadow-strong: 0 12px 40px rgba(44, 44, 44, 0.18);
-  --shadow-orange: 0 4px 30px rgba(229, 164, 123, 0.25);
-
-  /* Legacy compatibility - warm colors map to orange */
-  --naroa-gold: var(--naroa-orange);
-  --naroa-red: var(--naroa-orange);
-  --naroa-gold-dust: var(--naroa-orange);
-  --naroa-terracotta: var(--naroa-orange);
-  --naroa-blue: var(--naroa-black);
+  --naroa-cream: var(--white);
+  --naroa-black: var(--black);
+  --naroa-orange: var(--red-pop);
+  --bg-primary: var(--black);
+  --bg-secondary: var(--black-soft);
+  --bg-elevated: var(--black-card);
+  --text-primary: var(--white);
+  --text-secondary: var(--white-muted);
+  --highlight: var(--fluor);
+  --gradient-subtle: none;
+  --gradient-dark: none;
+  --gradient-warm: none;
+  --shadow-soft: var(--shadow-subtle);
+  --shadow-medium: var(--shadow-card);
+  --shadow-strong: var(--shadow-elevated);
+  --shadow-orange: 0 0 20px var(--red-glow);
 }
 
-/* Global Anti-Straight Rule */
-* {
-  border-radius: var(--radius-organic);
-}
+/* Pigment effects — disabled */
+.pigment-canvas, .pigment-stain::before, .pigment-orange::after,
+.watercolor::before, .brushstroke-border, .pigment-shadow { display: none; }
 
-img, button, .card, .panel, .module {
-  border-radius: var(--radius-fluid) !important;
-}
+/* MICA filter effects — disabled */
+.mica-filter::before { display: none !important; }
+.mica-shimmer::after { display: none !important; }
+.mica-glow { box-shadow: none; animation: none; }
+.mica-mood-indicator { display: none; }
 
-input, .btn, .tag {
-  border-radius: var(--radius-circle) !important;
-}
-
-/* Organic Body - Dark Mode FORCED */
-body {
-  background: #0a0a0f !important;
-  color: var(--text-primary);
-}
-
-/**
- * PIGMENTOS ARTÍSTICOS - Tritone Textures
- * ========================================== */
-
-/* Textura de lienzo/canvas */
-.pigment-canvas {
-  background-image: 
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-blend-mode: overlay;
-  opacity: 0.04;
-}
-
-/* Manchas de tinta negra sutiles */
-.pigment-stain::before {
-  content: '';
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(ellipse, var(--naroa-black) 0%, transparent 70%);
-  opacity: 0.03;
-  border-radius: var(--radius-blob);
-  filter: blur(40px);
-  pointer-events: none;
-}
-
-/* Manchas de pigmento naranja Desert Titanium */
-.pigment-orange::after {
-  content: '';
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(ellipse, var(--naroa-orange) 0%, transparent 70%);
-  opacity: 0.08;
-  border-radius: var(--radius-blob);
-  filter: blur(45px);
-  pointer-events: none;
-}
-
-/* Efecto acuarela tritono */
-.watercolor {
-  position: relative;
-}
-
-.watercolor::before {
-  content: '';
-  position: absolute;
-  inset: -20%;
-  background: 
-    radial-gradient(ellipse at 20% 30%, rgba(229, 164, 123, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(44, 44, 44, 0.02) 0%, transparent 40%);
-  filter: blur(30px);
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Textura de papel artesanal */
-.paper-texture {
-  background-image: 
-    linear-gradient(to right, rgba(44, 44, 44, 0.01) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(44, 44, 44, 0.01) 1px, transparent 1px);
-  background-size: 4px 4px;
-}
-
-/* Bordes de pincelada */
-.brushstroke-border {
-  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='10'%3E%3Cpath d='M0,5 Q25,0 50,5 T100,5' stroke='%23c38d7a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 10 stretch;
-}
-
-/* Sombras de pigmento */
-.pigment-shadow {
-  box-shadow: 
-    8px 8px 0 -4px var(--naroa-orange),
-    -4px 12px 30px rgba(229, 164, 123, 0.15);
-}
-
-/* Overlay global de textura */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 99999;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-}
-
-/* ==========================================
-   FILTRO MICA - Sistema Visual Reactivo
-   ========================================== */
-
-/* MICA Dust Particles - Partículas doradas sutiles */
-.mica-filter {
-  position: relative;
-  overflow: hidden;
-}
-
-.mica-filter::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(229, 164, 123, 0.15) 1px, transparent 1px),
-    radial-gradient(circle at 80% 60%, rgba(229, 164, 123, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 50% 80%, rgba(229, 164, 123, 0.12) 1px, transparent 1px);
-  background-size: 50px 50px, 70px 70px, 60px 60px;
-  background-position: 0 0, 20px 20px, 40px 40px;
-  animation: mica-dust-float 20s linear infinite;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-@keyframes mica-dust-float {
-  0% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(-10px) translateX(5px); }
-  100% { transform: translateY(0) translateX(0); }
-}
-
-/* MICA Shimmer - Destello periódico */
-.mica-shimmer {
-  position: relative;
-}
-
-.mica-shimmer::after {
-  content: '';
-  position: absolute;
-  inset: -20%;
-  background: linear-gradient(
-    110deg,
-    transparent 30%,
-    rgba(229, 164, 123, 0.3) 50%,
-    transparent 70%
-  );
-  animation: mica-shimmer-sweep 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes mica-shimmer-sweep {
-  0%, 90%, 100% { transform: translateX(-200%); opacity: 0; }
-  40%, 60% { transform: translateX(200%); opacity: 1; }
-}
-
-/* MICA Glassmorphism - Fondo blur tritone */
+/* MICA glass — simplified */
 .mica-glass {
-  background: linear-gradient(135deg, 
-    rgba(250, 247, 242, 0.7) 0%, 
-    rgba(229, 164, 123, 0.4) 100%);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(229, 164, 123, 0.2);
-  box-shadow: 
-    0 8px 32px rgba(229, 164, 123, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: rgba(255,255,255,0.03);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 0, 60, 0.1);
+  box-shadow: none;
 }
 
-/* MICA Glow - Aura naranja sutil */
-.mica-glow {
-  box-shadow: 
-    0 0 20px rgba(229, 164, 123, 0.4),
-    0 0 40px rgba(229, 164, 123, 0.2),
-    0 0 60px rgba(229, 164, 123, 0.1);
-  animation: mica-pulse-glow 4s ease-in-out infinite;
-}
-
-@keyframes mica-pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(229, 164, 123, 0.4), 0 0 40px rgba(229, 164, 123, 0.2); }
-  50% { box-shadow: 0 0 30px rgba(229, 164, 123, 0.6), 0 0 60px rgba(229, 164, 123, 0.3); }
-}
-
-/* ==========================================
-   MICA MOOD STATES - Efectos por estado
-   ========================================== */
-
-/* ENERGETIC - Partículas rápidas, colores vibrantes */
-[data-mica-mood="energetic"] .mica-filter::before {
-  animation-duration: 10s;
-  opacity: 1;
-}
-
-[data-mica-mood="energetic"] {
-  --mica-mood-color: var(--naroa-orange);
-}
-
-/* TIRED - Partículas lentas, opacidad baja */
-[data-mica-mood="tired"] .mica-filter::before {
-  animation-duration: 40s;
-  opacity: 0.3;
-}
-
-[data-mica-mood="tired"] {
-  --mica-mood-color: rgba(229, 164, 123, 0.4);
-}
-
-/* GRUMPY - Sin partículas, solo sombras duras */
-[data-mica-mood="grumpy"] .mica-filter::before {
-  display: none;
-}
-
-[data-mica-mood="grumpy"] {
-  --mica-mood-color: var(--naroa-black);
-  filter: contrast(1.2) saturate(0.6);
-}
-
-/* PLAYFUL - Partículas caóticas, rotación */
-[data-mica-mood="playful"] .mica-filter::before {
-  animation: mica-dust-dance 5s ease-in-out infinite;
-}
-
-@keyframes mica-dust-dance {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(5deg) scale(1.05); }
-  50% { transform: rotate(-5deg) scale(0.95); }
-  75% { transform: rotate(3deg) scale(1.02); }
-}
-
-[data-mica-mood="playful"] {
-  --mica-mood-color: var(--naroa-orange);
-}
-
-/* SOUL MODE (Borja Moskv detected) - Máximo efecto */
-[data-mica-mood="soul"] .mica-filter::before {
-  animation-duration: 8s;
-  opacity: 1;
-  background-image: 
-    radial-gradient(circle, rgba(229, 164, 123, 0.3) 2px, transparent 2px);
-  background-size: 30px 30px;
-}
-
-[data-mica-mood="soul"] {
-  --mica-mood-color: var(--naroa-orange);
-  box-shadow: 0 0 40px rgba(229, 164, 123, 0.5);
-  animation: mica-soul-aura 3s ease-in-out infinite;
-}
-
-@keyframes mica-soul-aura {
-  0%, 100% { box-shadow: 0 0 40px rgba(229, 164, 123, 0.5); }
-  50% { box-shadow: 0 0 60px rgba(229, 164, 123, 0.8), 0 0 100px rgba(229, 164, 123, 0.4); }
-}
-
-/* Indicador visual del mood de MICA */
-.mica-mood-indicator {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--mica-mood-color, var(--naroa-orange)) 0%, transparent 70%);
-  filter: blur(15px);
-  opacity: 0.6;
-  animation: pulse-mood 2s infinite;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-@keyframes pulse-mood {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.2); opacity: 0.8; }
-}
-
-/* MICA Frosted Overlay - Para menús flotantes */
+/* MICA frosted — simplified */
 .mica-frosted {
-  background: rgba(250, 247, 242, 0.5);
-  backdrop-filter: blur(10px) brightness(1.1);
-  -webkit-backdrop-filter: blur(10px) brightness(1.1);
-  border: 1px solid rgba(229, 164, 123, 0.15);
-  box-shadow: 0 4px 20px rgba(44, 44, 44, 0.08);
+  background: rgba(0,0,0,0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: none;
 }
 
-/* Hover states con MICA filter */
+/* MICA interactive */
 .mica-interactive:hover {
-  background: linear-gradient(135deg, 
-    rgba(229, 164, 123, 0.15) 0%, 
-    rgba(250, 247, 242, 0.8) 100%);
-  box-shadow: 0 8px 30px rgba(229, 164, 123, 0.25);
-  transform: translateY(-2px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(204, 255, 0, 0.04);
+  box-shadow: none;
+  transform: none;
 }
+
+/* Mood states — disabled for minimal */
+[data-mica-mood] { filter: none; }
+[data-mica-mood] .mica-filter::before { display: none; }

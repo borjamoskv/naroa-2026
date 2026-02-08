@@ -1,138 +1,86 @@
 /**
- * ORGANIC PARTICLES - Floating Pigment Dust
- * Partículas orgánicas que flotan como polvo de pigmento
- * Usando SOLO los 4 colores de la paleta
+ * Organic Particles - Premium Background Effect
+ * Subtle, floating particles that add life to the negative space.
  */
 
 class OrganicParticles {
   constructor() {
-    this.canvas = null;
-    this.ctx = null;
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
     this.particles = [];
-    this.count = 30; // Subtle, not overwhelming
-    this.colors = [];
-    this.animationId = null;
+    this.count = 50; // Not too many, keep it clean
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
     
     this.init();
   }
 
   init() {
-    // Create canvas
-    this.canvas = document.createElement('canvas');
     this.canvas.id = 'organic-particles';
-    this.canvas.style.cssText = `
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.6;
-    `;
+    this.canvas.style.position = 'fixed';
+    this.canvas.style.top = '0';
+    this.canvas.style.left = '0';
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+    this.canvas.style.zIndex = '1'; // Behind content, above aurora
+    this.canvas.style.pointerEvents = 'none';
+    this.canvas.style.opacity = '0.4';
+    
     document.body.appendChild(this.canvas);
-    this.ctx = this.canvas.getContext('2d');
     
     this.resize();
-    this.getColors();
-    this.createParticles();
-    this.animate();
-    
     window.addEventListener('resize', () => this.resize());
     
-    // Listen for palette changes
-    document.addEventListener('climatePaletteChanged', () => {
-      this.getColors();
-      this.particles.forEach((p, i) => {
-        p.color = this.colors[i % this.colors.length];
-      });
-    });
-  }
-
-  getColors() {
-    const style = getComputedStyle(document.documentElement);
-    this.colors = [
-      style.getPropertyValue('--naroa-terracotta').trim() || '#c38d7a',
-      style.getPropertyValue('--naroa-blue').trim() || '#002fa7',
-      style.getPropertyValue('--naroa-cream').trim() || '#faf7f2'
-    ];
+    this.createParticles();
+    this.animate();
   }
 
   resize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
   }
 
   createParticles() {
-    this.particles = [];
     for (let i = 0; i < this.count; i++) {
       this.particles.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        size: Math.random() * 4 + 2,
-        speedX: (Math.random() - 0.5) * 0.3,
-        speedY: (Math.random() - 0.5) * 0.3 - 0.1, // Slight upward drift
-        color: this.colors[i % this.colors.length],
-        opacity: Math.random() * 0.5 + 0.2,
-        angle: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * 0.02
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 3 + 1,
+        alpha: Math.random() * 0.5 + 0.1
       });
     }
   }
 
   animate() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, this.width, this.height);
     
     this.particles.forEach(p => {
-      // Update position
-      p.x += p.speedX + Math.sin(Date.now() * 0.001 + p.y * 0.01) * 0.2;
-      p.y += p.speedY;
-      p.angle += p.rotationSpeed;
+      p.x += p.vx;
+      p.y += p.vy;
       
-      // Wrap around
-      if (p.x < -10) p.x = this.canvas.width + 10;
-      if (p.x > this.canvas.width + 10) p.x = -10;
-      if (p.y < -10) p.y = this.canvas.height + 10;
-      if (p.y > this.canvas.height + 10) p.y = -10;
+      // Wrap around screen
+      if (p.x < 0) p.x = this.width;
+      if (p.x > this.width) p.x = 0;
+      if (p.y < 0) p.y = this.height;
+      if (p.y > this.height) p.y = 0;
       
-      // Draw organic blob shape
-      this.ctx.save();
-      this.ctx.translate(p.x, p.y);
-      this.ctx.rotate(p.angle);
-      this.ctx.globalAlpha = p.opacity;
-      
-      // Organic blob path
       this.ctx.beginPath();
-      const points = 6;
-      for (let i = 0; i <= points; i++) {
-        const angle = (i / points) * Math.PI * 2;
-        const radius = p.size * (0.8 + Math.sin(angle * 3) * 0.2);
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
-        if (i === 0) this.ctx.moveTo(x, y);
-        else this.ctx.lineTo(x, y);
-      }
-      this.ctx.closePath();
-      
-      this.ctx.fillStyle = p.color;
+      this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      this.ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
       this.ctx.fill();
-      
-      this.ctx.restore();
     });
     
-    this.animationId = requestAnimationFrame(() => this.animate());
-  }
-
-  destroy() {
-    cancelAnimationFrame(this.animationId);
-    this.canvas?.remove();
+    requestAnimationFrame(() => this.animate());
   }
 }
 
-// Initialize
+// Auto-init
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => new OrganicParticles());
 } else {
   new OrganicParticles();
 }
-
-window.OrganicParticles = OrganicParticles;

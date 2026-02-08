@@ -146,7 +146,7 @@
       const x = Math.random() * 100;
       const y = Math.random() * 100;
       const size = 2 + Math.random() * 4;
-      const hue = 270 + Math.random() * 60; // Purple to gold
+      const hue = Math.random() > 0.5 ? 75 + Math.random() * 20 : 350 + Math.random() * 20; // Fluor-green or Red
       const duration = 3 + Math.random() * 4;
       const delay = Math.random() * 3;
 

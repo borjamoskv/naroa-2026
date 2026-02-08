@@ -1,227 +1,100 @@
-/* ============================================
-   AUDIO-REACTIVE VISUAL EFFECTS
-   CSS variables driven by audio analysis
-   ============================================ */
+/* ==========================================================================
+   AUDIO REACTIVE — MINIMAL EDITION
+   Keep functional elements, strip all visual effects
+   ========================================================================== */
 
-/* Hero audio-reactive glow */
-.hero {
-  --audio-glow: 0.1;
-}
+/* Hero audio glow — disabled for minimal */
+.hero { --audio-glow: 0; }
 
-.hero--premium::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(220, 38, 38, calc(var(--audio-glow) * 0.3)) 0%,
-    transparent 60%
-  );
-  pointer-events: none;
-  transition: opacity 0.1s ease;
-  z-index: 1;
-}
-
-/* Card pulse animation for audio */
-@keyframes card-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(220, 38, 38, 0.4); }
-  100% { transform: scale(1); }
-}
-
-/* Audio visualizer bars in hero */
+/* Audio visualizer in hero */
 .audio-visualizer {
   position: absolute;
-  bottom: 20%;
+  bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 4px;
-  height: 60px;
+  gap: 3px;
+  height: 40px;
   align-items: flex-end;
-  opacity: 0.3;
+  opacity: 0.15;
   pointer-events: none;
   z-index: 1;
 }
 
 .audio-visualizer__bar {
-  width: 4px;
-  background: linear-gradient(to top, #dc2626, #ffd700);
-  border-radius: 2px;
+  width: 2px;
+  background: var(--white);
+  border-radius: 1px;
   transition: height 0.05s ease;
 }
 
-/* Audio-reactive border glow on game cards */
-.game-card {
-  --card-glow: 0;
-  transition: transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-.game-card::after {
-  box-shadow: 0 0 calc(var(--card-glow) * 30px) rgba(220, 38, 38, calc(var(--card-glow) * 0.5));
-}
-
-/* Breathing animation synced to ambient */
-@keyframes audio-breathe {
-  0%, 100% { 
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 1;
-    transform: scale(1.02);
-  }
-}
-
-.hero__orb--1,
-.hero__orb--2,
-.hero__orb--3 {
-  animation-timing-function: ease-in-out;
-}
-
-/* Audio indicator pulse when sound playing */
-.audio-indicator--active::before,
-.audio-indicator--active::after {
-  animation: audio-bar-dynamic 0.3s ease-in-out infinite alternate;
-}
-
-@keyframes audio-bar-dynamic {
-  0% { 
-    height: 4px;
-    opacity: 0.5;
-  }
-  100% { 
-    height: 20px;
-    opacity: 1;
-  }
-}
-
-/* MICA effect audio sync */
-.mica-glow {
-  --mica-audio-intensity: 0;
-  filter: blur(calc(var(--mica-audio-intensity) * 2px));
-}
-
-/* Gallery hover with audio feedback hint */
-.gallery-item::before {
-  content: '🔊';
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 0.8rem;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 10;
-}
-
-.gallery-item:hover::before {
-  opacity: 0.5;
-}
-
-/* Audio waveform decoration */
+/* Audio wave — bottom line */
 .audio-wave {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, 
-    transparent 0%,
-    rgba(220, 38, 38, 0.5) 20%,
-    rgba(255, 215, 0, 0.5) 50%,
-    rgba(220, 38, 38, 0.5) 80%,
-    transparent 100%
-  );
+  height: 1px;
+  background: rgba(255,255,255,0.1);
   opacity: 0;
-  transition: opacity 0.3s;
   pointer-events: none;
   z-index: 9999;
 }
 
-.audio-wave--active {
-  opacity: 1;
-  animation: wave-pulse 2s ease-in-out infinite;
-}
+.audio-wave--active { opacity: 1; }
 
-@keyframes wave-pulse {
-  0%, 100% { 
-    transform: scaleY(1);
-    opacity: 0.3;
-  }
-  50% { 
-    transform: scaleY(2);
-    opacity: 0.6;
-  }
-}
-
-/* Spatial audio hint */
+/* Spatial hint */
 .spatial-hint {
   position: fixed;
   bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 30px;
-  padding: 8px 20px;
-  font-size: 0.75rem;
-  color: #ffd700;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 6px 16px;
+  font-size: 0.7rem;
+  color: var(--white-muted);
   opacity: 0;
   transition: opacity 0.5s;
   pointer-events: none;
 }
 
-.spatial-hint--visible {
-  opacity: 1;
-  animation: hint-fade 5s forwards;
-}
+.spatial-hint--visible { opacity: 1; animation: hint-fade 5s forwards; }
 
 @keyframes hint-fade {
-  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
   10% { opacity: 1; transform: translateX(-50%) translateY(0); }
   80% { opacity: 1; }
   100% { opacity: 0; }
 }
 
-/* Headphones recommendation */
+/* Headphones hint */
 .headphones-hint {
   position: fixed;
-  top: 20px;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.9);
-  border: 1px solid rgba(220, 38, 38, 0.5);
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 0.85rem;
-  color: #fff;
+  background: rgba(0,0,0,0.9);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.8rem;
+  color: var(--white);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   opacity: 0;
-  transform: translateX(-50%) translateY(-20px);
-  transition: all 0.5s ease;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.4s ease;
   z-index: 9999;
 }
 
-.headphones-hint--visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+.headphones-hint--visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+.headphones-hint__icon { font-size: 1.2rem; }
+.headphones-hint__close { margin-left: 12px; background: none; border: none; color: var(--white-subtle); cursor: pointer; font-size: 0.9rem; }
+.headphones-hint__close:hover { color: var(--white); }
 
-.headphones-hint__icon {
-  font-size: 1.5rem;
-}
-
-.headphones-hint__close {
-  margin-left: 15px;
-  background: none;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.headphones-hint__close:hover {
-  color: #fff;
-}
+/* Disable all glow/pulse effects */
+.mica-glow { filter: none; box-shadow: none; }
+.game-card { --card-glow: 0; }

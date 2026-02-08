@@ -51,9 +51,6 @@ class Router {
       this.beforeEach(path, previousRoute);
     }
 
-    // Hide all views first
-    this.hideAllViews();
-
     // Find matching route
     const handler = this.routes.get(path);
     
@@ -72,23 +69,33 @@ class Router {
   }
 
   /**
-   * Hide all view sections
+   * Smooth scroll to specific view
+   * @param {string} viewId 
    */
-  hideAllViews() {
-    document.querySelectorAll('.view').forEach(view => {
-      view.classList.remove('active');
+  scrollToView(viewId) {
+    const view = document.getElementById(viewId);
+    if (!view) return;
+
+    // Use robust scrollIntoView
+    view.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
     });
   }
 
   /**
-   * Show a specific view by ID
+   * Hide all view sections - DEPRECATED for Scroll Mode
+   */
+  hideAllViews() {
+    // No-op: We want all views visible for scrolling
+  }
+
+  /**
+   * Show a specific view by ID - UPDATED to Scroll
    * @param {string} viewId - Element ID of the view
    */
   showView(viewId) {
-    const view = document.getElementById(viewId);
-    if (view) {
-      view.classList.add('active');
-    }
+    this.scrollToView(viewId);
   }
 
   /**

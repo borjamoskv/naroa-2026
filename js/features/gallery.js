@@ -30,55 +30,22 @@
       if (metadataRes.ok) {
         const data = await metadataRes.json();
         
-        // Map all artworks from metadata
-        const allArtworks = data.artworks.map((art, index) => ({
-          id: index + 1,
-          title: art.title,
-          file: `${art.id}.webp`,
-          category: art.series,
-          technique: art.technique,
-          year: art.year
-        }));
+        // Map artworks from metadata — trust JSON as source of truth (no HEAD requests)
+        const seenFiles = new Set();
+        const seenBaseNames = new Set();
         
-        // Filter to only artworks with available images
-        // We use HEAD requests to check if images exist
-        const validArtworks = [];
-        const seenFiles = new Set(); // Prevent duplicates
-        const seenBaseNames = new Set(); // Track base artwork names to skip variants
+        ARTWORKS = data.artworks
+          .map((art, index) => ({
+            id: index + 1,
+            title: art.title,
+            file: `${art.id}.webp`, // Trust the ID structure
+            category: art.series,
+            technique: art.technique,
+            year: art.year,
+            originalId: art.id
+          }));
         
-        for (const artwork of allArtworks) {
-          // Skip duplicates
-          if (seenFiles.has(artwork.file)) {
-            continue;
-          }
-          
-          // Skip HQ variants and other variants (keep only primary version)
-          // Pattern: name-hq-1, name-hq-2, name-var2, name-var3, etc.
-          const baseName = artwork.file
-            .replace('.webp', '')
-            .replace(/-hq-\d+$/, '')
-            .replace(/-var\d*$/, '');
-          
-          // If we've already seen this base artwork, skip this variant
-          if (seenBaseNames.has(baseName) && artwork.file !== `${baseName}.webp`) {
-            continue;
-          }
-          
-          seenFiles.add(artwork.file);
-          
-          try {
-            const response = await fetch(`images/artworks/${artwork.file}`, { method: 'HEAD' });
-            if (response.ok) {
-              validArtworks.push(artwork);
-              seenBaseNames.add(baseName); // Mark this artwork as seen
-            }
-          } catch (err) {
-            // Image doesn't exist, skip
-          }
-        }
-        
-        ARTWORKS = validArtworks;
-        console.log(`[Gallery] Loaded ${ARTWORKS.length} artworks with valid images (from ${allArtworks.length} total)`);
+        console.log(`[Gallery] Loaded ${ARTWORKS.length} artworks from metadata (${data.artworks.length} total in JSON)`);
       }
       
       if (taxonomyRes.ok) {
@@ -131,18 +98,28 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const img = entry.target;
+        
+        // Handle <picture> sources
+        const picture = img.closest('picture');
+        if (picture) {
+          picture.querySelectorAll('source[data-srcset]').forEach(source => {
+            source.srcset = source.dataset.srcset;
+          });
+        }
+        
+        // Handle img src
         if (img.dataset.src) {
           img.src = img.dataset.src;
           img.removeAttribute('data-src');
-          img.addEventListener('load', () => {
-            img.classList.add('loaded');
-          });
         }
+        
+        img.classList.add('loaded');
         lazyObserver.unobserve(img);
       }
     });
   }, {
-    rootMargin: '50px' // Reduced for faster perceived load
+    rootMargin: '300% 300%',
+    threshold: 0.01
   });
 
   // ===========================================
@@ -178,7 +155,8 @@
    */
   function renderGalleryItem(artwork, animate = false) {
     const item = document.createElement('div');
-    item.className = 'gallery__item';
+    // STITCH UI: Premium Card Structure
+    item.className = 'gallery__item stitch-card';
     item.dataset.category = artwork.category;
     item.dataset.id = artwork.id;
 
@@ -186,16 +164,24 @@
       item.classList.add('gallery__item--enter');
     }
 
-    // Use optimized thumbnails for grid (350px JPG ~25KB)
-    // Full WebP loaded only in lightbox on click
-    const thumbnailFile = artwork.file.replace('.webp', '.jpg');
+    const baseName = artwork.file.replace('.webp', '');
     item.innerHTML = `
-      <img 
-        data-src="images/thumbnails/${thumbnailFile}" 
-        alt="${artwork.title}"
-        loading="lazy"
-      >
-      <span class="gallery__caption">${artwork.title}</span>
+      <div class="stitch-media-wrapper">
+        <img 
+          data-src="images/artworks/${artwork.originalId}.webp" 
+          alt="${artwork.title}"
+          loading="lazy"
+          class="stitch-media-content gallery__img--hq"
+          onerror="this.style.display='none'; console.warn('Missing image:', this.dataset.src || this.src);"
+        >
+      </div>
+      <div class="stitch-content">
+        <h3 class="stitch-title">${artwork.title}</h3>
+        <div class="stitch-subtitle">
+          <span>${artwork.technique || 'Obra original'}</span>
+          ${artwork.year ? `<span class="stitch-badge">${artwork.year}</span>` : ''}
+        </div>
+      </div>
     `;
 
     // Setup lazy loading

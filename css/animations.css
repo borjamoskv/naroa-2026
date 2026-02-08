@@ -1,154 +1,85 @@
-/* Animations - Naroa 2026 */
+/* ==========================================================================
+   ANIMATIONS — MINIMAL EDITION
+   Clean fade-ins only. Single source of truth for view transitions.
+   ========================================================================== */
 
-/* Fade In */
+/* Keyframes */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Scale */
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Reveal */
-@keyframes reveal {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* Utility classes */
-.animate-fade-in {
-  animation: fadeIn var(--duration-slow) var(--ease-out) forwards;
-}
+.animate-fade-in { animation: fadeIn 0.4s var(--ease-out) forwards; }
+.animate-fade-in-up { animation: fadeInUp 0.4s var(--ease-out) forwards; }
+.animate-scale-in { animation: scaleIn 0.4s var(--ease-out) forwards; }
 
-.animate-fade-in-up {
-  animation: fadeInUp var(--duration-slow) var(--ease-out) forwards;
-}
+/* Stagger */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
 
-.animate-scale-in {
-  animation: scaleIn var(--duration-slow) var(--ease-out) forwards;
-}
-
-.animate-reveal {
-  animation: reveal var(--duration-slower) var(--ease-out) forwards;
-}
-
-/* Stagger animation delays */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
-
-/* Hero specific animations */
+/* === HERO ENTRANCE === */
 .hero__line {
-  opacity: 0;
-  animation: fadeInUp var(--duration-slower) var(--ease-out) forwards;
+  display: block;
 }
-
-.hero__line:nth-child(1) { animation-delay: 0.2s; }
-.hero__line:nth-child(2) { animation-delay: 0.4s; }
-.hero__line:nth-child(3) { animation-delay: 0.6s; }
 
 .hero__subtitle {
-  opacity: 0;
-  animation: fadeIn var(--duration-slow) var(--ease-out) 0.9s forwards;
+  opacity: 0.6;
 }
 
 .hero__cta {
-  opacity: 0;
-  animation: fadeInUp var(--duration-slow) var(--ease-out) 1.1s forwards;
+  opacity: 0.4;
 }
 
-/* View transitions */
-.view {
-  opacity: 0;
-}
+/* === VIEW TRANSITIONS — Handled by layout.css (single source of truth) === */
 
-.view.active {
-  animation: fadeIn var(--duration-base) var(--ease-out) forwards;
-}
-
-/* Image lazy load */
+/* Gallery images lazy load */
 .gallery__item img {
   opacity: 0;
-  transition: opacity var(--duration-slow) var(--ease-default);
+  transition: opacity 0.4s var(--ease-default);
 }
 
 .gallery__item img.loaded {
   opacity: 1;
 }
 
-/* Hover lift */
+/* Hover lift — subtle */
 .hover-lift {
-  transition: transform var(--duration-base) var(--ease-default),
-              box-shadow var(--duration-base) var(--ease-default);
+  transition: transform 0.3s var(--ease-default);
 }
 
 .hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
-/* Magnetic effect placeholder (for JS enhancement) */
+/* Magnetic placeholder */
 [data-magnetic] {
-  transition: transform var(--duration-fast) var(--ease-out);
+  transition: transform 0.15s var(--ease-out);
 }
 
-/* === PERFORMANCE: Reduce animations on low-power devices === */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  .animate-fade-in,
-  .animate-fade-in-up,
-  .animate-scale-in,
-  .animate-reveal,
-  .hero__line,
-  .hero__subtitle,
-  .hero__cta {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 }

@@ -67,6 +67,9 @@ const GalleryDisruptive = {
     if (this.initialized) return;
     this.initialized = true;
 
+    // Load metadata first for premium experience
+    this.loadMetadata();
+
     this.setupLazyLoading();
     this.setupRevealAnimations();
     this.setupLightbox();
@@ -78,6 +81,67 @@ const GalleryDisruptive = {
     this.setupAdjacentPreload();
 
     console.log('🖼️ Gallery Disruptive 2.0 Engine initialized');
+  },
+
+  // ═════════════════════════════════════════════════════════════════════════════
+  // METADATA LOADING - PREMIUM UPGRADE
+  // ═════════════════════════════════════════════════════════════════════════════
+
+  async loadMetadata() {
+    try {
+      const resp = await fetch('data/artworks-metadata.json');
+      if (resp.ok) {
+        const data = await resp.json();
+        this.metadata = {};
+        // Map by ID for quick lookup
+        data.artworks.forEach(art => {
+          this.metadata[art.id] = art;
+        });
+        this.injectGridMetadata();
+      }
+    } catch (e) {
+      console.warn('Metadata load skipped', e);
+    }
+  },
+
+  injectGridMetadata() {
+    if (!this.metadata) return;
+
+    const items = document.querySelectorAll('.gallery-massive__item');
+    items.forEach(item => {
+      const img = item.querySelector('img');
+      if (!img) return;
+
+      // Extract ID from filename (e.g. "cantinflas-0.webp" -> "cantinflas-0")
+      // Check both src and data-src
+      const src = img.getAttribute('data-src') || img.src;
+      const filename = src.split('/').pop();
+      const id = filename.replace(/\.(webp|jpg|png|jpeg)$/i, '');
+
+      // Lookup metadata (try exact match, then base name)
+      let meta = this.metadata[id];
+      if (!meta) {
+        // Try removing -hq suffix if present
+        const baseId = id.replace(/-hq-\d+$/, '');
+        meta = this.metadata[baseId];
+      }
+
+      if (meta) {
+        // Store metadata on DOM element for lightbox access
+        item.dataset.metaYear = meta.year || '';
+        item.dataset.metaTechnique = meta.technique || '';
+        item.dataset.metaTitle = meta.title || '';
+
+        // Inject into Overlay if not already present
+        const overlay = item.querySelector('.gallery-massive__overlay');
+        if (overlay && !overlay.querySelector('.gallery-massive__meta')) {
+          const metaEl = document.createElement('p');
+          metaEl.className = 'gallery-massive__meta';
+          metaEl.textContent = `${meta.year} • ${meta.technique}`;
+          overlay.appendChild(metaEl);
+        }
+      }
+    });
   },
 
   // ═════════════════════════════════════════════════════════════════════════════
@@ -206,9 +270,14 @@ const GalleryDisruptive = {
       <div class="gallery-lightbox__nav gallery-lightbox__nav--next" role="button" aria-label="Imagen siguiente" tabindex="0"></div>
       <div class="gallery-lightbox__counter"><span class="current">1</span> / <span class="total">1</span></div>
       <div class="gallery-lightbox__container">
-        <img class="gallery-lightbox__image" src="" alt="" draggable="false">
+        <!-- Content will be injected here based on type (img or video) -->
       </div>
       <div class="gallery-lightbox__zoom-hint">Doble toque para zoom</div>
+      <div class="gallery-lightbox__details">
+        <h3 class="gallery-lightbox__title"></h3>
+        <p class="gallery-lightbox__meta"></p>
+        <p class="gallery-lightbox__series"></p>
+      </div>
     `;
     document.body.appendChild(this.lightbox);
 
@@ -280,6 +349,25 @@ const GalleryDisruptive = {
     }
   },
 
+  openArtworkById(id) {
+    if (!this.artworks.length) this.setupLightbox(); // Ensure artworks are collected
+    
+    // Find index by checking src filename or dataset
+    const index = this.artworks.findIndex(item => {
+      const img = item.querySelector('img');
+      if (!img) return false;
+      const src = img.getAttribute('data-src') || img.src;
+      return src.includes(id) || (item.dataset.metaTitle && item.dataset.metaTitle.toLowerCase() === id.toLowerCase());
+    });
+
+    if (index !== -1) {
+      this.openLightbox(index);
+      return true;
+    }
+    console.warn(`Artwork ${id} not found`);
+    return false;
+  },
+
   closeLightbox() {
     this.lightbox.classList.remove('active');
     document.body.style.overflow = '';
@@ -313,32 +401,73 @@ const GalleryDisruptive = {
   updateLightboxImage(animate = true) {
     const item = this.artworks[this.currentIndex];
     const img = item?.querySelector('img');
-    const lightboxImg = this.lightbox.querySelector('.gallery-lightbox__image');
+    const container = this.lightbox.querySelector('.gallery-lightbox__container');
     
+    // Clear previous content
+    container.innerHTML = '';
+
     // Update counter
     this.lightbox.querySelector('.current').textContent = this.currentIndex + 1;
 
-    if (img) {
-      if (animate) {
-        // Animate transition
-        lightboxImg.style.opacity = '0';
-        lightboxImg.style.transform = 'scale(0.9) translateX(-20px)';
-        lightboxImg.style.filter = 'blur(10px)';
-        
-        setTimeout(() => {
-          lightboxImg.src = img.dataset.hires || img.src;
-          lightboxImg.alt = img.alt;
-          lightboxImg.style.transform = 'scale(0.9) translateX(20px)';
-          
-          requestAnimationFrame(() => {
-            lightboxImg.style.opacity = '1';
-            lightboxImg.style.transform = 'scale(1) translateX(0)';
-            lightboxImg.style.filter = 'blur(0)';
-          });
-        }, 200);
+    // Update metadata
+    const titleEl = this.lightbox.querySelector('.gallery-lightbox__title');
+    const metaEl = this.lightbox.querySelector('.gallery-lightbox__meta');
+    const seriesEl = this.lightbox.querySelector('.gallery-lightbox__series');
+    
+    // Extract metadata
+    const meta = {
+        title: item.dataset.metaTitle || img?.alt || '',
+        year: item.dataset.metaYear || '',
+        technique: item.dataset.metaTechnique || '',
+        series: item.dataset.metaSeries || '',
+        type: item.dataset.metaType || 'image', // Default to image
+        src: item.dataset.hires || img?.src || '',
+        videoSrc: item.dataset.videoSrc || '' // If video
+    };
+
+    if (item) {
+      titleEl.textContent = meta.title;
+      metaEl.textContent = meta.year ? `${meta.year} • ${meta.technique}` : '';
+      seriesEl.textContent = meta.series ? `Serie: ${meta.series.toUpperCase()}` : '';
+
+      // Determine Content Type
+      let contentEl;
+      
+      if (meta.type === 'video' || meta.videoSrc) {
+          // VIDEO MODE
+          contentEl = document.createElement('video');
+          contentEl.className = 'gallery-lightbox__video';
+          contentEl.controls = true;
+          contentEl.autoplay = true;
+          contentEl.loop = true;
+          contentEl.src = meta.videoSrc;
+          // Add mp4 fallback if needed
       } else {
-        lightboxImg.src = img.dataset.hires || img.src;
-        lightboxImg.alt = img.alt;
+          // IMAGE MODE
+          contentEl = document.createElement('img');
+          contentEl.className = 'gallery-lightbox__image';
+          contentEl.src = meta.src;
+          contentEl.alt = meta.title;
+          contentEl.draggable = false;
+      }
+
+      // Add to container
+      container.appendChild(contentEl);
+
+      // Animate
+      if (animate && contentEl) {
+        contentEl.style.opacity = '0';
+        contentEl.style.transform = 'scale(0.9)';
+        contentEl.style.filter = 'blur(10px)';
+        contentEl.style.transition = 'all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                contentEl.style.opacity = '1';
+                contentEl.style.transform = 'scale(1)';
+                contentEl.style.filter = 'blur(0)';
+            });
+        });
       }
 
       // Sound
@@ -347,7 +476,6 @@ const GalleryDisruptive = {
       }
     }
     
-    // Reset zoom on image change
     this.resetZoom();
   },
 

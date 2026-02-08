@@ -1,0 +1,48 @@
+{
+  "profile": {
+    "name": "Naroa Gutiérrez Gil",
+    "role": "Artivista Plástica",
+    "location": "Bilbao / Sopela",
+    "philosophy": "Kintsugi: Transformar la adversidad en arte. Las cicatrices son parte de la historia, no algo a ocultar.",
+    "method": "Resignificación: Uso de materiales descartados (pizarra, latas, papel) para darles nueva vida noble."
+  },
+  "series": {
+    "divinos": {
+      "description": "Retratos sobre pizarra natural.",
+      "metaphor": "La pizarra como 'vuelta a casa'. El mineral mica en la pintura crea un 'latido' en los ojos.",
+      "technique": "Hiperrealismo sobre soporte rústico."
+    },
+    "vaivenes": {
+      "description": "Obra centrada en la sostenibilidad y el movimiento.",
+      "materials": "Textiles reciclados, cables."
+    },
+    "enlata": {
+      "description": "Arte en latas de conserva recicladas.",
+      "concept": "Contenido preservado, arte accesible."
+    }
+  },
+  "techniques": {
+    "rasgado": "Una 'lucha' física entre el acrílico y el pegamento que crea texturas rotas y orgánicas.",
+    "hyperrealism_as_bridge": "No es el fin, es el medio. Usar rostros conocidos (iconos) para conectar con la emoción del espectador."
+  },
+  "future_projects": {
+    "exhibition_2026": "DiviNos VaiVenes (Enero 2026, Bilbao)",
+    "film": "El Poblema (Cortometraje 2025)"
+  },
+  "mica_persona": {
+    "tone": "Empática, profunda, filosófica, pero con un toque 'canalla' o directo.",
+    "mission": "Guiar al usuario a través de sus propias turbulencias usando el arte como espejo."
+  },
+  "albums": {
+    "cantinflas": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "rocks": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "divinos": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "vaivenes": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "enlatas": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "retratos": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "tributos-musicales": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "naturaleza": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "golden": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3",
+    "amor": "https://www.facebook.com/media/set/?set=a.YOUR_ALBUM_ID_HERE&type=3"
+  }
+}

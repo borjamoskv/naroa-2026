@@ -179,17 +179,30 @@
     initMagneticButtons,
     
     initAll() {
+      // 1. Kinetic Text
       this.initKineticText('.kinetic-text');
+      
+      // 2. Scroll Reveal (Auto-apply to key elements)
+      const revealTargets = document.querySelectorAll('h2, .section-subtitle, .gallery__item, .game-card, .about__card, .contact__card');
+      revealTargets.forEach(el => {
+        el.classList.add('reveal-on-scroll');
+        revealObserver.observe(el);
+      });
+      // Also observe explicit classes
       this.initScrollReveal('.reveal-on-scroll, .reveal-stagger');
+
+      // 3. Magnetic Buttons
       this.initMagneticButtons();
-      // Cursor trail is opt-in due to performance
-      // this.initCursorTrail();
+      
+      // 4. Cursor Trail (Enabled for Premium Feel)
+      this.initCursorTrail();
     }
   };
   
   // Auto-init on DOMContentLoaded
   document.addEventListener('DOMContentLoaded', () => {
-    window.SOTYEffects.initAll();
+    // Small delay to ensure layout is stable
+    setTimeout(() => window.SOTYEffects.initAll(), 100);
   });
   
 })();

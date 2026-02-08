@@ -27,25 +27,32 @@
     router
       .register('#/', () => {
         router.showView('view-home');
-      })
-      .register('#/destacada', () => {
-        router.showView('view-destacada');
-        loadFeatured();
+        // if (window.Swarm) window.Swarm.navigator.flyTo('view-home');
       })
       .register('#/galeria', () => {
-        // Alias para galería - muestra la vista destacada con todas las obras
-        router.showView('view-destacada');
-        loadGalleryDisruptive();
+        loadArchive();
+        if (window.Swarm) {
+          window.Swarm.curator.forceLoadGallery();
+          // window.Swarm.navigator.flyTo('view-archivo');
+        }
+        router.showView('view-archivo');
       })
       .register('#/archivo', () => {
-        router.showView('view-archivo');
         loadArchive();
+        if (window.Swarm) {
+          window.Swarm.curator.forceLoadGallery();
+          // window.Swarm.navigator.flyTo('view-archivo');
+        }
+        router.showView('view-archivo');
       })
       .register('#/about', () => {
         router.showView('view-about');
+        // if (window.Swarm) window.Swarm.navigator.flyTo('view-about');
       })
       .register('#/contacto', () => {
+        loadContactoPanel();
         router.showView('view-contacto');
+        // if (window.Swarm) window.Swarm.navigator.flyTo('view-contacto');
       })
       .register('#/juego', () => {
         router.showView('view-juego');
@@ -142,12 +149,37 @@
         router.showView('view-restaurador');
         if (window.RestauradorGame) window.RestauradorGame.init();
       })
-      .register('#/videos', () => {
-        router.showView('view-videos');
+      .register('#/exposiciones', () => {
+        router.showView('view-exposiciones');
+        loadExposiciones();
+      })
+      .register('#/mica-dashboard', () => {
+        router.showView('view-mica-dashboard');
+        loadMicaDashboard();
       });
 
+    // Dynamic route for artwork details: #/obra/:artworkId
+    const originalHandleRoute = router.handleRoute.bind(router);
+    router.handleRoute = function() {
+      const path = this.getCurrentRoute();
+      
+      // Check for dynamic artwork route
+      if (path.startsWith('#/obra/')) {
+        const artworkId = path.replace('#/obra/', '');
+        if (artworkId) {
+          this.hideAllViews();
+          this.showView('view-obra');
+          loadArtworkDetail(artworkId);
+          return;
+        }
+      }
+      
+      // Fall back to original handler
+      originalHandleRoute();
+    };
+
     // Lifecycle hooks
-    // Lifecycle hooks using the "Golden Curtain"
+    // Lifecycle hooks — "Golden Curtain" (compatible with 360)
     router.beforeEach = (to, from) => {
       document.body.classList.add('navigating');
       const curtain = document.getElementById('page-curtain');
@@ -158,9 +190,7 @@
       const curtain = document.getElementById('page-curtain');
       
       setTimeout(() => {
-        // Scroll to top while curtain is closed
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        
+        // 360 Mode: Do NOT reset scroll to top. Let Swarm Navigator handle position.
         if (curtain) curtain.classList.remove('active');
         
         setTimeout(() => {
@@ -248,6 +278,58 @@
     }
   }
 
+  async function loadExposiciones() {
+    console.log('[App] Loading Exposiciones Timeline...');
+    // Dynamic import for module
+    try {
+      const module = await import('../features/exposiciones-timeline.js');
+      if (module.exposicionesTimeline) {
+        module.exposicionesTimeline.init('exposiciones-container');
+      }
+    } catch (e) {
+      console.warn('[App] Exposiciones module not loaded:', e);
+    }
+  }
+
+  async function loadArtworkDetail(artworkId) {
+    console.log('[App] Loading Artwork Detail:', artworkId);
+    try {
+      const module = await import('../features/artwork-detail.js');
+      if (module.artworkDetail) {
+        module.artworkDetail.init(artworkId);
+      }
+    } catch (e) {
+      console.warn('[App] Artwork Detail module not loaded:', e);
+    }
+  }
+
+  async function loadContactoPanel() {
+    console.log('[App] Loading Contacto Panel...');
+    try {
+      const module = await import('../features/videocall-panel.js');
+      if (module.videoCallPanel) {
+        module.videoCallPanel.init('contacto-container');
+        // Hide fallback content
+        const fallback = document.getElementById('contact-fallback');
+        if (fallback) fallback.style.display = 'none';
+      }
+    } catch (e) {
+      console.warn('[App] VideoCall Panel not loaded:', e);
+    }
+  }
+
+  async function loadMicaDashboard() {
+    console.log('[App] Loading MICA Dashboard...');
+    try {
+      const module = await import('../features/mica-dashboard.js');
+      if (module.micaDashboard) {
+        module.micaDashboard.init('mica-dashboard-container');
+      }
+    } catch (e) {
+      console.warn('[App] MICA Dashboard not loaded:', e);
+    }
+  }
+
   // ===========================================
   // INITIALIZATION
   // ===========================================
@@ -261,16 +343,31 @@
       console.log('[Naroa 2026] Gallery initialized with artwork data');
     }
     
+    // Initialize Swarm Architecture
+    // ----------------------------------------
+    console.log('[Naroa 2026] Awakening Swarm... 🦞');
+    
+    // Dynamic import to break dependency cycle if needed
+    try {
+      const { Swarm } = await import('./swarm-orchestrator.js');
+      Swarm.init();
+    } catch (e) {
+      console.warn('Swarm initialization failed:', e);
+    }
+
     registerRoutes();
     initFluidSystems();
     initUIControls();
+
+    // Initialize premium effects
+    if (window.initMagnet) window.initMagnet();
 
     // Initialize other modules when ready
     if (window.Lightbox) {
       window.Lightbox.init();
     }
 
-    console.log('[Naroa 2026] Ready ✨');
+    console.log('[Naroa 2026] Ready ✨ (High Quality Mode)');
   }
 
   function initUIControls() {

@@ -1,10 +1,10 @@
-/* MICA Incredible Crisis - Estilos */
+/* MICA Incredible Crisis — CYBER-POP */
 
 :root {
-  --crisis-bg: #1a1a2e;
-  --crisis-accent: #e94560;
-  --crisis-gold: #FFD700;
-  --crisis-text: #faf7f2;
+  --crisis-bg: #050505;
+  --crisis-accent: var(--red-pop, #ff003c);
+  --crisis-gold: var(--fluor, #ccff00);
+  --crisis-text: #fff;
 }
 
 .menu-incredible {
@@ -43,17 +43,18 @@
 }
 
 .menu-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   border: 2px solid var(--crisis-accent);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 1rem;
   color: var(--crisis-text);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--font-family-mono, monospace);
 }
 
 .menu-btn:hover {

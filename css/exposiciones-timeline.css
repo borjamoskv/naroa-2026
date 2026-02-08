@@ -1,0 +1,787 @@
+/**
+ * Exposiciones Timeline v2.0 - PREMIUM WOW EDITION
+ * MICA NOIR Aesthetic + Maximum Impact Effects
+ * 
+ * Effects:
+ * - 3D Perspective Tilt Cards
+ * - Kinetic Typography Counter
+ * - Particle Canvas Background
+ * - Shimmer Loading States
+ * - Magnetic Navigation Buttons
+ * - Scroll-driven Progress Line
+ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+:root {
+    --expo-green: #32CD32;
+    --expo-green-glow: rgba(50, 205, 50, 0.5);
+    --expo-red: #8B0000;
+    --expo-bg: #0a0a0a;
+    --expo-surface: rgba(255, 255, 255, 0.02);
+    --expo-border: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   PARTICLE CANVAS
+   ============================================ */
+.particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+/* ============================================
+   TIMELINE CONTAINER
+   ============================================ */
+.exposiciones-timeline {
+    min-height: 100vh;
+    background: var(--expo-bg);
+    padding: var(--space-lg, 4rem) var(--space-md, 2rem);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Mica texture overlay */
+.exposiciones-timeline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+.timeline-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 2rem;
+}
+
+.loading-shimmer {
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--expo-bg) 25%,
+        var(--expo-green) 50%,
+        var(--expo-bg) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 2px;
+}
+
+.loading-text {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   HEADER - KINETIC TYPOGRAPHY
+   ============================================ */
+.timeline-header {
+    text-align: center;
+    margin-bottom: var(--space-xl, 6rem);
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-title {
+    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 800;
+    color: var(--color-text, #fff);
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5ch;
+}
+
+.title-number {
+    color: var(--expo-green);
+    font-weight: 900;
+    text-shadow: 
+        0 0 30px var(--expo-green-glow),
+        0 0 60px var(--expo-green-glow);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.title-word {
+    opacity: 0.9;
+}
+
+.timeline-subtitle {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.subtitle-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--expo-green), transparent);
+}
+
+.subtitle-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 200px;
+    background: radial-gradient(ellipse, var(--expo-green-glow) 0%, transparent 70%);
+    opacity: 0.3;
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* ============================================
+   NAVIGATION - MAGNETIC BUTTONS
+   ============================================ */
+.timeline-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: var(--space-lg, 4rem);
+    position: sticky;
+    top: 1rem;
+    z-index: 100;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.95);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: 50px;
+    border: 1px solid rgba(50, 205, 50, 0.1);
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.year-btn {
+    position: relative;
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    z-index: 1;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+}
+
+.year-btn .btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.year-btn .btn-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--expo-green-glow) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.year-btn:hover {
+    color: var(--expo-green);
+    transform: translateY(-2px);
+}
+
+.year-btn:hover .btn-glow {
+    opacity: 0.3;
+}
+
+.year-btn.active {
+    color: var(--expo-bg);
+    background: var(--expo-green);
+    box-shadow: 
+        0 0 20px var(--expo-green-glow),
+        0 0 40px var(--expo-green-glow);
+}
+
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* ============================================
+   TIMELINE TRACK
+   ============================================ */
+.timeline-track {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 3rem;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(50, 205, 50, 0.1);
+    overflow: hidden;
+}
+
+.line-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(
+        to bottom,
+        var(--expo-green),
+        rgba(50, 205, 50, 0.3)
+    );
+    transition: height 0.1s ease-out;
+}
+
+.line-pulse {
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 8px;
+    height: 8px;
+    background: var(--expo-green);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--expo-green-glow);
+    animation: movePulse 3s ease-in-out infinite;
+}
+
+@keyframes movePulse {
+    0%, 100% { top: 0%; }
+    50% { top: 100%; }
+}
+
+/* ============================================
+   YEAR GROUP
+   ============================================ */
+.timeline-year-group {
+    margin-bottom: var(--space-xl, 6rem);
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--group-delay);
+}
+
+.timeline-year-group.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.year-marker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: var(--space-md, 2rem);
+    position: relative;
+}
+
+.marker-orb {
+    position: absolute;
+    left: -3rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orb-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--expo-green);
+    border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+}
+
+.orb-core {
+    width: 8px;
+    height: 8px;
+    background: var(--expo-green);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--expo-green-glow);
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.year-label {
+    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text, #fff);
+}
+
+.year-count {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--expo-green);
+    background: rgba(50, 205, 50, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid rgba(50, 205, 50, 0.2);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   EXHIBITIONS GRID
+   ============================================ */
+.exhibitions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-md, 2rem);
+}
+
+/* ============================================
+   EXHIBITION CARD - 3D TILT
+   ============================================ */
+.expo-card {
+    position: relative;
+    background: var(--expo-surface);
+    border: 1px solid var(--expo-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform;
+    transform-style: preserve-3d;
+}
+
+.expo-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: cardEntrance 0.6s ease forwards;
+    animation-delay: var(--card-delay);
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 20px;
+}
+
+.card-glow {
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(
+        135deg,
+        rgba(50, 205, 50, 0.3) 0%,
+        transparent 40%,
+        transparent 60%,
+        rgba(139, 0, 0, 0.2) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.expo-card:hover .card-glow {
+    opacity: 1;
+}
+
+/* ============================================
+   CARD IMAGE
+   ============================================ */
+.card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #111;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.expo-card:hover .card-image img {
+    transform: scale(1.08);
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.7) 80%,
+        rgba(0, 0, 0, 0.95) 100%
+    );
+    pointer-events: none;
+}
+
+.card-image.img-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.card-image.img-error img {
+    display: none;
+}
+
+.card-image.img-error::after {
+    content: '🎨';
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+/* Cards with images have adjusted content */
+.expo-card.has-image .card-content {
+    padding-top: 1.25rem;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+}
+
+.expo-card.has-image .card-header {
+    margin-bottom: 0.75rem;
+}
+
+.card-content {
+    position: relative;
+    padding: 1.75rem;
+    z-index: 1;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        transparent 100%
+    );
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.expo-icon {
+    font-size: 1.75rem;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.expo-badge {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+/* Badge Variants */
+.badge-solo {
+    background: rgba(50, 205, 50, 0.15);
+    color: #32CD32;
+    border: 1px solid rgba(50, 205, 50, 0.3);
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.2);
+}
+
+.badge-group {
+    background: rgba(100, 149, 237, 0.15);
+    color: #6495ED;
+    border: 1px solid rgba(100, 149, 237, 0.3);
+}
+
+.badge-online {
+    background: rgba(255, 165, 0, 0.15);
+    color: #FFA500;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.badge-market {
+    background: rgba(255, 105, 180, 0.15);
+    color: #FF69B4;
+    border: 1px solid rgba(255, 105, 180, 0.3);
+}
+
+.badge-festival {
+    background: rgba(148, 0, 211, 0.15);
+    color: #9400D3;
+    border: 1px solid rgba(148, 0, 211, 0.3);
+}
+
+.badge-publication {
+    background: rgba(255, 215, 0, 0.15);
+    color: #FFD700;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.badge-default {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card Content */
+.expo-title {
+    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-text, #fff);
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+}
+
+.expo-subtitle {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 1rem;
+    font-style: italic;
+}
+
+.expo-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.expo-location,
+.expo-date {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.expo-location .icon {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.5;
+    color: var(--expo-green);
+}
+
+.expo-description {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.6;
+    margin: 0 0 1rem;
+}
+
+.expo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--expo-red);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.expo-link:hover {
+    color: #CD5C5C;
+    gap: 0.75rem;
+}
+
+.expo-link .arrow-icon {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+    transition: transform 0.3s ease;
+}
+
+.expo-link:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+/* ============================================
+   FOOTER STATS
+   ============================================ */
+.timeline-footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: var(--space-xl, 6rem);
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-chip {
+    font-family: var(--font-body, 'Satoshi', sans-serif);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-value {
+    color: var(--expo-green);
+    font-weight: 700;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes pulse-glow {
+    0%, 100% {
+        text-shadow: 
+            0 0 30px var(--expo-green-glow),
+            0 0 60px var(--expo-green-glow);
+    }
+    50% {
+        text-shadow: 
+            0 0 40px var(--expo-green-glow),
+            0 0 80px var(--expo-green-glow),
+            0 0 100px var(--expo-green-glow);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .exposiciones-timeline {
+        padding: var(--space-md, 2rem) var(--space-sm, 1rem);
+    }
+
+    .timeline-title {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .timeline-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        max-width: calc(100vw - 2rem);
+        border-radius: 12px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .timeline-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .year-btn {
+        flex-shrink: 0;
+        scroll-snap-align: center;
+    }
+
+    .exhibitions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-track {
+        padding-left: 2rem;
+    }
+
+    .marker-orb {
+        left: -2rem;
+    }
+
+    .year-label {
+        font-size: 1.75rem;
+    }
+
+    .timeline-footer {
+        flex-wrap: wrap;
+    }
+}
+
+/* ============================================
+   DARK MODE OPTIMIZATION (already dark)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    .exposiciones-timeline {
+        background: #000;
+    }
+}

@@ -121,6 +121,15 @@
       "emoji": "🦜",
       "color": "#00CED1",
       "works": ["Pajarraca Azul", "Wild Not?", "Into the Wild", "Monster Dragon", "Flying Dragon", "Jaguar"]
+    },
+    "cantinflas": {
+      "displayName": "Cantinflas",
+      "displayNameEs": "Cantinflas",
+      "description": "Tribute to the legendary Mexican comedian Mario Moreno",
+      "descriptionEs": "Tributo al legendario cómico mexicano Mario Moreno",
+      "emoji": "🎭",
+      "color": "#D4AF37",
+      "works": ["Cantinflas I", "Cantinflas II", "Cantinflas III", "Cantinflas IV", "Cantinflas V"]
     }
   },
   "filters": [
@@ -135,6 +144,7 @@
     { "id": "golden", "label": "Golden", "emoji": "✨" },
     { "id": "amor", "label": "Amor", "emoji": "�" },
     { "id": "retratos", "label": "Retratos", "emoji": "👤" },
-    { "id": "naturaleza", "label": "Naturaleza", "emoji": "🦜" }
+    { "id": "naturaleza", "label": "Naturaleza", "emoji": "🦜" },
+    { "id": "cantinflas", "label": "Cantinflas", "emoji": "🎭" }
   ]
 }

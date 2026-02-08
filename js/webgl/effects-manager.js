@@ -20,8 +20,8 @@ export class WebGLEffectsManager {
     this.enabled = {
       parallax: true,
       liquid: true,
-      noise: true,
-      grain: true
+      noise: false,  // DESACTIVADO - causa parpadeo
+      grain: false  // Desactivado - causa parpadeo
     };
     
     this.canvas = null;

@@ -1,6 +1,6 @@
 /* ============================================
-   TETRIS ARTÍSTICO - Naroa 2026
-   Classic arcade styling with artwork blocks
+   TETRIS ARTÍSTICO — CYBER-POP
+   Arcade styling with red + fluor accents
    ============================================ */
 
 /* === CONTAINER === */
@@ -9,7 +9,7 @@
   min-height: 100vh;
   padding: var(--spacing-xl);
   background: 
-    radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
+    radial-gradient(ellipse at center, #0f0f0f 0%, #050505 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,11 +34,11 @@
 
 .tetris-main {
   position: relative;
-  background: #0a0a0a;
-  border: 3px solid var(--color-accent);
-  border-radius: var(--radius-md);
+  background: #050505;
+  border: 3px solid var(--red-pop, #ff003c);
+  border-radius: 0;
   box-shadow: 
-    0 0 30px rgba(var(--color-accent-rgb), 0.3),
+    0 0 30px rgba(255, 0, 60, 0.2),
     inset 0 0 60px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
@@ -144,8 +144,8 @@
 .tetris-stat__value {
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  color: var(--color-accent);
-  font-family: var(--font-family-mono);
+  color: var(--fluor, #ccff00);
+  font-family: var(--font-family-mono, monospace);
 }
 
 /* === CONTROLS === */
@@ -182,13 +182,17 @@
 }
 
 .tetris-btn--start {
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border-color: var(--color-accent);
+  background: var(--fluor, #ccff00);
+  color: #050505;
+  border-color: var(--fluor, #ccff00);
+  font-family: var(--font-family-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 0;
 }
 
 .tetris-btn--start:hover:not(:disabled) {
-  background: var(--color-accent-light);
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
   transform: scale(1.02);
 }
 
@@ -246,12 +250,12 @@
   position: absolute;
   inset: -2px;
   background: linear-gradient(45deg, 
-    var(--color-accent) 0%, 
+    var(--red-pop, #ff003c) 0%, 
     transparent 50%, 
-    var(--color-accent) 100%);
+    var(--fluor, #ccff00) 100%);
   z-index: -1;
   filter: blur(10px);
-  opacity: 0.5;
+  opacity: 0.4;
   animation: tetris-glow 3s ease-in-out infinite alternate;
 }
 

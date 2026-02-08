@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual. Retratos, murales y obra gráfica desde Bilbao.">
+  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual especializada en hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao. Explora su galería digital inmersiva con más de 40 obras y 21 juegos interactivos.">
   <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://naroa.online/">
   
-  <!-- Open Graph -->
   <meta property="og:title" content="Naroa Gutiérrez Gil | Artista Visual">
   <meta property="og:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
   <meta property="og:image" content="https://naroa.online/images/artworks/espejos-del-alma.webp">
@@ -14,7 +14,6 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Naroa Gutiérrez Gil | Artista Visual">
   <meta name="twitter:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
@@ -22,15 +21,15 @@
   
   <title>Naroa Gutiérrez Gil | Artista Visual</title>
   
-  <!-- Fonts 2026: Preload + Preconnect for LCP boost -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" as="style">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
   
-  <!-- LCP Preload: Hero image -->
   <link rel="preload" as="image" href="images/artworks/espejos-del-alma.webp" fetchpriority="high">
   
-  <!-- Critical CSS (inline for FCP) -->
   <style>
     /* Reset */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,14 +41,13 @@
     /* Core Variables */
     :root {
       --color-bg: #000000; --color-text: #fefefe; --color-accent: #111111;
-      --font-family-main: 'Outfit', -apple-system, sans-serif;
+      --font-family-main: 'Outfit', 'Switzer', 'Inter', -apple-system, sans-serif;
       --font-size-hero: clamp(4rem, 3rem + 5vw, 12rem);
       --space-4: 1rem; --space-6: 2rem; --space-8: 3rem;
       --duration-base: 300ms; --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
     }
   </style>
   
-  <!-- Core Styles -->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/custom-cursor.css">
   <link rel="stylesheet" href="css/variables.css">
@@ -57,6 +55,7 @@
   <link rel="stylesheet" href="css/typography-2026.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/effects/premium-hero.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/gallery.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -65,8 +64,16 @@
   <link rel="stylesheet" href="css/wow-effects.css">
   <link rel="stylesheet" href="css/wow-effects-2026.css">
   <link rel="stylesheet" href="css/gallery-chaos.css">
+  <link rel="stylesheet" href="css/effects/aurora.css">
+  <link rel="stylesheet" href="css/effects/gallery-effects.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/effects/video-bg.css">
+  <link rel="stylesheet" href="css/effects/holistic.css">
+  <link rel="stylesheet" href="css/effects/map-360.css">
+  <link rel="stylesheet" href="css/effects/cantinflas-spotlight.css">
+  <link rel="stylesheet" href="css/effects/rocks-showcase.css">
+  <!-- premium-hero.css already loaded at line 57 -->
+  <link rel="stylesheet" href="css/components/stitch-cards.css">
   
-  <!-- Deferred Game Styles (load after interaction) -->
   <link rel="stylesheet" href="css/oca-game.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/tetris-game.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/games-hub.css" media="print" onload="this.media='all'">
@@ -74,19 +81,25 @@
   <link rel="stylesheet" href="css/restaurador-game.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="css/incredible-crisis.css" media="print" onload="this.media='all'">
   
-  <!-- Secondary Styles -->
   <link rel="stylesheet" href="css/about-contact.css">
-  <link rel="stylesheet" href="css/audio-controls.css">
-  <link rel="stylesheet" href="css/audio-reactive.css">
-  <link rel="stylesheet" href="css/gallery-disruptive.css">
-  <link rel="stylesheet" href="css/scroll-to-top.css">
-  <link rel="stylesheet" href="css/video-showcase.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
 
+  <!-- Deferred non-critical CSS -->
+  <link rel="stylesheet" href="css/audio-controls.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/audio-reactive.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/gallery-disruptive.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/scroll-to-top.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/exposiciones-timeline.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/artwork-detail.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/videocall-panel.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/mica-dashboard.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/kimi-ideas.css" media="print" onload="this.media='all'">
   
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/apple-icon.png">
   
-  <!-- Schema.org JSON-LD for Rich Snippets -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -172,10 +185,30 @@
   </script>
 </head>
 <body>
-  <!-- Navigation - HIDDEN (MICA is the interface) -->
-  <nav class="nav nav--hidden liquid-glass" aria-hidden="true"></nav>
+  <a href="#app" class="skip-to-content">Saltar al contenido</a>
 
-  <!-- TRINITY OVERLAYS -->
+  <!-- WOW Effects: Aurora + Cursor + Particles -->
+  <div class="aurora"></div>
+  <div class="holistic-concept"></div>
+  <div class="cursor-light" id="cursorLight"></div>
+  <div class="particles" id="particles"></div>
+  <nav class="nav liquid-glass" id="main-nav">
+    <div class="nav__logo">
+      <a href="#/" class="nav__brand">NGG</a>
+    </div>
+    <ul class="nav__links">
+      <li><a href="#/" class="nav__link">Inicio</a></li>
+      <li><a href="#/galeria" class="nav__link">Galería</a></li>
+      <li><a href="#/about" class="nav__link">Sobre mí</a></li>
+      <li><a href="#/contacto" class="nav__link nav__link--cta">Contacto</a></li>
+    </ul>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
   <div class="page-transition-overlay" id="page-curtain">
       <div class="thread"></div>
   </div>
@@ -185,82 +218,50 @@
           <div class="scroll-progress-thread"></div>
       </div>
   </div>
+  <div class="noise-overlay"></div>
 
-  <!-- WOW FILTERS -->
-  <svg class="svg-filters" aria-hidden="true">
-      <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise"/>
-          <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 .1  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redP"/>
-          <feOffset in="redP" dx="5" dy="0" result="redPshifted"/>
-          <feMerge>
-              <feMergeNode in="SourceGraphic"/>
-              <feMergeNode in="redPshifted"/>
-          </feMerge>
-      </filter>
-  </svg>
 
-  <!-- Main Content -->
+
+  <div class="aurora"></div>
   <main id="app">
-    <!-- Home View - UPGRADED 2026 -->
-    <!-- SECCIÓN 1: HERO (LA ORILLA) -->
     <section id="view-home" class="view view--home active">
       <div class="hero hero--premium">
-        <!-- Animated gradient background -->
-        <div class="hero__gradient-bg aurora-bg"></div>
-
-        <!-- PALÍNDROMO GIGANTE (Fondo) -->
-        <div class="hero__palindrome" aria-hidden="true">
-          <span class="hero__palindrome-text">ANARO·ARAN</span>
+        <!-- VIDEO BACKGROUND -->
+        <div class="hero__video-bg">
+          <video autoplay muted loop playsinline poster="assets/video-poster-01.jpg">
+            <source src="/videos/flow/flow-video-01.mp4" type="video/mp4">
+          </video>
+          <div class="hero__overlay"></div>
+        </div>
+        <div class="hero__content">
+          <h1 class="hero__title skew-scroll" data-depth="0.1">NAROA</h1>
+          <div class="hero__subtitle-block">
+            <span class="hero__subtitle kinetic-text" data-text="ARTISTA VISUAL">ARTISTA VISUAL</span>
+            <span class="hero__year glitch-text">2026</span>
+          </div>
+          <a href="#/galeria" class="hero__cta magnetic-btn">
+            Explorar Universo 360° →
+          </a>
         </div>
 
-        <h1 class="hero__title kinetic-text reveal">
-          <span class="hero__line text-shimmer">Naroa</span>
-          <span class="hero__line">Gutiérrez</span>
-          <span class="hero__line">Gil</span>
-        </h1>
-
-        <p class="hero__subtitle reveal reveal-delay-1">
-          <span class="hero__tag">Hiperrealismo POP</span>
-        </p>
-
-
-
-        <div class="hero__cta-group reveal reveal-delay-2">
-          <span class="hero__cta">Desliza</span>
-        </div>
-
-
-        <!-- Spotify Minimal Pill -->
-        <div class="hero__spotify"></div>
-
-        <!-- Scroll indicator -->
         <div class="hero__scroll-indicator">
           <div class="hero__scroll-line"></div>
         </div>
       </div>
     </section>
 
-    <!-- SECCIÓN 2: GALERÍA (EL OCÉANO - Horizontal Walk) -->
-    <section id="view-gallery" class="view view--gallery">
-      <div class="gallery-container-horizontal">
-        <div class="gallery-intro">
-          <h2 class="section-title">O·M·O</h2>
-          <p class="section-subtitle">Obra · Mirada · Obra</p>
-          <button id="chaos-toggle" class="btn-chaos magnetic-btn" data-tooltip="Activar Caos">⚡ MODO CAOS</button>
-        </div>
-        <!-- El contenido de la galería se inyectará aquí verticalmente para convertirlo en horizontal con CSS -->
-        <div id="gallery-grid" class="gallery-track"></div>
-      </div>
-    </section>
 
-    <!-- SECCIÓN 3: JUEGOS (EL ESPEJO) -->
+    <!-- OJO: view-gallery redundante eliminado. La galería principal es view-archivo abajo. -->
+
+
+
+
     <section id="view-games" class="view view--games">
        <h2 class="section-title">S·O·L·O·S</h2>
        <p class="section-subtitle">21 Juegos Arcade</p>
        <div id="games-container" class="games-grid"></div>
     </section>
 
-    <!-- SECCIÓN 4: CHIQUITOCRES (EL MANIFIESTO OCULTO) -->
     <section id="view-manifesto" class="view view--manifesto">
       <div class="manifesto-content">
         <blockquote class="chiquito-quote">
@@ -271,188 +272,82 @@
         <cite>— Chiquitocres de la Calzada</cite>
       </div>
     </section>
-    <!-- Obra Destacada View (DISRUPTIVE GALLERY 2026) -->
-    <section id="view-destacada" class="view view--destacada">
-      <header class="view__header">
-        <h2>Obra Destacada</h2>
-        <p class="view__subtitle">Selección curada de mi trabajo más reciente</p>
+    <!-- ═══ CANTINFLAS PARALLAX EXPERIENCE ═══ -->
+    <section id="cantinflas-mount-point" class="view view--cantinflas" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; position: relative;">
+      <!-- Cantinflas Clones will be mounted here by JS -->
+    </section>
+
+    <!-- ═══ ROCKS SERIES — Cinematic Showcase ═══ -->
+    <section id="view-rocks" class="view view--rocks rocks-showcase">
+      <header class="rocks-showcase__header">
+        <h2 class="rocks-showcase__title">ROCKS</h2>
+        <p class="rocks-showcase__subtitle">Acrílico sobre pizarra natural · Serie 2023–2025</p>
       </header>
 
-      <!-- HERO: Obra Protagonista Colosal -->
-      <div class="gallery-hero" id="gallery-hero">
-        <div class="gallery-hero__artwork gallery-lazy">
-          <img 
-            data-src="images/artworks/espejos-del-alma.webp"
-            alt="Espejos del Alma - Naroa Gutiérrez Gil"
-            class="gallery-hero__image"
-          >
-          <div class="gallery-hero__info">
-            <h2 class="gallery-hero__title">Espejos del Alma</h2>
-            <span class="gallery-hero__year">2024</span>
-          </div>
+      <div class="rock-panel rock-panel--amy">
+        <span class="rock-panel__counter">01 / 04</span>
+        <div class="rock-panel__image-wrap">
+          <img data-src="images/artworks/amy-rocks.webp" alt="Amy Rocks — Retrato de Amy Winehouse sobre pizarra" class="rock-panel__img" loading="lazy">
+        </div>
+        <div class="rock-panel__info">
+          <h3 class="rock-panel__name">Amy Rocks</h3>
+          <p class="rock-panel__technique">Acrílico y papel de seda sobre pizarra</p>
         </div>
       </div>
 
-      <!-- GRID MASIVO con tamaños variables -->
-      <div class="gallery-massive" id="featured-gallery">
-        <!-- Obra COLOSAL -->
-        <div class="gallery-massive__item gallery-massive__item--colossal gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/marilyn-rocks-hq-5.webp" alt="Marilyn Rocks" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Marilyn Rocks</h3>
-          </div>
+      <div class="rock-panel rock-panel--james">
+        <span class="rock-panel__counter">02 / 04</span>
+        <div class="rock-panel__image-wrap">
+          <img data-src="images/artworks/james-rocks-hq-3.webp" alt="James Rocks — Retrato de James Dean sobre pizarra" class="rock-panel__img" loading="lazy">
         </div>
+        <div class="rock-panel__info">
+          <h3 class="rock-panel__name">James Rocks</h3>
+          <p class="rock-panel__technique">Acrílico y papel de seda sobre pizarra</p>
+        </div>
+      </div>
 
-        <!-- Obras GRANDES -->
-        <div class="gallery-massive__item gallery-massive__item--large gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/amy-rocks.webp" alt="Amy Rocks" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Amy Rocks</h3>
-          </div>
+      <div class="rock-panel rock-panel--johnny">
+        <span class="rock-panel__counter">03 / 04</span>
+        <div class="rock-panel__image-wrap">
+          <img data-src="images/artworks/johnny-rocks-hq-5.webp" alt="Johnny Rocks — Retrato de Johnny Depp sobre pizarra" class="rock-panel__img" loading="lazy">
         </div>
-        <div class="gallery-massive__item gallery-massive__item--large gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/baroque-farrokh.webp" alt="Baroque Farrokh" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Baroque Farrokh</h3>
-          </div>
+        <div class="rock-panel__info">
+          <h3 class="rock-panel__name">Johnny Rocks</h3>
+          <p class="rock-panel__technique">Acrílico sobre pizarra natural</p>
         </div>
+      </div>
 
-        <!-- Obras MEDIANAS -->
-        <div class="gallery-massive__item gallery-massive__item--medium gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/el-gran-dakari.webp" alt="El Gran Dakari" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">El Gran Dakari</h3>
-          </div>
+      <div class="rock-panel rock-panel--marilyn">
+        <span class="rock-panel__counter">04 / 04</span>
+        <div class="rock-panel__image-wrap">
+          <img data-src="images/artworks/marilyn-rocks-hq-5.webp" alt="Marilyn Rocks — Retrato de Marilyn Monroe sobre pizarra" class="rock-panel__img" loading="lazy">
         </div>
-        <div class="gallery-massive__item gallery-massive__item--medium gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/audrey-hepburn.webp" alt="Audrey Hepburn" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Audrey Hepburn</h3>
-          </div>
+        <div class="rock-panel__info">
+          <h3 class="rock-panel__name">Marilyn Rocks</h3>
+          <p class="rock-panel__technique">Acrílico y pan de oro sobre pizarra</p>
         </div>
-        <div class="gallery-massive__item gallery-massive__item--medium gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/amor-en-conserva.webp" alt="Amor en Conserva" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Amor en Conserva</h3>
-          </div>
-        </div>
+      </div>
 
-        <!-- Obras PEQUEÑAS -->
-        <div class="gallery-massive__item gallery-massive__item--small gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/lagrimas-de-oro.webp" alt="Lágrimas de Oro" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Lágrimas de Oro</h3>
-          </div>
-        </div>
-        <div class="gallery-massive__item gallery-massive__item--small gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/love.webp" alt="Love" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Love</h3>
-          </div>
-        </div>
-        <div class="gallery-massive__item gallery-massive__item--small gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/pajarraca-azul.webp" alt="Pajarraca Azul" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Pajarraca Azul</h3>
-          </div>
-        </div>
-
-        <!-- Segunda fila COLOSAL -->
-        <div class="gallery-massive__item gallery-massive__item--colossal gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/james-rocks-hq-3.webp" alt="James Rocks" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">James Rocks</h3>
-          </div>
-        </div>
-
-        <!-- Tercera fila: Variedad premium -->
-        <div class="gallery-massive__item gallery-massive__item--large gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/johnny-rocks-hq-4.webp" alt="Johnny Rocks" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Johnny Rocks</h3>
-          </div>
-        </div>
-        <div class="gallery-massive__item gallery-massive__item--medium gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/geisha.webp" alt="Geisha" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Geisha</h3>
-          </div>
-        </div>
-        <div class="gallery-massive__item gallery-massive__item--medium gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/la-pensadora.webp" alt="La Pensadora" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">La Pensadora</h3>
-          </div>
-        </div>
-        <div class="gallery-massive__item gallery-massive__item--small gallery-lazy gallery-reveal">
-          <img data-src="images/artworks/tedas-queen.webp" alt="Tedas Queen" class="gallery-massive__img">
-          <div class="gallery-massive__overlay">
-            <h3 class="gallery-massive__title">Tedas Queen</h3>
-          </div>
-        </div>
+      <div class="rocks-showcase__cta">
+        <a href="#/galeria">Ver colección completa →</a>
       </div>
     </section>
 
-    <!-- VIDEO SHOWCASE: Cinematic Art Videos -->
-    <section id="view-videos" class="view view--videos video-showcase">
-      <header class="video-showcase__header">
-        <h2 class="video-showcase__title text-shimmer">🎬 Arte en Movimiento</h2>
-        <p class="video-showcase__subtitle">Visualizaciones cinematográficas de mi obra</p>
-      </header>
-      <div class="video-grid">
-        <div class="video-card video-card--featured">
-          <video class="video-card__video" poster="videos/living-photograph-poster.jpg" loop muted playsinline preload="none">
-            <source src="videos/living-photograph.webm" type="video/webm">
-          </video>
-          <div class="video-card__play"></div>
-          <div class="video-card__overlay">
-            <h3 class="video-card__title">Fotografía Viva</h3>
-          </div>
-        </div>
-        <div class="video-card">
-          <video class="video-card__video" poster="videos/hot-scene-love-poster.jpg" loop muted playsinline preload="none">
-            <source src="videos/hot-scene-love.webm" type="video/webm">
-          </video>
-          <div class="video-card__play"></div>
-          <div class="video-card__overlay">
-            <h3 class="video-card__title">Escena de Amor</h3>
-          </div>
-        </div>
-        <div class="video-card">
-          <video class="video-card__video" poster="videos/scene-dramatic-poster.jpg" loop muted playsinline preload="none">
-            <source src="videos/scene-dramatic.webm" type="video/webm">
-          </video>
-          <div class="video-card__play"></div>
-          <div class="video-card__overlay">
-            <h3 class="video-card__title">Escena Dramática</h3>
-          </div>
-        </div>
-        <div class="video-card">
-          <video class="video-card__video" poster="videos/wardrobe-swap-poster.jpg" loop muted playsinline preload="none">
-            <source src="videos/wardrobe-swap.webm" type="video/webm">
-          </video>
-          <div class="video-card__play"></div>
-          <div class="video-card__overlay">
-            <h3 class="video-card__title">Transformación</h3>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Archivo View (Complete 44+ works) -->
-    <section id="view-archivo" class="view view--archivo reveal-stagger">
+    <section id="view-archivo" class="view view--archivo">
       <header class="view__header">
-        <h2>Archivo</h2>
-        <div class="gallery-filters" id="gallery-filters">
-          <!-- Filters populated by JS -->
+        <h2 class="text-shimmer">Archivo Completo</h2>
+        <p class="view__subtitle">Explora la colección completa de obras y experimentos</p>
+        <div class="gallery-controls">
+          <div class="gallery-filters" id="gallery-filters"></div>
+          <button id="chaos-toggle" class="btn-chaos" aria-label="Activar modo caos">
+             <span>⚡</span> MODO CAOS
+          </button>
         </div>
       </header>
       <div class="gallery gallery--masonry" id="archivo-grid">
-        <!-- Dynamically populated with all works -->
       </div>
     </section>
 
-    <!-- About View - PREMIUM 2026 -->
     <section id="view-about" class="view view--about view--premium-dark">
       <div class="about__hero">
         <div class="about__gradient-bg"></div>
@@ -463,10 +358,9 @@
       
       <div class="about__container">
         <div class="about__grid">
-          <!-- Main Bio Card -->
           <article class="about__card about__card--main glass">
             <div class="about__avatar">
-              <img src="images/artworks/mujer-collar-perlas.webp" alt="Naroa Gutiérrez Gil" loading="lazy">
+              <img src="images/naroa-portrait.jpg" alt="Naroa Gutiérrez Gil — Artista Visual" loading="lazy">
             </div>
             <div class="about__bio">
               <h3>Naroa Gutiérrez Gil</h3>
@@ -479,7 +373,6 @@
             </div>
           </article>
           
-          <!-- Stats Cards -->
           <div class="about__stats">
             <div class="about__stat glass-dark">
               <span class="about__stat-number">40+</span>
@@ -495,7 +388,6 @@
             </div>
           </div>
           
-          <!-- Techniques -->
           <article class="about__card about__card--techniques glass-dark">
             <h4>🎨 Técnicas</h4>
             <ul class="about__tags">
@@ -507,7 +399,6 @@
             </ul>
           </article>
           
-          <!-- Themes -->
           <article class="about__card about__card--themes glass-dark">
             <h4>✨ Temas</h4>
             <ul class="about__tags">
@@ -522,30 +413,28 @@
       </div>
     </section>
 
-    <!-- Contact View - PREMIUM 2026 -->
     <section id="view-contacto" class="view view--contacto view--premium-dark">
-      <div class="contact__container">
+      <div id="contacto-container"></div>
+      
+      <div class="contact__container" id="contact-fallback">
         <header class="view__header">
           <h2 class="text-shimmer">Contacto</h2>
           <p class="contact__intro">¿Tienes un proyecto en mente? Hablemos.</p>
         </header>
         
         <div class="contact__grid">
-          <!-- Email Card -->
           <a href="mailto:naroa@naroa.eu" class="contact__card contact__card--email glass">
             <div class="contact__icon">📧</div>
             <span class="contact__label">Email</span>
             <span class="contact__value">naroa@naroa.eu</span>
           </a>
           
-          <!-- Instagram Card -->
           <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener" class="contact__card contact__card--instagram glass">
             <div class="contact__icon">📷</div>
             <span class="contact__label">Instagram</span>
             <span class="contact__value">@naroagutierrezgil</span>
           </a>
           
-          <!-- Location Card -->
           <div class="contact__card contact__card--location glass-dark">
             <div class="contact__icon">📍</div>
             <span class="contact__label">Ubicación</span>
@@ -553,7 +442,6 @@
           </div>
         </div>
         
-        <!-- CTA -->
         <div class="contact__cta">
           <p>Disponible para encargos, murales y colaboraciones artísticas</p>
           <a href="mailto:naroa@naroa.eu?subject=Encargo%20artístico" class="btn btn-premium hero__cta--primary magnetic-btn">
@@ -563,7 +451,6 @@
       </div>
     </section>
 
-    <!-- Juego de la Oca View -->
     <section id="view-juego" class="view view--juego">
       <header class="view__header">
         <h2>🎲 Juego de la Oca 🦆</h2>
@@ -572,7 +459,6 @@
       <div id="oca-board"></div>
     </section>
 
-    <!-- Tetris View -->
     <section id="view-tetris" class="view view--tetris">
       <header class="view__header">
         <h2>🕹️ Tetris Artístico 🎨</h2>
@@ -581,10 +467,9 @@
       <div id="tetris-container"></div>
     </section>
 
-    <!-- Games Hub View -->
     <section id="view-juegos" class="view view--juegos games-hub">
       <header class="games-hub__header">
-        <h1 class="games-hub__title">🎮 Sala de Juegos</h1>
+        <h2 class="games-hub__title">🎮 Sala de Juegos</h2>
         <p class="games-hub__subtitle">21 minijuegos con las obras de Naroa</p>
       </header>
       <div class="games-grid">
@@ -702,127 +587,133 @@
       </div>
     </section>
 
-    <!-- Memory View -->
     <section id="view-memory" class="view view--memory game-view">
       <header class="view__header"><h2>🧠 Memory</h2></header>
       <div class="game-container" id="memory-container"></div>
     </section>
 
-    <!-- Puzzle View -->
     <section id="view-puzzle" class="view view--puzzle game-view">
       <header class="view__header"><h2>🧩 Puzzle</h2></header>
       <div class="game-container" id="puzzle-container"></div>
     </section>
 
-    <!-- Snake View -->
     <section id="view-snake" class="view view--snake game-view">
       <header class="view__header"><h2>🐍 Snake</h2></header>
       <div class="game-container" id="snake-container"></div>
     </section>
 
-    <!-- Breakout View -->
     <section id="view-breakout" class="view view--breakout game-view">
       <header class="view__header"><h2>🧱 Breakout</h2></header>
       <div class="game-container" id="breakout-container"></div>
     </section>
 
-    <!-- Whack View -->
     <section id="view-whack" class="view view--whack game-view">
       <header class="view__header"><h2>🔨 Whack Art</h2></header>
       <div class="game-container" id="whack-container"></div>
     </section>
 
-    <!-- Simon View -->
     <section id="view-simon" class="view view--simon game-view">
       <header class="view__header"><h2>🎵 Simon Dice</h2></header>
       <div class="game-container" id="simon-container"></div>
     </section>
 
-    <!-- Quiz View -->
     <section id="view-quiz" class="view view--quiz game-view">
       <header class="view__header"><h2>❓ Quiz Artístico</h2></header>
       <div class="game-container" id="quiz-container"></div>
     </section>
 
-    <!-- Catch View -->
     <section id="view-catch" class="view view--catch game-view">
       <header class="view__header"><h2>🧺 Atrapa Arte</h2></header>
       <div class="game-container" id="catch-container"></div>
     </section>
 
-    <!-- Collage Alquímico View -->
     <section id="view-collage" class="view view--collage game-view">
       <header class="view__header"><h2>🎨 Collage Alquímico</h2></header>
       <div class="game-container" id="collage-container"></div>
     </section>
 
-    <!-- Repóker de Reinas View -->
     <section id="view-reinas" class="view view--reinas game-view">
       <header class="view__header"><h2>👑 Repóker de Reinas</h2></header>
       <div class="game-container" id="reinas-container"></div>
     </section>
 
-    <!-- MICA VIVA View -->
     <section id="view-mica" class="view view--mica game-view">
       <header class="view__header"><h2>✨ MICA VIVA: Retratos que Laten</h2></header>
       <div class="game-container" id="mica-container"></div>
     </section>
 
-    <!-- Kintsugi Emocional View -->
     <section id="view-kintsugi" class="view view--kintsugi game-view">
       <header class="view__header"><h2>🥇 Kintsugi Emocional</h2></header>
       <div class="game-container" id="kintsugi-container"></div>
     </section>
 
-    <!-- Pong View -->
     <section id="view-pong" class="view view--pong game-view">
       <header class="view__header"><h2>🏓 Pong Artístico</h2></header>
       <div class="game-container" id="pong-container"></div>
     </section>
 
-    <!-- Reaction View -->
     <section id="view-reaction" class="view view--reaction game-view">
       <header class="view__header"><h2>⚡ Test de Reflejos</h2></header>
       <div class="game-container" id="reaction-container"></div>
     </section>
 
-    <!-- Typing View -->
     <section id="view-typing" class="view view--typing game-view">
       <header class="view__header"><h2>⌨️ Typing Artístico</h2></header>
       <div class="game-container" id="typing-container"></div>
     </section>
 
-    <!-- Chess View -->
     <section id="view-chess" class="view view--chess game-view">
       <header class="view__header"><h2>♟️ Ajedrez Artístico</h2></header>
       <div class="game-container" id="chess-container"></div>
     </section>
 
-    <!-- Checkers View -->
     <section id="view-checkers" class="view view--checkers game-view">
       <header class="view__header"><h2>🔴 Damas</h2></header>
       <div class="game-container" id="checkers-container"></div>
     </section>
 
-    <!-- Connect4 View -->
     <section id="view-connect4" class="view view--connect4 game-view">
       <header class="view__header"><h2>🔵 Cuatro en Raya</h2></header>
       <div class="game-container" id="connect4-container"></div>
     </section>
 
-    <!-- Reversi View -->
     <section id="view-reversi" class="view view--reversi game-view">
       <header class="view__header"><h2>⚫ Reversi</h2></header>
       <div class="game-container" id="reversi-container"></div>
     </section>
 
-    <!-- El Restaurador Desastroso View (Web3 NFT Game) -->
     <section id="view-restaurador" class="view view--restaurador game-view">
       <div class="game-container" id="restaurador-container"></div>
     </section>
+
+    <section id="view-exposiciones" class="view view--exposiciones">
+      <div id="exposiciones-container"></div>
+    </section>
+
+    <section id="view-obra" class="view view--obra">
+    </section>
+
+    <section id="view-mica-dashboard" class="view view--mica-dashboard">
+      <div id="mica-dashboard-container"></div>
+    </section>
+
+
   </main>
 
-  <!-- Lightbox -->
+  <footer class="site-footer">
+    <div class="footer__container">
+      <div class="footer__brand">
+        <span class="footer__logo">NGG</span>
+        <p class="footer__tagline">Hiperrealismo POP · Bilbao</p>
+      </div>
+      <div class="footer__links">
+        <a href="mailto:naroa@naroa.eu" class="footer__link">📧 naroa@naroa.eu</a>
+        <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener" class="footer__link">📷 @naroagutierrezgil</a>
+      </div>
+      <p class="footer__copy">© 2026 Naroa Gutiérrez Gil. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
   <div class="lightbox" id="lightbox" hidden>
     <button class="lightbox__close" aria-label="Cerrar">&times;</button>
     <button class="lightbox__prev" aria-label="Anterior">&#8249;</button>
@@ -833,27 +724,24 @@
     </figure>
   </div>
 
-  <!-- Scripts -->
   <script src="js/core/router.js"></script>
-  <script src="js/core/ranking-system.js"></script>
+  <script src="js/core/ranking-system.js" defer></script>
   <script src="js/features/gallery.js"></script>
-  <script src="js/features/lightbox.js"></script>
+  <script src="js/features/lightbox.js" defer></script>
   <script src="js/core/app.js"></script>
+  <script src="js/features/navigation.js"></script>
   <script src="js/features/gallery-chaos.js" type="module"></script>
-  <script src="js/core/soty-effects.js"></script>
-  <script src="js/features/blog-engine.js"></script>
+  <script src="js/core/soty-effects.js" defer></script>
+  <script src="js/features/blog-engine.js" defer></script>
   <script src="js/features/mica.js"></script>
-  <!-- MICA v5.0 Orchestrator (Zero-Menu Navigation) -->
   <script src="js/core/mica-orchestrator.js" defer></script>
-  <!-- WOW Effects 2026 Premium Library -->
   <script src="js/core/wow-effects-2026.js" defer></script>
   
-  <!-- SOTY 2026 WOW Effects (IA Alliance Sprint Feb 2026) - Deferred -->
   <script src="js/effects/kinetic-text.js" defer></script>
   <script src="js/effects/magnetic-button.js" defer></script>
   <script src="js/effects/reveal-observer.js" defer></script>
-  <script src="js/effects/cursor-trail.js" defer></script>
-  <!-- Games: Deferred for performance (load after DOM) -->
+  <script src="js/features/kimi-ideas.js" defer></script>
+  <script src="js/features/rocks-showcase.js" defer></script>
   <script src="js/features/oca-game.js" defer></script>
   <script src="js/features/tetris-game.js" defer></script>
   <script src="js/features/memory-game.js" defer></script>
@@ -871,78 +759,33 @@
   <script src="js/features/pong-game.js" defer></script>
   <script src="js/features/reaction-game.js" defer></script>
   <script src="js/features/typing-game.js" defer></script>
-  <script src="js/features/intro.js" defer></script>
-  <!-- Arcade Leaderboard System -->
   <script src="js/core/arcade-leaderboard.js" defer></script>
-  <!-- Strategy Games (21 total) -->
   <script src="js/features/chess-game.js" defer></script>
   <script src="js/features/checkers-game.js" defer></script>
   <script src="js/features/connect4-game.js" defer></script>
   <script src="js/features/reversi-game.js" defer></script>
-  <!-- El Restaurador Desastroso (Web3 Game + AI Rival v2.0) -->
   <script src="js/services/k25-vision-service.js" defer></script>
   <script src="js/features/restaurador-game.js" defer></script>
   <script src="js/features/restaurador-web3.js" defer></script>
-  <!-- Immersive 3D Spatial Audio Engine -->
-  <script src="js/audio/audio-synth.js"></script>
-  <script src="js/audio/immersive-audio.js"></script>
-  <script src="js/audio/audio-hooks.js"></script>
-  <script src="js/audio/audio-visual-sync.js"></script>
-  <!-- Disruptive Gallery Engine -->
-  <!-- <script src="js/features/gallery-disruptive.js"></script> -->
-  <script src="js/features/scroll-to-top.js"></script>
-  <script src="js/features/video-showcase.js"></script>
-  <!-- Eyes Follow Effect - Los retratos te miran -->
-  <script src="js/effects/eyes-follow.js"></script>
-  <!-- Infinite Canvas 360° Gallery -->
+  <script src="js/core/mica-memory.js" defer></script>
+  <script src="js/core/swarm-orchestrator.js" type="module"></script>
+  <script src="js/core/mica-brain.js" type="module"></script>
+
+  <script src="js/features/exposiciones-timeline.js" type="module" defer></script>
+  <script src="js/audio/audio-synth.js" defer></script>
+  <script src="js/audio/immersive-audio.js" defer></script>
+  <script src="js/audio/audio-hooks.js" defer></script>
+  <script src="js/audio/audio-visual-sync.js" defer></script>
+  <script src="js/features/gallery-disruptive.js" defer></script>
+  <script src="js/features/scroll-to-top.js" defer></script>
+  <script src="js/effects/eyes-follow.js" defer></script>
   <link rel="stylesheet" href="css/infinite-canvas-360.css">
-  <script src="js/features/infinite-canvas-360.js"></script>
-  <!-- Parallax 3D Depth Engine -->
-  <link rel="stylesheet" href="css/parallax-3d-depth.css">
-  <script src="js/effects/parallax-3d-depth.js"></script>
-  <!-- Audio Reactive System -->
-  <script src="js/effects/audio-reactive.js"></script>
-  <!-- Clima Palette - Colores según el clima de tu ciudad -->
-  <script src="js/effects/clima-palette.js"></script>
-  <script src="js/effects/wave-background.js" defer></script>
-  <!-- Organic Particles - Polvo de pigmento flotante -->
+  <script src="js/features/infinite-canvas-360.js" defer></script>
+  <script src="js/features/cantinflas-clones.js" type="module"></script>
   <script src="js/effects/organic-particles.js" defer></script>
-  <!-- Palindrome Hero Generator -->
-  <script src="js/effects/palindrome-hero.js"></script>
-  <!-- MICA Cursor - Puntero Mineral Personalizado -->
-  <script src="js/mica-cursor.js"></script>
-  <!-- Spotify Rotator -->
-  <script src="js/spotify-rotator.js"></script>
+
+  <script src="js/effects/wow-effects.js" type="module" defer></script>
+  <script src="js/effects/kinetic-text.js" defer></script>
   
-  <!-- Gallery Disruptive 2.0: SVG Filters for Chromatic Aberration -->
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
-    <defs>
-      <!-- Red channel shift -->
-      <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
-        <feColorMatrix type="matrix" values="
-          1 0 0 0 0
-          0 0 0 0 0
-          0 0 0 0 0
-          0 0 0 1 0"/>
-      </filter>
-      <!-- Blue channel shift -->
-      <filter id="chromatic-blue" x="-20%" y="-20%" width="140%" height="140%">
-        <feColorMatrix type="matrix" values="
-          0 0 0 0 0
-          0 0 0 0 0
-          0 0 1 0 0
-          0 0 0 1 0"/>
-      </filter>
-    </defs>
-  </svg>
 </body>
 </html>
-<!-- Naroa Cursor Variants -->
-<script src="js/naroa-cursor-variants.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.NaroaCursors) {
-      window.NaroaCursors.setVariant('gallery_spotlight');
-    }
-  });
-</script>

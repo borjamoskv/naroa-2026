@@ -100,23 +100,38 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    ctx.fillStyle = '#0a0a0a';
+    ctx.fillStyle = '#050505';
     ctx.fillRect(0, 0, GRID * CELL, GRID * CELL);
+
+    // Grid sutil
+    ctx.strokeStyle = 'rgba(204, 255, 0, 0.04)';
+    for (let i = 0; i < GRID; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * CELL, 0); ctx.lineTo(i * CELL, GRID * CELL);
+      ctx.moveTo(0, i * CELL); ctx.lineTo(GRID * CELL, i * CELL);
+      ctx.stroke();
+    }
 
     // Snake
     state.snake.forEach((s, i) => {
-      ctx.fillStyle = i === 0 ? '#22c55e' : '#4ade80';
+      ctx.fillStyle = i === 0 ? '#ccff00' : '#b3e600';
+      ctx.shadowColor = 'rgba(204, 255, 0, 0.5)';
+      ctx.shadowBlur = i === 0 ? 8 : 4;
       ctx.fillRect(s.x * CELL + 1, s.y * CELL + 1, CELL - 2, CELL - 2);
+      ctx.shadowBlur = 0;
     });
 
     // Food
     if (state.food) {
-      ctx.fillStyle = '#ffd700';
+      ctx.fillStyle = '#ff003c';
+      ctx.shadowColor = 'rgba(255, 0, 60, 0.6)';
+      ctx.shadowBlur = 12;
       ctx.beginPath();
       ctx.arc(state.food.x * CELL + CELL/2, state.food.y * CELL + CELL/2, CELL/2 - 2, 0, Math.PI * 2);
       ctx.fill();
+      ctx.shadowBlur = 0;
       ctx.fillStyle = '#fff';
-      ctx.font = '10px sans-serif';
+      ctx.font = '10px monospace';
       ctx.fillText('🎨', state.food.x * CELL + 3, state.food.y * CELL + 14);
     }
   }

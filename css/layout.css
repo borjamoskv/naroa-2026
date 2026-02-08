@@ -1,14 +1,12 @@
 /* ==========================================================================
-   LAYOUT - MICA NOIR Edition
-   95% Negro Absoluto + Verde Láser + Rojo Sangre
+   LAYOUT — CYBER-POP EDITION
+   Acid hero, dot-grid background, brutalist CTAs
    ========================================================================== */
 
-/* Variable Overrides - MICA NOIR */
 :root {
   --font-display-size: clamp(3rem, 10vw, 7rem);
 }
 
-/* Global Reset */
 html {
   scroll-behavior: smooth;
   height: 100%;
@@ -16,8 +14,8 @@ html {
 }
 
 body {
-  background-color: var(--negro-absoluto) !important;
-  color: var(--blanco-mica);
+  background-color: var(--black) !important;
+  color: var(--white);
   height: 100%;
   overflow-x: hidden;
 }
@@ -25,27 +23,47 @@ body {
 /* Container */
 .container {
   width: 100%;
-  max-width: var(--container-max);
+  max-width: var(--container-max, 1400px);
   margin-inline: auto;
-  padding-inline: var(--container-padding);
+  padding-inline: var(--container-padding, 2rem);
 }
 
-/* Views - NEGRO COMPLETO */
+/* Views */
 .view {
-  display: block !important;
+  display: block;
   min-height: 100vh;
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: var(--space-8) 0;
-  display: flex !important;
+  padding: var(--space-3xl) 0;
+  background: var(--black);
+  opacity: 1 !important; /* Force visible */
+  pointer-events: auto !important; /* Force interactive */
+}
+
+/* Views that need centered flex layout */
+.view--home,
+.view--about,
+.view--manifesto,
+.view--contact {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--negro-absoluto);
 }
 
-/* Hero - MICA NOIR */
+/* Gallery / Archive — block layout for CSS masonry columns */
+.view--archivo {
+  display: block !important;
+  background: var(--black);
+  overflow: visible;
+  padding-top: var(--space-xl);
+}
+
+/* ═══════════════════════════════════════════
+   HERO — Name only, nothing else
+   ═══════════════════════════════════════════ */
+
 .hero {
   position: relative;
   display: flex;
@@ -54,184 +72,161 @@ body {
   justify-content: center;
   min-height: 100vh;
   text-align: center;
-  padding: var(--space-8);
+  padding: var(--space-3xl);
   overflow: hidden;
-  background: var(--negro-absoluto) !important;
+  background-color: var(--black) !important;
+  background-image: radial-gradient(rgba(204, 255, 0, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* NOTA: Filtro MICA desactivado - causa parpadeo en producción */
-
-/* Hero Images with subtle contrast */
-.hero img,
-.hero__image {
-  position: relative;
-  filter: contrast(1.1) saturate(0.95);
-}
-
-/* Palíndromo Watermark - Verde Láser muy sutil */
-.hero__palindrome {
+/* Hero background artwork */
+.hero--premium::before {
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  background: url('/images/artworks/espejos-del-alma.webp') center/cover no-repeat;
+  opacity: 0.15;
+  filter: blur(2px) saturate(0.7);
+  transform: scale(1.1);
+  transition: opacity 1.5s ease, transform 8s ease;
+  animation: heroZoom 20s ease-in-out infinite alternate;
   z-index: 0;
+}
+
+@keyframes heroZoom {
+  0% { transform: scale(1.1) translate(0, 0); }
+  50% { transform: scale(1.15) translate(-1%, 1%); }
+  100% { transform: scale(1.1) translate(1%, -1%); }
+}
+
+/* Gradient overlay — dark vignette with red tint */
+.hero--premium::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 70%),
+    linear-gradient(180deg, rgba(255,0,60,0.05) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
   pointer-events: none;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.015;
 }
+/* Kill non-essential decorative elements */
+.hero__palindrome,
+.aurora-bg { display: none !important; }
 
-.hero__palindrome-text {
-  font-family: var(--font-family-display);
-  font-size: 70vw;
-  font-weight: 300;
-  color: var(--verde-laser);
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-
-/* Hero Title - Blanco MICA */
 .hero__title {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   line-height: 1;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .hero__line {
   display: block;
   font-size: var(--font-display-size);
-  font-weight: var(--font-weight-light);
-  letter-spacing: 0.05em;
-  color: var(--blanco-mica);
-  text-shadow: 0 0 60px rgba(255, 255, 255, 0.1);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--white);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroLineReveal 1s var(--ease-default, ease) forwards;
+  position: relative;
 }
 
-/* Subtitle - Gris con destello láser */
+.hero__line:last-child {
+  -webkit-text-stroke-color: var(--red-pop);
+  text-shadow: 4px 4px 0 rgba(255, 0, 60, 0.3);
+}
+
+.hero__line:nth-child(1) { animation-delay: 0.2s; }
+.hero__line:nth-child(2) { animation-delay: 0.45s; }
+.hero__line:nth-child(3) { animation-delay: 0.7s; }
+
+@keyframes heroLineReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .hero__subtitle {
   position: relative;
   z-index: 2;
-  margin-top: var(--space-6);
+  margin-top: var(--space-xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
+  gap: var(--space-md);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
-  letter-spacing: var(--letter-spacing-widest);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--gris-humo);
+  color: var(--fluor);
+  background: rgba(204, 255, 0, 0.05);
+  padding: 0.4rem 1.2rem;
+  border: 1px solid rgba(204, 255, 0, 0.15);
 }
 
-/* CTA - Verde Láser Primario, Rojo Sangre Secundario */
 .hero__cta-group {
   position: relative;
   z-index: 2;
   display: flex;
-  gap: var(--space-6);
-  margin-top: var(--space-8);
+  gap: var(--space-xl);
+  margin-top: var(--space-3xl);
 }
 
 .hero__cta {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-wide);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--verde-laser);
+  color: var(--white);
   text-decoration: none;
   position: relative;
-  padding-bottom: 4px;
-  transition: all var(--duration-normal) var(--ease-smooth);
+  padding: 0.6rem 1.5rem;
+  border: 2px solid var(--white-subtle);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Underline effect - Verde Láser */
-.hero__cta::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--verde-laser);
-  box-shadow: var(--shadow-laser);
-  transition: width var(--duration-normal) var(--ease-smooth);
-}
-
-.hero__cta:hover::after {
-  width: 100%;
-}
-
+.hero__cta::after { display: none; }
 .hero__cta:hover {
-  color: var(--verde-laser);
-  text-shadow: var(--shadow-laser);
+  color: var(--black);
+  background: var(--fluor);
+  border-color: var(--fluor);
+  box-shadow: 4px 4px 0 var(--red-pop);
+  transform: translate(-2px, -2px);
 }
 
-/* CTA Secundario - Rojo Sangre */
-.hero__cta--secondary {
-  color: var(--rojo-sangre);
+.hero__cta:first-child {
+  background: var(--red-pop);
+  border-color: var(--red-pop);
+}
+.hero__cta:first-child:hover {
+  background: var(--white);
+  color: var(--red-pop);
+  border-color: var(--white);
+  box-shadow: 4px 4px 0 var(--fluor);
 }
 
-.hero__cta--secondary::after {
-  background: var(--rojo-sangre);
-  box-shadow: var(--shadow-blood);
-}
-
-.hero__cta--secondary:hover {
-  color: var(--rojo-sangre-vivo);
-  text-shadow: var(--shadow-blood);
-}
-
-/* Spotify - NOIR style */
-.hero__spotify {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  z-index: 10;
-  opacity: 0.8;
-  transform: scale(1.2);
-  transform-origin: bottom left;
-  transition: all 0.3s ease;
-  filter: grayscale(30%);
-}
-
-.hero__spotify:hover {
-  opacity: 1;
-  transform: scale(1.4);
-  filter: grayscale(0%);
-}
-
-/* Visit Counter - Verde Láser */
-.hero__counter {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-family: var(--font-family-mono);
-  font-size: 0.9rem;
-  color: var(--verde-laser);
-  opacity: 0.6;
-  letter-spacing: 0.1em;
-}
-
-/* Scroll indicator - Línea Láser */
+/* Scroll indicator */
 .hero__scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .hero__scroll-line {
-  width: 2px;
-  height: 60px;
-  background: linear-gradient(180deg, var(--verde-laser) 0%, transparent 100%);
-  animation: scroll-grow 2s ease-in-out infinite;
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, var(--white-subtle) 0%, transparent 100%);
+  animation: scroll-grow 2.5s ease-in-out infinite;
 }
 
 @keyframes scroll-grow {
@@ -241,104 +236,58 @@ body {
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* Mobile Adjustments */
+/* Spotify — hidden in minimal mode */
+.hero__spotify { display: none !important; }
+.hero__counter { display: none; }
+
+/* Mobile */
 @media (max-width: 768px) {
-  .hero__line {
-    font-size: 15vw;
-  }
-  
-  .hero__cta-group {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .hero__spotify {
-    display: block;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%) scale(0.85);
-  }
+  .hero__line { font-size: 14vw; }
+  .hero__cta-group { flex-direction: column; gap: 1rem; }
 }
 
-/* ==========================================================================
-   NOIR MODE SECTIONS
-   ========================================================================== */
+/* ═══════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════ */
 
-/* Chiquitocrates Badge - NOIR */
-.chiquitocrates-badge {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--verde-laser);
-  opacity: 0.8;
-  font-style: italic;
-  border: 1px solid var(--verde-laser-neon);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.9);
-  cursor: help;
-  transition: all 0.3s ease;
-}
+/* Gallery layout handled above in view--archivo block */
 
-.chiquitocrates-badge:hover {
-  transform: scale(1.05) rotate(-1deg);
-  background: var(--negro-carbon);
-  opacity: 1;
-  box-shadow: var(--shadow-laser);
-}
-
-/* Gallery Layout - NOIR */
-.view--gallery {
-  flex-direction: row !important;
-  justify-content: flex-start !important;
-  background: var(--negro-absoluto);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  width: 100vw;
-}
-
-.gallery-container-horizontal {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100vh;
-  padding-left: 10vw;
-  width: max-content;
-  gap: 4rem;
-}
-
-.gallery-intro {
-  min-width: 40vw;
-  scroll-snap-align: start;
-}
-
-.gallery-track {
-  display: flex;
-  gap: 2rem;
-  padding-right: 10vw;
-}
-
-/* Manifesto Section - NOIR */
+/* Manifesto */
 .view--manifesto {
-  background: var(--negro-mica);
-  color: var(--blanco-mica);
+  background: var(--black-soft);
+  color: var(--white);
   text-align: center;
-  scroll-snap-align: start;
 }
 
 .chiquito-quote {
   font-family: var(--font-family-display);
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1.1;
-  max-width: 900px;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.2;
+  max-width: 800px;
   margin: 0 auto 2rem;
-  background: linear-gradient(to right, var(--rojo-sangre), var(--verde-laser));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--white);
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: unset;
 }
 
 .view--manifesto cite {
-  font-size: 1.2rem;
-  color: var(--gris-humo);
+  font-size: 0.9rem;
+  color: var(--white-subtle);
   text-transform: uppercase;
   letter-spacing: 0.2em;
+}
+
+/* Section titles */
+.section-title {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.2em;
+}
+
+.section-subtitle {
+  color: var(--white-subtle);
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-wide);
 }

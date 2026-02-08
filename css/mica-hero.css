@@ -1,378 +1,182 @@
-/**
- * MICA HERO - Estilos para el Hero interactivo
- * Incluye: Avatar 3D, Typewriter, Botones magnéticos, Cursor custom
- */
+/* ==========================================================================
+   MICA HERO — MINIMAL EDITION
+   Clean chat interface, no custom cursors or particle effects
+   ========================================================================== */
 
-/* ============================================
-   HERO PRINCIPAL
-   ============================================ */
 .hero-mica {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
-    overflow: hidden;
-    cursor: none; /* Cursor personalizado */
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  overflow: hidden;
+  cursor: auto;
 }
 
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 60px;
-    max-width: 1200px;
-    width: 90%;
-    z-index: 10;
-    position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  max-width: 1100px;
+  width: 90%;
+  z-index: 10;
 }
 
-/* ============================================
-   AVATAR 3D CONTAINER
-   ============================================ */
+/* Avatar */
 .avatar-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #avatar-container {
-    width: 400px;
-    height: 400px;
-    position: relative;
+  width: 300px;
+  height: 300px;
 }
 
 #avatar-container canvas {
-    border-radius: 50%;
-    box-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+  border-radius: 50%;
+  box-shadow: none;
 }
 
 .status-indicator {
-    margin-top: 20px;
-    color: #FFD700;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Courier New', monospace;
+  margin-top: 1rem;
+  color: var(--white-muted);
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-family-mono);
 }
 
 .pulse-dot {
-    width: 8px;
-    height: 8px;
-    background: #00FF88;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-    box-shadow: 0 0 10px #00FF88;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: none;
 }
 
 @keyframes pulse {
-    0%, 100% { 
-        opacity: 1; 
-        transform: scale(1); 
-    }
-    50% { 
-        opacity: 0.5; 
-        transform: scale(1.2); 
-    }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
-/* ============================================
-   CHAT CONTAINER
-   ============================================ */
+/* Chat */
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .typewriter-text {
-    min-height: 150px;
-    max-height: 400px;
-    overflow-y: auto;
-    color: #fff;
-    font-size: 1.3em;
-    line-height: 1.6;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    font-family: 'Courier New', monospace;
-    backdrop-filter: blur(10px);
+  min-height: 120px;
+  max-height: 350px;
+  overflow-y: auto;
+  color: var(--white);
+  font-size: 1.1em;
+  line-height: 1.6;
+  padding: 1.5rem;
+  background: var(--black-card);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font-family-mono);
+  text-shadow: none;
 }
 
-/* Scrollbar dorado */
-.typewriter-text::-webkit-scrollbar {
-    width: 8px;
-}
+/* Scrollbar */
+.typewriter-text { scrollbar-width: none; }
+.typewriter-text::-webkit-scrollbar { width: 0; }
 
-.typewriter-text::-webkit-scrollbar-track {
-    background: rgba(255, 215, 0, 0.1);
-    border-radius: 10px;
-}
-
-.typewriter-text::-webkit-scrollbar-thumb {
-    background: rgba(255, 215, 0, 0.5);
-    border-radius: 10px;
-}
-
-.typewriter-text::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 215, 0, 0.8);
-}
-
-/* ============================================
-   INPUT AREA
-   ============================================ */
+/* Input */
 .input-area {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    backdrop-filter: blur(10px);
-    transition: border-color 0.3s;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  background: var(--black-card);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 0.3s;
 }
 
 .input-area:focus-within {
-    border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  border-color: var(--accent);
+  box-shadow: none;
 }
 
 #user-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: #FFD700;
-    font-size: 1.1em;
-    outline: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--white);
+  font-size: 1em;
+  outline: none;
+  font-family: var(--font-family-main);
 }
 
-#user-input::placeholder {
-    color: rgba(255, 215, 0, 0.4);
-}
+#user-input::placeholder { color: var(--white-subtle); }
 
-/* ============================================
-   BOTONES MAGNÉTICOS
-   ============================================ */
+/* Buttons */
 .magnetic-btn {
-    position: relative;
-    padding: 15px 40px;
-    background: transparent;
-    border: 2px solid #FFD700;
-    color: #FFD700;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 1.1em;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
-                background 0.3s, color 0.3s;
-    overflow: hidden;
-    display: inline-block;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+  font-family: var(--font-family-main);
+  font-size: 0.9em;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.magnetic-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.magnetic-btn:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-.magnetic-btn:hover {
-    background: rgba(255, 215, 0, 0.1);
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-}
-
-.magnetic-btn:active {
-    transform: scale(0.95);
-}
+.magnetic-btn::before { display: none; }
+.magnetic-btn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+.magnetic-btn:active { transform: scale(0.98); }
+.magnetic-btn .particle { display: none; }
 
 .mic-btn {
-    padding: 10px 15px !important;
-    border-radius: 50% !important;
-    font-size: 1.5em !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 50% !important;
+  font-size: 1.2em !important;
 }
 
-/* Partículas de hover */
-.magnetic-btn .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #FFD700;
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0;
-}
+/* Cursor — use system default */
+.cursor-mica, .cursor-aura { display: none !important; }
 
-/* ============================================
-   CURSOR PERSONALIZADO
-   ============================================ */
-.cursor-mica {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #FFD700;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s;
-    mix-blend-mode: difference;
-}
-
-.cursor-mica::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 4px;
-    height: 4px;
-    background: #FFD700;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.cursor-aura {
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.15s ease-out;
-    filter: blur(4px);
-}
-
-/* Efecto cuando está sobre elementos interactivos */
-.cursor-hover .cursor-mica {
-    transform: scale(2);
-    border-color: #FF69B4;
-}
-
-.cursor-hover .cursor-aura {
-    transform: scale(3);
-    background: radial-gradient(circle, rgba(255, 105, 180, 0.2) 0%, transparent 70%);
-}
-
-/* ============================================
-   VOICE VISUALIZER
-   ============================================ */
+/* Voice */
 .voice-wave-container {
-    position: relative;
-    width: 100%;
-    height: 100px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.1));
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 20px;
+  width: 100%;
+  height: 60px;
+  background: var(--black-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 1rem;
 }
 
 .voice-status {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #FFD700;
-    font-size: 0.9em;
-    opacity: 0.8;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--white-subtle);
+  font-size: 0.8em;
 }
 
-#voiceCanvas {
-    width: 100%;
-    height: 100%;
-}
+#voiceCanvas { width: 100%; height: 100%; }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* Easter egg — disabled */
+.easter-egg-flash { display: none; }
+
+/* Responsive */
 @media (max-width: 768px) {
-    .hero-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .avatar-wrapper {
-        order: -1;
-    }
-    
-    #avatar-container {
-        width: 300px;
-        height: 300px;
-    }
-    
-    .typewriter-text {
-        font-size: 1.1em;
-    }
-    
-    .input-area {
-        flex-wrap: wrap;
-    }
-    
-    .magnetic-btn {
-        padding: 12px 30px;
-        font-size: 1em;
-    }
-    
-    /* Deshabilitar cursor custom en móvil */
-    .hero-mica {
-        cursor: default;
-    }
-    
-    .cursor-mica,
-    .cursor-aura {
-        display: none;
-    }
-}
-
-/* ============================================
-   ANIMACIONES ADICIONALES
-   ============================================ */
-@keyframes ripple {
-    0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-@keyframes parpadeo {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* Easter egg flash */
-@keyframes flash-dorado {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-.easter-egg-flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.3), transparent);
-    pointer-events: none;
-    animation: flash-dorado 0.5s;
-    z-index: 10000;
+  .hero-content { grid-template-columns: 1fr; gap: 2rem; }
+  .avatar-wrapper { order: -1; }
+  #avatar-container { width: 200px; height: 200px; }
+  .typewriter-text { font-size: 1em; }
+  .input-area { flex-wrap: wrap; }
+  .magnetic-btn { padding: 0.6rem 1.5rem; font-size: 0.85em; }
 }

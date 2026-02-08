@@ -1,0 +1,11 @@
+node_modules/
+.vercel
+source-originals/
+public/images/artworks/source-*.png
+public/images/artworks/cantinflas-platos-source.png
+public/images/artworks/rattler-4x.png
+GIFS/
+*.psd
+*.ai
+.DS_Store
+.env

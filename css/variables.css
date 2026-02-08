@@ -1,82 +1,60 @@
 /* ==========================================================================
-   NAROA 2026 - MICA NOIR EDITION
-   95% Negro Puro + Filtro MICA + Verde Láser + Rojo Sangre
+   NAROA 2026 — MINIMAL EDITION
+   Negro + Blanco Crema + Gold Sutil
    ========================================================================== */
 
 :root {
-  /* ═══════════════════════════════════════════════════════════════════════════
-     PALETA MICA NOIR - 95% NEGRO
-     ═══════════════════════════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════
+     PALETTE — DARK + RED + FLUOR (Cyber-Pop)
+     ═══════════════════════════════════════════ */
+
+  --black: #050505;
+  --black-soft: #0a0a0a;
+  --black-card: #111111;
+  --black-elevated: #1a1a1a;
+
+  --white: #ededed;
+  --white-pure: #ffffff;
+  --white-muted: #a3a3a3;
+  --white-subtle: #737373;
+
+  /* RED - Primary Accent */
+  --red-pop: #ff003c;
+  --red-dark: #cc0030;
+  --red-glow: rgba(255, 0, 60, 0.5);
+
+  /* FLUOR - Secondary Accent */
+  --fluor: #ccff00;
+  --fluor-hover: #b3e600;
+  --fluor-glow: rgba(204, 255, 0, 0.4);
+
+  /* Semantic Mapping */
+  --color-bg: var(--black);
+  --color-bg-elevated: var(--black-soft);
+  --color-bg-card: var(--black-card);
+  --color-bg-hover: var(--black-elevated);
+
+  --color-text: var(--white);
+  --color-text-muted: var(--white-muted);
+  --color-text-subtle: var(--white-subtle);
+
+  --color-accent: var(--red-pop);
+  --color-highlight: var(--fluor);
   
-  /* Negros Profundos (95% de la web) */
-  --negro-absoluto: #000000;      /* El vacío */
-  --negro-mica: #050505;          /* Negro con brillo mineral sutilísimo */
-  --negro-carbon: #0a0a0a;        /* Carbón profundo */
-  --negro-grafito: #0f0f0f;       /* Grafito */
-  --negro-obsidiana: #121212;     /* Obsidiana */
-  
-  /* Filtro MICA - Brillo Mineral */
-  --mica-shimmer: rgba(255, 255, 255, 0.03);   /* Destello sutil */
-  --mica-sparkle: rgba(255, 255, 255, 0.06);   /* Brillo medio */
-  --mica-flash: rgba(255, 255, 255, 0.12);     /* Flash dorado */
-  
-  /* VERDE LÁSER - Acentos Tecnológicos */
-  --verde-laser: #00ff41;         /* Verde Matrix puro */
-  --verde-laser-soft: #00cc33;    /* Verde láser suave */
-  --verde-laser-dark: #009922;    /* Verde profundo */
-  --verde-laser-glow: rgba(0, 255, 65, 0.3);   /* Glow láser */
-  --verde-laser-neon: rgba(0, 255, 65, 0.15);  /* Neón sutil */
-  
-  /* ROJO SANGRE - CTAs y Highlights */
-  --rojo-sangre: #cc0000;         /* Sangre arterial */
-  --rojo-sangre-vivo: #ff0000;    /* Sangre fresca */
-  --rojo-sangre-oscuro: #8b0000;  /* Sangre seca */
-  --rojo-sangre-glow: rgba(204, 0, 0, 0.4);    /* Glow sangre */
-  --rojo-sangre-neon: rgba(255, 0, 0, 0.15);   /* Neón rojo */
-  
-  /* Grises Técnicos */
-  --gris-terminal: #1a1a1a;       /* Terminal */
-  --gris-codigo: #2a2a2a;         /* Código */
-  --gris-humo: #888888;           /* Humo */
-  --gris-ceniza: #aaaaaa;         /* Ceniza */
-  
-  /* Blancos/Neutros */
-  --blanco-mica: #f0f0f0;         /* Blanco con toque mineral */
-  --blanco-puro: #ffffff;         /* Blanco absoluto */
-  
-  /* ═══════════════════════════════════════════════════════════════════════════
-     COLORES SEMÁNTICOS
-     ═══════════════════════════════════════════════════════════════════════════ */
-  
-  --color-bg: var(--negro-absoluto);
-  --color-bg-elevated: var(--negro-carbon);
-  --color-bg-card: var(--negro-mica);
-  --color-bg-hover: var(--negro-grafito);
-  
-  --color-text: var(--blanco-mica);
-  --color-text-muted: var(--gris-ceniza);
-  --color-text-subtle: var(--gris-humo);
-  
-  --color-accent: var(--verde-laser);
-  --color-accent-soft: var(--verde-laser-soft);
-  --color-accent-glow: var(--verde-laser-glow);
-  
-  --color-cta: var(--rojo-sangre);
-  --color-cta-hover: var(--rojo-sangre-vivo);
-  --color-cta-glow: var(--rojo-sangre-glow);
-  
-  --color-border: rgba(255, 255, 255, 0.05);
-  --color-border-accent: var(--verde-laser-neon);
-  --color-border-cta: var(--rojo-sangre-neon);
-  
-  /* ═══════════════════════════════════════════════════════════════════════════
-     TIPOGRAFÍA
-     ═══════════════════════════════════════════════════════════════════════════ */
-  
-  --font-family-main: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
-  --font-family-display: 'Playfair Display', 'Times New Roman', serif;
+  --color-accent-soft: rgba(255, 0, 60, 0.15);
+  --color-fluor-soft: rgba(204, 255, 0, 0.1);
+
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY
+     ═══════════════════════════════════════════ */
+
+  --font-family-main: 'Outfit', 'Switzer', 'Inter', -apple-system, sans-serif;
+  --font-family-display: 'Satoshi', 'Outfit', 'SF Pro Display', sans-serif;
   --font-family-mono: 'JetBrains Mono', 'SF Mono', monospace;
-  
+
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -87,26 +65,27 @@
   --font-size-4xl: 2.5rem;
   --font-size-5xl: 3.5rem;
   --font-size-hero: clamp(3rem, 8vw, 7rem);
-  
+
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  
+
   --line-height-tight: 1.1;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
-  
+
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.05em;
   --letter-spacing-wider: 0.1em;
-  
-  /* ═══════════════════════════════════════════════════════════════════════════
-     ESPACIADO
-     ═══════════════════════════════════════════════════════════════════════════ */
-  
+  --letter-spacing-widest: 0.2em;
+
+  /* ═══════════════════════════════════════════
+     SPACING
+     ═══════════════════════════════════════════ */
+
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -116,78 +95,73 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
   --space-5xl: 8rem;
-  
-  /* ═══════════════════════════════════════════════════════════════════════════
-     EFECTOS MICA
-     ═══════════════════════════════════════════════════════════════════════════ */
-  
-  /* Sombras con glow */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.9);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.95);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.98);
-  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 1);
-  
-  --shadow-laser: 0 0 20px var(--verde-laser-glow), 0 0 40px var(--verde-laser-neon);
-  --shadow-blood: 0 0 20px var(--rojo-sangre-glow), 0 0 40px var(--rojo-sangre-neon);
-  --shadow-mica: 0 0 30px var(--mica-shimmer);
-  
-  /* Bordes */
+
+  /* ═══════════════════════════════════════════
+     EFFECTS — Minimal
+     ═══════════════════════════════════════════ */
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.6);
+
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
-  --radius-xl: 24px;
   --radius-full: 9999px;
-  
-  /* Transiciones */
+
   --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-organic: cubic-bezier(0.45, 0.05, 0.55, 0.95);
-  
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 500ms;
-  --duration-slower: 800ms;
-  
-  /* ═══════════════════════════════════════════════════════════════════════════
-     FILTRO MICA - Textura Mineral
-     ═══════════════════════════════════════════════════════════════════════════ */
-  
-  --mica-noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='mica'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23mica)'/%3E%3C/svg%3E");
-  --mica-noise-opacity: 0.015;
-  
-  /* ═══════════════════════════════════════════════════════════════════════════
-     LEGACY COMPATIBILITY
-     ═══════════════════════════════════════════════════════════════════════════ */
-  
-  --naroa-gold: var(--verde-laser);
-  --naroa-red: var(--rojo-sangre);
-  --naroa-black: var(--negro-absoluto);
-  --forest-night: var(--negro-absoluto);
-  --forest-deep: var(--negro-mica);
-  --forest-bark: var(--negro-carbon);
-  --moss-dark: var(--negro-grafito);
-  --moss-medium: var(--negro-obsidiana);
-  --mist-white: var(--blanco-mica);
-  --mist-light: var(--gris-ceniza);
-  --lichen-gold: var(--verde-laser);
-  --fern-accent: var(--verde-laser-soft);
-  --earth-warm: var(--negro-carbon);
-  --earth-dark: var(--negro-mica);
-}
 
-/* ==========================================================================
-   FILTRO MICA GLOBAL - DESACTIVADO (causa parpadeo)
-   Usar solo en elementos específicos con clase .mica-texture
-   ========================================================================== */
+  /* ═══════════════════════════════════════════
+     LEGACY COMPAT (mapped to new palette)
+     ═══════════════════════════════════════════ */
 
-.mica-texture::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--mica-noise-url);
-  opacity: var(--mica-noise-opacity);
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: overlay;
+  --negro-absoluto: var(--black);
+  --negro-mica: var(--black-soft);
+  --negro-carbon: var(--black-soft);
+  --negro-grafito: var(--black-card);
+  --negro-obsidiana: var(--black-elevated);
+  --blanco-mica: var(--white);
+  --blanco-puro: var(--white-pure);
+  --gris-humo: var(--white-subtle);
+  --gris-ceniza: var(--white-muted);
+  --verde-laser: var(--fluor);
+  --verde-laser-soft: var(--fluor-hover);
+  --verde-laser-dark: var(--fluor-hover);
+  --verde-laser-glow: var(--fluor-glow);
+  --verde-laser-neon: var(--color-fluor-soft);
+  --rojo-sangre: var(--red-pop);
+  --rojo-sangre-vivo: var(--red-pop);
+  --rojo-sangre-oscuro: var(--red-dark);
+  --rojo-sangre-glow: var(--red-glow);
+  --rojo-sangre-neon: var(--color-accent-soft);
+  --naroa-gold: var(--fluor);
+  --naroa-red: var(--red-pop);
+  --naroa-black: var(--black);
+  --shadow-laser: 0 0 20px var(--fluor-glow);
+  --shadow-blood: 0 0 20px var(--red-glow);
+  --shadow-gold: 0 0 15px var(--fluor-glow);
+  --shadow-red: 0 0 15px var(--red-glow);
+  --color-cta: var(--red-pop);
+  --color-cta-hover: var(--fluor);
+  --gris-terminal: var(--black-card);
+  --gris-codigo: var(--black-elevated);
+  --forest-night: var(--black);
+  --forest-deep: var(--black-soft);
+  --forest-bark: var(--black-soft);
+  --moss-dark: var(--black-card);
+  --moss-medium: var(--black-elevated);
+  --mist-white: var(--white);
+  --mist-light: var(--white-muted);
+  --lichen-gold: var(--fluor);
+  --fern-accent: var(--fluor);
+  --earth-warm: var(--black-soft);
+  --earth-dark: var(--black-soft);
+  --naroa-gold-dust: var(--fluor-glow);
+  --naroa-red-glow: var(--red-glow);
 }

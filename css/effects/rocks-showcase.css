@@ -1,0 +1,244 @@
+/**
+ * ROCKS Series — Cinematic Showcase
+ * Premium fullscreen presentation for artwork on slate
+ */
+
+/* =========================================
+   SECTION LAYOUT
+   ========================================= */
+.rocks-showcase {
+  position: relative;
+  background: #000;
+  overflow: hidden;
+}
+
+.rocks-showcase__header {
+  text-align: center;
+  padding: 6rem 2rem 2rem;
+}
+
+.rocks-showcase__title {
+  font-family: var(--font-family-main);
+  font-weight: 200;
+  font-size: clamp(3rem, 8vw, 8rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(110deg, #888 20%, #fff 40%, #888 60%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+.rocks-showcase__subtitle {
+  font-family: var(--font-family-main);
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.5rem;
+}
+
+/* =========================================
+   INDIVIDUAL ROCK PANEL
+   ========================================= */
+.rock-panel {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4rem 2rem;
+}
+
+.rock-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.8) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* =========================================
+   IMAGE (Parallax Container)
+   ========================================= */
+.rock-panel__image-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  width: 80vw;
+  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rock-panel__image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Glow colors per artwork */
+.rock-panel--amy .rock-panel__image-wrap::after {
+  box-shadow: 0 0 80px 20px rgba(200, 30, 30, 0.4), 0 0 120px 40px rgba(200, 30, 30, 0.15);
+}
+.rock-panel--james .rock-panel__image-wrap::after {
+  box-shadow: 0 0 80px 20px rgba(200, 30, 30, 0.4), 0 0 120px 40px rgba(200, 30, 30, 0.15);
+}
+.rock-panel--johnny .rock-panel__image-wrap::after {
+  box-shadow: 0 0 80px 20px rgba(200, 180, 50, 0.3), 0 0 120px 40px rgba(200, 180, 50, 0.1);
+}
+.rock-panel--marilyn .rock-panel__image-wrap::after {
+  box-shadow: 0 0 80px 20px rgba(200, 50, 50, 0.4), 0 0 100px 30px rgba(218, 165, 32, 0.2);
+}
+
+.rock-panel:hover .rock-panel__image-wrap::after {
+  opacity: 1;
+}
+
+.rock-panel:hover .rock-panel__image-wrap {
+  transform: scale(1.02) translateY(-5px);
+  filter: brightness(1.05) contrast(1.05);
+}
+
+.rock-panel__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* =========================================
+   INFO OVERLAY
+   ========================================= */
+.rock-panel__info {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.3s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  transform: translateX(-50%) translateY(30px);
+}
+
+.rock-panel.revealed .rock-panel__info {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.rock-panel__name {
+  font-family: var(--font-family-main);
+  font-weight: 200;
+  font-size: clamp(2rem, 4vw, 4rem);
+  color: #fff;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rock-panel__technique {
+  font-family: var(--font-family-main);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.5rem;
+}
+
+.rock-panel__counter {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  font-family: var(--font-family-main);
+  font-weight: 200;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.3em;
+  z-index: 3;
+}
+
+/* =========================================
+   REVEAL ANIMATION
+   ========================================= */
+.rock-panel .rock-panel__image-wrap {
+  opacity: 0;
+  transform: scale(0.9) translateY(60px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s ease;
+}
+
+.rock-panel.revealed .rock-panel__image-wrap {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* =========================================
+   CTA
+   ========================================= */
+.rocks-showcase__cta {
+  text-align: center;
+  padding: 4rem 2rem 6rem;
+}
+
+.rocks-showcase__cta a {
+  font-family: var(--font-family-main);
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding-bottom: 0.5rem;
+  transition: color 0.4s, border-color 0.4s;
+}
+
+.rocks-showcase__cta a:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+  .rock-panel {
+    min-height: 80vh;
+    padding: 3rem 1rem;
+  }
+  .rock-panel__image-wrap {
+    width: 90vw;
+    max-width: 400px;
+  }
+  .rock-panel__counter {
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================
+   TEXTURE OVERLAY (slate grain)
+   ========================================= */
+.rocks-showcase::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  mix-blend-mode: overlay;
+}

@@ -1,194 +1,241 @@
 /* ============================================
-   Games Hub - Naroa 2026
-   Unified styles for all minigames
+   GAMES HUB — CYBER-ARCADE / ACID EDITION
+   Black + Red + Fluor
    ============================================ */
 
-/* Common Game Styles */
 .games-hub {
   min-height: 100vh;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  padding: 6rem 2rem;
+  background-color: var(--black);
+  background-image: 
+    radial-gradient(var(--black-elevated) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .games-hub__header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  position: relative;
 }
 
 .games-hub__title {
-  font-size: 2.5rem;
-  background: linear-gradient(90deg, #a855f7, #3b82f6, #22c55e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 4px 4px 0 var(--red-pop);
+  letter-spacing: -0.05em;
+  margin-bottom: 1rem;
 }
 
 .games-hub__subtitle {
-  color: #888;
-  font-size: 1.1rem;
+  font-family: var(--font-family-mono);
+  color: var(--fluor);
+  font-size: 1rem;
+  text-transform: uppercase;
+  background: var(--black-elevated);
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--fluor);
 }
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Cyber Cartridge Card */
 .game-card {
-  background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  background: var(--black-card);
+  border: 1px solid var(--white-subtle);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
-  border-color: rgba(168, 85, 247, 0.3);
-}
-
-.game-card__icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-/* New game card highlight */
-.game-card--new {
-  position: relative;
-  border-color: rgba(34, 197, 94, 0.3);
-  background: linear-gradient(145deg, #0a2a1e, #0f1f1a);
-}
-.game-card--new:hover {
-  box-shadow: 0 10px 40px rgba(34, 197, 94, 0.2);
-  border-color: rgba(34, 197, 94, 0.5);
-}
-.game-card--new::after {
-  content: 'NUEVO';
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #fff;
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: 600;
-}
-
-/* Strategy game cards - MICA NEBLINA NEGRA */
-.game-card--strategy {
-  position: relative;
-  border-color: rgba(168, 85, 247, 0.3);
-  background: linear-gradient(145deg, #0d0d1a, #0a0a12);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: hidden;
 }
 
-/* MICA Fog Effect - Premium Awwwards-inspired */
-.game-card--strategy::before {
-  content: '';
+.game-card::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(ellipse at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
-  pointer-events: none;
-  opacity: 0.8;
-  transition: opacity 0.5s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--white-subtle);
+  transition: background 0.2s;
 }
 
-.game-card--strategy:hover::before {
-  opacity: 1;
-  background: 
-    radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.3) 0%, transparent 60%);
+.game-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 8px 8px 0 var(--fluor);
+  border-color: var(--fluor);
 }
 
-.game-card--strategy:hover {
-  box-shadow: 
-    0 10px 40px rgba(139, 92, 246, 0.25),
-    0 0 60px rgba(0, 0, 0, 0.5),
-    inset 0 0 30px rgba(139, 92, 246, 0.05);
-  border-color: rgba(139, 92, 246, 0.5);
-  transform: translateY(-8px) scale(1.02);
+.game-card:hover::before {
+  background: var(--fluor);
 }
 
-.game-card--strategy .game-card__icon {
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+.game-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  filter: grayscale(100%);
+  transition: filter 0.2s;
 }
 
-.game-card--strategy .game-card__title,
-.game-card--strategy .game-card__desc {
-  position: relative;
-  z-index: 1;
-}
-
-/* Featured game cards */
-.game-card--featured {
-  position: relative;
-  border-color: rgba(255, 215, 0, 0.3);
-  background: linear-gradient(145deg, #2a2000, #1a1500);
-}
-.game-card--featured:hover {
-  box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
-  border-color: rgba(255, 215, 0, 0.5);
+.game-card:hover .game-card__icon {
+  filter: grayscale(0%) drop-shadow(0 0 8px var(--fluor-glow));
 }
 
 .game-card__title {
-  font-size: 1.3rem;
-  color: #fff;
+  font-family: var(--font-family-display);
+  font-size: 1.5rem;
+  color: var(--white);
   margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.game-card:hover .game-card__title {
+  color: var(--fluor);
 }
 
 .game-card__desc {
-  color: #888;
-  font-size: 0.9rem;
+  font-family: var(--font-family-mono);
+  color: var(--white-muted);
+  font-size: 0.85rem;
   line-height: 1.5;
 }
 
-/* Common Game Container */
+/* Variants */
+.game-card--new {
+  border-color: var(--fluor);
+}
+
+.game-card--new::after {
+  content: "NEW_RELEASE";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.6rem;
+  background: var(--fluor);
+  color: var(--black);
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+.game-card--strategy {
+  border-color: var(--red-pop);
+}
+
+.game-card--strategy::before {
+  background: var(--red-pop);
+}
+
+.game-card--strategy:hover {
+  border-color: var(--red-pop);
+  box-shadow: 8px 8px 0 var(--red-pop);
+}
+
+.game-card--strategy:hover .game-card__title {
+  color: var(--red-pop);
+}
+
+.game-card--strategy:hover .game-card__icon {
+  filter: grayscale(0%) drop-shadow(0 0 8px var(--red-glow));
+}
+
+/* Game Views Shared */
 .game-view {
   min-height: 100vh;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0a0a0a 0%, #16213e 100%);
+  padding: 6rem 2rem;
+  background: var(--black);
+  color: var(--white);
 }
 
 .game-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
-  text-align: center;
+  border: 1px solid var(--white-subtle);
+  background: var(--black-card);
+  padding: 2rem;
+  position: relative;
+  box-shadow: 12px 12px 0 var(--black-elevated);
 }
 
 .game-btn {
-  background: linear-gradient(135deg, #a855f7, #7c3aed);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 1rem;
+  background: var(--fluor);
+  color: var(--black);
+  font-family: var(--font-family-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--fluor);
+  padding: 0.8rem 2rem;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.2s;
 }
 
 .game-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+  background: transparent;
+  color: var(--fluor);
+  box-shadow: 0 0 15px var(--fluor-glow);
 }
 
-.game-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
+/* Specific Game Styles Tweaks for Acid Theme */
+
+/* Memory */
+.memory-grid { margin: 2rem 0; gap: 10px; }
+.memory-card__front { background: var(--black-elevated); border: 2px solid var(--white-subtle); color: var(--fluor); }
+.memory-card.flipped .memory-card__front { background: var(--black); border-color: var(--fluor); }
+
+/* Snake */
+#snake-canvas { border: 4px solid var(--fluor); background: var(--black); }
+
+/* Breakout */
+#breakout-canvas { border: 4px solid var(--red-pop); background: var(--black); }
+
+/* Quiz */
+.quiz-option {
+  background: var(--black);
+  border: 1px solid var(--white-muted);
+  font-family: var(--font-family-mono);
+  transition: all 0.2s;
+}
+.quiz-option:hover {
+  border-color: var(--fluor);
+  color: var(--fluor);
+}
+.quiz-option.correct {
+  background: var(--fluor);
+  color: var(--black);
+  border-color: var(--fluor);
+}
+.quiz-option.wrong {
+  background: var(--red-pop);
+  color: var(--white);
+  border-color: var(--red-pop);
+}
+
+/* Whack */
+.whack-hole {
+  border: 2px solid var(--white-subtle);
+  background: var(--black-elevated);
+}
+.whack-header { font-family: var(--font-family-mono); }
+
+/* Simon */
+.simon-btn { border: 2px solid transparent; }
+.simon-btn.active { border-color: var(--white); box-shadow: 0 0 20px currentColor; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .games-hub__title { font-size: 2rem; }
+  .game-container { padding: 1rem; }
 }
 
 /* Memory Game */

@@ -1,0 +1,122 @@
+/**
+ * Cantinflas Spotlight CSS
+ * 3D Fan Effect & Positioning
+ */
+
+#cantinflas-spotlight {
+  position: relative; /* Changed from absolute to flow in the section */
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  perspective: 1200px;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.cantinflas-stage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cantinflas-fan {
+  position: relative;
+  width: 200px; /* Base card width */
+  height: 300px;
+  transform-style: preserve-3d;
+  /* subtle breathing animation */
+  animation: cantinflas-float 6s ease-in-out infinite;
+}
+
+.cantinflas-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transform-origin: bottom center;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: #000;
+  
+  /* The Fan Effect */
+  /* --i is set in JS: -2, -1, 0, 1, 2 */
+  /* Base rotation + parallax influence */
+  transform: 
+    rotate(calc(var(--i) * 15deg)) 
+    translateY(calc(var(--abs-i) * 10px))
+    translateZ(calc(var(--abs-i) * -50px));
+  
+  /* Border */
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.cantinflas-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+  transition: filter 0.3s;
+}
+
+/* Hover Effect (when user is near - emulated via class or js) */
+/* Ideally we'd hook this to scroll proximity or mouse hover on container */
+/* But since pointer-events: none on container, we rely on global mouse tracking */
+
+/* Spotlight Glow */
+.cantinflas-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255, 215, 0, 0.2) 100%);
+  opacity: 0.5;
+}
+
+.cantinflas-title {
+  margin-top: 40px;
+  text-align: center;
+  transform: translateZ(20px);
+  text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+  opacity: 0.8;
+}
+
+.cantinflas-title h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: #FFD700;
+  margin: 0;
+  letter-spacing: 0.2em;
+}
+
+.cantinflas-title p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-top: 5px;
+}
+
+@keyframes cantinflas-float {
+  0%, 100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-20px) rotateX(5deg); }
+}
+
+/* Parallax from Mouse Moving (applied via CSS props) */
+#cantinflas-spotlight {
+  /* --mouse-x/y are -1 to 1 */
+  transform: 
+    rotateY(calc(var(--mouse-x, 0) * 10deg))
+    rotateX(calc(var(--mouse-y, 0) * -10deg));
+  transition: transform 0.1s ease-out;
+}
