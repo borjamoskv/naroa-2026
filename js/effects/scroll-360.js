@@ -1,10 +1,10 @@
 /**
  * 360° Scroll Navigation Controller
- * Awwwards-level scroll experience:
+ * Organic, earthy scroll experience:
  * - IntersectionObserver syncs URL hash with scroll position
- * - Dot indicator on right side
+ * - % page discovered indicator (replaces dots)
  * - Scroll-driven reveal animations
- * - Replaces show/hide with continuous scroll
+ * - No perfect circles, no right angles — petrichor
  */
 
 (function() {
@@ -23,56 +23,119 @@
 
   let isScrollingProgrammatically = false;
   let scrollTimeout = null;
+  let discoveredSections = new Set();
 
   // ==========================================
-  // 1. BUILD DOT INDICATOR
+  // 1. BUILD % DISCOVERED INDICATOR
   // ==========================================
   function buildIndicator() {
-    const nav = document.createElement('nav');
-    nav.className = 'scroll-indicator';
-    nav.setAttribute('aria-label', 'Navegación por secciones');
+    const indicator = document.createElement('div');
+    indicator.className = 'scroll-discovery';
+    indicator.setAttribute('aria-label', 'Porcentaje de página descubierta');
+    indicator.innerHTML = `
+      <div class="scroll-discovery__fill"></div>
+      <span class="scroll-discovery__text">0%</span>
+    `;
 
-    SECTIONS.forEach(section => {
-      const el = document.getElementById(section.id);
-      if (!el) return; // Skip sections not in DOM
-
-      const dot = document.createElement('button');
-      dot.className = 'scroll-indicator__dot';
-      dot.dataset.target = section.id;
-      dot.dataset.hash = section.hash;
-      dot.dataset.label = section.label;
-      dot.setAttribute('aria-label', `Ir a ${section.label}`);
-      
-      dot.addEventListener('click', () => {
-        isScrollingProgrammatically = true;
-        const target = document.getElementById(section.id);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Update hash without triggering router
-          history.replaceState(null, '', section.hash);
-          updateActiveDot(section.id);
+    // Inject organic styles
+    const style = document.createElement('style');
+    style.textContent = `
+      .scroll-discovery {
+        position: fixed;
+        bottom: 28px;
+        right: 24px;
+        z-index: 800;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px 6px 8px;
+        background: rgba(15, 12, 8, 0.7);
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        border-radius: 14px 8px 12px 6px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        pointer-events: none;
+        transition: opacity 0.6s ease, transform 0.4s ease;
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      .scroll-discovery.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .scroll-discovery__fill {
+        width: 32px;
+        height: 5px;
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 4px 2px 3px 2px;
+        overflow: hidden;
+        position: relative;
+      }
+      .scroll-discovery__fill::after {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 0%;
+        background: linear-gradient(90deg, 
+          rgba(212, 175, 55, 0.6), 
+          rgba(255, 0, 60, 0.5));
+        border-radius: 3px 1px 2px 1px;
+        transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .scroll-discovery__text {
+        font-family: 'Satoshi', sans-serif;
+        font-size: 0.65rem;
+        color: rgba(212, 175, 55, 0.5);
+        letter-spacing: 0.5px;
+        font-variant-numeric: tabular-nums;
+      }
+      @media (max-width: 768px) {
+        .scroll-discovery {
+          bottom: 16px;
+          right: 12px;
+          padding: 4px 10px 4px 6px;
         }
-        // Reset flag after scroll completes
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          isScrollingProgrammatically = false;
-        }, 1200);
-      });
+        .scroll-discovery__fill { width: 24px; }
+        .scroll-discovery__text { font-size: 0.6rem; }
+      }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(indicator);
 
-      nav.appendChild(dot);
-    });
+    // Show after small delay
+    setTimeout(() => indicator.classList.add('visible'), 1500);
 
-    document.body.appendChild(nav);
-    return nav;
+    return indicator;
   }
 
   // ==========================================
-  // 2. UPDATE ACTIVE DOT
+  // 2. UPDATE DISCOVERY PERCENTAGE
   // ==========================================
-  function updateActiveDot(activeId) {
-    document.querySelectorAll('.scroll-indicator__dot').forEach(dot => {
-      dot.classList.toggle('scroll-indicator__dot--active', dot.dataset.target === activeId);
-    });
+  function updateDiscovery(sectionId) {
+    discoveredSections.add(sectionId);
+    
+    // Count real sections in DOM
+    const existingSections = SECTIONS.filter(s => document.getElementById(s.id));
+    const total = existingSections.length || 1;
+    const pct = Math.round((discoveredSections.size / total) * 100);
+    
+    const textEl = document.querySelector('.scroll-discovery__text');
+    const fillEl = document.querySelector('.scroll-discovery__fill');
+    
+    if (textEl) textEl.textContent = `${pct}%`;
+    if (fillEl) fillEl.style.setProperty('--fill', `${pct}%`);
+    // Also set the ::after width via a CSS variable hack
+    if (fillEl) {
+      fillEl.style.cssText = `--fill-width: ${pct}%`;
+      // Direct manipulation of pseudo-element via stylesheet
+      let sheet = document.getElementById('scroll-discovery-dynamic');
+      if (!sheet) {
+        sheet = document.createElement('style');
+        sheet.id = 'scroll-discovery-dynamic';
+        document.head.appendChild(sheet);
+      }
+      sheet.textContent = `.scroll-discovery__fill::after { width: ${pct}%; }`;
+    }
   }
 
   // ==========================================
@@ -86,11 +149,8 @@
         if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
           const section = SECTIONS.find(s => s.id === entry.target.id);
           if (section) {
-            // Update hash silently (no router re-trigger)
             history.replaceState(null, '', section.hash);
-            updateActiveDot(section.id);
-            
-            // Update nav active state
+            updateDiscovery(section.id);
             updateNavActive(section.hash);
           }
         }
@@ -154,7 +214,7 @@
           if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             history.replaceState(null, '', hash);
-            updateActiveDot(section.id);
+            updateDiscovery(section.id);
             updateNavActive(hash);
           }
           
@@ -183,17 +243,19 @@
     if (section) {
       const target = document.getElementById(section.id);
       if (target) {
-        // Use a small delay to ensure layout is stable
         setTimeout(() => {
           target.scrollIntoView({ behavior: 'auto', block: 'start' });
-          updateActiveDot(section.id);
+          updateDiscovery(section.id);
           updateNavActive(hash);
           // Mark all views above as in-viewport
           let found = false;
           SECTIONS.forEach(s => {
             const el = document.getElementById(s.id);
             if (el) {
-              if (!found) el.classList.add('in-viewport');
+              if (!found) {
+                el.classList.add('in-viewport');
+                updateDiscovery(s.id);
+              }
               if (s.id === section.id) found = true;
             }
           });
@@ -208,7 +270,7 @@
   function init() {
     // Force all views visible
     document.querySelectorAll('.view').forEach(v => {
-      v.classList.add('active'); // Ensure CSS treats them as visible
+      v.classList.add('active');
     });
 
     buildIndicator();
@@ -216,7 +278,6 @@
     initRevealObserver();
     interceptNavClicks();
     scrollToInitialHash();
-
   }
 
   // Wait for DOM
@@ -226,7 +287,6 @@
     init();
   }
 
-  // Export for external use
   window.Scroll360 = { init, scrollToInitialHash };
 
 })();

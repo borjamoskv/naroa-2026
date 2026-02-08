@@ -1,6 +1,6 @@
 /* ==========================================================================
-   MICA — CYBER-POP EDITION
-   Red + fluor accents, brutalist panel
+   MICA — ORGANIC EDITION
+   Gold + red accents, organic earthy panel — petrichor
    ========================================================================== */
 
 /* Toggle - Organic Gold */
@@ -10,7 +10,7 @@
   right: 2rem;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
+  border-radius: 18px 12px 16px 10px;
   background: var(--gold-metallic, #d4af37);
   border: none;
   cursor: pointer;
@@ -77,7 +77,7 @@
 .mica-header__avatar {
   width: 42px;
   height: 42px;
-  border-radius: 50%;
+  border-radius: 14px 10px 12px 8px;
   background: rgba(212, 175, 55, 0.2);
   border: 1px solid rgba(212, 175, 55, 0.5);
   display: flex;
@@ -155,7 +155,7 @@
 
 /* Streaming */
 .mica-message--streaming { background: var(--black-card); color: var(--white); border: 1px solid rgba(255,255,255,0.06); }
-.mica-cursor { display: inline-block; animation: mica-cursor-blink 0.8s ease-in-out infinite; color: var(--fluor, #ccff00); margin-left: 2px; }
+.mica-cursor { display: inline-block; animation: mica-cursor-blink 0.8s ease-in-out infinite; color: var(--gold-metallic, #d4af37); margin-left: 2px; }
 @keyframes mica-cursor-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
 /* Quick Actions */
@@ -194,7 +194,7 @@
 }
 
 .mica-send {
-  width: 44px; height: 44px; border-radius: 50%; background: var(--gold-metallic, #d4af37); border: none;
+  width: 44px; height: 44px; border-radius: 14px 10px 12px 8px; background: var(--gold-metallic, #d4af37); border: none;
   cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #111; transition: all 0.2s;
 }
 .mica-send:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }

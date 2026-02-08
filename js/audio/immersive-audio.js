@@ -80,8 +80,8 @@ const ImmersiveAudio = {
       // Create UI controls
       this.createUI();
 
-      // Start ambient drone
-      this.startAmbient();
+      // Ambient drone disabled per user request
+      // this.startAmbient();
 
       return true;
     } catch (err) {
