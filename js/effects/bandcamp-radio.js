@@ -5,12 +5,11 @@
  */
 class BandcampRadio {
   constructor() {
-    // IDs extraídos manualmente o por Swarm
+    // IDs extraídos manualmente de Borja Moskv
     this.albums = [
-      { id: '266095740', title: 'Borja Moskv Music' }, // Artist ID fallback
-      // Placeholder IDs - se actualizarán con el reporte del Swarm
-      { type: 'album', id: '123456789', title: 'Album 1' },
-      { type: 'album', id: '987654321', title: 'Album 2' }
+      '3541743596', // This Was In Rainbows
+      '3994364503', // Instructions For Flying
+      '3198055933'  // B
     ];
     
     this.currentIdx = 0;
@@ -76,14 +75,19 @@ class BandcampRadio {
     }
   }
 
-  loadRandomAlbum() {
-    // Si ya hay iframe, no recargar salvo que sea explícito
-    if (this.iframe) return;
+  loadRandomAlbum(force = false) {
+    // Si ya hay iframe y no forzamos, no hacer nada
+    if (this.iframe && !force) return;
 
-    // TODO: Usar IDs reales del Swarm Report
-    // Fallback a URL genérica mientras tanto
-    const embedUrl = `https://bandcamp.com/EmbeddedPlayer/album=3272097619/size=large/bgcol=333333/linkcol=e99708/tracklist=false/transparent=true/`;
+    // Pick random album
+    const randomId = this.albums[Math.floor(Math.random() * this.albums.length)];
+    const embedUrl = `https://bandcamp.com/EmbeddedPlayer/album=${randomId}/size=large/bgcol=333333/linkcol=e99708/tracklist=false/transparent=true/`;
     
+    if (this.container.querySelector('iframe')) {
+        this.container.querySelector('iframe').src = embedUrl;
+        return;
+    }
+
     this.container.innerHTML = `
       <iframe style="border: 0; width: 100%; height: 100%;" 
               src="${embedUrl}" 
