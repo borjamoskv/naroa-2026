@@ -1,116 +1,88 @@
-/**
- * Reinas del Arte - Naroa 2026
- * Agent A18: Portrait reveal animation, hint glow, result confetti
- */
-(function() {
-  'use strict';
-
+/* ═══════════════════════════════════════════════════════════════
+   Reinas — Premium with Artwork Gallery Backgrounds
+   Shows rotating artwork between questions
+   ═══════════════════════════════════════════════════════════════ */
+window.ReinasGame = (() => {
+  let container, currentQ = 0, score = 0, artworks = [];
   const QUEENS = [
-    { name: 'Frida Kahlo', hint: 'Pintora mexicana, cejas icónicas', fact: 'Sufrió un grave accidente a los 18 años que marcó su arte.' },
-    { name: 'Artemisia Gentileschi', hint: 'Barroca italiana, Judith y Holofernes', fact: 'Primera mujer admitida en la Accademia di Arte del Disegno.' },
-    { name: 'Georgia O\'Keeffe', hint: 'Flores gigantes, desierto americano', fact: 'Conocida como la "Madre del modernismo americano".' },
-    { name: 'Yayoi Kusama', hint: 'Lunares infinitos, calabazas', fact: 'Vive voluntariamente en un hospital psiquiátrico desde 1977.' },
-    { name: 'Louise Bourgeois', hint: 'Arañas gigantes, "Maman"', fact: 'No tuvo reconocimiento masivo hasta los 70 años.' },
-    { name: 'Tamara de Lempicka', hint: 'Art Deco, retratos glamurosos', fact: 'Sus obras son las más caras del período Art Deco.' },
-    { name: 'Hilma af Klint', hint: 'Abstracciones antes que Kandinsky', fact: 'Pidió que su obra no se mostrara hasta 20 años después de su muerte.' },
-    { name: 'Marina Abramović', hint: 'Performance art, "The Artist is Present"', fact: 'Permaneció sentada inmóvil 736 horas en el MoMA.' }
+    { name: 'Frida Kahlo', country: 'México', hints: ['Pintora de autorretratos', 'Casada con Diego Rivera', 'Ceja unida icónica'], years: '1907-1954' },
+    { name: 'Georgia O\'Keeffe', country: 'EEUU', hints: ['Madre del modernismo americano', 'Flores gigantes', 'Paisajes de Nuevo México'], years: '1887-1986' },
+    { name: 'Artemisia Gentileschi', country: 'Italia', hints: ['Barroca italiana', 'Judith decapitando a Holofernes', 'Primera mujer en la Accademia'], years: '1593-1656' },
+    { name: 'Tamara de Lempicka', country: 'Polonia', hints: ['Reina del Art Déco', 'Retratos glamurosos', 'Autorretrato en Bugatti verde'], years: '1898-1980' },
+    { name: 'Yayoi Kusama', country: 'Japón', hints: ['Obsesión con lunares', 'Infinity Rooms', 'Calabazas gigantes'], years: '1929-' },
+    { name: 'Louise Bourgeois', country: 'Francia', hints: ['Arañas gigantes "Maman"', 'Arte confesional', 'Esculturas de tela'], years: '1911-2010' },
+    { name: 'Hilma af Klint', country: 'Suecia', hints: ['Pionera del arte abstracto', 'Pinturas espirituales', 'Anterior a Kandinsky'], years: '1862-1944' },
+    { name: 'Marina Abramović', country: 'Serbia', hints: ['Madre del performance art', '"The Artist Is Present"', 'Resistencia corporal'], years: '1946-' }
   ];
 
-  let state = { current: 0, score: 0, revealed: false, answers: [] };
-
-  function init() {
-    const container = document.getElementById('reinas-container');
+  async function init() {
+    container = document.getElementById('reinas-container');
     if (!container) return;
-    state.current = 0;
-    state.score = 0;
-    state.revealed = false;
-    state.answers = shuffle([...QUEENS]);
-
-    container.innerHTML = `
-      <div class="reinas-ui">
-        <div class="reinas-info">
-          <span>Pregunta: <strong id="reinas-q">1</strong>/${QUEENS.length}</span>
-          <span>Puntos: <strong id="reinas-score" style="color:#ccff00">0</strong></span>
-        </div>
-        <div id="reinas-hint" class="reinas-hint"></div>
-        <div id="reinas-options" class="reinas-options"></div>
-        <div id="reinas-fact" class="reinas-fact"></div>
-      </div>
-    `;
+    artworks = await window.ArtworkLoader.getFeaturedArtworks(8);
+    currentQ = 0; score = 0;
     showQuestion();
   }
 
-  function shuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
   function showQuestion() {
-    if (state.current >= state.answers.length) { endGame(); return; }
-    const q = state.answers[state.current];
-    document.getElementById('reinas-q').textContent = state.current + 1;
-    document.getElementById('reinas-hint').innerHTML = `<p style="font-size:1.2rem">💡 Pista: <em>${q.hint}</em></p>`;
-    document.getElementById('reinas-fact').textContent = '';
+    if (currentQ >= QUEENS.length) { endGame(); return; }
+    const q = QUEENS[currentQ];
+    const bgArt = artworks[currentQ % artworks.length];
+    const wrongs = QUEENS.filter((_, i) => i !== currentQ).sort(() => Math.random() - 0.5).slice(0, 3);
+    const options = [q, ...wrongs].sort(() => Math.random() - 0.5);
 
-    // Generate 4 options (1 correct + 3 random)
-    const options = [q];
-    const others = QUEENS.filter(r => r.name !== q.name);
-    while (options.length < 4 && others.length > 0) {
-      const idx = Math.floor(Math.random() * others.length);
-      options.push(others.splice(idx, 1)[0]);
-    }
-    shuffle(options);
-
-    const optEl = document.getElementById('reinas-options');
-    optEl.innerHTML = options.map(o => `<button class="game-btn reinas-btn" data-name="${o.name}">${o.name}</button>`).join('');
-    optEl.querySelectorAll('.reinas-btn').forEach(btn => {
-      btn.addEventListener('click', () => checkAnswer(btn, q));
+    container.innerHTML = `
+      <div style="max-width:500px;margin:0 auto;padding:16px;font-family:Inter,sans-serif;position:relative">
+        <div style="position:absolute;inset:0;border-radius:16px;overflow:hidden;z-index:0">
+          ${bgArt && bgArt.img ? `<img src="${bgArt.img.src}" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.15) blur(4px)" />` : ''}
+        </div>
+        <div style="position:relative;z-index:1">
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:13px;margin-bottom:12px">
+            <span>${currentQ + 1}/${QUEENS.length}</span>
+            <span style="color:#ff6ec7">Score: ${score}</span>
+          </div>
+          <div style="background:rgba(10,10,26,0.8);border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid rgba(123,47,247,0.3)">
+            <div style="color:#aaa;font-size:12px;margin-bottom:8px">${q.country} · ${q.years}</div>
+            ${q.hints.map((h, i) => `<div style="color:#fff;font-size:14px;margin-bottom:6px;opacity:${1 - i * 0.15}">💡 ${h}</div>`).join('')}
+          </div>
+          <div style="display:grid;gap:10px">
+            ${options.map(o => `<button class="reinas-opt" data-name="${o.name}" style="padding:12px;border-radius:12px;
+              border:1px solid rgba(255,110,199,0.3);background:rgba(26,26,46,0.9);color:#fff;font-size:14px;
+              cursor:pointer;font-family:Inter,sans-serif;transition:all 0.3s;text-align:left">${o.name}</button>`).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+    container.querySelectorAll('.reinas-opt').forEach(btn => {
+      btn.addEventListener('click', () => handleAnswer(btn, q));
     });
   }
 
-  function checkAnswer(btn, correct) {
-    const allBtns = document.querySelectorAll('.reinas-btn');
-    allBtns.forEach(b => b.disabled = true);
-
-    if (btn.dataset.name === correct.name) {
-      btn.style.background = 'rgba(204, 255, 0, 0.3)';
-      btn.style.borderColor = '#ccff00';
-      state.score += 100;
-      document.getElementById('reinas-score').textContent = state.score;
-      if (window.GameEffects) {
-        GameEffects.confettiBurst(btn);
-        GameEffects.scorePopAnimation(document.getElementById('reinas-score'), '+100');
-      }
-    } else {
-      btn.style.background = 'rgba(255, 0, 60, 0.3)';
-      btn.style.borderColor = '#ff003c';
-      // Highlight correct
-      allBtns.forEach(b => { if (b.dataset.name === correct.name) { b.style.background = 'rgba(204, 255, 0, 0.2)'; b.style.borderColor = '#ccff00'; } });
-    }
-
-    document.getElementById('reinas-fact').innerHTML = `<p style="color:#ffd700;margin-top:10px">📖 ${correct.fact}</p>`;
-
-    setTimeout(() => {
-      state.current++;
-      showQuestion();
-    }, 2500);
+  function handleAnswer(btn, q) {
+    const correct = btn.dataset.name === q.name;
+    container.querySelectorAll('.reinas-opt').forEach(b => {
+      b.style.pointerEvents = 'none';
+      if (b.dataset.name === q.name) { b.style.background = 'rgba(0,200,100,0.3)'; b.style.borderColor = '#00c864'; }
+    });
+    if (correct) { score += 10; if (typeof GameEffects !== 'undefined') GameEffects.confetti(container); }
+    else { btn.style.background = 'rgba(255,50,50,0.3)'; btn.style.borderColor = '#ff3232'; }
+    setTimeout(() => { currentQ++; showQuestion(); }, 1500);
   }
 
   function endGame() {
-    const container = document.getElementById('reinas-container');
     container.innerHTML = `
-      <div class="reinas-result" style="text-align:center;padding:40px">
-        <h2 style="color:#ccff00">🏆 Resultado Final</h2>
-        <p style="font-size:2rem;color:#ffd700">${state.score} / ${QUEENS.length * 100}</p>
-        <p>${state.score >= 600 ? '¡Eres una experta en Reinas del Arte!' : state.score >= 400 ? '¡Buen conocimiento!' : 'Sigue aprendiendo sobre estas artistas increíbles.'}</p>
-        <button class="game-btn" onclick="window.ReinasGame.init()">Jugar de nuevo</button>
+      <div style="max-width:400px;margin:0 auto;padding:40px;text-align:center;font-family:Inter,sans-serif">
+        <div style="font-size:56px;margin-bottom:16px">👑</div>
+        <h2 style="color:#ff6ec7;margin:0 0 8px">¡Quiz Completado!</h2>
+        <p style="color:#ccc;font-size:16px">${score} / ${QUEENS.length * 10}</p>
+        <button onclick="ReinasGame.init()" style="margin-top:16px;background:linear-gradient(135deg,#ff6ec7,#7b2ff7);
+          border:none;color:#fff;padding:12px 32px;border-radius:24px;cursor:pointer;font-size:15px;font-weight:600">
+          Play Again
+        </button>
       </div>
     `;
-    if (window.GameEffects) GameEffects.confettiBurst(container);
+    if (typeof RankingSystem !== 'undefined') RankingSystem.submit('reinas', score);
   }
 
-  window.ReinasGame = { init };
+  function destroy() { if (container) container.innerHTML = ''; }
+  return { init, destroy };
 })();

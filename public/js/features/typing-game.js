@@ -1,130 +1,106 @@
-/**
- * Typing Art - Naroa 2026
- * Agent A20: Keystroke particle burst, combo fire streak, word shatter on complete
- */
-(function() {
-  'use strict';
+/* ═══════════════════════════════════════════════════════════════
+   Typing Art — Type artwork titles from metadata
+   Shows artwork image above the word being typed
+   ═══════════════════════════════════════════════════════════════ */
+window.TypingGame = (() => {
+  let container, artworks = [], wordQueue = [], current = 0, typed = '', score = 0, combo = 0, timeLeft = 45, timer;
 
-  const WORDS = [
-    'acuarela', 'óleo', 'lienzo', 'pincel', 'paleta', 'grabado', 'escultura',
-    'perspectiva', 'claroscuro', 'impresionismo', 'surrealismo', 'abstracto',
-    'autorretrato', 'bodegón', 'fresco', 'mural', 'collage', 'gouache',
-    'pigmento', 'composición', 'textura', 'contorno', 'matiz', 'tonalidad',
-    'barroco', 'renacentista', 'expresionismo', 'cubismo', 'dadaísmo'
-  ];
-
-  let state = { words: [], currentWord: '', typed: '', score: 0, combo: 0, timeLeft: 60, timer: null, running: false };
-
-  function init() {
-    const container = document.getElementById('typing-container');
+  async function init() {
+    container = document.getElementById('typing-container');
     if (!container) return;
+    artworks = await window.ArtworkLoader.getRandomArtworks(20);
+    wordQueue = artworks.map(a => ({ text: a.title, img: a.img, id: a.id }));
+    current = 0; typed = ''; score = 0; combo = 0; timeLeft = 45;
+    buildUI(); startTimer();
+    document.addEventListener('keydown', handleKey);
+  }
 
+  function buildUI() {
     container.innerHTML = `
-      <div class="typing-ui">
-        <div class="typing-stats">
-          <span>⏱️ <strong id="typing-time">60</strong>s</span>
-          <span>Puntos: <strong id="typing-score" style="color:#ccff00">0</strong></span>
-          <span>🔥 <strong id="typing-combo">x0</strong></span>
+      <div style="max-width:480px;margin:0 auto;padding:16px;font-family:Inter,sans-serif;text-align:center">
+        <div style="display:flex;justify-content:space-between;color:#ccc;font-size:13px;margin-bottom:12px">
+          <span>Score: <b id="type-score" style="color:#ff6ec7">${score}</b></span>
+          <span>Combo: <b id="type-combo" style="color:#7b2ff7">x${combo}</b></span>
+          <span>⏱ <b id="type-timer">${timeLeft}s</b></span>
         </div>
-        <div id="typing-word" style="font-size:2.5rem;text-align:center;font-family:monospace;letter-spacing:4px;min-height:60px;color:#fff;padding:20px"></div>
-        <input type="text" id="typing-input" class="typing-input" placeholder="Escribe aquí..." autocomplete="off" autocapitalize="off" style="font-size:1.5rem;text-align:center;background:rgba(255,255,255,0.05);border:2px solid rgba(204,255,0,0.3);border-radius:8px;color:#fff;padding:12px;width:80%;display:block;margin:10px auto;outline:none" />
-        <button class="game-btn" id="typing-start">⌨️ Empezar</button>
-        <div id="typing-ranking"></div>
+        <div id="type-art" style="width:200px;height:150px;margin:0 auto 16px;border-radius:12px;overflow:hidden;border:2px solid rgba(123,47,247,0.3);background:#0a0a1a"></div>
+        <div id="type-word" style="font-size:28px;color:#fff;letter-spacing:2px;margin-bottom:16px;min-height:40px"></div>
+        <div style="color:#aaa;font-size:12px">Type the artwork title shown above</div>
       </div>
     `;
-
-    document.getElementById('typing-start').addEventListener('click', startGame);
-    document.getElementById('typing-input').addEventListener('input', handleType);
-
-    if (window.RankingSystem) window.RankingSystem.renderLeaderboard('typing', 'typing-ranking');
-  }
-
-  function startGame() {
-    state.score = 0;
-    state.combo = 0;
-    state.timeLeft = 60;
-    state.running = true;
-    state.words = shuffle([...WORDS]);
-    nextWord();
-
-    document.getElementById('typing-start').style.display = 'none';
-    document.getElementById('typing-input').value = '';
-    document.getElementById('typing-input').focus();
-    document.getElementById('typing-score').textContent = '0';
-    document.getElementById('typing-combo').textContent = 'x0';
-
-    if (state.timer) clearInterval(state.timer);
-    state.timer = setInterval(() => {
-      state.timeLeft--;
-      document.getElementById('typing-time').textContent = state.timeLeft;
-      if (state.timeLeft <= 0) endGame();
-    }, 1000);
-  }
-
-  function shuffle(a) { for (let i = a.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-
-  function nextWord() {
-    if (state.words.length === 0) state.words = shuffle([...WORDS]);
-    state.currentWord = state.words.pop();
-    state.typed = '';
     renderWord();
   }
 
-  function handleType(e) {
-    if (!state.running) return;
-    const val = e.target.value.toLowerCase();
-    state.typed = val;
-
-    if (val === state.currentWord) {
-      // Word complete!
-      state.combo++;
-      const points = state.currentWord.length * 10 * (1 + Math.floor(state.combo / 3));
-      state.score += points;
-      document.getElementById('typing-score').textContent = state.score;
-      document.getElementById('typing-combo').textContent = `x${state.combo}`;
-      if (window.GameEffects) {
-        GameEffects.scorePopAnimation(document.getElementById('typing-score'), `+${points}`);
-        GameEffects.hapticFeedback();
-        if (state.combo >= 5) GameEffects.confettiBurst(document.getElementById('typing-word'));
+  function renderWord() {
+    if (current >= wordQueue.length) { endGame(); return; }
+    const w = wordQueue[current];
+    // Artwork image
+    const artDiv = document.getElementById('type-art');
+    if (artDiv) {
+      artDiv.innerHTML = '';
+      if (w.img) {
+        const img = document.createElement('img');
+        img.src = w.img.src; Object.assign(img.style, { width:'100%', height:'100%', objectFit:'cover' });
+        artDiv.appendChild(img);
       }
-      e.target.value = '';
-      nextWord();
-    } else {
+    }
+    // Word display
+    const wordDiv = document.getElementById('type-word');
+    if (wordDiv) {
+      wordDiv.innerHTML = w.text.split('').map((ch, i) => {
+        const color = i < typed.length ? (typed[i].toLowerCase() === ch.toLowerCase() ? '#22c55e' : '#ef4444') : 'rgba(255,255,255,0.3)';
+        return `<span style="color:${color};transition:color 0.1s">${ch}</span>`;
+      }).join('');
+    }
+  }
+
+  function handleKey(e) {
+    if (e.key.length === 1) {
+      typed += e.key;
+      const w = wordQueue[current];
+      if (typed.length <= w.text.length) renderWord();
+      if (typed.length === w.text.length) {
+        const correct = typed.toLowerCase() === w.text.toLowerCase();
+        if (correct) { combo++; score += 10 * combo; }
+        else { combo = 0; score += 5; }
+        updateHUD();
+        typed = ''; current++;
+        setTimeout(renderWord, 300);
+      }
+    } else if (e.key === 'Backspace') {
+      typed = typed.slice(0, -1);
       renderWord();
     }
   }
 
-  function renderWord() {
-    const el = document.getElementById('typing-word');
-    if (!el) return;
-    let html = '';
-    for (let i = 0; i < state.currentWord.length; i++) {
-      const ch = state.currentWord[i];
-      if (i < state.typed.length) {
-        if (state.typed[i] === ch) {
-          html += `<span style="color:#ccff00">${ch}</span>`;
-        } else {
-          html += `<span style="color:#ff003c;text-decoration:underline">${ch}</span>`;
-        }
-      } else {
-        html += `<span style="color:rgba(255,255,255,0.3)">${ch}</span>`;
-      }
-    }
-    el.innerHTML = html;
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      timeLeft--;
+      const t = document.getElementById('type-timer');
+      if (t) { t.textContent = timeLeft + 's'; if (timeLeft <= 5) t.style.color = '#ef4444'; }
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+  }
+
+  function updateHUD() {
+    const s = document.getElementById('type-score'), c = document.getElementById('type-combo');
+    if (s) s.textContent = score; if (c) c.textContent = `x${combo}`;
   }
 
   function endGame() {
-    state.running = false;
-    clearInterval(state.timer);
-    document.getElementById('typing-start').style.display = 'inline-block';
-    document.getElementById('typing-input').blur();
-
-    if (window.RankingSystem) {
-      window.RankingSystem.showSubmitModal('typing', state.score, () => {
-        window.RankingSystem.renderLeaderboard('typing', 'typing-ranking');
-      });
-    }
+    clearInterval(timer); document.removeEventListener('keydown', handleKey);
+    container.innerHTML = `
+      <div style="max-width:400px;margin:0 auto;padding:40px;text-align:center;font-family:Inter,sans-serif">
+        <div style="font-size:56px;margin-bottom:16px">⌨️</div>
+        <h2 style="color:#ff6ec7;margin:0 0 8px">Time's Up!</h2>
+        <p style="color:#ccc;font-size:16px">Score: ${score} · Words: ${current}</p>
+        <button onclick="TypingGame.init()" style="margin-top:16px;background:linear-gradient(135deg,#ff6ec7,#7b2ff7);border:none;color:#fff;padding:12px 32px;border-radius:24px;cursor:pointer;font-size:15px;font-weight:600">Play Again</button>
+      </div>
+    `;
+    if (typeof RankingSystem !== 'undefined') RankingSystem.submit('typing', score);
   }
 
-  window.TypingGame = { init };
+  function destroy() { clearInterval(timer); document.removeEventListener('keydown', handleKey); if (container) container.innerHTML = ''; }
+  return { init, destroy };
 })();

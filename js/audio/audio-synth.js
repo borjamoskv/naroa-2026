@@ -11,24 +11,24 @@ const AudioSynth = {
     this.ctx = audioContext;
   },
 
-  // Generate UI hover sound - organic bubble
+  // Generate UI hover sound - soft warm bubble
   uiHover() {
     if (!this.ctx) return;
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(440, this.ctx.currentTime);
-    osc.frequency.linearRampToValueAtTime(520, this.ctx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(330, this.ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(400, this.ctx.currentTime + 0.12);
     
-    gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
     
     osc.connect(gain);
     gain.connect(this.ctx.destination);
     
     osc.start();
-    osc.stop(this.ctx.currentTime + 0.15);
+    osc.stop(this.ctx.currentTime + 0.2);
   },
 
   // Generate UI click sound - woodblock tap
@@ -201,61 +201,74 @@ const AudioSynth = {
     });
   },
 
-  // Ambient gallery drone (warm organic pad)
+  // Ambient gallery drone (warm, soft, vibrating — alive)
   createAmbientDrone() {
     if (!this.ctx) return null;
     
     const masterGain = this.ctx.createGain();
-    masterGain.gain.value = 0.03;
+    masterGain.gain.value = 0.025;
     
-    // Warm A Major chord (A1, A2, C#3, E3) for organic feel
-    const frequencies = [55, 110, 138.59, 164.81];
+    // Master lowpass — everything warm and muffled
+    const masterFilter = this.ctx.createBiquadFilter();
+    masterFilter.type = 'lowpass';
+    masterFilter.frequency.value = 350;
+    masterFilter.Q.value = 0.7;
     
-    const drones = frequencies.map(freq => {
+    // Warm chord: spread A Major voicing
+    const voices = [
+      { freq: 55.00,  type: 'sine',     vol: 0.30 },  // A1 sub-bass
+      { freq: 110.00, type: 'sine',     vol: 0.50 },  // A2 warm root
+      { freq: 164.81, type: 'triangle', vol: 0.25 },  // E3 soft fifth
+      { freq: 220.00, type: 'sine',     vol: 0.35 },  // A3 octave body
+      { freq: 277.18, type: 'triangle', vol: 0.15 },  // C#4 gentle third
+    ];
+    
+    const drones = voices.map(v => {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-      const filter = this.ctx.createBiquadFilter();
       
-      osc.type = 'sine'; // Pure sine for warmth
-      osc.frequency.value = freq;
+      osc.type = v.type;
+      osc.frequency.value = v.freq;
+      gain.gain.value = v.vol;
       
-      // Gentle frequency drift (organic movement)
+      // Ultra-slow organic frequency drift
       const lfoFreq = this.ctx.createOscillator();
       const lfoFreqGain = this.ctx.createGain();
-      lfoFreq.frequency.value = 0.05 + Math.random() * 0.05; // Very slow
-      lfoFreqGain.gain.value = 2; // Subtle drift
-      
+      lfoFreq.frequency.value = 0.02 + Math.random() * 0.03;
+      lfoFreqGain.gain.value = 1.5;
       lfoFreq.connect(lfoFreqGain);
       lfoFreqGain.connect(osc.frequency);
       lfoFreq.start();
       
-      // Subtle Tremolo (Breathing effect)
+      // Breathing tremolo
       const lfoAmp = this.ctx.createOscillator();
       const lfoAmpGain = this.ctx.createGain();
-      lfoAmp.frequency.value = 0.03 + Math.random() * 0.04;
-      lfoAmpGain.gain.value = 0.1; // 10% volume modulation
-      
-      filter.type = 'lowpass';
-      filter.frequency.value = 400; // Muffled warm sound
-      
-      gain.gain.value = 0.4;
-      
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(masterGain);
-      
-      // Tremolo connection
-      const tremoloGain = this.ctx.createGain();
-      tremoloGain.gain.value = 1;
-      gain.connect(tremoloGain);
-      tremoloGain.connect(masterGain);
-      
+      lfoAmp.frequency.value = 0.08 + Math.random() * 0.06;
+      lfoAmpGain.gain.value = 0.15;
       lfoAmp.connect(lfoAmpGain);
-      lfoAmpGain.connect(tremoloGain.gain);
+      lfoAmpGain.connect(gain.gain);
       lfoAmp.start();
+      
+      osc.connect(gain);
+      gain.connect(masterFilter);
       
       return { osc, lfoFreq, lfoAmp };
     });
+    
+    // Spatial delay for depth
+    const delay = this.ctx.createDelay(1.0);
+    const delayGain = this.ctx.createGain();
+    const feedback = this.ctx.createGain();
+    delay.delayTime.value = 0.4;
+    delayGain.gain.value = 0.12;
+    feedback.gain.value = 0.2;
+    
+    masterFilter.connect(masterGain);
+    masterFilter.connect(delay);
+    delay.connect(feedback);
+    feedback.connect(delay);
+    delay.connect(delayGain);
+    delayGain.connect(masterGain);
     
     masterGain.connect(this.ctx.destination);
     
