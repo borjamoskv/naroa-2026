@@ -1,91 +1,181 @@
-/* PREMIUM HERO - SOTY 2026 */
-
-.hero--premium {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+/* PREMIUM HERO - AWWWARDS STYLE */
+.hero--awwwards {
   position: relative;
-  overflow: hidden;
-}
-
-.hero__content {
-  z-index: 10;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 var(--space-6);
 }
 
-/* Kinetic Title */
-.hero__title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(4rem, 15vw, 12rem);
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.8);
-  position: relative;
-  transition: transform 0.1s ease-out;
-}
-
-.hero__title::before {
-  content: attr(data-text);
+/* Video Background */
+.hero__video-bg-wrapper {
   position: absolute;
   top: 0;
   left: 0;
-  width: 0%;
+  width: 100%;
   height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4; /* Subtle background */
+  filter: grayscale(10%) contrast(1.1);
+}
+
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.hero__gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+/* Content Layer */
+.hero__content-layer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero__brand-header {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-family-mono, monospace);
+  font-size: 0.8rem;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+/* Mega Title */
+.hero__title-mega {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(4rem, 15vw, 16rem);
+  font-weight: 800;
+  line-height: 0.85;
+  color: #fff;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+  mix-blend-mode: difference; /* Key Awwwards trick */
+}
+
+.hero__line {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero__line:nth-child(1) { animation-delay: 0.2s; }
+.hero__line:nth-child(2) { animation-delay: 0.3s; }
+.hero__line:nth-child(3) { animation-delay: 0.4s; }
+
+.hero__line.indent {
+  margin-left: 2ch;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.8);
+}
+
+.hero__line.outline {
+  align-self: flex-end;
+}
+
+@keyframes revealUp {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Footer & CTA */
+.hero__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.hero__role {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Switzer', sans-serif;
+  border-left: 1px solid rgba(255,255,255,0.3);
+  padding-left: 1rem;
+}
+
+.role-label { font-size: 1.2rem; font-weight: 600; }
+.role-spec { font-size: 1rem; opacity: 0.7; }
+
+/* Circular CTA */
+.hero__cta-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
   color: #fff;
   overflow: hidden;
-  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-  white-space: nowrap;
 }
 
-.hero__title:hover::before {
-  width: 100%;
-}
-
-.hero__subtitle-block {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.hero__subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.hero__year {
-  font-family: 'Space Mono', monospace;
-  font-size: 1rem;
-  color: #FFD700;
-}
-
-.hero__cta {
-  margin-top: 4rem;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.hero__cta:hover {
+.hero__cta-circle:hover {
+  transform: scale(1.1);
   background: #fff;
   color: #000;
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+}
+
+.cta-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  z-index: 2;
+}
+
+.cta-arrow {
+  width: 24px;
+  height: 24px;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.hero__cta-circle:hover .cta-arrow {
+  transform: rotate(45deg);
+}
+
+/* Mobile Tweaks */
+@media (max-width: 768px) {
+  .hero--awwwards { padding: 0 var(--space-4); }
+  .hero__title-mega { font-size: clamp(3rem, 18vw, 6rem); margin-bottom: 2rem; }
+  .hero__brand-header { top: 1rem; font-size: 0.7rem; }
+  .hero__line.indent { margin-left: 0; }
+  .hero__cta-circle { width: 100px; height: 100px; }
+  .hero__footer { flex-direction: column; align-items: flex-start; gap: 2rem; }
+  .hero__cta-circle { align-self: flex-end; }
 }

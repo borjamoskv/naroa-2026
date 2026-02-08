@@ -90,7 +90,8 @@
     {"id":"divinos-johnny","title":"DiviNos Johnny","series":"divinos","technique":"acrilico-pizarra","year":2023},
     {"id":"divinos-marilyn","title":"DiviNos Marilyn","series":"divinos","technique":"acrilico-pizarra","year":2023},
     {"id":"verhoeven-x12","title":"Verhoeven x12","series":"tributos-musicales","technique":"mixed-media","year":2025,"description":"Serie de 12 piezas. Expo Sept 2025 Siarte."},
-    {"id":"el-abrazo-del-cielo","title":"El Abrazo del Cielo en la Tierra","series":"espejos-del-alma","technique":"mixed-media-ia","year":2025,"description":"Obra animada con IA. NetArt."}
+    {"id":"el-abrazo-del-cielo","title":"El Abrazo del Cielo en la Tierra","series":"espejos-del-alma","technique":"mixed-media-ia","year":2025,"description":"Obra animada con IA. NetArt."},
+    {"id":"la-llorona","title":"La Llorona","series":"retratos","technique":"mixed-media","year":2023,"featured":true,"description":"Obra recuperada del archivo digital."}
   ],
   "exhibitions": {
     "past": [
