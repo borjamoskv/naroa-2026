@@ -25,7 +25,7 @@
     container.innerHTML = `
       <div class="breakout-header">
         <span>Puntos: <strong id="breakout-score">0</strong></span>
-        <span>Combo: <strong id="breakout-combo" style="color:#ccff00">x0</strong></span>
+        <span>Combo: <strong id="breakout-combo" style="color:#d4af37">x0</strong></span>
         <button class="game-btn" id="breakout-start">▶ Jugar</button>
       </div>
       <canvas id="breakout-canvas" width="${W}" height="${H}"></canvas>
@@ -209,7 +209,7 @@
     ctx.fillRect(0, 0, W, H);
 
     // Dot grid
-    ctx.fillStyle = 'rgba(204, 255, 0, 0.02)';
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.02)';
     for (let gx = 0; gx < W; gx += 20) {
       for (let gy = 0; gy < H; gy += 20) {
         ctx.fillRect(gx, gy, 1, 1);
@@ -268,11 +268,11 @@
 
     // Paddle — fluor neon with glow
     const paddleGrad = ctx.createLinearGradient(state.paddle.x, 0, state.paddle.x + state.paddle.w, 0);
-    paddleGrad.addColorStop(0, '#ccff00');
+    paddleGrad.addColorStop(0, '#d4af37');
     paddleGrad.addColorStop(0.5, '#eeff66');
-    paddleGrad.addColorStop(1, '#ccff00');
+    paddleGrad.addColorStop(1, '#d4af37');
     ctx.fillStyle = paddleGrad;
-    ctx.shadowColor = 'rgba(204, 255, 0, 0.7)';
+    ctx.shadowColor = 'rgba(212, 175, 55, 0.7)';
     ctx.shadowBlur = 15;
     ctx.beginPath();
     ctx.roundRect(state.paddle.x, state.paddle.y, state.paddle.w, state.paddle.h, 6);

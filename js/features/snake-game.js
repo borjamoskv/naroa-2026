@@ -25,7 +25,7 @@
     container.innerHTML = `
       <div class="snake-header">
         <span>Puntos: <strong id="snake-score">0</strong></span>
-        <span>🔥 <strong id="snake-combo" style="color:#ccff00">x0</strong></span>
+        <span>🔥 <strong id="snake-combo" style="color:#d4af37">x0</strong></span>
         <button class="game-btn" id="snake-start">▶ Jugar</button>
       </div>
       <canvas id="snake-canvas" width="${W}" height="${H}"></canvas>
@@ -171,7 +171,7 @@
     ctx.fillRect(0, 0, W, H);
 
     // Grid lines
-    ctx.strokeStyle = 'rgba(204, 255, 0, 0.03)';
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.03)';
     ctx.lineWidth = 0.5;
     for (let x = 0; x <= W; x += GRID) {
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();

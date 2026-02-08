@@ -30,7 +30,7 @@
       <div class="reinas-ui">
         <div class="reinas-info">
           <span>Pregunta: <strong id="reinas-q">1</strong>/${QUEENS.length}</span>
-          <span>Puntos: <strong id="reinas-score" style="color:#ccff00">0</strong></span>
+          <span>Puntos: <strong id="reinas-score" style="color:#d4af37">0</strong></span>
         </div>
         <div id="reinas-hint" class="reinas-hint"></div>
         <div id="reinas-options" class="reinas-options"></div>
@@ -76,8 +76,8 @@
     allBtns.forEach(b => b.disabled = true);
 
     if (btn.dataset.name === correct.name) {
-      btn.style.background = 'rgba(204, 255, 0, 0.3)';
-      btn.style.borderColor = '#ccff00';
+      btn.style.background = 'rgba(212, 175, 55, 0.3)';
+      btn.style.borderColor = '#d4af37';
       state.score += 100;
       document.getElementById('reinas-score').textContent = state.score;
       if (window.GameEffects) {
@@ -88,7 +88,7 @@
       btn.style.background = 'rgba(255, 0, 60, 0.3)';
       btn.style.borderColor = '#ff003c';
       // Highlight correct
-      allBtns.forEach(b => { if (b.dataset.name === correct.name) { b.style.background = 'rgba(204, 255, 0, 0.2)'; b.style.borderColor = '#ccff00'; } });
+      allBtns.forEach(b => { if (b.dataset.name === correct.name) { b.style.background = 'rgba(212, 175, 55, 0.2)'; b.style.borderColor = '#d4af37'; } });
     }
 
     document.getElementById('reinas-fact').innerHTML = `<p style="color:#ffd700;margin-top:10px">📖 ${correct.fact}</p>`;
@@ -103,7 +103,7 @@
     const container = document.getElementById('reinas-container');
     container.innerHTML = `
       <div class="reinas-result" style="text-align:center;padding:40px">
-        <h2 style="color:#ccff00">🏆 Resultado Final</h2>
+        <h2 style="color:#d4af37">🏆 Resultado Final</h2>
         <p style="font-size:2rem;color:#ffd700">${state.score} / ${QUEENS.length * 100}</p>
         <p>${state.score >= 600 ? '¡Eres una experta en Reinas del Arte!' : state.score >= 400 ? '¡Buen conocimiento!' : 'Sigue aprendiendo sobre estas artistas increíbles.'}</p>
         <button class="game-btn" onclick="window.ReinasGame.init()">Jugar de nuevo</button>

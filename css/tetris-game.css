@@ -144,7 +144,7 @@
 .tetris-stat__value {
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  color: var(--fluor, #ccff00);
+  color: var(--fluor, #d4af37);
   font-family: var(--font-family-mono, monospace);
 }
 
@@ -182,9 +182,9 @@
 }
 
 .tetris-btn--start {
-  background: var(--fluor, #ccff00);
+  background: var(--fluor, #d4af37);
   color: #050505;
-  border-color: var(--fluor, #ccff00);
+  border-color: var(--fluor, #d4af37);
   font-family: var(--font-family-mono, monospace);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -192,7 +192,7 @@
 }
 
 .tetris-btn--start:hover:not(:disabled) {
-  box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
   transform: scale(1.02);
 }
 
@@ -252,7 +252,7 @@
   background: linear-gradient(45deg, 
     var(--red-pop, #ff003c) 0%, 
     transparent 50%, 
-    var(--fluor, #ccff00) 100%);
+    var(--fluor, #d4af37) 100%);
   z-index: -1;
   filter: blur(10px);
   opacity: 0.4;

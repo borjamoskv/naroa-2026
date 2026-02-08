@@ -23,7 +23,7 @@
 .restaurador-title {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--red-pop, #ff003c), var(--fluor, #ccff00));
+  background: linear-gradient(135deg, var(--red-pop, #ff003c), var(--fluor, #d4af37));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -48,7 +48,7 @@
 .timer-bar {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, var(--fluor, #ccff00), var(--red-pop, #ff003c));
+  background: linear-gradient(90deg, var(--fluor, #d4af37), var(--red-pop, #ff003c));
   transition: width 0.3s ease-out, background 0.3s ease;
   border-radius: 14px;
 }
@@ -220,7 +220,7 @@
 .result-title {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--red-pop, #ff003c), var(--fluor, #ccff00));
+  background: linear-gradient(135deg, var(--red-pop, #ff003c), var(--fluor, #d4af37));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -264,7 +264,7 @@
 }
 
 .action-download {
-  background: var(--fluor, #ccff00);
+  background: var(--fluor, #d4af37);
   color: #050505;
 }
 

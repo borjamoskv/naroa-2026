@@ -15,7 +15,7 @@
       <div class="target-ui">
         <div class="target-stats">
           <span>⏱️ <strong id="target-time">30</strong>s</span>
-          <span>🎯 <strong id="target-score" style="color:#ccff00">0</strong></span>
+          <span>🎯 <strong id="target-score" style="color:#d4af37">0</strong></span>
           <span>🔥 <strong id="target-combo">x0</strong></span>
         </div>
         <div id="target-field" style="position:relative;width:100%;height:400px;background:radial-gradient(circle,#0d0d1a,#050510);border-radius:12px;overflow:hidden;cursor:crosshair"></div>

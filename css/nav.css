@@ -50,7 +50,7 @@
 }
 
 .nav__brand:hover {
-  color: var(--fluor);
+  color: var(--gold-metallic, #d4af37);
   text-shadow: 0 0 10px var(--fluor-glow);
 }
 

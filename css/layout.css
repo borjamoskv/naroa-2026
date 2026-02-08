@@ -234,10 +234,10 @@ body {
   font-size: var(--font-size-sm, 0.875rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--fluor, #ccff00);
-  background: rgba(204, 255, 0, 0.05);
+  color: var(--fluor, #d4af37);
+  background: rgba(212, 175, 55, 0.05);
   padding: 0.4rem 1.2rem;
-  border: 1px solid rgba(204, 255, 0, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.15);
 }
 
 .hero__cta-group {
@@ -265,8 +265,8 @@ body {
 .hero__cta::after { display: none; }
 .hero__cta:hover {
   color: var(--black);
-  background: var(--fluor, #ccff00);
-  border-color: var(--fluor, #ccff00);
+  background: var(--fluor, #d4af37);
+  border-color: var(--fluor, #d4af37);
   box-shadow: 4px 4px 0 var(--red-pop, #ff003c);
   transform: translate(-2px, -2px);
 }

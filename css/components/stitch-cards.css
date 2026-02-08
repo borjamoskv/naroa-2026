@@ -223,13 +223,13 @@
 .gallery-filter:hover {
   background: rgba(255, 255, 255, 0.08);
   color: white;
-  border-color: color-mix(in srgb, var(--filter-color, var(--fluor)) 40%, transparent);
+  border-color: color-mix(in srgb, var(--filter-color, var(--gold-metallic, #d4af37)) 40%, transparent);
 }
 
 .gallery-filter--active {
-  background: color-mix(in srgb, var(--filter-color, var(--fluor)) 20%, transparent);
+  background: color-mix(in srgb, var(--filter-color, var(--gold-metallic, #d4af37)) 20%, transparent);
   color: var(--filter-color, var(--fluor, #39ff14));
-  border-color: color-mix(in srgb, var(--filter-color, var(--fluor)) 50%, transparent);
+  border-color: color-mix(in srgb, var(--filter-color, var(--gold-metallic, #d4af37)) 50%, transparent);
   font-weight: 600;
 }
 

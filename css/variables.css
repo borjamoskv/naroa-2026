@@ -24,9 +24,12 @@
   --red-glow: rgba(255, 0, 60, 0.5);
 
   /* FLUOR - Secondary Accent */
-  --fluor: #ccff00;
-  --fluor-hover: #b3e600;
-  --fluor-glow: rgba(204, 255, 0, 0.4);
+  --gold-metallic: #d4af37;
+  --fluor: var(--gold-metallic);
+  --gold-metallic-hover: #c49b30;
+  --fluor-hover: var(--gold-metallic-hover);
+  --gold-metallic-glow: rgba(212, 175, 55, 0.4);
+  --fluor-glow: var(--gold-metallic-glow);
 
   /* Semantic Mapping */
   --color-bg: var(--black);
@@ -39,10 +42,10 @@
   --color-text-subtle: var(--white-subtle);
 
   --color-accent: var(--red-pop);
-  --color-highlight: var(--fluor);
+  --color-highlight: var(--gold-metallic, #d4af37);
   
   --color-accent-soft: rgba(255, 0, 60, 0.15);
-  --color-fluor-soft: rgba(204, 255, 0, 0.1);
+  --color-fluor-soft: rgba(212, 175, 55, 0.1);
 
   --color-border: rgba(255, 255, 255, 0.06);
   --color-border-hover: rgba(255, 255, 255, 0.12);
@@ -130,7 +133,7 @@
   --blanco-puro: var(--white-pure);
   --gris-humo: var(--white-subtle);
   --gris-ceniza: var(--white-muted);
-  --verde-laser: var(--fluor);
+  --verde-laser: var(--gold-metallic, #d4af37);
   --verde-laser-soft: var(--fluor-hover);
   --verde-laser-dark: var(--fluor-hover);
   --verde-laser-glow: var(--fluor-glow);
@@ -140,7 +143,7 @@
   --rojo-sangre-oscuro: var(--red-dark);
   --rojo-sangre-glow: var(--red-glow);
   --rojo-sangre-neon: var(--color-accent-soft);
-  --naroa-gold: var(--fluor);
+  --naroa-gold: var(--gold-metallic, #d4af37);
   --naroa-red: var(--red-pop);
   --naroa-black: var(--black);
   --shadow-laser: 0 0 20px var(--fluor-glow);
@@ -148,7 +151,7 @@
   --shadow-gold: 0 0 15px var(--fluor-glow);
   --shadow-red: 0 0 15px var(--red-glow);
   --color-cta: var(--red-pop);
-  --color-cta-hover: var(--fluor);
+  --color-cta-hover: var(--gold-metallic, #d4af37);
   --gris-terminal: var(--black-card);
   --gris-codigo: var(--black-elevated);
   --forest-night: var(--black);
@@ -158,8 +161,8 @@
   --moss-medium: var(--black-elevated);
   --mist-white: var(--white);
   --mist-light: var(--white-muted);
-  --lichen-gold: var(--fluor);
-  --fern-accent: var(--fluor);
+  --lichen-gold: var(--gold-metallic, #d4af37);
+  --fern-accent: var(--gold-metallic, #d4af37);
   --earth-warm: var(--black-soft);
   --earth-dark: var(--black-soft);
   --naroa-gold-dust: var(--fluor-glow);

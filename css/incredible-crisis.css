@@ -3,7 +3,7 @@
 :root {
   --crisis-bg: #050505;
   --crisis-accent: var(--red-pop, #ff003c);
-  --crisis-gold: var(--fluor, #ccff00);
+  --crisis-gold: var(--fluor, #d4af37);
   --crisis-text: #fff;
 }
 

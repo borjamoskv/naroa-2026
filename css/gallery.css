@@ -121,7 +121,7 @@
   margin-top: 1rem;
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
-  color: var(--fluor);
+  color: var(--gold-metallic, #d4af37);
   letter-spacing: 0.05em;
 }
 

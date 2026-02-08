@@ -15,8 +15,8 @@
     --detail-bg: #050505;
     --detail-surface: rgba(255, 255, 255, 0.03);
     --detail-border: rgba(255, 0, 60, 0.15);
-    --detail-green: var(--fluor, #ccff00);
-    --detail-green-glow: rgba(204, 255, 0, 0.35);
+    --detail-green: var(--fluor, #d4af37);
+    --detail-green-glow: rgba(212, 175, 55, 0.35);
     --detail-red: var(--red-pop, #ff003c);
     --detail-text: #fff;
     --detail-text-muted: rgba(255, 255, 255, 0.5);
@@ -233,9 +233,9 @@
 }
 
 .badge-series {
-    background: rgba(204, 255, 0, 0.1);
+    background: rgba(212, 175, 55, 0.1);
     color: var(--detail-green);
-    border: 1px solid rgba(204, 255, 0, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     font-family: var(--font-family-mono, monospace);
 }
 
