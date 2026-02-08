@@ -1,0 +1,287 @@
+/* ═══════════════════════════════════════════════════════════════
+   GOLDEN RATIO DESIGN SYSTEM — φ = 1.618
+   naroa.online — "El arte habla"
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── φ Fibonacci Spacing Scale ─── */
+  --φ-3xs: 3px;
+  --φ-2xs: 5px;
+  --φ-xs:  8px;
+  --φ-sm:  13px;
+  --φ-md:  21px;
+  --φ-lg:  34px;
+  --φ-xl:  55px;
+  --φ-2xl: 89px;
+  --φ-3xl: 144px;
+
+  /* ─── φ Typography Scale ─── */
+  --φ-text-xs:  13px;
+  --φ-text-sm:  16px;    /* 13 × 1.236 ≈ golden ratio^0.5 */
+  --φ-text-md:  21px;
+  --φ-text-lg:  34px;
+  --φ-text-xl:  55px;
+  --φ-text-2xl: 89px;
+
+  /* ─── φ Layout Proportions ─── */
+  --φ-major: 61.8%;
+  --φ-minor: 38.2%;
+  --φ-golden: 1.618;
+
+  /* ─── Breathing Palette ─── */
+  --gold-breath-start: rgba(212, 175, 55, 0.6);
+  --gold-breath-end: rgba(196, 155, 48, 0.4);
+}
+
+/* ═══════════════════════════════════════════
+   PALETTE BREATHING — Gold pulses like breath
+   ═══════════════════════════════════════════ */
+
+@keyframes goldBreath {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes goldGlow {
+  0%, 100% { 
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+    filter: brightness(1);
+  }
+  50% { 
+    text-shadow: 0 0 21px rgba(212, 175, 55, 0.4);
+    filter: brightness(1.05);
+  }
+}
+
+.breath { animation: goldBreath 5s ease-in-out infinite; }
+.glow-breath { animation: goldGlow 6s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════════
+   SECTION REVEALS — "Abrir puertas"
+   Each section fades in like discovering rooms
+   ═══════════════════════════════════════════ */
+
+.view {
+  opacity: 0;
+  transform: translateY(var(--φ-lg));
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view.active,
+.view.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.view--home {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children inside revealed sections */
+.view.revealed > * {
+  opacity: 0;
+  transform: translateY(var(--φ-md));
+  animation: sectionChildReveal 0.8s ease forwards;
+}
+
+.view.revealed > *:nth-child(1) { animation-delay: 0.1s; }
+.view.revealed > *:nth-child(2) { animation-delay: 0.2s; }
+.view.revealed > *:nth-child(3) { animation-delay: 0.35s; }
+.view.revealed > *:nth-child(4) { animation-delay: 0.5s; }
+.view.revealed > *:nth-child(5) { animation-delay: 0.65s; }
+
+@keyframes sectionChildReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   ZERO CHROME NAV — Disappears on scroll
+   ═══════════════════════════════════════════ */
+
+.site-nav,
+nav[class*="nav"],
+.nav-main {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.5s ease;
+}
+
+.nav-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Show on hover near top edge */
+@media (hover: hover) {
+  .nav-hidden:hover,
+  body:has(.nav-edge-trigger:hover) .nav-hidden {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+/* Invisible trigger zone at top */
+.nav-edge-trigger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--φ-lg);
+  z-index: 9998;
+}
+
+/* ═══════════════════════════════════════════
+   GAMES SECTION — Collapsed portal
+   ═══════════════════════════════════════════ */
+
+.view--games {
+  padding: var(--φ-3xl) var(--φ-xl);
+}
+
+.view--games .section-subtitle {
+  display: none;
+}
+
+/* Collapse the grid — show only 4 preview cards */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--φ-md);
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(180deg, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 60%, transparent 100%);
+}
+
+/* Golden portal button to expand */
+.games-grid::after {
+  content: '⊕ Explorar 21 Juegos';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--φ-text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-metallic, #d4af37);
+  background: rgba(0, 0, 0, 0.8);
+  padding: var(--φ-xs) var(--φ-lg);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 34px 34px 8px 8px;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.games-grid.expanded {
+  max-height: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.games-grid.expanded::after {
+  content: '⊖ Colapsar';
+}
+
+/* ═══════════════════════════════════════════
+   GALLERY MASONRY — Golden proportions
+   ═══════════════════════════════════════════ */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: var(--φ-major) var(--φ-minor);
+  gap: var(--φ-sm);
+  padding: var(--φ-xl);
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    padding: var(--φ-md);
+    gap: var(--φ-xs);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   KINETIC TYPOGRAPHY — Letter by letter reveal
+   ═══════════════════════════════════════════ */
+
+.kinetic-text {
+  overflow: hidden;
+}
+
+.kinetic-text .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: charReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes charReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   LIQUID TRANSITIONS — Ink in water
+   ═══════════════════════════════════════════ */
+
+.liquid-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--ink-x, 50%) var(--ink-y, 50%), 
+    rgba(0, 0, 0, 0.95) 0%, 
+    transparent 0%);
+  transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-transition.active {
+  background: radial-gradient(circle at var(--ink-x, 50%) var(--ink-y, 50%), 
+    rgba(0, 0, 0, 0.95) 200%, 
+    transparent 200%);
+}
+
+/* ═══════════════════════════════════════════
+   SECTION SPACING — All φ based
+   ═══════════════════════════════════════════ */
+
+.section-title {
+  font-size: var(--φ-text-lg);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--φ-lg);
+  animation: goldGlow 6s ease-in-out infinite;
+}
+
+.section-subtitle {
+  font-size: var(--φ-text-xs);
+  letter-spacing: 0.2em;
+  margin-bottom: var(--φ-xl);
+  opacity: 0.5;
+}
+
+/* Consistent section padding */
+.view {
+  padding: var(--φ-3xl) var(--φ-xl);
+}
+
+.view--home {
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════
+   NOISE OVERLAY — Subtle, organic
+   ═══════════════════════════════════════════ */
+
+.noise-overlay {
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+}
