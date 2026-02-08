@@ -201,41 +201,60 @@ const AudioSynth = {
     });
   },
 
-  // Ambient gallery drone (continuous)
+  // Ambient gallery drone (warm organic pad)
   createAmbientDrone() {
     if (!this.ctx) return null;
     
     const masterGain = this.ctx.createGain();
-    masterGain.gain.value = 0.02;
+    masterGain.gain.value = 0.03;
     
-    // Create multiple drone oscillators
-    const drones = [55, 110, 165, 220].map(freq => {
+    // Warm A Major chord (A1, A2, C#3, E3) for organic feel
+    const frequencies = [55, 110, 138.59, 164.81];
+    
+    const drones = frequencies.map(freq => {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       const filter = this.ctx.createBiquadFilter();
       
-      osc.type = 'sine';
+      osc.type = 'sine'; // Pure sine for warmth
       osc.frequency.value = freq;
       
-      // LFO for subtle movement
-      const lfo = this.ctx.createOscillator();
-      const lfoGain = this.ctx.createGain();
-      lfo.frequency.value = 0.1 + Math.random() * 0.1;
-      lfoGain.gain.value = freq * 0.01;
-      lfo.connect(lfoGain);
-      lfoGain.connect(osc.frequency);
-      lfo.start();
+      // Gentle frequency drift (organic movement)
+      const lfoFreq = this.ctx.createOscillator();
+      const lfoFreqGain = this.ctx.createGain();
+      lfoFreq.frequency.value = 0.05 + Math.random() * 0.05; // Very slow
+      lfoFreqGain.gain.value = 2; // Subtle drift
+      
+      lfoFreq.connect(lfoFreqGain);
+      lfoFreqGain.connect(osc.frequency);
+      lfoFreq.start();
+      
+      // Subtle Tremolo (Breathing effect)
+      const lfoAmp = this.ctx.createOscillator();
+      const lfoAmpGain = this.ctx.createGain();
+      lfoAmp.frequency.value = 0.03 + Math.random() * 0.04;
+      lfoAmpGain.gain.value = 0.1; // 10% volume modulation
       
       filter.type = 'lowpass';
-      filter.frequency.value = 500;
+      filter.frequency.value = 400; // Muffled warm sound
       
-      gain.gain.value = 0.5;
+      gain.gain.value = 0.4;
       
       osc.connect(filter);
       filter.connect(gain);
       gain.connect(masterGain);
       
-      return { osc, lfo, gain };
+      // Tremolo connection
+      const tremoloGain = this.ctx.createGain();
+      tremoloGain.gain.value = 1;
+      gain.connect(tremoloGain);
+      tremoloGain.connect(masterGain);
+      
+      lfoAmp.connect(lfoAmpGain);
+      lfoAmpGain.connect(tremoloGain.gain);
+      lfoAmp.start();
+      
+      return { osc, lfoFreq, lfoAmp };
     });
     
     masterGain.connect(this.ctx.destination);
@@ -247,11 +266,12 @@ const AudioSynth = {
       stop() {
         drones.forEach(d => {
           d.osc.stop();
-          d.lfo.stop();
+          d.lfoFreq.stop();
+          d.lfoAmp.stop();
         });
       },
       setVolume(v) {
-        masterGain.gain.value = v;
+        masterGain.gain.linearRampToValueAtTime(v, this.ctx.currentTime + 1);
       }
     };
   },

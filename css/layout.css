@@ -20,6 +20,27 @@ body {
   overflow-x: hidden;
 }
 
+/* Custom Scrollbar - Organic Gold */
+::-webkit-scrollbar {
+  width: 10px;
+  background: var(--black);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 5px;
+  border: 2px solid var(--black); /* Creates padding effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-metallic, #d4af37);
+}
+
 /* Container */
 .container {
   width: 100%;

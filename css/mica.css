@@ -3,59 +3,59 @@
    Red + fluor accents, brutalist panel
    ========================================================================== */
 
-/* Toggle */
+/* Toggle - Organic Gold */
 .mica-toggle {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: var(--white);
+  background: var(--gold-metallic, #d4af37);
   border: none;
   cursor: pointer;
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  transition: transform 0.3s, background 0.3s;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease;
   animation: none;
 }
 
 .mica-toggle:hover {
-  transform: scale(1.08);
-  background: var(--fluor, #ccff00);
-  box-shadow: 0 0 16px rgba(204, 255, 0, 0.4);
+  transform: scale(1.1) rotate(5deg);
+  background: #f0c040;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
 }
 
-.mica-toggle__icon { font-size: 22px; }
+.mica-toggle__icon { font-size: 24px; color: #111; }
 .mica-toggle--active .mica-toggle__icon { display: none; }
-.mica-toggle--active::after { content: '×'; font-size: 24px; color: var(--black); font-weight: 300; }
+.mica-toggle--active::after { content: '×'; font-size: 28px; color: #111; font-weight: 300; }
 
-/* Panel */
+/* Panel - Glass Organic */
 .mica-panel {
   position: fixed;
-  bottom: 100px;
+  bottom: 110px;
   right: 2rem;
   width: 380px;
-  max-width: calc(100vw - 64px);
-  height: 520px;
+  max-width: calc(100vw - 40px);
+  height: 550px;
   max-height: calc(100vh - 160px);
-  background: var(--black);
-  border-radius: var(--radius-lg);
-  border: 2px solid rgba(255, 0, 60, 0.3);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.7);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  background: rgba(15, 15, 15, 0.85);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
   z-index: 9998;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   opacity: 0;
-  transform: translateY(20px) scale(0.97);
+  transform: translateY(20px) scale(0.95);
   pointer-events: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .mica-panel--open {
@@ -66,24 +66,25 @@
 
 /* Header */
 .mica-header {
-  padding: 1rem 1.25rem;
-  background: var(--black-card);
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid rgba(255,255,255,0.06);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .mica-header__avatar {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: var(--red-pop, #ff003c);
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  box-shadow: none;
+  font-size: 18px;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
   overflow: hidden;
 }
 
@@ -91,52 +92,52 @@
 .mica-header__avatar::after { display: none; }
 
 .mica-header__info { flex: 1; }
-.mica-header__name { font-size: 15px; font-weight: 500; color: var(--white); margin: 0; }
-.mica-header__status { font-size: 11px; color: var(--white-subtle); margin: 0; }
+.mica-header__name { font-size: 16px; font-weight: 600; color: var(--gold-metallic, #d4af37); margin: 0; letter-spacing: 0.02em; }
+.mica-header__status { font-size: 12px; color: var(--white-subtle); margin: 0; }
 
 /* Mood colors — subtle */
-.mica-panel[data-mood="ENERGETIC"] { --mica-mood-color: var(--accent); }
+.mica-panel[data-mood="ENERGETIC"] { --mica-mood-color: var(--gold-metallic); }
 .mica-panel[data-mood="TIRED"] { --mica-mood-color: rgba(255,255,255,0.3); }
 .mica-panel[data-mood="GRUMPY"] { --mica-mood-color: rgba(255,255,255,0.2); }
-.mica-panel[data-mood="PLAYFUL"] { --mica-mood-color: var(--accent); }
-.mica-panel[data-mood="SOUL"] { --mica-mood-color: var(--accent); }
-.mica-panel[data-mood="NEUTRAL"] { --mica-mood-color: var(--accent); }
+.mica-panel[data-mood="PLAYFUL"] { --mica-mood-color: var(--gold-metallic); }
+.mica-panel[data-mood="SOUL"] { --mica-mood-color: var(--gold-metallic); }
+.mica-panel[data-mood="NEUTRAL"] { --mica-mood-color: var(--gold-metallic); }
 
 /* Messages */
 .mica-messages {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .mica-message {
   max-width: 85%;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-md);
-  font-size: 13px;
+  padding: 0.85rem 1.1rem;
+  font-size: 14px;
   line-height: 1.5;
-  animation: fadeInUp 0.3s ease-out;
+  animation: fadeInUp 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .mica-message--mica {
-  background: rgba(255,255,255,0.05);
-  color: var(--white);
+  background: rgba(255,255,255,0.06);
+  color: #eee;
   align-self: flex-start;
-  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 2px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px 18px 18px 4px;
+  border: 1px solid rgba(255,255,255,0.04);
   box-shadow: none;
 }
 
 .mica-message--user {
-  background: var(--red-pop, #ff003c);
-  color: var(--white);
+  background: var(--gold-metallic, #d4af37);
+  color: #111;
+  font-weight: 500;
   align-self: flex-end;
-  border-radius: 0 var(--radius-md) 0 var(--radius-md);
+  border-radius: 18px 18px 4px 18px;
   border: none;
-  box-shadow: 0 2px 8px rgba(255, 0, 60, 0.2);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
 }
 
 .mica-message--typing { display: flex; gap: 4px; padding: 1rem; }
@@ -166,12 +167,12 @@
 .mica-quick-action:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
 
 /* Input */
-.mica-input-container { padding: 1rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; gap: 0.75rem; }
+.mica-input-container { padding: 1.25rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; gap: 0.75rem; }
 .mica-input {
-  flex: 1; padding: 0.75rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-sm); color: var(--white); font-size: 13px; outline: none; transition: border-color 0.2s;
+  flex: 1; padding: 0.8rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px; color: var(--white); font-size: 14px; outline: none; transition: border-color 0.2s;
 }
-.mica-input:focus { border-color: var(--fluor, #ccff00); box-shadow: 0 0 8px rgba(204, 255, 0, 0.15); }
+.mica-input:focus { border-color: var(--gold-metallic, #d4af37); box-shadow: 0 0 10px rgba(212, 175, 55, 0.15); }
 .mica-input::placeholder { 
   color: var(--white-subtle); 
   transition: opacity 0.3s ease;
@@ -193,10 +194,10 @@
 }
 
 .mica-send {
-  width: 40px; height: 40px; border-radius: 0; background: var(--fluor, #ccff00); border: none;
-  cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s;
+  width: 44px; height: 44px; border-radius: 50%; background: var(--gold-metallic, #d4af37); border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #111; transition: all 0.2s;
 }
-.mica-send:hover { transform: scale(1.05); box-shadow: 0 0 12px rgba(204, 255, 0, 0.4); }
+.mica-send:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
 
 /* Scrollbar */
 .mica-messages { scrollbar-width: none; }
