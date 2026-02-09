@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://generativelanguage.googleapis.com https://api.pinata.cloud https://wttr.in https://api.artic.edu; frame-src 'self' https://w.soundcloud.com https://bandcamp.com;">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self)">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Naroa Gutiérrez Gil — Artista visual especializada en hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao. Explora su galería digital inmersiva con más de 40 obras y 21 juegos interactivos.">
   <meta name="theme-color" content="#191919">
@@ -17,9 +19,56 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Naroa Gutiérrez Gil | Artista Visual">
   <meta name="twitter:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
-  <meta name="twitter:image" content="https://naroa.online/images/artworks/espejos-del-alma.webp">
+  <meta name="twitter:image" content="https://naroa.online/images/og-card.png">
   
   <title>Naroa Gutiérrez Gil | Artista Visual</title>
+
+  <!-- MICA EMERGENCY PATCH v1.0 -->
+  <script>
+    window.MICA_EMERGENCY = {
+      active: true,
+      lastMsg: null,
+      repeats: 0,
+      
+      // Override fetch to intercept failed AI calls
+      interceptFetch: function() {
+        const originalFetch = window.fetch;
+        window.fetch = async function(...args) {
+          try {
+            const response = await originalFetch(...args);
+            // If it's a Gemini/AI call that fails or returns "bruma"...
+            if (args[0].toString().includes('generativelanguage')) {
+               const clone = response.clone();
+               try {
+                 const data = await clone.json();
+                 // Detect repetitive loop
+                 const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                 if (text.includes("bruma espesa") || text === window.MICA_EMERGENCY.lastMsg) {
+                   window.MICA_EMERGENCY.repeats++;
+                   if (window.MICA_EMERGENCY.repeats > 1) {
+                     return new Response(JSON.stringify({
+                       candidates: [{content: {parts: [{text: "Mis sensores se aclaran... ¿Quieres ver la Galería o los Juegos?"}]}}]
+                     }));
+                   }
+                 } else {
+                   window.MICA_EMERGENCY.lastMsg = text;
+                   window.MICA_EMERGENCY.repeats = 0;
+                 }
+               } catch(e) {}
+            }
+            return response;
+          } catch (err) {
+            // Network failure fallback
+            console.warn("MICA Network Fail - Using Fallback", err);
+             return new Response(JSON.stringify({
+               candidates: [{content: {parts: [{text: "La conexión fluctúa, pero el arte permanece. ¿Vamos a la galería?"}]}}] 
+             }));
+          }
+        };
+      }
+    };
+    window.MICA_EMERGENCY.interceptFetch();
+  </script>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,63 +98,12 @@
     }
   </style>
   
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/custom-cursor.css">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/naroa-palette.css">
-  <link rel="stylesheet" href="css/typography-2026.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/effects/premium-hero.css">
-  <link rel="stylesheet" href="css/effects/scroll-360.css">
-  <link rel="stylesheet" href="css/effects/games-premium.css">
-  <link rel="stylesheet" href="css/effects/games-board.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/gallery.css">
-  <link rel="stylesheet" href="css/infinite-canvas-360.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/soty-effects.css">
-  <link rel="stylesheet" href="css/mica.css">
-  <link rel="stylesheet" href="css/wow-effects.css">
-  <link rel="stylesheet" href="css/wow-effects-2026.css">
-  <link rel="stylesheet" href="css/gallery-chaos.css">
-  <link rel="stylesheet" href="css/effects/aurora.css">
-  <link rel="stylesheet" href="css/effects/gallery-effects.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/effects/video-bg.css">
-  <link rel="stylesheet" href="css/effects/holistic.css">
-  <link rel="stylesheet" href="css/effects/map-360.css">
-  <link rel="stylesheet" href="css/effects/cantinflas-spotlight.css">
-  <link rel="stylesheet" href="css/effects/rocks-showcase.css">
-
-  <link rel="stylesheet" href="css/components/stitch-cards.css">
-  <link rel="stylesheet" href="css/golden-ratio.css">
-  
-  <link rel="stylesheet" href="css/oca-game.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/tetris-game.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/games-hub.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/arcade-leaderboard.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/restaurador-game.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/incredible-crisis.css" media="print" onload="this.media='all'">
-  
-  <link rel="stylesheet" href="css/about-contact.css">
-  <link rel="stylesheet" href="css/nav.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/mobile-fixes.css">
-
-  <!-- Deferred non-critical CSS -->
-  <link rel="stylesheet" href="css/audio-controls.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/audio-reactive.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/gallery-disruptive.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/scroll-to-top.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/exposiciones-timeline.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/artwork-detail.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/videocall-panel.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/mica-dashboard.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="css/kimi-ideas.css" media="print" onload="this.media='all'">
-  
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="/apple-icon.png">
+
+  <!-- Main Bundle -->
+  <script type="module" src="/main.js"></script>
   
   <script type="application/ld+json">
   {
@@ -204,11 +202,7 @@
       <a href="#/" class="nav__brand">NGG</a>
     </div>
     <ul class="nav__links">
-      <li><a href="#/" class="nav__link">Inicio</a></li>
-      <li><a href="#/galeria" class="nav__link">Galería</a></li>
-
-      <li><a href="#/about" class="nav__link">Sobre mí</a></li>
-      <li><a href="#/contacto" class="nav__link nav__link--cta">Contacto</a></li>
+      <!-- Menus removed for cleaner Island aesthetic -->
     </ul>
     <button class="nav__toggle" id="nav-toggle" aria-label="Menú">
       <span></span>
@@ -279,43 +273,27 @@
   <div class="aurora"></div>
   <main id="app">
     <section id="view-home" class="view view--home active">
-    <div class="hero hero--spectacular">
-      <div class="hero__slider" id="hero-slider">
-        <div class="hero__slide active" style="background-image: url('images/artworks/blur-james.webp')"></div>
-        <div class="hero__slide" style="background-image: url('images/artworks/blur-amy.webp')"></div>
-        <div class="hero__slide" style="background-image: url('images/artworks/blur-johnny.webp')"></div>
-        <div class="hero__slide" style="background-image: url('images/artworks/blur-marilyn.webp')"></div>
-      </div>
-      
-      <div class="hero__overlay"></div> <!-- Gradient/Noise -->
-      
-      <div class="hero__content-layer">
-        <div class="hero__brand-header">
-          <span>NAROA GUTIÉRREZ GIL</span>
-          <span>BILBAO</span>
+      <div class="hero-cinematic">
+        <div class="hero-cinematic__bg" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:1;">
+          <video class="hero-cinematic__video" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; opacity:0.6;">
+            <source src="videos/hero-bg.mp4" type="video/mp4">
+            <img src="images/artworks/cantinflas-0.webp" alt="Naroa Art Background" style="width:100%; height:100%; object-fit:cover;">
+          </video>
+          <div class="hero-cinematic__overlay"></div>
+          <div class="hero-cinematic__shimmer"></div>
+          <div class="hero-cinematic__grain"></div>
         </div>
 
-        <h1 class="hero__title-mega kinetic-text">
-          <span class="hero__line">Artivista</span>
-          <span class="hero__line indent">Del</span>
-          <span class="hero__line outline">Caos</span>
-        </h1>
-
-        <div class="hero__footer">
-          <div class="hero__role">
-            <span class="role-label">VISUAL ARTIST</span>
-            <span class="role-spec">MIXED MEDIA & TEXTURES</span>
-          </div>
-          
-          <a href="#/galeria" class="hero__cta-circle">
-            <span class="cta-text">EXPLORE</span>
-            <svg class="cta-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </a>
+        <div class="hero-cinematic__content">
+            <h1 class="hero-cinematic__title">Naroa</h1>
+            <p class="hero-cinematic__subtitle">Cosmovisión <span class="hero__palindrome-text"></span></p>
         </div>
-      </div>
-    </div>
-        
 
+        <a href="#/galeria" class="hero-cinematic__scroll" aria-label="Explorar Galería">
+            <span style="font-size: 0.7rem; letter-spacing: 0.2em; opacity: 0.6;">EXPLORAR</span>
+            <div class="hero-cinematic__scroll-line"></div>
+        </a>
+      </div>
     </section>
 
 
@@ -441,6 +419,7 @@
               </p>
             </div>
           </article>
+
           
           <div class="about__stats">
             <div class="about__stat glass-dark">
@@ -499,7 +478,7 @@
             <span class="contact__value">naroa@naroa.eu</span>
           </a>
           
-          <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener" class="contact__card contact__card--instagram glass">
+          <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener noreferrer" class="contact__card contact__card--instagram glass">
             <div class="contact__icon">📷</div>
             <span class="contact__label">Instagram</span>
             <span class="contact__value">@naroagutierrezgil</span>
@@ -812,7 +791,7 @@
       </div>
       <div class="footer__links">
         <a href="mailto:naroa@naroa.eu" class="footer__link">📧 naroa@naroa.eu</a>
-        <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener" class="footer__link">📷 @naroagutierrezgil</a>
+        <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener noreferrer" class="footer__link">📷 @naroagutierrezgil</a>
       </div>
 
       <!-- Bandcamp Player — cute & minimal -->
@@ -842,92 +821,133 @@
     </figure>
   </div>
 
-  <!-- WebGL Scroll Shader — aurora background (Kimi K2.5) -->
-  <script src="js/webgl/scroll-shader.js" defer></script>
-  <script src="js/features/progressive-hero.js"></script>
-  <script src="js/features/seo-manager.js" defer></script>
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('🚀 Service Worker registered:', reg.scope))
+          .catch(err => console.log('❌ Service Worker failed:', err));
+      });
+    }
+  </script>
 
-  <script src="js/core/router.js"></script>
-  <script src="js/core/ranking-system.js" defer></script>
-  <script src="js/features/gallery.js"></script>
-  <script src="js/features/infinite-canvas-360.js"></script>
-  <script src="js/features/lightbox.js" defer></script>
-  <script src="js/core/app.js"></script>
-  <script src="js/features/navigation.js"></script>
-  <script src="js/features/gallery-chaos.js" type="module"></script>
-  <script src="js/core/soty-effects.js" defer></script>
-  <script src="js/features/blog-engine.js" defer></script>
-  <script src="js/features/mica.js"></script>
-  <script src="js/core/mica-orchestrator.js" defer></script>
-  <script src="js/core/wow-effects-2026.js" defer></script>
-  
-  <script src="js/effects/kinetic-text.js" defer></script>
-  <script src="js/effects/hero-phrases.js" defer></script>
-  <script src="js/effects/parallax-3d-depth.js" defer></script>
-  <script src="js/effects/audio-reactive.js" defer></script>
-  <script src="js/effects/bandcamp-radio.js" defer></script>
-  <script src="js/effects/magnetic-button.js" defer></script>
-  <script src="js/effects/reveal-observer.js" defer></script>
-  <script src="js/features/kimi-ideas.js" defer></script>
-  <script src="js/features/rocks-showcase.js" defer></script>
-  <script src="js/features/oca-game.js" defer></script>
-  <script src="js/features/tetris-game.js" defer></script>
-  <script src="js/features/memory-game.js" defer></script>
-  <script src="js/features/puzzle-game.js" defer></script>
-  <script src="js/features/snake-game.js" defer></script>
-  <script src="js/features/breakout-game.js" defer></script>
-  <script src="js/features/whack-game.js" defer></script>
-  <script src="js/features/simon-game.js" defer></script>
-  <script src="js/features/quiz-game.js" defer></script>
-  <script src="js/features/catch-game.js" defer></script>
-  <script src="js/features/collage-game.js" defer></script>
-  <script src="js/features/reinas-game.js" defer></script>
-  <script src="js/features/mica-game.js" defer></script>
-  <script src="js/features/kintsugi-game.js" defer></script>
-  <script src="js/features/pong-game.js" defer></script>
-  <script src="js/features/reaction-game.js" defer></script>
-  <script src="js/features/typing-game.js" defer></script>
-  <script src="js/core/arcade-leaderboard.js" defer></script>
-  <script src="js/features/chess-game.js" defer></script>
-  <script src="js/features/checkers-game.js" defer></script>
-  <script src="js/features/connect4-game.js" defer></script>
-  <script src="js/features/reversi-game.js" defer></script>
-  <script src="js/features/runner-game.js" defer></script>
-  <script src="js/features/rotate-game.js" defer></script>
-  <script src="js/features/scratch-game.js" defer></script>
-  <script src="js/features/target-game.js" defer></script>
-  <script src="js/services/k25-vision-service.js" defer></script>
-  <script src="js/features/restaurador-game.js" defer></script>
-  <script src="js/features/restaurador-web3.js" defer></script>
-  <script src="js/core/mica-memory.js" defer></script>
-  <script src="js/core/swarm-orchestrator.js" type="module"></script>
-  <script src="js/core/mica-brain.js" type="module"></script>
+  <!-- ═══ GDPR Cookie Consent ═══ -->
+  <div id="cookie-consent" role="dialog" aria-label="Consentimiento de cookies" style="
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    background: rgba(10, 10, 10, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 215, 0, 0.15);
+    padding: 1rem 1.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #ccc;
+    animation: cookieSlideUp 0.5s ease-out;
+  ">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
+      <p style="margin: 0; flex: 1; min-width: 200px; line-height: 1.5;">
+        🍪 Esta web usa cookies técnicas esenciales y analíticas para mejorar la experiencia. 
+        <a href="https://naroa.online/privacidad" style="color: #ffd700; text-decoration: underline;">Política de privacidad</a>
+      </p>
+      <div style="display: flex; gap: 0.75rem; flex-shrink: 0;">
+        <button onclick="acceptCookies(false)" style="
+          padding: 0.5rem 1.2rem;
+          background: transparent;
+          color: #999;
+          border: 1px solid #444;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 0.8rem;
+          transition: all 0.2s;
+        " onmouseover="this.style.borderColor='#888'" onmouseout="this.style.borderColor='#444'">Solo esenciales</button>
+        <button onclick="acceptCookies(true)" style="
+          padding: 0.5rem 1.2rem;
+          background: linear-gradient(135deg, #ffd700, #f0c000);
+          color: #1a1a1a;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 0.8rem;
+          transition: all 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Aceptar todas</button>
+      </div>
+    </div>
+  </div>
 
-  <script src="js/features/exposiciones-timeline.js" type="module" defer></script>
-  <script src="js/audio/audio-synth.js" defer></script>
-  <script src="js/audio/immersive-audio.js" defer></script>
-  <script src="js/audio/audio-hooks.js" defer></script>
-  <script src="js/audio/audio-visual-sync.js" defer></script>
-  <script src="js/features/gallery-disruptive.js" defer></script>
-  <script src="js/features/scroll-to-top.js" defer></script>
-  <script src="js/effects/eyes-follow.js" defer></script>
-  <link rel="stylesheet" href="css/infinite-canvas-360.css">
-  <script src="js/features/infinite-canvas-360.js" defer></script>
-  <!-- cantinflas-clones.js removed -->
-  <script src="js/effects/organic-particles.js" defer></script>
+  <!-- Oracle Error Screen (Carlos Sainz Meme) -->
+  <link rel="stylesheet" href="css/oracle.css">
+  <div id="oracle-overlay" class="oracle-overlay">
+      <video id="oracle-video" class="oracle-video" loop playsinline>
+          <source src="assets/videos/oracle-error.webm" type="video/webm">
+      </video>
+      <div class="oracle-content">
+          <h1 class="oracle-title">LA IA COMO ORÁCULO</h1>
+          <p class="oracle-subtitle">"¡Trata de arrancarlo, Naroa, por Dios!"</p>
+          <button id="oracle-retry" class="oracle-btn">INTENTAR DE NUEVO</button>
+      </div>
+  </div>
 
-  <script src="js/effects/wow-effects.js" type="module" defer></script>
-  <!-- kinetic-text.js duplicate removed (already loaded at line 810) -->
+  <script>
+    // Oracle Logic
+    window.activateOracle = function() {
+        const overlay = document.getElementById('oracle-overlay');
+        const video = document.getElementById('oracle-video');
+        if(overlay && video) {
+            overlay.classList.add('active');
+            video.play().catch(e => console.log("Oracle video auto-play blocked", e));
+        }
+    };
 
-  <!-- Audio Dock Toggle -->
-  <script src="js/effects/cursor-sfx.js" defer></script>
-  
-  <script src="js/effects/hero-slider.js" defer></script>
-  <script src="js/effects/scroll-360.js" defer></script>
-  <script src="js/effects/games-premium.js" defer></script>
-  <script src="js/features/artwork-loader.js" defer></script>
-  <!-- Game Gateway removed — minimal experience -->
-  
+    document.getElementById('oracle-retry')?.addEventListener('click', () => {
+        window.location.reload();
+    });
 
+    // Hook into MICA Emergency to trigger Oracle on repeated failures
+    if(window.MICA_EMERGENCY) {
+        // We override the intercept again to add Oracle trigger
+        const oldIntercept = window.MICA_EMERGENCY.interceptFetch;
+        // But simply checking repeats in the loop above is easier. 
+        // Let's attach a listener to the window object or modify the global state
+        setInterval(() => {
+           if(window.MICA_EMERGENCY.repeats > 2) {
+               window.activateOracle();
+               window.MICA_EMERGENCY.repeats = 0; // Reset to avoid loop
+           }
+        }, 1000);
+    }
+  </script>
+  <style>
+    @keyframes cookieSlideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+  <script>
+    (function() {
+      if (!localStorage.getItem('cookie_consent')) {
+        setTimeout(function() {
+          var banner = document.getElementById('cookie-consent');
+          if (banner) banner.style.display = 'block';
+        }, 2000);
+      }
+    })();
+    function acceptCookies(all) {
+      localStorage.setItem('cookie_consent', all ? 'all' : 'essential');
+      var banner = document.getElementById('cookie-consent');
+      if (banner) {
+        banner.style.animation = 'cookieSlideUp 0.3s ease-in reverse forwards';
+        setTimeout(function() { banner.style.display = 'none'; }, 300);
+      }
+    }
+  </script>
+<script src="js/features/continuous-loop.js" defer></script>
 </body>
 </html>
+
