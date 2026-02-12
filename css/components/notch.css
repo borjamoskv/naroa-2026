@@ -1,0 +1,129 @@
+/* 
+   MICA NOTCH v1.0
+   Industrial Noir Aesthetic
+*/
+
+.notch-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Let clicks pass through around the notch */
+  animation: notch-enter 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.notch {
+  pointer-events: auto;
+  background: rgba(10, 10, 10, 0.65); /* Dark Mica */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 8px; /* Compact padding */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  min-width: 140px; /* Collapsed width */
+  height: 44px;
+  overflow: hidden;
+}
+
+/* Hover expansion */
+.notch:hover {
+  background: rgba(15, 15, 15, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 20px 50px -15px rgba(0,0,0,0.6),
+    inset 0 1px 1px rgba(255,255,255,0.15);
+  transform: translateY(2px) scale(1.02);
+  padding: 8px 24px;
+}
+
+/* Internal Elements */
+.notch__logo {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #fff, #888);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.notch__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  opacity: 0.8; /* Slightly hidden by default if we want collapsed state */
+  white-space: nowrap;
+}
+
+.notch__link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.notch__link:hover {
+  color: #fff;
+}
+
+.notch__link.active {
+  color: #fff;
+}
+
+.notch__link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.notch__status {
+  width: 6px;
+  height: 6px;
+  background: #22c55e; /* Green status */
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+  margin-left: auto;
+  animation: pulse-green 3s infinite;
+}
+
+@keyframes notch-enter {
+  0% { transform: translate(-50%, -100%); opacity: 0; }
+  100% { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Tablet/Mobile Adjustments */
+@media (max-width: 768px) {
+  .notch-container {
+    top: 10px;
+  }
+}

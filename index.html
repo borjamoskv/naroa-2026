@@ -2,109 +2,79 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://generativelanguage.googleapis.com https://api.pinata.cloud https://wttr.in https://api.artic.edu; frame-src 'self' https://w.soundcloud.com https://bandcamp.com;">
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self)">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual especializada en hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao. Explora su galería digital inmersiva con más de 40 obras y 21 juegos interactivos.">
-  <meta name="theme-color" content="#191919">
-  <link rel="canonical" href="https://naroa.online/">
-  
+  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual. Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
+  <meta name="theme-color" content="#050505">
+
+  <!-- Open Graph -->
   <meta property="og:title" content="Naroa Gutiérrez Gil | Artista Visual">
   <meta property="og:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
-  <meta property="og:image" content="https://naroa.online/images/artworks/espejos-del-alma.webp">
+  <meta property="og:image" content="https://naroa.online/images/artworks/marilyn-rocks-hq-5.webp">
   <meta property="og:url" content="https://naroa.online">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
-  
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Naroa Gutiérrez Gil | Artista Visual">
   <meta name="twitter:description" content="Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
-  <meta name="twitter:image" content="https://naroa.online/images/og-card.png">
-  
+  <meta name="twitter:image" content="https://naroa.online/images/artworks/marilyn-rocks-hq-5.webp">
+
   <title>Naroa Gutiérrez Gil | Artista Visual</title>
 
-  <!-- MICA EMERGENCY PATCH v1.0 -->
-  <script>
-    window.MICA_EMERGENCY = {
-      active: true,
-      lastMsg: null,
-      repeats: 0,
-      
-      // Override fetch to intercept failed AI calls
-      interceptFetch: function() {
-        const originalFetch = window.fetch;
-        window.fetch = async function(...args) {
-          try {
-            const response = await originalFetch(...args);
-            // If it's a Gemini/AI call that fails or returns "bruma"...
-            if (args[0].toString().includes('generativelanguage')) {
-               const clone = response.clone();
-               try {
-                 const data = await clone.json();
-                 // Detect repetitive loop
-                 const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-                 if (text.includes("bruma espesa") || text === window.MICA_EMERGENCY.lastMsg) {
-                   window.MICA_EMERGENCY.repeats++;
-                   if (window.MICA_EMERGENCY.repeats > 1) {
-                     return new Response(JSON.stringify({
-                       candidates: [{content: {parts: [{text: "Mis sensores se aclaran... ¿Quieres ver la Galería o los Juegos?"}]}}]
-                     }));
-                   }
-                 } else {
-                   window.MICA_EMERGENCY.lastMsg = text;
-                   window.MICA_EMERGENCY.repeats = 0;
-                 }
-               } catch(e) {}
-            }
-            return response;
-          } catch (err) {
-            // Network failure fallback
-            console.warn("MICA Network Fail - Using Fallback", err);
-             return new Response(JSON.stringify({
-               candidates: [{content: {parts: [{text: "La conexión fluctúa, pero el arte permanece. ¿Vamos a la galería?"}]}}] 
-             }));
-          }
-        };
-      }
-    };
-    window.MICA_EMERGENCY.interceptFetch();
-  </script>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts: Preconnect + Preload for LCP -->
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" as="style">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
-  
-  <link rel="preload" as="image" href="images/artworks/blur-james.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="images/artworks/web-james.webp">
-  
+
+  <!-- LCP Preload: Hero artwork -->
+  <link rel="preload" as="image" href="images/artworks/marilyn-rocks-hq-5.webp" fetchpriority="high">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <!-- Critical CSS (inline for FCP) -->
   <style>
-    /* Reset */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; }
-    body { min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body { min-height: 100vh; line-height: 1.5; -webkit-font-smoothing: antialiased; background: #050505; color: #ededed; }
     img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
-    button { background: none; border: none; cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
-    /* Core Variables */
-    :root {
-      --color-bg: #000000; --color-text: #fefefe; --color-accent: #111111;
-      --font-family-main: 'Outfit', 'Switzer', 'Inter', -apple-system, sans-serif;
-      --font-size-hero: clamp(4rem, 3rem + 5vw, 12rem);
-      --space-4: 1rem; --space-6: 2rem; --space-8: 3rem;
-      --duration-base: 300ms; --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .svg-filters-hidden { position: absolute; width: 0; height: 0; overflow: hidden; }
   </style>
-  
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" href="/apple-icon.png">
 
-  <!-- Main Bundle -->
-  <script type="module" src="/main.js"></script>
-  
+  <!-- Modular CSS: Core -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/naroa-palette.css">
+  <link rel="stylesheet" href="css/typography-2026.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <!-- Modular CSS: Sections -->
+  <link rel="stylesheet" href="css/gallery.css">
+  <link rel="stylesheet" href="css/gallery-disruptive.css">
+  <link rel="stylesheet" href="css/about-contact.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/lightbox-premium.css">
+  <link rel="stylesheet" href="css/scroll-to-top.css">
+
+  <!-- Effects CSS -->
+  <link rel="stylesheet" href="css/soty-effects.css">
+  <link rel="stylesheet" href="css/components/notch.css">
+  <link rel="stylesheet" href="css/components/bento-grid.css">
+  <link rel="stylesheet" href="css/wow-effects.css">
+  <link rel="stylesheet" href="css/wow-effects-2026.css">
+
+  <!-- Deferred CSS (Games - load on interaction) -->
+  <link rel="stylesheet" href="css/games-hub.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/oca-game.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/tetris-game.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/arcade-leaderboard.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/incredible-crisis.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/restaurador-game.css" media="print" onload="this.media='all'">
+
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -116,9 +86,7 @@
         "jobTitle": "Artista Visual",
         "description": "Artista visual especializada en hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.",
         "url": "https://naroa.online",
-        "sameAs": [
-          "https://instagram.com/naroagutierrezgil"
-        ],
+        "sameAs": ["https://instagram.com/naroagutierrezgil"],
         "knowsAbout": ["Hiperrealismo", "Retrato", "Mural", "Arte POP", "Óleo", "Acrílico"],
         "workLocation": {
           "@type": "Place",
@@ -130,7 +98,7 @@
         "@id": "https://naroa.online/#gallery",
         "name": "Naroa Gutiérrez Gil - Galería Digital",
         "url": "https://naroa.online",
-        "description": "Galería digital inmersiva con más de 50 obras de arte hiperrealista",
+        "description": "Galería digital inmersiva con más de 40 obras de arte hiperrealista",
         "founder": {"@id": "https://naroa.online/#artist"}
       },
       {
@@ -141,38 +109,38 @@
           {
             "@type": "VisualArtwork",
             "position": 1,
-            "name": "Espejos del Alma",
-            "creator": {"@id": "https://naroa.online/#artist"},
-            "artMedium": "Mixed Media",
-            "dateCreated": "2023",
-            "image": "https://naroa.online/images/artworks/espejos-del-alma.webp"
-          },
-          {
-            "@type": "VisualArtwork",
-            "position": 2,
             "name": "Marilyn Rocks",
             "creator": {"@id": "https://naroa.online/#artist"},
-            "artMedium": "Mixed Media",
+            "artMedium": "Acrílico sobre pizarra",
             "dateCreated": "2023",
             "image": "https://naroa.online/images/artworks/marilyn-rocks-hq-5.webp"
           },
           {
             "@type": "VisualArtwork",
-            "position": 3,
+            "position": 2,
             "name": "Amy Rocks",
             "creator": {"@id": "https://naroa.online/#artist"},
-            "artMedium": "Mixed Media",
+            "artMedium": "Acrílico sobre pizarra",
             "dateCreated": "2023",
             "image": "https://naroa.online/images/artworks/amy-rocks.webp"
           },
           {
             "@type": "VisualArtwork",
-            "position": 4,
-            "name": "Lágrimas de Oro",
+            "position": 3,
+            "name": "James Rocks",
             "creator": {"@id": "https://naroa.online/#artist"},
-            "artMedium": "Mixed Media",
-            "dateCreated": "2021",
-            "image": "https://naroa.online/images/artworks/lagrimas-de-oro.webp"
+            "artMedium": "Acrílico sobre pizarra",
+            "dateCreated": "2023",
+            "image": "https://naroa.online/images/artworks/james-rocks-hq-3.webp"
+          },
+          {
+            "@type": "VisualArtwork",
+            "position": 4,
+            "name": "Johnny Rocks",
+            "creator": {"@id": "https://naroa.online/#artist"},
+            "artMedium": "Acrílico sobre pizarra",
+            "dateCreated": "2023",
+            "image": "https://naroa.online/images/artworks/johnny-rocks-hq-4.webp"
           },
           {
             "@type": "VisualArtwork",
@@ -190,211 +158,195 @@
   </script>
 </head>
 <body>
-  <a href="#app" class="skip-to-content">Saltar al contenido</a>
 
-  <!-- WOW Effects: Aurora + Cursor + Particles -->
-  <div class="aurora"></div>
-  <div class="holistic-concept"></div>
-  <div class="cursor-light" id="cursorLight"></div>
-  <div class="particles" id="particles"></div>
-  <nav class="nav liquid-glass" id="main-nav">
-    <div class="nav__logo">
-      <a href="#/" class="nav__brand">NGG</a>
+  <!-- ═══ MICA NOTCH ══════════════════════════ -->
+  <nav class="notch-container">
+    <div class="notch">
+      <div class="notch__logo">N</div>
+      <div class="notch__content">
+        <a href="#view-home" class="notch__link active">Home</a>
+        <a href="#view-destacada" class="notch__link">Obra</a>
+        <a href="#view-about" class="notch__link">Sobre mí</a>
+      </div>
+      <div class="notch__status" title="En línea"></div>
     </div>
-    <ul class="nav__links">
-      <!-- Menus removed for cleaner Island aesthetic -->
-    </ul>
-    <button class="nav__toggle" id="nav-toggle" aria-label="Menú">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
   </nav>
 
-  <div class="page-transition-overlay" id="page-curtain">
-      <div class="thread"></div>
-  </div>
-  
+  <!-- Skip to content (a11y) -->
+  <a href="#main-content" class="skip-to-content">Ir al contenido</a>
+
+  <!-- ═══ SCROLL PROGRESS ════════════════════ -->
   <div class="scroll-progress-container">
-      <div class="scroll-progress-bar" id="scroll-thread">
-          <div class="scroll-progress-thread"></div>
-      </div>
-  </div>
-  
-  <!-- ═══ SOUND EXPERIENCE — SoundCloud ═══ -->
-  <div class="audio-dock" id="audio-dock">
-    <button class="audio-dock__toggle" id="audio-toggle" aria-label="Toggle Sound Experience">
-      <div class="audio-dock__vinyl">
-        <div class="vinyl-disc"><div class="vinyl-label"></div></div>
-      </div>
-      <div class="audio-dock__info">
-        <span class="audio-dock__title">THIS WAS IN RAINBOWS</span>
-        <span class="audio-dock__artist">BORJA MOSKV</span>
-      </div>
-      <div class="equalizer">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </button>
-    <!-- SoundCloud Panel -->
-    <div class="audio-dock__panel" id="audio-panel">
-      <iframe id="sc-player" title="This Was In Rainbows — Borja Moskv playlist"
-        width="100%" height="300"
-        scrolling="no" frameborder="no" allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/borja-moskv/sets/this-was-in-rainbows&color=%23d4af37&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-        loading="lazy">
-      </iframe>
+    <div class="scroll-progress-bar" id="scroll-thread">
+      <div class="scroll-progress-thread"></div>
     </div>
   </div>
-  <script>
-    // Audio dock toggle → open/close SoundCloud panel
-    (function() {
-      const toggle = document.getElementById('audio-toggle');
-      const panel = document.getElementById('audio-panel');
-      if (!toggle || !panel) return;
-      toggle.addEventListener('click', () => {
-        const isOpen = panel.classList.toggle('open');
-        toggle.classList.toggle('active', isOpen);
-        // Start playback on first open
-        if (isOpen && !panel.dataset.played) {
-          const iframe = document.getElementById('sc-player');
-          if (iframe) {
-            iframe.src = iframe.src.replace('auto_play=false', 'auto_play=true');
-            panel.dataset.played = 'true';
-          }
-        }
-      });
-    })();
-  </script>
 
-  <div class="noise-overlay"></div>
+  <!-- ═══ MAIN CONTENT ═══════════════════════ -->
+  <main id="main-content">
 
-
-
-  <div class="aurora"></div>
-  <main id="app">
+    <!-- ═══ SECTION 1: HERO ═══════════════════ -->
     <section id="view-home" class="view view--home active">
-      <div class="hero-cinematic">
-        <div class="hero-cinematic__bg" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:1;">
-          <video class="hero-cinematic__video" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; opacity:0.6;">
-            <source src="videos/hero-bg.mp4" type="video/mp4">
-            <img src="images/artworks/cantinflas-0.webp" alt="Naroa Art Background" style="width:100%; height:100%; object-fit:cover;">
-          </video>
-          <div class="hero-cinematic__overlay"></div>
-          <div class="hero-cinematic__shimmer"></div>
-          <div class="hero-cinematic__grain"></div>
+      <div class="hero hero--premium">
+        <!-- Animated gradient background -->
+        <div class="hero__gradient-bg"></div>
+
+        <!-- PALINDROME (background) -->
+        <div class="hero__palindrome" aria-hidden="true">
+          <span class="hero__palindrome-text">ANARO·ARAN</span>
         </div>
 
-        <div class="hero-cinematic__content">
-            <h1 class="hero-cinematic__title">Naroa</h1>
-            <p class="hero-cinematic__subtitle">Cosmovisión <span class="hero__palindrome-text"></span></p>
+        <h1 class="hero__title reveal">
+          <span class="hero__line text-shimmer">Naroa</span>
+          <span class="hero__line">Gutiérrez</span>
+          <span class="hero__line">Gil</span>
+        </h1>
+
+        <p class="hero__subtitle reveal reveal-delay-1">
+          <span class="hero__tag">Hiperrealismo POP · Bilbao</span>
+        </p>
+
+        <div class="hero__cta-group reveal reveal-delay-2">
+          <a href="#view-destacada" class="btn btn-premium hero__cta--primary magnetic-btn">Ver obra</a>
         </div>
 
-        <a href="#/galeria" class="hero-cinematic__scroll" aria-label="Explorar Galería">
-            <span style="font-size: 0.7rem; letter-spacing: 0.2em; opacity: 0.6;">EXPLORAR</span>
-            <div class="hero-cinematic__scroll-line"></div>
-        </a>
+        <!-- Scroll indicator -->
+        <div class="hero__scroll-indicator">
+          <div class="hero__scroll-line"></div>
+        </div>
       </div>
     </section>
 
-
-
-
-
-
-
-    <section id="view-games" class="view view--games">
-       <h2 class="section-title">S·O·L·O·S</h2>
-       <p class="section-subtitle">21 Juegos Arcade</p>
-       <div id="games-container" class="games-grid"></div>
-    </section>
-
-    <section id="view-manifesto" class="view view--manifesto">
-      <div class="manifesto-content">
-        <blockquote class="chiquito-quote">
-          "¡PECADOR!<br>
-          SI TU ESPACIO ES UN TEMPLO, TENDRÁS SACERDOTES.<br>
-          SI TU ESPACIO ES UN TALLER, TENDRÁS GENTE."
-        </blockquote>
-        <cite>— Chiquitocres de la Calzada</cite>
-      </div>
-    </section>
-    <!-- ═══ ROCKS SERIES — Cinematic Showcase ═══ -->
-    <section id="view-rocks" class="view view--rocks rocks-showcase">
-      <header class="rocks-showcase__header">
-        <h2 class="rocks-showcase__title">ROCKS</h2>
-        <p class="rocks-showcase__subtitle">Acrílico sobre pizarra natural · Serie 2023–2025</p>
-      </header>
-
-      <div class="rock-panel rock-panel--amy">
-        <span class="rock-panel__counter">01 / 04</span>
-        <div class="rock-panel__image-wrap">
-          <img data-src="images/artworks/amy-rocks.webp" alt="Amy Rocks — Retrato de Amy Winehouse sobre pizarra" class="rock-panel__img" loading="lazy">
-        </div>
-        <div class="rock-panel__info">
-          <h3 class="rock-panel__name">Amy Rocks</h3>
-          <p class="rock-panel__technique">Acrílico y papel de seda sobre pizarra</p>
-        </div>
-      </div>
-
-      <div class="rock-panel rock-panel--james">
-        <span class="rock-panel__counter">02 / 04</span>
-        <div class="rock-panel__image-wrap">
-          <img data-src="images/artworks/james-rocks-hq-3.webp" alt="James Rocks — Retrato de James Dean sobre pizarra" class="rock-panel__img" loading="lazy">
-        </div>
-        <div class="rock-panel__info">
-          <h3 class="rock-panel__name">James Rocks</h3>
-          <p class="rock-panel__technique">Acrílico y papel de seda sobre pizarra</p>
-        </div>
-      </div>
-
-      <div class="rock-panel rock-panel--johnny">
-        <span class="rock-panel__counter">03 / 04</span>
-        <div class="rock-panel__image-wrap">
-          <img data-src="images/artworks/johnny-rocks-hq-5.webp" alt="Johnny Rocks — Retrato de Johnny Depp sobre pizarra" class="rock-panel__img" loading="lazy">
-        </div>
-        <div class="rock-panel__info">
-          <h3 class="rock-panel__name">Johnny Rocks</h3>
-          <p class="rock-panel__technique">Acrílico sobre pizarra natural</p>
-        </div>
-      </div>
-
-      <div class="rock-panel rock-panel--marilyn">
-        <span class="rock-panel__counter">04 / 04</span>
-        <div class="rock-panel__image-wrap">
-          <img data-src="images/artworks/marilyn-rocks-hq-5.webp" alt="Marilyn Rocks — Retrato de Marilyn Monroe sobre pizarra" class="rock-panel__img" loading="lazy">
-        </div>
-        <div class="rock-panel__info">
-          <h3 class="rock-panel__name">Marilyn Rocks</h3>
-          <p class="rock-panel__technique">Acrílico y pan de oro sobre pizarra</p>
-        </div>
-      </div>
-
-      <div class="rocks-showcase__cta">
-        <a href="#/galeria">Ver colección completa →</a>
-      </div>
-    </section>
-
-    <section id="view-archivo" class="view view--archivo">
+    <!-- ═══ SECTION 2: OBRA DESTACADA ═════════ -->
+    <section id="view-destacada" class="view view--destacada">
       <header class="view__header">
-        <h2 class="text-shimmer">Archivo Completo</h2>
-        <p class="view__subtitle">Explora la colección completa de obras y experimentos</p>
-        <div class="gallery-controls">
-          <div class="gallery-filters" id="gallery-filters"></div>
-          <button id="chaos-toggle" class="btn-chaos" aria-label="Activar modo caos">
-             <span></span> MODO CAOS
-          </button>
-          <button id="view-toggle-360" class="btn-chaos btn-360" aria-label="Vista 360">
-             <span>🌐</span> 360°
-          </button>
-        </div>
+        <h2 class="text-shimmer">Obra Destacada</h2>
+        <p class="view__subtitle">Selección curada de mi trabajo más reciente</p>
       </header>
-      <!-- 360 Canvas Container (Hidden by default) -->
-      <div id="infinite-canvas-container" class="infinite-canvas-container" hidden></div>
 
-      <div class="gallery gallery--masonry" id="archivo-grid">
+      <!-- HERO: Obra Protagonista Colosal -->
+      <div class="gallery-hero" id="gallery-hero">
+        <div class="gallery-hero__artwork gallery-lazy">
+          <img
+            src="images/artworks/marilyn-rocks-hq-5.webp"
+            alt="Marilyn Rocks — Naroa Gutiérrez Gil"
+            class="gallery-hero__image"
+            loading="eager"
+          >
+          <div class="gallery-hero__info">
+            <h2 class="gallery-hero__title">Marilyn Rocks</h2>
+            <span class="gallery-hero__year">2023 · Acrílico sobre pizarra</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID MASIVO con tamaños variables -->
+      <div class="gallery-massive" id="featured-gallery">
+        <!-- Obra COLOSAL -->
+        <div class="gallery-massive__item gallery-massive__item--colossal gallery-reveal">
+          <img src="images/artworks/amy-rocks.webp" alt="Amy Rocks — Naroa Gutiérrez Gil" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Amy Rocks</h3>
+          </div>
+        </div>
+
+        <!-- Obras GRANDES -->
+        <div class="gallery-massive__item gallery-massive__item--large gallery-reveal">
+          <img src="images/artworks/james-rocks-hq-3.webp" alt="James Rocks" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">James Rocks</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--large gallery-reveal">
+          <img src="images/artworks/johnny-rocks-hq-4.webp" alt="Johnny Rocks" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Johnny Rocks</h3>
+          </div>
+        </div>
+
+        <!-- Obras MEDIANAS -->
+        <div class="gallery-massive__item gallery-massive__item--medium gallery-reveal">
+          <img src="images/artworks/el-gran-dakari.webp" alt="El Gran Dakari" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">El Gran Dakari</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--medium gallery-reveal">
+          <img src="images/artworks/audrey-hepburn.webp" alt="Audrey Hepburn" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Audrey Hepburn</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--medium gallery-reveal">
+          <img src="images/artworks/geisha.webp" alt="Geisha" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Geisha</h3>
+          </div>
+        </div>
+
+        <!-- Obras PEQUEÑAS -->
+        <div class="gallery-massive__item gallery-massive__item--small gallery-reveal">
+          <img src="images/artworks/lagrimas-de-oro.webp" alt="Lágrimas de Oro" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Lágrimas de Oro</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--small gallery-reveal">
+          <img src="images/artworks/love.webp" alt="Love" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Love</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--small gallery-reveal">
+          <img src="images/artworks/la-pensadora.webp" alt="La Pensadora" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">La Pensadora</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--small gallery-reveal">
+          <img src="images/artworks/amor-en-conserva.webp" alt="Amor en Conserva" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Amor en Conserva</h3>
+          </div>
+        </div>
+
+        <!-- Segunda fila COLOSAL -->
+        <div class="gallery-massive__item gallery-massive__item--colossal gallery-reveal">
+          <img src="images/artworks/baroque-farrokh.webp" alt="Baroque Farrokh" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Baroque Farrokh</h3>
+          </div>
+        </div>
+
+        <!-- Tercera fila: Variedad premium -->
+        <div class="gallery-massive__item gallery-massive__item--large gallery-reveal">
+          <img src="images/artworks/pajarraca-azul.webp" alt="Pajarraca Azul" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Pajarraca Azul</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--medium gallery-reveal">
+          <img src="images/artworks/cantinflas-0.webp" alt="Cantinflas I" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Cantinflas I</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--medium gallery-reveal">
+          <img src="images/artworks/dar-la-lata.webp" alt="Dar la Lata" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Dar la Lata</h3>
+          </div>
+        </div>
+        <div class="gallery-massive__item gallery-massive__item--small gallery-reveal">
+          <img src="images/artworks/mr-fahrenheit.webp" alt="Mr. Fahrenheit" class="gallery-massive__img" loading="lazy">
+          <div class="gallery-massive__overlay">
+            <h3 class="gallery-massive__title">Mr. Fahrenheit</h3>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ═══ SECTION 3: ABOUT ══════════════════ -->
     <section id="view-about" class="view view--about view--premium-dark">
       <div class="about__hero">
         <div class="about__gradient-bg"></div>
@@ -402,95 +354,99 @@
           <h2 class="text-shimmer">Sobre mí</h2>
         </header>
       </div>
-      
+
       <div class="about__container">
-        <div class="about__grid">
-          <article class="about__card about__card--main glass">
-            <div class="about__avatar">
-              <img src="images/naroa-portrait.jpg" alt="Naroa Gutiérrez Gil — Artista Visual" loading="lazy">
+        <div class="about__bento-grid">
+          
+          <!-- CELL 1: PORTRAIT (Tall) -->
+          <article class="bento-cell bento-cell--portrait glass reveal">
+            <div class="bento-portrait__img-wrapper">
+              <img src="images/naroa-portrait.jpg" alt="Naroa Gutiérrez Gil" class="bento-portrait__img" loading="lazy">
             </div>
-            <div class="about__bio">
-              <h3>Naroa Gutiérrez Gil</h3>
-              <p class="about__tagline">Hiperrealismo POP · Bilbao</p>
-              <p class="about__description">
-                Artista visual especializada en <strong>retratos hiperrealistas</strong> con un toque contemporáneo. 
-                Mi obra explora la identidad, la emoción y la conexión humana a través del color vibrante 
-                y la técnica meticulosa.
-              </p>
+            <div class="bento-portrait__overlay">
+              <h3 class="bento-portrait__name">Naroa</h3>
+              <span class="bento-portrait__role">Artista Visual</span>
             </div>
           </article>
 
-          
-          <div class="about__stats">
-            <div class="about__stat glass-dark">
-              <span class="about__stat-number">40+</span>
-              <span class="about__stat-label">Obras</span>
+          <!-- CELL 2: MANIFESTO (Wide) -->
+          <article class="bento-cell bento-cell--manifesto glass-dark reveal-stagger">
+            <h2 class="bento-manifesto__title text-shimmer">Sobre mí</h2>
+            <p class="bento-manifesto__text">
+              Dedicada al <strong>hiperrealismo POP</strong>, mi obra disecciona la identidad contemporánea a través de una mirada vibrante y meticulosa. 
+              <br><br>
+              Busco la conexión emocional en cada trazo, transformando el lienzo en un espejo del alma moderna.
+            </p>
+            <div class="bento-manifesto__tags">
+              <span class="bento-tag">Bilbao</span>
+              <span class="bento-tag">Óleo</span>
+              <span class="bento-tag">Identidad</span>
             </div>
-            <div class="about__stat glass-dark">
-              <span class="about__stat-number">10+</span>
-              <span class="about__stat-label">Exposiciones</span>
-            </div>
-            <div class="about__stat glass-dark">
-              <span class="about__stat-number">21</span>
-              <span class="about__stat-label">Juegos</span>
-            </div>
-          </div>
-          
-          <article class="about__card about__card--techniques glass-dark">
-            <h4>Técnicas</h4>
-            <ul class="about__tags">
-              <li>Óleo sobre lienzo</li>
-              <li>Acrílico</li>
-              <li>Grafito</li>
-              <li>Murales</li>
-              <li>Collage digital</li>
-            </ul>
           </article>
-          
-          <article class="about__card about__card--themes glass-dark">
-            <h4>✨ Temas</h4>
-            <ul class="about__tags">
-              <li>Retratos</li>
-              <li>Identidad</li>
-              <li>Feminismo</li>
-              <li>Cultura POP</li>
-              <li>Naturaleza</li>
-            </ul>
+
+          <!-- CELL 3: STATS (Compact) -->
+          <article class="bento-cell bento-cell--stats glass-dark reveal-stagger">
+            <div class="bento-stat">
+              <span class="bento-stat__num">40+</span>
+              <span class="bento-stat__label">Obras</span>
+            </div>
+            <div class="bento-stat">
+              <span class="bento-stat__num">10+</span>
+              <span class="bento-stat__label">Exposiciones</span>
+            </div>
+             <div class="bento-stat">
+              <span class="bento-stat__num">21</span>
+              <span class="bento-stat__label">Juegos</span>
+            </div>
           </article>
+
+          <!-- CELL 4: TECHNIQUES (Box) -->
+          <article class="bento-cell bento-cell--tech glass-dark reveal-stagger">
+            <h4 class="bento-cell__title">Técnicas</h4>
+            <div class="tech-grid">
+              <span class="tech-item">🎨 Óleo</span>
+              <span class="tech-item">🖌️ Acrílico</span>
+              <span class="tech-item">✏️ Grafito</span>
+              <span class="tech-item">🧱 Murales</span>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-
+    <!-- ═══ SECTION 4: CONTACTO ═══════════════ -->
     <section id="view-contacto" class="view view--contacto view--premium-dark">
-      <div id="contacto-container"></div>
-      
-      <div class="contact__container" id="contact-fallback">
+      <div class="contact__container">
         <header class="view__header">
           <h2 class="text-shimmer">Contacto</h2>
           <p class="contact__intro">¿Tienes un proyecto en mente? Hablemos.</p>
         </header>
-        
+
         <div class="contact__grid">
+          <!-- Email Card -->
           <a href="mailto:naroa@naroa.eu" class="contact__card contact__card--email glass">
             <div class="contact__icon">📧</div>
             <span class="contact__label">Email</span>
             <span class="contact__value">naroa@naroa.eu</span>
           </a>
-          
-          <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener noreferrer" class="contact__card contact__card--instagram glass">
+
+          <!-- Instagram Card -->
+          <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener" class="contact__card contact__card--instagram glass">
             <div class="contact__icon">📷</div>
             <span class="contact__label">Instagram</span>
             <span class="contact__value">@naroagutierrezgil</span>
           </a>
-          
+
+          <!-- Location Card -->
           <div class="contact__card contact__card--location glass-dark">
             <div class="contact__icon">📍</div>
             <span class="contact__label">Ubicación</span>
             <span class="contact__value">Bilbao, País Vasco</span>
           </div>
         </div>
-        
+
+        <!-- CTA -->
         <div class="contact__cta">
           <p>Disponible para encargos, murales y colaboraciones artísticas</p>
           <a href="mailto:naroa@naroa.eu?subject=Encargo%20artístico" class="btn btn-premium hero__cta--primary magnetic-btn">
@@ -500,14 +456,15 @@
       </div>
     </section>
 
+    <!-- ═══ SECTION 5: JUEGOS (Hub) ═══════════ -->
     <section id="view-juegos" class="view view--juegos games-hub">
       <header class="games-hub__header">
-        <h2 class="games-hub__title">Sala de Juegos</h2>
+        <h2 class="games-hub__title text-shimmer">🎮 Sala de Juegos</h2>
         <p class="games-hub__subtitle">21 minijuegos con las obras de Naroa</p>
       </header>
       <div class="games-grid">
         <a href="#/juego" class="game-card">
-          <div class="game-card__icon"></div>
+          <div class="game-card__icon">🎲</div>
           <h3 class="game-card__title">Juego de la Oca</h3>
           <p class="game-card__desc">Recorre el tablero descubriendo obras</p>
         </a>
@@ -522,12 +479,12 @@
           <p class="game-card__desc">Encuentra las parejas de obras</p>
         </a>
         <a href="#/puzzle" class="game-card">
-          <div class="game-card__icon"></div>
+          <div class="game-card__icon">🧩</div>
           <h3 class="game-card__title">Puzzle Deslizante</h3>
           <p class="game-card__desc">Reconstruye la imagen</p>
         </a>
         <a href="#/snake" class="game-card">
-          <div class="game-card__icon"></div>
+          <div class="game-card__icon">🐍</div>
           <h3 class="game-card__title">Snake</h3>
           <p class="game-card__desc">Recoge piezas de arte</p>
         </a>
@@ -536,35 +493,10 @@
           <h3 class="game-card__title">Breakout</h3>
           <p class="game-card__desc">Rompe bloques artísticos</p>
         </a>
-        <a href="#/whack" class="game-card">
-          <div class="game-card__icon">🔨</div>
-          <h3 class="game-card__title">Whack Art</h3>
-          <p class="game-card__desc">Golpea obras emergentes</p>
-        </a>
-        <a href="#/simon" class="game-card">
-          <div class="game-card__icon">🎵</div>
-          <h3 class="game-card__title">Simon Dice</h3>
-          <p class="game-card__desc">Memoriza la secuencia visual</p>
-        </a>
-        <a href="#/quiz" class="game-card">
-          <div class="game-card__icon">❓</div>
-          <h3 class="game-card__title">Quiz Artístico</h3>
-          <p class="game-card__desc">Adivina título y serie</p>
-        </a>
-        <a href="#/catch" class="game-card">
-          <div class="game-card__icon">🧺</div>
-          <h3 class="game-card__title">Atrapa Arte</h3>
-          <p class="game-card__desc">Recoge obras que caen</p>
-        </a>
         <a href="#/collage" class="game-card game-card--featured">
-          <div class="game-card__icon"></div>
+          <div class="game-card__icon">🎨</div>
           <h3 class="game-card__title">Collage Alquímico</h3>
           <p class="game-card__desc">Compón con materiales de Naroa</p>
-        </a>
-        <a href="#/reinas" class="game-card game-card--featured">
-          <div class="game-card__icon">👑</div>
-          <h3 class="game-card__title">Repóker de Reinas</h3>
-          <p class="game-card__desc">Trivia de mujeres poderosas</p>
         </a>
         <a href="#/mica" class="game-card game-card--spectacular">
           <div class="game-card__icon">✨</div>
@@ -576,378 +508,196 @@
           <h3 class="game-card__title">Kintsugi Emocional</h3>
           <p class="game-card__desc">Repara grietas con oro</p>
         </a>
-        <a href="#/pong" class="game-card game-card--new">
-          <div class="game-card__icon">🏓</div>
-          <h3 class="game-card__title">Pong Artístico</h3>
-          <p class="game-card__desc">Pelota con obras de arte</p>
-        </a>
-        <a href="#/reaction" class="game-card game-card--new">
-          <div class="game-card__icon"></div>
-          <h3 class="game-card__title">Test Reflejos</h3>
-          <p class="game-card__desc">Reacciona cuando veas la obra</p>
-        </a>
-        <a href="#/typing" class="game-card game-card--new">
-          <div class="game-card__icon">⌨️</div>
-          <h3 class="game-card__title">Typing Artístico</h3>
-          <p class="game-card__desc">Escribe palabras de arte</p>
-        </a>
-        <a href="#/chess" class="game-card game-card--strategy">
-          <div class="game-card__icon"></div>
-          <h3 class="game-card__title">Ajedrez Artístico</h3>
-          <p class="game-card__desc">Estrategia clásica con estilo</p>
-        </a>
-        <a href="#/checkers" class="game-card game-card--strategy">
-          <div class="game-card__icon">🔴</div>
-          <h3 class="game-card__title">Damas</h3>
-          <p class="game-card__desc">Captura todas las piezas</p>
-        </a>
-        <a href="#/connect4" class="game-card game-card--strategy">
-          <div class="game-card__icon">🔵</div>
-          <h3 class="game-card__title">Cuatro en Raya</h3>
-          <p class="game-card__desc">Conecta cuatro para ganar</p>
-        </a>
-        <a href="#/reversi" class="game-card game-card--strategy">
-          <div class="game-card__icon">⚫</div>
-          <h3 class="game-card__title">Reversi</h3>
-          <p class="game-card__desc">Voltea y conquista</p>
-        </a>
-        <a href="#/runner" class="game-card game-card--new">
-          <div class="game-card__icon"></div>
-          <h3 class="game-card__title">Art Runner</h3>
-          <p class="game-card__desc">Corre por el museo infinito</p>
-        </a>
-        <a href="#/rotate" class="game-card">
-          <div class="game-card__icon"></div>
-          <h3 class="game-card__title">Rotate Puzzle</h3>
-          <p class="game-card__desc">Gira piezas hasta completar</p>
-        </a>
-        <a href="#/scratch" class="game-card game-card--new">
-          <div class="game-card__icon">🎰</div>
-          <h3 class="game-card__title">Scratch Art</h3>
-          <p class="game-card__desc">Rasca y descubre la obra</p>
-        </a>
-        <a href="#/target" class="game-card game-card--new">
-          <div class="game-card__icon"></div>
-          <h3 class="game-card__title">Target Practice</h3>
-          <p class="game-card__desc">Dispara a dianas artísticas</p>
-        </a>
-        <a href="#/restaurador" class="game-card game-card--spectacular game-card--web3">
-          <div class="game-card__icon">💀</div>
-          <h3 class="game-card__title">El Restaurador Desastroso</h3>
-          <p class="game-card__desc">"Restaura" retratos en 15s</p>
-          <span class="game-card__badge">🔥 Viral</span>
-        </a>
       </div>
     </section>
-
-    <section id="view-memory" class="view view--memory game-view">
-      <header class="view__header"><h2>🧠 Memory</h2></header>
-      <div class="game-container" id="memory-container"></div>
-    </section>
-
-    <section id="view-puzzle" class="view view--puzzle game-view">
-      <header class="view__header"><h2>Puzzle</h2></header>
-      <div class="game-container" id="puzzle-container"></div>
-    </section>
-
-    <section id="view-snake" class="view view--snake game-view">
-      <header class="view__header"><h2>Snake</h2></header>
-      <div class="game-container" id="snake-container"></div>
-    </section>
-
-    <section id="view-breakout" class="view view--breakout game-view">
-      <header class="view__header"><h2>🧱 Breakout</h2></header>
-      <div class="game-container" id="breakout-container"></div>
-    </section>
-
-    <section id="view-whack" class="view view--whack game-view">
-      <header class="view__header"><h2>🔨 Whack Art</h2></header>
-      <div class="game-container" id="whack-container"></div>
-    </section>
-
-    <section id="view-simon" class="view view--simon game-view">
-      <header class="view__header"><h2>🎵 Simon Dice</h2></header>
-      <div class="game-container" id="simon-container"></div>
-    </section>
-
-    <section id="view-quiz" class="view view--quiz game-view">
-      <header class="view__header"><h2>❓ Quiz Artístico</h2></header>
-      <div class="game-container" id="quiz-container"></div>
-    </section>
-
-    <section id="view-catch" class="view view--catch game-view">
-      <header class="view__header"><h2>🧺 Atrapa Arte</h2></header>
-      <div class="game-container" id="catch-container"></div>
-    </section>
-
-    <section id="view-collage" class="view view--collage game-view">
-      <header class="view__header"><h2>Collage Alquímico</h2></header>
-      <div class="game-container" id="collage-container"></div>
-    </section>
-
-    <section id="view-reinas" class="view view--reinas game-view">
-      <header class="view__header"><h2>👑 Repóker de Reinas</h2></header>
-      <div class="game-container" id="reinas-container"></div>
-    </section>
-
-    <section id="view-mica" class="view view--mica game-view">
-      <header class="view__header"><h2>✨ MICA VIVA: Retratos que Laten</h2></header>
-      <div class="game-container" id="mica-container"></div>
-    </section>
-
-    <section id="view-kintsugi" class="view view--kintsugi game-view">
-      <header class="view__header"><h2>🥇 Kintsugi Emocional</h2></header>
-      <div class="game-container" id="kintsugi-container"></div>
-    </section>
-
-    <section id="view-pong" class="view view--pong game-view">
-      <header class="view__header"><h2>🏓 Pong Artístico</h2></header>
-      <div class="game-container" id="pong-container"></div>
-    </section>
-
-    <section id="view-reaction" class="view view--reaction game-view">
-      <header class="view__header"><h2>Test de Reflejos</h2></header>
-      <div class="game-container" id="reaction-container"></div>
-    </section>
-
-    <section id="view-typing" class="view view--typing game-view">
-      <header class="view__header"><h2>⌨️ Typing Artístico</h2></header>
-      <div class="game-container" id="typing-container"></div>
-    </section>
-
-    <section id="view-chess" class="view view--chess game-view">
-      <header class="view__header"><h2>Ajedrez Artístico</h2></header>
-      <div class="game-container" id="chess-container"></div>
-    </section>
-
-    <section id="view-checkers" class="view view--checkers game-view">
-      <header class="view__header"><h2>🔴 Damas</h2></header>
-      <div class="game-container" id="checkers-container"></div>
-    </section>
-
-    <section id="view-connect4" class="view view--connect4 game-view">
-      <header class="view__header"><h2>🔵 Cuatro en Raya</h2></header>
-      <div class="game-container" id="connect4-container"></div>
-    </section>
-
-    <section id="view-reversi" class="view view--reversi game-view">
-      <header class="view__header"><h2>⚫ Reversi</h2></header>
-      <div class="game-container" id="reversi-container"></div>
-    </section>
-
-    <section id="view-restaurador" class="view view--restaurador game-view">
-      <div class="game-container" id="restaurador-container"></div>
-    </section>
-
-    <section id="view-juego" class="view view--juego game-view">
-      <header class="view__header"><h2>Juego de la Oca</h2></header>
-      <div class="game-container" id="oca-container"></div>
-    </section>
-
-    <section id="view-tetris" class="view view--tetris game-view">
-      <header class="view__header"><h2>🕹️ Tetris Artístico</h2></header>
-      <div class="game-container" id="tetris-container"></div>
-    </section>
-
-    <section id="view-runner" class="view view--runner game-view">
-      <header class="view__header"><h2>Art Runner</h2></header>
-      <div class="game-container" id="runner-container"></div>
-    </section>
-
-    <section id="view-rotate" class="view view--rotate game-view">
-      <header class="view__header"><h2>Rotate Puzzle</h2></header>
-      <div class="game-container" id="rotate-container"></div>
-    </section>
-
-    <section id="view-scratch" class="view view--scratch game-view">
-      <header class="view__header"><h2>🎰 Scratch Art</h2></header>
-      <div class="game-container" id="scratch-container"></div>
-    </section>
-
-    <section id="view-target" class="view view--target game-view">
-      <header class="view__header"><h2>Target Practice</h2></header>
-      <div class="game-container" id="target-container"></div>
-    </section>
-
-    <section id="view-exposiciones" class="view view--exposiciones">
-      <div id="exposiciones-container"></div>
-    </section>
-
-    <section id="view-obra" class="view view--obra">
-    </section>
-
-    <section id="view-mica-dashboard" class="view view--mica-dashboard">
-      <div id="mica-dashboard-container"></div>
-    </section>
-
 
   </main>
 
-  <footer class="site-footer">
-    <div class="footer__container">
-      <div class="footer__brand">
-        <span class="footer__logo">NGG</span>
-        <p class="footer__tagline">Hiperrealismo POP · Bilbao</p>
-      </div>
-      <div class="footer__links">
-        <a href="mailto:naroa@naroa.eu" class="footer__link">📧 naroa@naroa.eu</a>
-        <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener noreferrer" class="footer__link">📷 @naroagutierrezgil</a>
-      </div>
-
-      <!-- Bandcamp Player — cute & minimal -->
-      <div class="footer__bandcamp">
-        <p class="footer__bandcamp-label">🎵 Escucha mientras navegas</p>
-        <iframe 
-          style="border: 0; width: 100%; max-width: 400px; height: 42px; border-radius: 12px; opacity: 0.8;"
-          src="https://bandcamp.com/EmbeddedPlayer/album=3198055933/size=small/bgcol=0a0a0a/linkcol=d4af37/transparent=true/"
-          seamless
-          loading="lazy"
-          title="[B] by Borja Moskv — Bandcamp">
-        </iframe>
-      </div>
-
-      <p class="footer__dev-notice" style="font-size:0.75rem;opacity:0.6;margin-bottom:0.5rem;letter-spacing:0.05em;">🔧 Esta web está en continuo desarrollo 24/7/365 — siempre mejorando ✨</p>
-      <p class="footer__copy">© 2026 Naroa Gutiérrez Gil. Todos los derechos reservados.</p>
+  <!-- ═══ FOOTER ═════════════════════════════ -->
+  <footer class="footer" id="footer">
+    <div class="footer__content">
+      <p class="footer__text">
+        © 2026 Naroa Gutiérrez Gil ·
+        <a href="mailto:naroa@naroa.eu">naroa@naroa.eu</a> ·
+        <a href="https://instagram.com/naroagutierrezgil" target="_blank" rel="noopener">@naroagutierrezgil</a>
+      </p>
+      <p class="footer__dev">
+        <small>🔧 Esta web está en continuo desarrollo 24/7/365 — siempre mejorando ✨</small>
+      </p>
     </div>
   </footer>
 
+  <!-- ═══ LIGHTBOX ═══════════════════════════ -->
   <div class="lightbox" id="lightbox" hidden>
     <button class="lightbox__close" aria-label="Cerrar">&times;</button>
-    <button class="lightbox__prev" aria-label="Anterior">&#8249;</button>
-    <button class="lightbox__next" aria-label="Siguiente">&#8250;</button>
+    <button class="lightbox__prev" aria-label="Anterior">‹</button>
+    <button class="lightbox__next" aria-label="Siguiente">›</button>
     <figure class="lightbox__content">
       <img src="" alt="" class="lightbox__img" id="lightbox-img">
       <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
     </figure>
   </div>
 
-  <!-- Service Worker Registration -->
+  <!-- ═══ SVG FILTERS ════════════════════════ -->
+  <svg class="svg-filters-hidden" aria-hidden="true">
+    <defs>
+      <filter id="chromatic-red" x="-20%" y="-20%" width="140%" height="140%">
+        <feColorMatrix type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+      </filter>
+      <filter id="chromatic-blue" x="-20%" y="-20%" width="140%" height="140%">
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ═══ SCRIPTS ════════════════════════════ -->
+  <!-- Core (order matters) -->
+  <script src="js/core/router.js"></script>
+  <script src="js/core/ranking-system.js"></script>
+  <script src="js/features/gallery.js"></script>
+  <script src="js/features/lightbox.js"></script>
+  <script src="js/core/app.js"></script>
+
+  <!-- Effects (deferred for performance) -->
+  <script src="js/effects/kinetic-text.js" defer></script>
+  <script src="js/effects/magnetic-button.js" defer></script>
+  <script src="js/effects/reveal-observer.js" defer></script>
+  <script src="js/effects/cursor-trail.js" defer></script>
+  <script src="js/effects/palindrome-hero.js" defer></script>
+  <script src="js/effects/wave-background.js" defer></script>
+  <script src="js/effects/organic-particles.js" defer></script>
+  <script src="js/effects/eyes-follow.js" defer></script>
+
+  <!-- Core Systems (deferred) -->
+  <script src="js/core/soty-effects.js" defer></script>
+  <script src="js/core/wow-effects-2026.js" defer></script>
+  <script src="js/features/scroll-to-top.js" defer></script>
+
+  <!-- Games (deferred - load after DOM) -->
+  <script src="js/features/oca-game.js" defer></script>
+  <script src="js/features/tetris-game.js" defer></script>
+  <script src="js/features/memory-game.js" defer></script>
+  <script src="js/features/puzzle-game.js" defer></script>
+  <script src="js/features/snake-game.js" defer></script>
+  <script src="js/features/breakout-game.js" defer></script>
+  <script src="js/features/collage-game.js" defer></script>
+  <script src="js/features/reinas-game.js" defer></script>
+  <script src="js/features/mica-game.js" defer></script>
+  <script src="js/features/kintsugi-game.js" defer></script>
+
+  <!-- Spotify Rotator -->
+  <script src="js/spotify-rotator.js" defer></script>
+
+  <!-- Gallery Lightbox Inline (Progressive Enhancement) -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(reg => console.log('🚀 Service Worker registered:', reg.scope))
-          .catch(err => console.log('❌ Service Worker failed:', err));
+    // Gallery click → Lightbox
+    document.querySelectorAll('.gallery-massive__item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        if (!img) return;
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const lbCaption = document.getElementById('lightbox-caption');
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lbCaption.textContent = item.querySelector('.gallery-massive__title')?.textContent || '';
+        lb.hidden = false;
       });
-    }
-  </script>
-
-  <!-- ═══ GDPR Cookie Consent ═══ -->
-  <div id="cookie-consent" role="dialog" aria-label="Consentimiento de cookies" style="
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 99999;
-    background: rgba(10, 10, 10, 0.96);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 215, 0, 0.15);
-    padding: 1rem 1.5rem;
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: 0.85rem;
-    color: #ccc;
-    animation: cookieSlideUp 0.5s ease-out;
-  ">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
-      <p style="margin: 0; flex: 1; min-width: 200px; line-height: 1.5;">
-        🍪 Esta web usa cookies técnicas esenciales y analíticas para mejorar la experiencia. 
-        <a href="https://naroa.online/privacidad" style="color: #ffd700; text-decoration: underline;">Política de privacidad</a>
-      </p>
-      <div style="display: flex; gap: 0.75rem; flex-shrink: 0;">
-        <button onclick="acceptCookies(false)" style="
-          padding: 0.5rem 1.2rem;
-          background: transparent;
-          color: #999;
-          border: 1px solid #444;
-          border-radius: 6px;
-          cursor: pointer;
-          font-size: 0.8rem;
-          transition: all 0.2s;
-        " onmouseover="this.style.borderColor='#888'" onmouseout="this.style.borderColor='#444'">Solo esenciales</button>
-        <button onclick="acceptCookies(true)" style="
-          padding: 0.5rem 1.2rem;
-          background: linear-gradient(135deg, #ffd700, #f0c000);
-          color: #1a1a1a;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          font-weight: 600;
-          font-size: 0.8rem;
-          transition: all 0.2s;
-        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Aceptar todas</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Oracle Error Screen (Carlos Sainz Meme) -->
-  <link rel="stylesheet" href="css/oracle.css">
-  <div id="oracle-overlay" class="oracle-overlay">
-      <video id="oracle-video" class="oracle-video" loop playsinline>
-          <source src="assets/videos/oracle-error.mp4" type="video/mp4">
-      </video>
-      <div class="oracle-content">
-          <h1 class="oracle-title">LA IA COMO ORÁCULO</h1>
-          <p class="oracle-subtitle">"¡Trata de arrancarlo, Naroa, por Dios!"</p>
-          <button id="oracle-retry" class="oracle-btn">INTENTAR DE NUEVO</button>
-      </div>
-  </div>
-
-  <script>
-    // Oracle Logic
-    window.activateOracle = function() {
-        const overlay = document.getElementById('oracle-overlay');
-        const video = document.getElementById('oracle-video');
-        if(overlay && video) {
-            overlay.classList.add('active');
-            video.play().catch(e => console.log("Oracle video auto-play blocked", e));
-        }
-    };
-
-    document.getElementById('oracle-retry')?.addEventListener('click', () => {
-        window.location.reload();
     });
 
-    // Hook into MICA Emergency to trigger Oracle on repeated failures
-    if(window.MICA_EMERGENCY) {
-        // We override the intercept again to add Oracle trigger
-        const oldIntercept = window.MICA_EMERGENCY.interceptFetch;
-        // But simply checking repeats in the loop above is easier. 
-        // Let's attach a listener to the window object or modify the global state
-        setInterval(() => {
-           if(window.MICA_EMERGENCY.repeats > 2) {
-               window.activateOracle();
-               window.MICA_EMERGENCY.repeats = 0; // Reset to avoid loop
-           }
-        }, 1000);
+    // Gallery Hero click → Lightbox
+    const galleryHero = document.querySelector('.gallery-hero__artwork');
+    if (galleryHero) {
+      galleryHero.addEventListener('click', () => {
+        const img = galleryHero.querySelector('img');
+        if (!img) return;
+        const lb = document.getElementById('lightbox');
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-caption').textContent =
+          galleryHero.querySelector('.gallery-hero__title')?.textContent || '';
+        lb.hidden = false;
+      });
     }
-  </script>
-  <style>
-    @keyframes cookieSlideUp {
-      from { transform: translateY(100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-  </style>
-  <script>
-    (function() {
-      if (!localStorage.getItem('cookie_consent')) {
-        setTimeout(function() {
-          var banner = document.getElementById('cookie-consent');
-          if (banner) banner.style.display = 'block';
-        }, 2000);
+
+    // Close lightbox
+    document.getElementById('lightbox')?.addEventListener('click', (e) => {
+      if (e.target.closest('.lightbox__close') || e.target === e.currentTarget) {
+        e.currentTarget.hidden = true;
       }
-    })();
-    function acceptCookies(all) {
-      localStorage.setItem('cookie_consent', all ? 'all' : 'essential');
-      var banner = document.getElementById('cookie-consent');
-      if (banner) {
-        banner.style.animation = 'cookieSlideUp 0.3s ease-in reverse forwards';
-        setTimeout(function() { banner.style.display = 'none'; }, 300);
+    });
+
+    // Escape closes lightbox
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').hidden = true;
       }
-    }
+    });
+
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const scrollThread = document.getElementById('scroll-thread');
+      if (!scrollThread) return;
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      scrollThread.style.width = scrolled + '%';
+    }, { passive: true });
+
+    // ══ Scroll Reveal: IntersectionObserver for .reveal elements ══
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-scale, .reveal-stagger').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // ══ Gallery Reveal: IntersectionObserver ══
+    const galleryRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          galleryRevealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.gallery-reveal').forEach(el => {
+      galleryRevealObserver.observe(el);
+    });
+
+    // ══ Lazy Images: Progressive blur-up ══
+    document.querySelectorAll('.gallery-lazy img, .gallery-massive__img').forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+      }
+    });
+
+    // ══ View Header Reveal ══
+    const headerRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.view__header').forEach(el => {
+      headerRevealObserver.observe(el);
+    });
+
+    console.log('🎨 Naroa 2026 — Premium Edition Active');
   </script>
-<script src="js/features/continuous-loop.js" defer></script>
+
+  <!-- Vite Module Entry Point -->
+  <script type="module" src="/main.js"></script>
+
 </body>
 </html>
-

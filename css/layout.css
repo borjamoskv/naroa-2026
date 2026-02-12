@@ -71,6 +71,7 @@ body {
 .view--home,
 .view--rocks,
 .view--archivo,
+.view--destacada,
 .view--about,
 .view--contacto,
 .view--manifesto {
@@ -114,6 +115,7 @@ body {
 .view--home,
 .view--rocks,
 .view--archivo,
+.view--destacada,
 .view--about {
   border-bottom: 1px solid rgba(212, 175, 55, 0.08);
 }
@@ -180,19 +182,46 @@ body {
   pointer-events: none;
 }
 
-/* Kill ALL text — the art speaks */
-.hero__palindrome,
-.aurora-bg,
-.hero__brand-header,
-.hero__title-mega,
-.hero__content-layer,
-.hero__subtitle,
-.hero__cta-group,
-.hero__footer,
-.hero__role { display: none !important; }
+/* Hero text elements — VISIBLE in premium scroll mode */
+.hero__palindrome { opacity: 0.04; pointer-events: none; }
+.aurora-bg { display: none; }
+.hero__brand-header { display: none; }
+.hero__content-layer { display: none; }
+.hero__footer { display: none; }
+.hero__role { display: none; }
 
-.hero__title { display: none !important; }
-.hero__line { display: none !important; }
+.hero__title {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 200;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.hero__line {
+  display: block;
+  opacity: 1;
+}
+
+.hero__subtitle {
+  position: relative;
+  z-index: 2;
+  color: rgba(255,255,255,0.5);
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.hero__cta-group {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 5rem;
+}
 
 /* The slider IS the hero — fullscreen art */
 .hero__slider {

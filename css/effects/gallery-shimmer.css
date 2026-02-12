@@ -1,0 +1,73 @@
+/**
+ * GALLERY SHIMMER — Premium Hover Effects
+ * Gold liquid reveal on artwork hover
+ */
+
+.gallery__item {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.gallery__item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(212, 175, 55, 0.1),
+        rgba(212, 175, 55, 0.2),
+        rgba(212, 175, 55, 0.1),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: none;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.gallery__item:hover::after {
+    left: 150%;
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Kintsugi Glow Overlay */
+.gallery__item-kintsugi {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/black-paper.png'); /* Texture fallback */
+    mix-blend-mode: color-dodge;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.gallery__item:hover .gallery__item-kintsugi {
+    opacity: 0.4;
+}
+
+/* Image zoom on hover */
+.gallery__item img {
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gallery__item:hover img {
+    transform: scale(1.05);
+}
+
+/* Metadata reveal */
+.gallery__metadata {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gallery__item:hover .gallery__metadata {
+    opacity: 1;
+    transform: translateY(0);
+}
