@@ -65,6 +65,7 @@
   <link rel="stylesheet" href="css/components/bento-grid.css">
   <link rel="stylesheet" href="css/wow-effects.css">
   <link rel="stylesheet" href="css/wow-effects-2026.css">
+  <link rel="stylesheet" href="css/hero-immersive.css">
 
   <!-- Deferred CSS (Games - load on interaction) -->
   <link rel="stylesheet" href="css/games-hub.css" media="print" onload="this.media='all'">
@@ -160,7 +161,7 @@
 <body>
 
   <!-- ═══ MICA NOTCH ══════════════════════════ -->
-  <nav class="notch-container">
+  <nav class="notch-container" aria-label="Navegación principal">
     <div class="notch">
       <div class="notch__logo">N</div>
       <div class="notch__content">
@@ -187,34 +188,65 @@
 
     <!-- ═══ SECTION 1: HERO ═══════════════════ -->
     <section id="view-home" class="view view--home active">
-      <div class="hero hero--premium">
-        <!-- Animated gradient background -->
-        <div class="hero__gradient-bg"></div>
 
-        <!-- PALINDROME (background) -->
-        <div class="hero__palindrome" aria-hidden="true">
-          <span class="hero__palindrome-text">ANARO·ARAN</span>
+      <!-- ═══ IMMERSIVE HERO — Cinematic First Impression ═══ -->
+      <div class="hero-immersive" id="hero-immersive">
+        <!-- Background image with parallax -->
+        <div class="hero-immersive__image-wrapper">
+          <img 
+            src="images/hero-artista-studio.png" 
+            alt="Naroa Gutiérrez Gil — Artista en su estudio, pintando con colores que cobran vida" 
+            class="hero-immersive__image"
+            fetchpriority="high"
+          >
         </div>
 
-        <h1 class="hero__title reveal">
-          <span class="hero__line text-shimmer">Naroa</span>
-          <span class="hero__line">Gutiérrez</span>
-          <span class="hero__line">Gil</span>
-        </h1>
+        <!-- Cinematic overlays -->
+        <div class="hero-immersive__overlay"></div>
+        <div class="hero-immersive__glow"></div>
+        <div class="hero-immersive__grain"></div>
 
-        <p class="hero__subtitle reveal reveal-delay-1">
-          <span class="hero__tag">Hiperrealismo POP · Bilbao</span>
-        </p>
+        <!-- Center content -->
+        <div class="hero-immersive__content">
+          <span class="hero-immersive__eyebrow">Artista Visual · Bilbao</span>
+          
+          <h1 class="hero-immersive__title">
+            <span>Naroa</span>
+            <span class="hero-immersive__title-accent">Gutiérrez Gil</span>
+          </h1>
+          
+          <p class="hero-immersive__subtitle">Hiperrealismo POP · Mixed Media</p>
+          
+          <div class="hero-immersive__divider"></div>
+          
+          <a href="#view-destacada" class="hero-immersive__cta">
+            <span>Explorar Obra</span>
+            <span class="hero-immersive__cta-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </a>
+        </div>
 
-        <div class="hero__cta-group reveal reveal-delay-2">
-          <a href="#view-destacada" class="btn btn-premium hero__cta--primary magnetic-btn">Ver obra</a>
+        <!-- Floating metadata cards -->
+        <div class="hero-immersive__meta hero-immersive__meta--left">
+          <span>Técnica</span>
+          <span class="hero-immersive__meta-value">Óleo · Acrílico · Pizarra</span>
+        </div>
+        <div class="hero-immersive__meta hero-immersive__meta--right">
+          <span>Colección</span>
+          <span class="hero-immersive__meta-value">40+ Obras Originales</span>
         </div>
 
         <!-- Scroll indicator -->
-        <div class="hero__scroll-indicator">
-          <div class="hero__scroll-line"></div>
+        <div class="hero-immersive__scroll">
+          <span class="hero-immersive__scroll-label">Scroll</span>
+          <div class="hero-immersive__scroll-line"></div>
+          <div class="hero-immersive__scroll-dot"></div>
         </div>
       </div>
+
     </section>
 
     <!-- ═══ SECTION 2: OBRA DESTACADA ═════════ -->
@@ -359,7 +391,7 @@
         <div class="about__bento-grid">
           
           <!-- CELL 1: PORTRAIT (Tall) -->
-          <article class="bento-cell bento-cell--portrait glass reveal">
+          <article class="bento-cell bento-cell--portrait reveal">
             <div class="bento-portrait__img-wrapper">
               <img src="images/naroa-portrait.jpg" alt="Naroa Gutiérrez Gil" class="bento-portrait__img" loading="lazy">
             </div>
@@ -370,7 +402,7 @@
           </article>
 
           <!-- CELL 2: MANIFESTO (Wide) -->
-          <article class="bento-cell bento-cell--manifesto glass-dark reveal-stagger">
+          <article class="bento-cell bento-cell--manifesto reveal-stagger">
             <h2 class="bento-manifesto__title text-shimmer">Sobre mí</h2>
             <p class="bento-manifesto__text">
               Dedicada al <strong>hiperrealismo POP</strong>, mi obra disecciona la identidad contemporánea a través de una mirada vibrante y meticulosa. 
@@ -385,7 +417,7 @@
           </article>
 
           <!-- CELL 3: STATS (Compact) -->
-          <article class="bento-cell bento-cell--stats glass-dark reveal-stagger">
+          <article class="bento-cell bento-cell--stats reveal-stagger">
             <div class="bento-stat">
               <span class="bento-stat__num">40+</span>
               <span class="bento-stat__label">Obras</span>
@@ -401,7 +433,7 @@
           </article>
 
           <!-- CELL 4: TECHNIQUES (Box) -->
-          <article class="bento-cell bento-cell--tech glass-dark reveal-stagger">
+          <article class="bento-cell bento-cell--tech reveal-stagger">
             <h4 class="bento-cell__title">Técnicas</h4>
             <div class="tech-grid">
               <span class="tech-item">🎨 Óleo</span>
@@ -587,6 +619,9 @@
 
   <!-- Spotify Rotator -->
   <script src="js/spotify-rotator.js" defer></script>
+
+  <!-- Collector Mode -->
+  <script src="js/features/kimi-ideas.js" defer></script>
 
   <!-- Gallery Lightbox Inline (Progressive Enhancement) -->
   <script>
