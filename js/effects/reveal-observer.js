@@ -22,7 +22,7 @@ class RevealObserver {
     this.isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  init(selector = '.reveal-on-scroll, .reveal-stagger') {
+  init(selector = '.reveal, .reveal-on-scroll, .reveal-stagger, .reveal-left, .reveal-scale, .gallery-reveal, .gallery-hero__artwork, .gallery-lazy') {
     if (this.isReduced) {
       // For reduced motion, show all content immediately
       document.querySelectorAll(selector).forEach(el => {

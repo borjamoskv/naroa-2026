@@ -134,6 +134,26 @@
         const container = document.getElementById('reversi-container');
         if (container && window.initReversiGame) window.initReversiGame(container);
       })
+      .register('#/runner', () => {
+        router.showView('view-runner');
+        const container = document.getElementById('runner-container');
+        if (container && window.initRunnerGame) window.initRunnerGame(container);
+      })
+      .register('#/rotate', () => {
+        router.showView('view-rotate');
+        const container = document.getElementById('rotate-container');
+        if (container && window.initRotateGame) window.initRotateGame(container);
+      })
+      .register('#/scratch', () => {
+        router.showView('view-scratch');
+        const container = document.getElementById('scratch-container');
+        if (container && window.initScratchGame) window.initScratchGame(container);
+      })
+      .register('#/target', () => {
+        router.showView('view-target');
+        const container = document.getElementById('target-container');
+        if (container && window.initTargetGame) window.initTargetGame(container);
+      })
       .register('#/restaurador', () => {
         router.showView('view-restaurador');
         if (window.RestauradorGame) window.RestauradorGame.init();

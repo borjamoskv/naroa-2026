@@ -1,0 +1,257 @@
+/* 
+   NAROA 2026 - Golden State Overrides
+   Loaded LAST — unique additions only (no duplicate resets/vars)
+*/
+
+/* Premium Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { 
+    background: #222; 
+    border-radius: 10px; 
+    transition: background 0.3s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold-metallic, #d4af37); }
+
+/* Grain Texture Overlay */
+body::after {
+    content: "";
+    position: fixed;
+    top: -100%; left: -100%; width: 300%; height: 300%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 9999;
+    animation: noise 0.2s infinite;
+}
+
+@keyframes noise {
+    0% { transform: translate(0,0) }
+    10% { transform: translate(-1%,-2%) }
+    20% { transform: translate(-2%,1%) }
+    30% { transform: translate(1%,-1%) }
+    40% { transform: translate(-1%,2%) }
+    50% { transform: translate(-2%,-2%) }
+    60% { transform: translate(2%,1%) }
+    70% { transform: translate(1%,-2%) }
+    80% { transform: translate(-1%,1%) }
+    90% { transform: translate(2%,-2%) }
+    100% { transform: translate(0,0) }
+}
+
+/* WebGL Canvas */
+#webgl-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Hero Cinematic */
+.hero-cinematic__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-cinematic__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.hero-cinematic__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-explore-text {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.2em !important;
+    opacity: 0.6 !important;
+}
+
+/* Footer & Dev Notice */
+.footer__dev-notice {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-text {
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+    line-height: 1.5;
+}
+
+.footer-link {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+.footer-social-container {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Mica Crisis Extra Styles */
+.mc-timer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 6px;
+    background: #ff0055;
+    box-shadow: 0 0 15px #ff0055;
+    transition: width 0.1s linear;
+}
+
+/* Bandcamp Player */
+.footer__bandcamp-iframe {
+    border: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 42px;
+    border-radius: 12px;
+    opacity: 0.8;
+}
+
+/* Cookie Consent Dialog */
+.cookie-consent {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    background: rgba(10, 10, 10, 0.96);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 215, 0, 0.15);
+    padding: 1rem 1.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.85rem;
+    color: #ccc;
+    animation: cookieSlideUp 0.5s ease-out;
+}
+
+.cookie-consent__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cookie-consent__text {
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+    line-height: 1.5;
+}
+
+.cookie-consent__btns {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.cookie-btn {
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.cookie-btn--secondary {
+    background: transparent;
+    color: #999;
+    border: 1px solid #444;
+}
+
+.cookie-btn--secondary:hover {
+    border-color: #888;
+}
+
+.cookie-btn--primary {
+    background: #ffd700;
+    color: #000;
+    border: 1px solid #ffd700;
+    font-weight: 600;
+}
+
+.cookie-btn--primary:hover {
+    background: #ffea00;
+    transform: translateY(-1px);
+}
+
+@keyframes cookieSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* CRT EFFECTS */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0.3;
+}
+
+.crt-vignette {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 10001;
+}
+
+/* Mica Crisis Extra Animations */
+@keyframes mc-shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+#mc-instruction {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(40px, 8vw, 120px);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.5);
+    z-index: 10002;
+    pointer-events: none;
+    text-align: center;
+    width: 100%;
+}

@@ -46,7 +46,7 @@
 .modal-overlay { z-index: 2000; } /* Lightbox siempre encima */
 
 /* 3. Performance tweaks */
-.view {
-  will-change: transform, opacity;
+.view.game-view {
+  will-change: opacity;
   backface-visibility: hidden;
 }

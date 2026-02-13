@@ -52,14 +52,14 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
 }
 
 .rock-panel::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.8) 100%);
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -70,36 +70,41 @@
 .rock-panel__image-wrap {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 650px;
   width: 80vw;
   will-change: transform;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .rock-panel__image-wrap::after {
   content: '';
   position: absolute;
-  inset: -20px;
-  border-radius: 8px;
+  inset: -15px;
+  border-radius: 16px;
   opacity: 0;
   transition: opacity 0.8s ease;
   pointer-events: none;
   z-index: -1;
 }
 
-/* Glow colors per artwork */
+/* Glow colors per artwork — Stitch Palette */
 .rock-panel--amy .rock-panel__image-wrap::after {
-  box-shadow: 0 0 80px 20px rgba(200, 30, 30, 0.4), 0 0 120px 40px rgba(200, 30, 30, 0.15);
+  box-shadow: 0 40px 100px -20px rgba(255, 0, 60, 0.25), 0 0 40px rgba(255, 0, 60, 0.1);
 }
 .rock-panel--james .rock-panel__image-wrap::after {
-  box-shadow: 0 0 80px 20px rgba(200, 30, 30, 0.4), 0 0 120px 40px rgba(200, 30, 30, 0.15);
+  box-shadow: 0 40px 100px -20px rgba(212, 175, 55, 0.2), 0 0 40px rgba(212, 175, 55, 0.1);
 }
 .rock-panel--johnny .rock-panel__image-wrap::after {
-  box-shadow: 0 0 80px 20px rgba(200, 180, 50, 0.3), 0 0 120px 40px rgba(200, 180, 50, 0.1);
+  box-shadow: 0 40px 100px -20px rgba(57, 255, 20, 0.15), 0 0 40px rgba(57, 255, 20, 0.1);
 }
 .rock-panel--marilyn .rock-panel__image-wrap::after {
-  box-shadow: 0 0 80px 20px rgba(200, 50, 50, 0.4), 0 0 100px 30px rgba(218, 165, 32, 0.2);
+  box-shadow: 0 40px 100px -20px rgba(255, 100, 0, 0.2), 0 0 40px rgba(255, 100, 0, 0.1);
 }
 
 .rock-panel:hover .rock-panel__image-wrap::after {
@@ -107,31 +112,44 @@
 }
 
 .rock-panel:hover .rock-panel__image-wrap {
-  transform: scale(1.02) translateY(-5px);
-  filter: brightness(1.05) contrast(1.05);
+  transform: translateY(-20px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .rock-panel__img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 4px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  border-radius: 8px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+  transition: filter 0.6s ease;
+}
+
+.rock-panel:hover .rock-panel__img {
+  filter: brightness(1.1) contrast(1.05);
 }
 
 /* =========================================
-   INFO OVERLAY
+   INFO OVERLAY (Stitch Glassmorphism)
    ========================================= */
 .rock-panel__info {
   position: absolute;
-  bottom: 8%;
+  bottom: 10%;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
+  transform: translateX(-50%) translateY(40px);
+  z-index: 10;
   text-align: center;
   opacity: 0;
-  transition: opacity 0.8s ease 0.3s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
-  transform: translateX(-50%) translateY(30px);
+  background: rgba(10, 10, 10, 0.6);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem 3rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
 .rock-panel.revealed .rock-panel__info {
@@ -140,34 +158,42 @@
 }
 
 .rock-panel__name {
-  font-family: var(--font-family-main);
-  font-weight: 200;
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-family: var(--font-family-display, sans-serif);
+  font-weight: 800;
+  font-size: 1.2rem;
   color: #fff;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  margin: 0;
 }
 
 .rock-panel__technique {
-  font-family: var(--font-family-main);
-  font-weight: 300;
-  font-size: 0.85rem;
-  letter-spacing: 0.4em;
+  font-family: var(--font-family-mono, monospace);
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-top: 0.5rem;
+  color: var(--gold-metallic, #d4af37);
+  margin-top: 0.4rem;
+  opacity: 0.8;
 }
 
 .rock-panel__counter {
   position: absolute;
-  top: 2rem;
+  top: 3rem;
   right: 3rem;
-  font-family: var(--font-family-main);
-  font-weight: 200;
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 0.3em;
+  font-family: var(--font-family-mono, monospace);
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--gold-metallic, #d4af37);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 6px 14px;
+  border-radius: 40px;
+  letter-spacing: 0.1em;
   z-index: 3;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 /* =========================================

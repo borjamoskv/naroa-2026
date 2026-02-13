@@ -55,7 +55,7 @@ class MicaCursor {
   
   applyCursor() {
     const cursor = this.cursors[this.currentCursorIndex];
-    const basePath = 'assets/cursors/';
+    const basePath = '/assets/cursors/';
     
     // Crear o actualizar estilos dinámicos
     let style = document.getElementById('dynamic-cursor-style');

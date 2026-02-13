@@ -19,12 +19,14 @@ class StitchService {
         // Para desarrollo local, usamos la key directamente
         try {
             // Intentar cargar desde .env (requiere bundler con soporte dotenv)
+            // Vite expone variables con prefijo VITE_ automáticamente en import.meta.env
             this.apiKey = import.meta.env?.VITE_STITCH_API_KEY || null;
             this.initialized = !!this.apiKey;
             
             if (this.initialized) {
+                console.log('✅ Stitch Service: Initialized with API Key');
             } else {
-                console.warn('⚠️ Stitch API key not found. UI generation disabled.');
+                console.warn('⚠️ Stitch API key not found in env. UI generation disabled.');
             }
         } catch (e) {
             console.warn('⚠️ Stitch Service: Running without API key');

@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
 /* ==========================================================================
    TYPOGRAPHY 2026 — CYBER-POP EDITION
-   Mono accents, aggressive headings
+   Mono accents, aggressive headings + SERIF SOUL (TWOC)
    ========================================================================== */
 
 /* Base */
+:root {
+  --font-family-serif: 'Playfair Display', Georgia, serif;
+}
+
 body {
   font-family: var(--font-family-main);
   font-weight: var(--font-weight-normal);

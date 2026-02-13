@@ -1,15 +1,22 @@
+/* ==========================================================================
+   HERO CINEMATIC — Naroa 2026 · PREMIUM ART GALLERY
+   "The art speaks before words" — Immersive first impression
+   ========================================================================== */
+
 .hero-cinematic {
     position: relative;
     height: 100vh;
+    height: 100dvh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #050505;
-    color: #fff;
+    background: var(--black, #050505);
+    color: var(--white, #ededed);
 }
 
+/* ── BACKGROUND LAYER ── */
 .hero-cinematic__bg {
     position: absolute;
     top: 0;
@@ -23,122 +30,328 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.4;
-    filter: grayscale(100%) contrast(120%);
+    opacity: 0.55;
+    filter: grayscale(100%) contrast(115%) brightness(0.9);
+    animation: heroVideoBreath 12s ease-in-out infinite;
 }
 
+.hero-cinematic__img-fallback {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) contrast(110%);
+}
+
+/* Slow breathing effect on video */
+@keyframes heroVideoBreath {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.03); }
+}
+
+/* ── OVERLAYS — Depth & Mood ── */
 .hero-cinematic__overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, transparent 0%, #050505 90%);
+    background:
+        radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(5, 5, 5, 0.4) 50%, var(--black, #050505) 85%),
+        linear-gradient(180deg, rgba(5, 5, 5, 0.3) 0%, transparent 30%, transparent 70%, var(--black, #050505) 100%);
     z-index: 2;
 }
 
+/* Cinematic letterbox bars */
+.hero-cinematic__overlay::before,
+.hero-cinematic__overlay::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: var(--black, #050505);
+    z-index: 3;
+    transition: height 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.hero-cinematic__overlay::before {
+    top: 0;
+    height: 6vh;
+}
+
+.hero-cinematic__overlay::after {
+    bottom: 0;
+    height: 6vh;
+}
+
+/* ── SHIMMER — Gold ambient light ── */
+.hero-cinematic__shimmer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120vw;
+    height: 120vh;
+    transform: translate(-50%, -50%);
+    background:
+        radial-gradient(ellipse 60% 40% at 35% 45%, rgba(212, 175, 55, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 70% 55%, rgba(255, 0, 60, 0.03) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+    animation: shimmerDrift 15s ease-in-out infinite alternate;
+}
+
+@keyframes shimmerDrift {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    33% { transform: translate(-48%, -52%) rotate(1deg) scale(1.05); }
+    66% { transform: translate(-52%, -48%) rotate(-1deg) scale(0.97); }
+    100% { transform: translate(-50%, -50%) rotate(0deg) scale(1.02); }
+}
+
+/* ── GRAIN — Film texture ── */
+.hero-cinematic__grain {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 4;
+    mix-blend-mode: overlay;
+}
+
+/* ── CONTENT — Center stage ── */
 .hero-cinematic__content {
     position: relative;
     z-index: 10;
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+/* ── TITLE — The name in lights ── */
 .hero-cinematic__title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(3rem, 10vw, 8rem);
+    font-family: var(--font-family-display, 'Satoshi', 'Outfit', sans-serif);
+    font-size: clamp(3.5rem, 12vw, 10rem);
     font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-    margin-bottom: 1rem;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
-    background: linear-gradient(to bottom, #fff 30%, #ffd700 100%);
+
+    /* Premium gold-to-white gradient text */
+    background: linear-gradient(
+        160deg,
+        #fff 0%,
+        #fff 25%,
+        var(--gold-metallic, #d4af37) 45%,
+        #fff 65%,
+        rgba(212, 175, 55, 0.8) 100%
+    );
+    background-size: 300% 100%;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    /* Entrance animation */
     opacity: 0;
-    transform: translateY(30px);
-    animation: heroTitleReveal 1.2s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    transform: translateY(40px) scale(0.95);
+    animation:
+        heroTitleReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
+        heroTitleShimmer 8s ease-in-out 2s infinite;
+
+    /* Subtle text shadow for depth */
+    filter: drop-shadow(0 4px 30px rgba(212, 175, 55, 0.15));
 }
 
+/* ── SUBTITLE — Whispered tagline ── */
 .hero-cinematic__subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: 300;
-    letter-spacing: 0.4em;
-    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--font-family-main, 'Outfit', sans-serif);
+    font-size: clamp(0.85rem, 2.2vw, 1.3rem);
+    font-weight: var(--font-weight-light, 300);
+    letter-spacing: 0.5em;
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     opacity: 0;
     transform: translateY(20px);
-    animation: heroTitleReveal 1.2s cubic-bezier(0.2, 0, 0.2, 1) 0.3s forwards;
+    animation: heroSubReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    position: relative;
 }
 
-.hero-cinematic__grain {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 3;
+/* Gold underline decoration */
+.hero-cinematic__subtitle::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    margin: 1.5rem auto 0;
+    background: linear-gradient(90deg, transparent, var(--gold-metallic, #d4af37), transparent);
+    opacity: 0;
+    animation: heroLineReveal 1s ease 1.2s forwards;
 }
 
+/* ── SCROLL INDICATOR — Elegant pulse ── */
 .hero-cinematic__scroll {
     position: absolute;
-    bottom: 3rem;
+    bottom: calc(6vh + 2rem);
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     opacity: 0;
-    animation: fadeIn 1s ease-out 1.5s forwards;
+    animation: heroScrollReveal 1s ease-out 2s forwards;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+
+.hero-cinematic__scroll:hover {
+    color: var(--gold-metallic, #d4af37);
+}
+
+.hero-cinematic__scroll span {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-family: var(--font-family-main, 'Outfit', sans-serif);
 }
 
 .hero-cinematic__scroll-line {
     width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, #ffd700, transparent);
-    transform-origin: top;
-    animation: scrollLineRun 2s ease-in-out infinite;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-cinematic__shimmer {
+.hero-cinematic__scroll-line::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 100vh;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-    z-index: 1;
-    pointer-events: none;
-    animation: shimmerPulse 8s ease-in-out infinite;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--gold-metallic, #d4af37));
+    animation: scrollLineDrop 2.5s cubic-bezier(0.4, 0, 0, 1) infinite;
 }
+
+/* Pulse ring around scroll */
+.hero-cinematic__scroll::before {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold-metallic, #d4af37);
+    opacity: 0.6;
+    animation: scrollPulse 2.5s ease-in-out infinite;
+}
+
+/* ═══ ANIMATIONS ═══ */
 
 @keyframes heroTitleReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes heroTitleShimmer {
+    0%, 100% { background-position: 200% center; }
+    50% { background-position: -100% center; }
+}
+
+@keyframes heroSubReveal {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes scrollLineRun {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+@keyframes heroLineReveal {
+    to { opacity: 0.6; }
 }
 
-@keyframes shimmerPulse {
-    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
-}
-
-@keyframes fadeIn {
+@keyframes heroScrollReveal {
     to { opacity: 1; }
+}
+
+@keyframes scrollLineDrop {
+    0% { top: -100%; }
+    50% { top: 100%; }
+    50.01% { top: -100%; }
+    100% { top: -100%; }
+}
+
+@keyframes scrollPulse {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+    50% { transform: translateX(-50%) scale(2.5); opacity: 0; }
+}
+
+/* ═══ RESPONSIVE ═══ */
+
+@media (max-width: 768px) {
+    .hero-cinematic__title {
+        font-size: clamp(2.8rem, 15vw, 5rem);
+    }
+
+    .hero-cinematic__subtitle {
+        letter-spacing: 0.3em;
+    }
+
+    .hero-cinematic__overlay::before,
+    .hero-cinematic__overlay::after {
+        height: 3vh;
+    }
+
+    .hero-cinematic__scroll {
+        bottom: calc(3vh + 1.5rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-cinematic__title {
+        font-size: clamp(2.2rem, 14vw, 3.5rem);
+        letter-spacing: -0.02em;
+    }
+
+    .hero-cinematic__subtitle {
+        letter-spacing: 0.2em;
+        font-size: 0.75rem;
+    }
+}
+
+/* ═══ REDUCED MOTION ═══ */
+@media (prefers-reduced-motion: reduce) {
+    .hero-cinematic__title,
+    .hero-cinematic__subtitle,
+    .hero-cinematic__scroll {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .hero-cinematic__video {
+        animation: none;
+    }
+
+    .hero-cinematic__shimmer {
+        animation: none;
+    }
+
+    .hero-cinematic__scroll-line::before {
+        animation: none;
+        top: 0;
+        background: var(--gold-metallic, #d4af37);
+        opacity: 0.3;
+    }
 }

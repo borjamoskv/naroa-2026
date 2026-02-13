@@ -594,17 +594,18 @@ const GalleryDisruptive = {
       }
     }, { passive: false });
 
-    // Mouse pan when zoomed
-    const img = this.lightbox.querySelector('.gallery-lightbox__image');
+    // Mouse pan when zoomed — use event delegation on lightbox container
+    const container = this.lightbox.querySelector('.gallery-lightbox__container');
+    if (!container) return;
     
-    img.addEventListener('mousedown', (e) => {
-      if (this.zoom.scale > 1) {
-        e.preventDefault();
-        this.zoom.panning = true;
-        this.zoom.startX = e.clientX - this.zoom.translateX;
-        this.zoom.startY = e.clientY - this.zoom.translateY;
-        img.classList.add('is-zoomed');
-      }
+    container.addEventListener('mousedown', (e) => {
+      const img = container.querySelector('.gallery-lightbox__image');
+      if (!img || this.zoom.scale <= 1) return;
+      e.preventDefault();
+      this.zoom.panning = true;
+      this.zoom.startX = e.clientX - this.zoom.translateX;
+      this.zoom.startY = e.clientY - this.zoom.translateY;
+      img.classList.add('is-zoomed');
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -625,7 +626,7 @@ const GalleryDisruptive = {
     const img = this.lightbox.querySelector('.gallery-lightbox__image');
     
     if (scale > 1) {
-      img.classList.add('is-zoomed');
+      if (img) img.classList.add('is-zoomed');
       this.lightbox.style.cursor = 'grab';
     } else {
       this.resetZoom();
@@ -641,14 +642,18 @@ const GalleryDisruptive = {
     this.zoom.panning = false;
     
     const img = this.lightbox.querySelector('.gallery-lightbox__image');
-    img.classList.remove('is-zoomed');
-    img.style.transform = '';
+    if (img) {
+      img.classList.remove('is-zoomed');
+      img.style.transform = '';
+    }
     this.lightbox.style.cursor = '';
   },
 
   applyZoomTransform() {
     const img = this.lightbox.querySelector('.gallery-lightbox__image');
-    img.style.transform = `translate(${this.zoom.translateX}px, ${this.zoom.translateY}px) scale(${this.zoom.scale})`;
+    if (img) {
+      img.style.transform = `translate(${this.zoom.translateX}px, ${this.zoom.translateY}px) scale(${this.zoom.scale})`;
+    }
   },
 
   // ═════════════════════════════════════════════════════════════════════════════

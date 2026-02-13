@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naroa Gutiérrez Gil | Artista Visual</title>
+    <meta name="description" content="Portfolio de Naroa Gutiérrez Gil. Arte visual contemporáneo.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+           NAROA 2026 — RADICAL MINIMAL
+           Duotone: #000 / #fff / accent #33ff00
+           ═══════════════════════════════════════════ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ── NOTCH ─────────────────────────────── */
+
+        .notch-wrap {
+            position: fixed;
+            top: 16px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .notch {
+            background: #000;
+            border: 1px solid #1a1a1a;
+            border-radius: 100px;
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            pointer-events: auto;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s ease;
+        }
+
+        .notch:hover {
+            transform: translateY(2px);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.9);
+        }
+
+        .notch__left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notch__dot {
+            width: 7px;
+            height: 7px;
+            background: #33ff00;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(51,255,0,0.5);
+        }
+
+        .notch__name {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .notch__links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .notch__links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .notch__links a:hover {
+            color: #fff;
+        }
+
+        /* ── HERO ──────────────────────────────── */
+
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .hero__img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        .hero__img.loaded {
+            opacity: 1;
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.3) 0%,
+                transparent 40%,
+                transparent 60%,
+                rgba(0,0,0,0.7) 100%
+            );
+            z-index: 2;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .hero__title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero__sub {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.4);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .hero__scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ── GALLERY GRID ──────────────────────── */
+
+        .gallery {
+            padding: 80px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 4px;
+        }
+
+        .gallery__item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: #111;
+            cursor: pointer;
+        }
+
+        .gallery__item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.4s ease;
+            filter: grayscale(0.1);
+        }
+
+        .gallery__item:hover img {
+            transform: scale(1.06);
+            filter: grayscale(0);
+        }
+
+        .gallery__item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery__item:hover::after {
+            opacity: 1;
+        }
+
+        /* ── FOOTER ────────────────────────────── */
+
+        .footer {
+            padding: 60px 24px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer__text {
+            color: #444;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+        }
+
+        .footer__text a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .footer__text a:hover {
+            color: #fff;
+        }
+
+        /* ── RESPONSIVE ────────────────────────── */
+
+        @media (max-width: 640px) {
+            .notch { padding: 8px 20px; gap: 12px; }
+            .notch__links a { font-size: 12px; }
+            .gallery__grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2px;
+            }
+        }
+
+        /* ── LIGHTBOX ──────────────────────────── */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+
+        .lightbox__close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox__close:hover { opacity: 1; }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ NOTCH ═══════════════════════════════ -->
+    <div class="notch-wrap">
+        <div class="notch">
+            <div class="notch__left">
+                <div class="notch__dot"></div>
+                <div class="notch__name">NAROA</div>
+            </div>
+            <div class="notch__links">
+                <a href="#obras">Obras</a>
+                <a href="#info">Info</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ HERO ════════════════════════════════ -->
+    <section class="hero">
+        <img src="/images/hero-infinite/hero-ultra-8k.webp" 
+             alt="Naroa Gutiérrez Gil — Arte Visual" 
+             class="hero__img"
+             loading="eager"
+             onload="this.classList.add('loaded')">
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+            <h1 class="hero__title">NAROA</h1>
+            <p class="hero__sub">Artista Visual</p>
+        </div>
+        <div class="hero__scroll">
+            <span>Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══ GALLERY ═════════════════════════════ -->
+    <section class="gallery" id="obras">
+        <div class="gallery__grid">
+            <div class="gallery__item"><img src="/img/artworks-intro/starchild.webp" alt="Starchild" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/peter-rowan.webp" alt="Peter Rowan" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/amy-rocks.webp" alt="Amy Rocks" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/el-gran-dakari-nino.webp" alt="El Gran Dakari Niño" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/james-rocks.webp" alt="James Rocks" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/johnny-rocks.webp" alt="Johnny Rocks" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/marilyn-rocks.webp" alt="Marilyn Rocks" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/4b6fd4d0.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/a42c44a9.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/041a516d.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/175003e3.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/54fe4b63.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/cecd8661.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/14d90b4d.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/436e7da9.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/13f8c997.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/85aa3943.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/42a7f925.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/d4b3b849.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/cea13e7c.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/ff534558.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/242d0471.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/2.webp" alt="Obra" loading="lazy"></div>
+            <div class="gallery__item"><img src="/img/artworks-intro/3.webp" alt="Obra" loading="lazy"></div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ══════════════════════════════ -->
+    <footer class="footer" id="info">
+        <p class="footer__text">
+            © 2026 Naroa Gutiérrez Gil · 
+            <a href="mailto:naroa@naroa.online">naroa@naroa.online</a>
+        </p>
+    </footer>
+
+    <!-- ═══ LIGHTBOX ════════════════════════════ -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox__close">×</button>
+        <img src="" alt="">
+    </div>
+
+    <!-- ═══ MINIMAL JS (Progressive Enhancement) ═ -->
+    <script>
+        // Lightbox
+        document.querySelectorAll('.gallery__item').forEach(item => {
+            item.addEventListener('click', () => {
+                const src = item.querySelector('img').src;
+                const lb = document.getElementById('lightbox');
+                lb.querySelector('img').src = src;
+                lb.classList.add('active');
+            });
+        });
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.closest('.lightbox__close') || e.target === e.currentTarget) {
+                e.currentTarget.classList.remove('active');
+            }
+        });
+
+        // Escape key closes lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+        });
+
+        console.log('🎨 Naroa 2026 — Radical Minimal');
+    </script>
+
+</body>
+</html>

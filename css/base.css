@@ -91,6 +91,63 @@ button:active {
   transform: scale(0.98);
 }
 
+/* ── STITCH PREMIUM BUTTON ── */
+.btn-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--white, #fff);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-family-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), transparent, rgba(57, 255, 20, 0.1));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.btn-premium:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #fff;
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.btn-premium:hover::before {
+  opacity: 1;
+}
+
+.btn-premium--primary {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
+  color: var(--gold-metallic, #d4af37);
+}
+
+.btn-premium--primary:hover {
+  background: rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
 /* Images */
 img {
   max-width: 100%;
@@ -104,11 +161,7 @@ img {
   color: var(--white, #fff);
 }
 
-/* Scrollbar — elegant gold (360° scroll) */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
-::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.25); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(212,175,55,0.5); }
+/* Scrollbar — defined in layout.css */
 
 /* Focus */
 :focus { outline: none; }

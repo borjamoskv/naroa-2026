@@ -18,3 +18,6 @@ public/images/artworks/*source*.png
 public/images/artworks/super-hq-*.png
 public/images/artworks/web-*.png
 public/images/artworks/cantinflas-platos-source*.png
+
+# Cantinflas source (194MB)
+images/artworks/cantinflas-platos-source.png
