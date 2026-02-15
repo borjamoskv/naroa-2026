@@ -41,8 +41,8 @@
   justify-content: center;
   font-size: 1.2rem;
   cursor: pointer;
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   transition: all 0.2s ease;
 }
 

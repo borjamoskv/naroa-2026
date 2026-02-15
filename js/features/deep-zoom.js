@@ -2,9 +2,9 @@
  * Deep Zoom Viewer - Powered by OpenSeadragon
  * Enables infinite zoom for high-resolution artworks
  * @module features/deep-zoom
+ * 
+ * Requires: OpenSeadragon loaded via CDN in index.html
  */
-
-import OpenSeadragon from 'openseadragon';
 
 (function() {
   'use strict';
@@ -42,6 +42,13 @@ import OpenSeadragon from 'openseadragon';
 
     // Event Listeners
     document.getElementById('dz-close').addEventListener('click', closeZoom);
+    
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !container.hidden) {
+        closeZoom();
+      }
+    });
   }
 
   /**
@@ -49,6 +56,12 @@ import OpenSeadragon from 'openseadragon';
    * @param {string} imagePath - Path to high-res image
    */
   function openZoom(imagePath) {
+    // Check OpenSeadragon is available
+    if (typeof OpenSeadragon === 'undefined') {
+      console.warn('[DeepZoom] OpenSeadragon not loaded. Falling back to lightbox.');
+      return false;
+    }
+
     initDOM();
     const container = document.getElementById(ZOOM_CONTAINER_ID);
     const loading = container.querySelector('.deep-zoom-loading');
@@ -64,19 +77,19 @@ import OpenSeadragon from 'openseadragon';
     }
 
     // Initialize OpenSeadragon
-    // Note: For single images without tiles, we use 'image' type
+    // For single images without tiles, we use 'image' type
     viewer = OpenSeadragon({
       id: ZOOM_VIEWER_ID,
-      prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/", // Fallback icons
+      prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
       tileSources: {
         type: 'image',
         url: imagePath,
-        buildPyramid: false // Since we're using single high-res files, not DZI
+        buildPyramid: false // Single high-res files, not DZI
       },
       animationTime: 0.5,
       blendTime: 0.1,
       constrainDuringPan: true,
-      maxZoomPixelRatio: 2,
+      maxZoomPixelRatio: 4,
       minZoomImageRatio: 0.8,
       visibilityRatio: 1,
       zoomPerScroll: 1.2,
@@ -84,14 +97,17 @@ import OpenSeadragon from 'openseadragon';
       zoomInButton: 'dz-in',
       zoomOutButton: 'dz-out',
       homeButton: 'dz-home',
-      fullPageButton: 'dz-full'
+      fullPageButton: 'dz-full',
+      gestureSettingsTouch: {
+        pinchRotate: false
+      }
     });
 
     // Hide loading when ready
     viewer.addHandler('open', () => {
       loading.style.display = 'none';
       
-      // Add slight initial zoom animation
+      // Subtle initial zoom animation
       setTimeout(() => {
         viewer.viewport.zoomTo(1.2);
         viewer.viewport.applyConstraints();
@@ -100,7 +116,10 @@ import OpenSeadragon from 'openseadragon';
 
     viewer.addHandler('open-failed', () => {
       loading.textContent = "Error al cargar imagen de alta resolución";
+      setTimeout(() => closeZoom(), 2000);
     });
+
+    return true;
   }
 
   /**

@@ -240,13 +240,24 @@
 
     // Setup lazy loading
     const img = item.querySelector('img');
-    lazyObserver.observe(img);
+    if (img) lazyObserver.observe(img);
 
     // Scroll reveal
     revealObserver.observe(item);
 
-    // Click handler for lightbox
-    item.addEventListener('click', () => {
+    // Click handler for lightbox OR Deep Zoom if available
+    item.addEventListener('click', (e) => {
+      // High-Res detection: files starting with 'hq-'
+      const isHighRes = artwork.file.startsWith('hq-') || artwork.file.includes('high-res');
+      
+      if (isHighRes && window.DeepZoom) {
+         const highResPath = artwork.file.startsWith('/') ? artwork.file : '/images/artworks/' + artwork.file;
+         // DeepZoom.open returns false if OpenSeadragon isn't loaded — fall back to lightbox
+         const opened = window.DeepZoom.open(highResPath);
+         if (opened) return;
+      }
+      
+      // Default: open lightbox
       if (window.Lightbox) {
         window.Lightbox.open(artwork, ARTWORKS);
       }
