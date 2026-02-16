@@ -50,15 +50,19 @@ export class LiquidDistortion {
         });
         
         this.gl = this.renderer.gl;
-        this.renderer.canvas.classList.add('liquid-canvas');
-        Object.assign(this.renderer.canvas.style, {
-            position: 'absolute',
-            inset: '0',
-            width: '100%',
-            height: '100%',
-            zIndex: '1',
-            pointerEvents: 'none'
-        });
+        this.gl = this.renderer.gl;
+        
+        if (this.renderer.canvas) {
+            this.renderer.canvas.classList.add('liquid-canvas');
+            Object.assign(this.renderer.canvas.style, {
+                position: 'absolute',
+                inset: '0',
+                width: '100%',
+                height: '100%',
+                zIndex: '1',
+                pointerEvents: 'none'
+            });
+        }
         
         this.container.appendChild(this.renderer.canvas);
     }

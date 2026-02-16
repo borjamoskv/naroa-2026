@@ -2,7 +2,7 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const input = 'Punteros/Puntero_mica.heic';
+const input = 'public/Punteros/Puntero_mica.heic';
 const output = 'images/ui/cursor-mica.png';
 
 async function convert() {
