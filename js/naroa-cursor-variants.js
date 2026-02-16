@@ -22,8 +22,16 @@ class NaroaCursorSystem {
       mica_dust: this.cursorMicaDust.bind(this),
       mood_reactive: this.cursorMoodReactive.bind(this),
       gallery_spotlight: this.cursorGallerySpotlight.bind(this),
-      parallax_depth: this.cursorParallaxDepth.bind(this)
+      parallax_depth: this.cursorParallaxDepth.bind(this),
+      industrial_noir: this.cursorIndustrialNoir.bind(this)
     };
+    
+    this.mouseX = 0;
+    this.mouseY = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.lastMouseX = 0;
+    this.lastMouseY = 0;
     
     this.init();
   }
@@ -77,6 +85,12 @@ class NaroaCursorSystem {
   onMouseMove(e) {
     this.mouseX = e.clientX;
     this.mouseY = e.clientY;
+    
+    // Calculate velocity for ghost prediction
+    this.vx = this.mouseX - this.lastMouseX;
+    this.vy = this.mouseY - this.lastMouseY;
+    this.lastMouseX = this.mouseX;
+    this.lastMouseY = this.mouseY;
     
     // Ejecutar la variante activa
     if (this.variants[this.activeVariant]) {
@@ -264,12 +278,48 @@ class NaroaCursorSystem {
     });
   }
 
+  // VARIANTE 7: Industrial Noir (Neon & Glow)
+  cursorIndustrialNoir(e) {
+    for (let i = 0; i < 3; i++) {
+      const p = this.getParticle();
+      if (p) {
+        p.active = true;
+        p.x = e.clientX;
+        p.y = e.clientY;
+        p.color = '#00d4ff';
+        p.alpha = 1;
+        p.size = 4 + Math.random() * 6;
+        p.life = 1;
+        p.vx = (Math.random() - 0.5) * 4;
+        p.vy = (Math.random() - 0.5) * 4;
+        p.gravity = 0;
+        p.bounce = 0;
+        p.type = 'neon';
+      }
+    }
+  }
+
   // Loop de animación
   animate() {
     requestAnimationFrame(() => this.animate());
     
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
+    // Renderizar Ghost Cursor (Predictive)
+    if (Math.abs(this.vx) > 1 || Math.abs(this.vy) > 1) {
+      const ghostAlpha = Math.min(0.2, (Math.abs(this.vx) + Math.abs(this.vy)) / 100);
+      const lookAhead = 1.5;
+      const gx = this.mouseX + this.vx * lookAhead;
+      const gy = this.mouseY + this.vy * lookAhead;
+      
+      this.ctx.beginPath();
+      this.ctx.arc(gx, gy, 12, 0, Math.PI * 2);
+      this.ctx.strokeStyle = `rgba(0, 212, 255, ${ghostAlpha})`;
+      this.ctx.setLineDash([5, 5]);
+      this.ctx.stroke();
+      this.ctx.setLineDash([]);
+    }
+
     // Actualizar y renderizar partículas usando el pool
     // No usamos filter() ni map() para evitar allocations
     
@@ -308,6 +358,14 @@ class NaroaCursorSystem {
         gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
         this.ctx.fillStyle = gradient;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      } else if (p.type === 'neon') {
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        this.ctx.shadowBlur = 15;
+        this.ctx.shadowColor = '#00d4ff';
+        this.ctx.fillStyle = `rgba(0, 212, 255, ${p.alpha})`;
+        this.ctx.fill();
+        this.ctx.shadowBlur = 0; // Reset for performance
       } else {
         this.ctx.beginPath();
         this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
