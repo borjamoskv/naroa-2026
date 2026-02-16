@@ -1,182 +1,137 @@
-# Naroa Gutiérrez Gil - Portafolio Digital 2026
+# NAROA GUTIÉRREZ GIL — NotebookLM Master Source v7.1.0
 
-> Documentación técnica y artística para NotebookLM
-
-## 🎨 Identidad Artística
-
-**Naroa Gutiérrez Gil** es una artista visual afincada en Bilbao, especializada en:
-- Retratos hiperrealistas con estilo pop art
-- Murales de gran formato
-- Ilustración editorial
-- Obra gráfica personalizada
-
-### Filosofía: "Renacimiento Táctil"
-
-La web busca transmitir la **materialidad del arte físico** en formato digital:
-- Texturas de papel escaneado a 8K
-- Efecto MICA que simula reflejos minerales
-- Paleta dual: Luz (Cloud Dancer) / Tiniebla (Carbón Profundo)
+> Última actualización: Feb 16, 2026 | Fuente: IA Alliance Protocol + Codebase Audit (Deep Dive)
 
 ---
 
-## 🏛️ Arquitectura Técnica
+## 1. PROJECT SOUL & VISUAL LANGUAGE
 
-### Stack
-- **Frontend:** Vanilla JS SPA (sin frameworks)
-- **Hosting:** Vercel (auto-deploy desde GitHub)
-- **Fuentes:** Fontshare (Satoshi body + Switzer display)
-- **Imágenes:** WebP optimizado, lazy loading
+### 1.1 Identidad: La "Artivista"
 
-### Estructura de Archivos
+**Naroa Gutiérrez Gil** (Bilbao, 1978) — Artivista (Artista + Activista), Artesana Emocional.
+**Wikidata ID:** `Q137970281`
+**Asociación:** Harilka Elkartea, Bilbao.
 
-```
-naroa-2026/
-├── index.html          # SPA entry point
-├── css/
-│   ├── variables.css   # Design tokens
-│   ├── typography-2026.css
-│   ├── soty-effects.css
-│   └── wow-effects.css
-├── js/
-│   ├── core/
-│   │   ├── router.js   # Hash-based SPA routing
-│   │   └── app.js      # Main initialization
-│   ├── features/
-│   │   ├── gallery.js  # Masonry grid + filters
-│   │   └── lightbox.js
-│   └── effects/
-│       ├── kinetic-text.js
-│       ├── magnetic-button.js
-│       └── cursor-trail.js
-├── images/artworks/    # 64 obras en .webp
-└── data/
-    └── artworks.json   # Catálogo completo
-```
+**Pilares Creativos:**
+
+- **Cyber-Kintsugi**: Las grietas se doran con neón y luz láser. "El problema como trampolín".
+- **Manipulación del Caos**: Inspirada en Cantinflas; el error es método. "SOTY Effects" (scroll-driven chaos).
+- **MICA Mineral**: Uso de mica natural en los ojos de los retratos para "perseguir" al espectador con la mirada.
+- **El ReCreo**: La reinvención constante a través del juego.
+
+### 1.2 Estética: MICA NOIR (Definitiva)
+
+| Token | Valor | Uso |
+| :--- | :--- | :--- |
+| **Negro Absoluto** | `#000000` | 95% del canvas. Void. |
+| **Verde Láser** | `#00ff41` | Acento técnico, Matrix-feel. |
+| **Rojo Sangre** | `#cc0000` | CTAs, pasión, alertas. |
+| **Oro Mineral** | `#d4af37` | Kintsugi, lujo, divinidad. |
 
 ---
 
-## 🖼️ Catálogo de Obras (64 piezas)
+## 2. FEATURE CATALOG (TECHNICAL STATUS)
 
-### Series Principales
+Análisis profundo del código fuente (`js/features/` & `js/core/`).
 
-| Serie | Obras | Descripción |
-|-------|-------|-------------|
-| **Rocks** | 15 | Iconos rock en estilo pop art (Amy, Johnny, Marilyn, James Dean) |
-| **En.lata.das** | 8 | Retratos en latas de conserva |
-| **Golden/Lágrimas** | 4 | Oro y pan de oro, técnica mixta |
-| **Tributos Musicales** | 6 | Freddie Mercury, Celia Cruz, La Llorona |
-| **Retratos Clásicos** | 10+ | Audrey Hepburn, James Dean, Marilyn |
+### 2.1 MICA Intelligence (The Brain)
 
-### Obras Destacadas (Curated 15)
+> **Status:** Advanced Mock (v1.0) — Architecture Target: Gemini 2.5 Streaming
 
-1. `lagrimas-de-oro.webp` - Lágrimas de Oro
-2. `baroque-farrokh.webp` - Farrokh Bulsara (Freddie)
-3. `amy-rocks.webp` - Amy Winehouse Rocks
-4. `johnny-rocks-hq-1.webp` - Johnny Depp Rocks
-5. `celia-cruz-asucar.webp` - Celia Cruz Azúcar
-6. `marilyn-monroe.webp` - Marilyn Monroe
-7. `audrey-hepburn.webp` - Audrey Hepburn
-8. `james-dean.webp` - James Dean
-9. `amor-en-conserva.webp` - Amor en Conserva
-10. `el-gran-dakari.webp` - El Gran Dakari
-11. `into-the-wild.webp` - Into the Wild
-12. `la-llorona.webp` - La Llorona
-13. `blonde-embroidery.webp` - Blonde Embroidery
-14. `espejos-del-alma.webp` - Espejos del Alma
-15. `me-parto-de-risa.webp` - Me Parto de Risa
+- **File:** `js/core/mica-brain.js`
+- **Capacidades Implementadas:**
+  - **Intent Detection:** Router simple para `sales`, `art_expert`, `chat`.
+  - **Emotional State:** Variables `mood` (neutral/excited) y `energy` (0-100) que evolucionan con la interacción.
+  - **Delegation:** Funciones placeholder para agentes especializados (`delegateToSalesAgent`).
+- **Admin Panel:** `js/features/mica-dashboard.js` permite visualizar métricas (User/Bot messages, Satisfaction) y ajustar la personalidad (Tono, Verbosidad).
 
----
+### 2.2 Immersive Navigation
 
-## 🎭 Secciones de la Web
+- **Infinite Canvas 360°:** `js/features/infinite-canvas-360.js`
+  - **Status:** Fully Implemented.
+  - **Tech:** Parallax de 3 capas (Back/Mid/Front) + Loop matemático infinito + Efecto Niebla (Fog).
+  - **Input:** Mouse Drag, Touch, Wheel Zoom.
+- **Exhibitions Timeline v2.0:** `js/features/exposiciones-timeline.js`
+  - **Status:** WOW Edition.
+  - **Tech:** 3D Tilt Cards, Kinney Typography, Partículas en Canvas, Navegación Magnética por años.
 
-### 1. Home (/)
-- Hero con nombre en tipografía kinética
-- CTA "Ver Obra" con efecto magnético
-- Fondo con partículas doradas
+### 2.3 Interactive Modules
 
-### 2. Obra Destacada (/destacada)
-- Galería curada de 15 piezas
-- Grid responsive
-- Hover con shimmer dorado
-
-### 3. Archivo (/archivo)
-- Catálogo completo (64+ obras)
-- Filtros por serie/técnica
-- Masonry layout adaptativo
-
-### 4. Sobre mí (/about)
-- Bio artística
-- Trayectoria y exposiciones
-- Press kit descargable
-
-### 5. Contacto (/contacto)
-- Email: naroa@naroa.eu
-- Formulario de encargos
-- Links a redes sociales
+- **Game Gateway (v3.0):** `js/features/game-gateway.js`
+  - **Status:** Logic Implemented.
+  - **Config:** 27 Juegos definidos (Snake, Tetris, MICA Viva, Kintsugi...).
+  - **Triggers:** Scroll threshold (60%) o Tiempo (45s).
+  - **Recommendation:** Sugiere juegos basados en obras vistas (`localStorage`).
+- **Blog Engine (v2.0):** `js/features/blog-engine.js`
+  - **Status:** Local CMS Mock.
+  - **Content:** 3 Posts ("Los Rocks & Mica", "Filosofía Kintsugi", "Invertir en Arte").
+  - **Tech:** Markdown rendering simple + Búsqueda por tags.
 
 ---
 
-## ✨ Efectos Visuales (SOTY 2026)
+## 3. DATA SCHEMA & ASSETS
 
-### CSS Effects
-- **Gold Shimmer:** Reflejo dorado en hover
-- **Glassmorphism:** Backdrop blur premium
-- **Film Grain:** Textura analógica sutil
-- **Liquid Glass:** Morphing blobs de fondo
+### 3.1 Series Artísticas (Taxonomy v4.0)
 
-### JS Interactions
-- **Kinetic Typography:** Letras que reaccionan al cursor
-- **Magnetic Buttons:** CTAs que atraen el cursor
-- **Cursor Trail:** Estela de partículas doradas
-- **Reveal on Scroll:** Aparición escalonada
+| Serie | Emoji | Concepto |
+| :--- | :--- | :--- |
+| **Rocks** | 🤟 | Iconos del rock con ojos de mica. |
+| **DiviNos** | ✨ | Figuras divinas humanizadas. |
+| **Tributos Musicales** | 🎤 | Homenajes sonoros visuales. |
+| **Espejos del Alma** | 🪞 | Retratos psicológicos profundos. |
+| **En.lata.das** | 🥫 | Arte en latas de conserva (emociones enlatadas). |
 
----
+### 3.2 High-Res / Deep Zoom
 
-## 🔧 Configuración de Desarrollo
+**Protocolo de Activación:**
+OpenSeadragon se activa si el archivo cumple:
 
-### Servidor local
-```bash
-cd naroa-2026
-npx serve .
-# o
-python3 -m http.server 8000
-```
+1. **Prefijo:** `hq-*` (ej: `hq-amy.webp`)
+2. **Sufijo/Infix:** `*-hq-*` (ej: `johnny-rocks-hq-4.webp`)
 
-### Deploy manual
-```bash
-npx vercel --prod
-```
+### 3.3 Obras Destacadas (Inventory Check)
 
-### Variables CSS clave
-```css
-:root {
-  --color-gold: #d4af37;
-  --color-cream: #f5f5dc;
-  --color-charcoal: #1a1a1a;
-  --font-display: 'Switzer', system-ui;
-  --font-body: 'Satoshi', system-ui;
-}
-```
+| ID | Archivo | Estado |
+| :--- | :--- | :--- |
+| `amy-rocks` | `amy-rocks.webp` | ✅ OK |
+| `cantinflas-0` | `cantinflas-0.webp` | ✅ OK |
+| `johnny-rocks` | `johnny-rocks-hq-4.webp` | ✅ High-Res |
+| `multidimensional-love` | `multidimensional-love.webp` | ✅ OK |
+| `the-world-is-yours` | — | ❌ MISSING |
+| `frida-divina` | — | ❌ MISSING |
 
----
+### 3.4 Exposiciones (Datos Maestros)
 
-## 📊 Performance Targets
+**Total Verificado:** 28 registros (2011–2025).
 
-| Métrica | Objetivo | Actual |
-|---------|----------|--------|
-| LCP | < 2.5s | ✓ |
-| FID | < 100ms | ✓ |
-| CLS | < 0.1 | ✓ |
-| Lighthouse | > 90 | En verificación |
+**Highlights:**
+
+- 2025: *Verhoeven x12* (Online)
+- 2025: *DiviNos VaiVenes* (Sopela)
+- 2024: *Siarte y El Bosque de Oma* (Bilbao)
 
 ---
 
-## 🔗 URLs y Recursos
+## 4. SOCIAL & CONNECTIVITY
 
-- **Producción:** https://naroa.online
-- **GitHub:** https://github.com/D0mainsale/naroa-2026
-- **Vercel Dashboard:** [Acceso interno]
+Datos de contacto oficiales extraídos del código base:
+
+- **Email:** [`naroa@naroa.eu`](mailto:naroa@naroa.eu)
+- **Instagram:** [`@naroagutierrezgil`](https://instagram.com/naroagutierrezgil)
+- **Facebook:** [Naroa Gutiérrez](https://facebook.com/naroagutierrez) (Albums: Buena Fuente, Marian de Miranda...)
+- **Ubicación:** Bilbao, País Vasco.
 
 ---
 
-*Documento generado para NotebookLM | Feb 2026*
+## 5. ARCHITECTURAL STACK
+
+| Capa | Tecnología | Notas |
+| :--- | :--- | :--- |
+| **Core** | HTML5/JS ES6+ | Sin frameworks, rendimiento puro. |
+| **Effects** | Custom WebGL | Shaders propios (`js/webgl/`). |
+| **Router** | Hash-Router | SPA ligera (`router.js`). |
+| **Data** | JSON + LocalStorage | Persistencia local sin backend complejo. |
+| **IA** | MICA v6.0 | Simulation Layer sobre lógica determinista. |
+
+---
+*Generado automáticamente por Antigravity Agent para NotebookLM Grounding.*

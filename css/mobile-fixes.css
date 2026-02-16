@@ -1,8 +1,29 @@
-/* Mobile Fixes & Z-Index Management */
+/* ═══════════════════════════════════════════════════════════
+   MOBILE FIXES v2.0 — Naroa 2026
+   Comprehensive mobile responsive fixes
+   ═══════════════════════════════════════════════════════════ */
 
-/* 1. MICA vs Audio Dock */
+/* ── 1. Z-INDEX LAYERING (Global) ── */
+.noise-overlay { z-index: 10; pointer-events: none; }
+.audio-dock { z-index: 900; }
+.bandcamp-radio-container { z-index: 950; }
+.mica-toggle { z-index: 1000; }
+.mica-panel { z-index: 1001; }
+.modal-overlay { z-index: 2000; }
+/* Deep Zoom must be above lightbox */
+.deep-zoom-overlay { z-index: 60000; }
+
+/* ── 2. PERFORMANCE TWEAKS ── */
+.view.game-view {
+  will-change: opacity;
+  backface-visibility: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TABLET BREAKPOINT (≤ 768px)
+   ═══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* Audio dock más pequeño y arriba a la izquierda para no molestar */
+  /* Audio dock compact */
   .audio-dock {
     bottom: auto;
     top: 10px;
@@ -11,7 +32,7 @@
     transform-origin: top left;
   }
   
-  /* Bandcamp player ajustado a pantalla */
+  /* Bandcamp player adjusted */
   .bandcamp-radio-container {
     width: 90vw !important;
     height: 60vh !important;
@@ -20,7 +41,7 @@
     left: 5vw !important;
   }
   
-  /* MICA toggle más accesible */
+  /* MICA toggle accessible size */
   .mica-toggle {
     bottom: 20px;
     right: 20px;
@@ -35,18 +56,229 @@
     right: 0;
     border-radius: 0;
   }
+  
+  /* Gallery grid fallback: ensure single column */
+  .gallery {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+    gap: 0.75rem;
+  }
+  
+  /* Lightbox mobile adjustments */
+  .lightbox__content {
+    max-width: 96vw;
+    max-height: 85vh;
+  }
+  
+  .lightbox__close {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .lightbox__prev,
+  .lightbox__next {
+    display: none; /* Swipe instead on mobile */
+  }
 }
 
-/* 2. Z-Index Layering */
-.noise-overlay { z-index: 10; pointer-events: none; }
-.audio-dock { z-index: 900; }
-.bandcamp-radio-container { z-index: 950; }
-.mica-toggle { z-index: 1000; }
-.mica-panel { z-index: 1001; }
-.modal-overlay { z-index: 2000; } /* Lightbox siempre encima */
+/* ═══════════════════════════════════════════════════════════
+   MOBILE BREAKPOINT (≤ 480px) — iPhone / Small Android
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  /* ── Gallery Grid: Always single column ── */
+  .gallery {
+    grid-template-columns: 1fr;
+    padding: 0 0.75rem 1.5rem;
+    gap: 0.5rem;
+  }
 
-/* 3. Performance tweaks */
-.view.game-view {
-  will-change: opacity;
-  backface-visibility: hidden;
+  /* Force masonry to single column with tighter padding */
+  .gallery--masonry {
+    columns: 1 !important;
+    padding: 0 0.75rem 1.5rem;
+    column-gap: 0;
+  }
+  
+  /* Stitch cards — compact on mobile */
+  .stitch-card {
+    border-radius: 12px;
+  }
+  
+  .stitch-media-wrapper {
+    min-height: 140px;
+  }
+  
+  .stitch-content {
+    padding: 0.75rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .stitch-title {
+    font-size: 0.85rem;
+  }
+  
+  .stitch-subtitle {
+    font-size: 0.7rem;
+  }
+
+  /* Filter buttons: smaller, more compact */
+  .gallery-filter {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    border-radius: 20px;
+  }
+  
+  .gallery-filter__emoji {
+    font-size: 0.85rem;
+  }
+  
+  .gallery-filter__count {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+  
+  /* Gallery filters scrollable — tighter mask */
+  .gallery-filters--scrollable {
+    padding: 6px 0;
+    gap: 6px;
+  }
+  
+  /* Section padding tighter */
+  .view--archivo .view__header {
+    padding: 1.5rem 1rem 0;
+  }
+  
+  /* Hero section adjustments */
+  .gallery-hero {
+    min-height: 60vh;
+  }
+  
+  .gallery-hero__artwork {
+    width: 96vw;
+  }
+  
+  .gallery-hero__title {
+    font-size: 1.3rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SMALL MOBILE (≤ 375px) — iPhone SE / older phones
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 375px) {
+  .gallery {
+    padding: 0 0.5rem 1rem;
+  }
+  
+  .gallery--masonry {
+    padding: 0 0.5rem 1rem;
+  }
+  
+  .stitch-card {
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .stitch-content {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .stitch-badge--featured {
+    top: 8px;
+    right: 8px;
+    font-size: 0.6rem;
+    padding: 3px 8px;
+  }
+  
+  /* Gallery filters wrap or scroll */
+  .gallery-filter {
+    padding: 5px 8px;
+    font-size: 0.68rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOUCH TARGET GUARANTEES (Touch devices)
+   ═══════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  /* Ensure minimum 44px tap targets (WCAG) */
+  .gallery-filter {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lightbox__close,
+  .lightbox__prev,
+  .lightbox__next {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .mica-toggle {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  /* Stitch cards — show content overlay by default on touch */
+  .stitch-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Disable hover transforms on touch (prevents sticky hover) */
+  .stitch-card:hover {
+    transform: none;
+  }
+  
+  .gallery__item:hover {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEEP ZOOM — MOBILE OVERLAY FIXES
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .deep-zoom-overlay {
+    z-index: 60000;
+  }
+
+  .dz-toolbar {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+    gap: 8px;
+  }
+  
+  .dz-toolbar button {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+  
+  .dz-close {
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SAFE AREA INSETS (Notch phones)
+   ═══════════════════════════════════════════════════════════ */
+@supports (padding: env(safe-area-inset-top)) {
+  .nav,
+  .header {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .footer,
+  .dz-toolbar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }

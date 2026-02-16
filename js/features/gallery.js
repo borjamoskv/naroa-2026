@@ -214,6 +214,7 @@
             <span>${artwork.technique || 'Obra original'}</span>
             ${artwork.year ? `<span class="stitch-badge">${artwork.year}</span>` : ''}
           </div>
+          <a href="#contacto" class="stitch-card__cta" onclick="event.stopPropagation();">✦ Consultar</a>
         </div>
       `;
     } else {
@@ -234,6 +235,7 @@
             <span>${artwork.technique || 'Obra original'}</span>
             ${artwork.year ? `<span class="stitch-badge">${artwork.year}</span>` : ''}
           </div>
+          <a href="#contacto" class="stitch-card__cta" onclick="event.stopPropagation();">✦ Consultar</a>
         </div>
       `;
     }
@@ -248,12 +250,12 @@
     // Click handler for lightbox OR Deep Zoom if available
     item.addEventListener('click', (e) => {
       // High-Res detection: files starting with 'hq-'
-      const isHighRes = artwork.file.startsWith('hq-') || artwork.file.includes('high-res');
+      const isHighRes = artwork.file.startsWith('hq-') || artwork.file.includes('-hq-') || artwork.file.includes('high-res');
       
       if (isHighRes && window.DeepZoom) {
          const highResPath = artwork.file.startsWith('/') ? artwork.file : '/images/artworks/' + artwork.file;
-         // DeepZoom.open returns false if OpenSeadragon isn't loaded — fall back to lightbox
-         const opened = window.DeepZoom.open(highResPath);
+         // DeepZoom.open accepts artwork metadata for the insights panel
+         const opened = window.DeepZoom.open(highResPath, artwork);
          if (opened) return;
       }
       

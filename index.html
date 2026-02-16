@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Naroa Gutiérrez Gil — Artista visual. Hiperrealismo POP. Retratos, murales y obra gráfica desde Bilbao.">
-  <meta name="theme-color" content="#050505">
+
 
   <!-- Open Graph -->
   <meta property="og:title" content="Naroa Gutiérrez Gil | Artista Visual">
@@ -28,7 +28,7 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
 
   <!-- LCP Preload: Hero artwork -->
-  <link rel="preload" as="image" href="images/artworks/marilyn-rocks-hq-5.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="images/artworks/marilyn-rocks-hq-5.webp">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -58,6 +58,7 @@
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/lightbox-premium.css">
   <link rel="stylesheet" href="css/deep-zoom.css">
+  <link rel="stylesheet" href="css/mobile-fixes.css">
   <link rel="stylesheet" href="css/scroll-to-top.css">
 
   <!-- Effects CSS -->
@@ -201,7 +202,6 @@
             src="images/artworks/marilyn-rocks-hq-5.webp" 
             alt="Marilyn Rocks — Naroa Gutiérrez Gil · Acrílico sobre pizarra" 
             class="hero-immersive__image"
-            fetchpriority="high"
           >
         </div>
 
@@ -620,6 +620,7 @@
   <script src="js/features/gallery.js"></script>
   <script src="js/features/lightbox.js"></script>
   <script src="js/core/app.js"></script>
+  <!-- MICA orchestrator loaded below after games -->
   <script type="module">
     import obs from './js/services/observability-service.js';
     obs.init();
@@ -652,8 +653,12 @@
   <script src="js/features/breakout-game.js" defer></script>
   <script src="js/features/collage-game.js" defer></script>
   <script src="js/features/reinas-game.js" defer></script>
+  <!-- script src="js/features/mica-game.js" defer></script -->
   <script src="js/features/mica-game.js" defer></script>
   <script src="js/features/kintsugi-game.js" defer></script>
+
+  <!-- MICA BRAIN (AI Orchestrator) v7.0 — Portrait Sales Edition -->
+  <script src="js/core/mica-orchestrator.js?v=7" defer></script>
 
   <!-- Spotify Rotator -->
   <script src="js/spotify-rotator.js" defer></script>
