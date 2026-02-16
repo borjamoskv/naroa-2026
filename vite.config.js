@@ -18,10 +18,23 @@
  */
 
 import { defineConfig } from 'vite';
+import { cpSync } from 'fs';
+
+// Plugin to copy legacy script/css directories to dist/
+function copyLegacyAssets() {
+  return {
+    name: 'copy-legacy-assets',
+    closeBundle() {
+      try { cpSync('js', 'dist/js', { recursive: true }); } catch {}
+      try { cpSync('css', 'dist/css', { recursive: true }); } catch {}
+    }
+  };
+}
 
 export default defineConfig({
   root: '.',
   base: '/',
+  plugins: [copyLegacyAssets()],
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
