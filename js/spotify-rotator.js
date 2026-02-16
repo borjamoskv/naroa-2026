@@ -49,7 +49,11 @@ class SpotifyRotator {
   }
 }
 
+// Export for module integration
+export { SpotifyRotator };
+/*
 // Auto-inicializar cuando DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
   window.spotifyRotator = new SpotifyRotator();
 });
+*/

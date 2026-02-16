@@ -20,9 +20,10 @@
 /* ── PARALLAX IMAGE LAYER ── */
 .hero-immersive__image-wrapper {
   position: absolute;
-  inset: -8%;
+  inset: -15%; /* Increased inset for parallax movement padding */
   z-index: 1;
   overflow: hidden;
+  will-change: transform;
 }
 
 .hero-immersive__image {
@@ -37,9 +38,9 @@
 }
 
 @keyframes heroImgReveal {
-  0%   { opacity: 0; transform: scale(1.25); filter: brightness(0) contrast(1.1) saturate(1.15); }
-  40%  { opacity: 0.5; filter: brightness(0.4) contrast(1.1) saturate(1.15); }
-  100% { opacity: 1; transform: scale(1.05); filter: brightness(0.65) contrast(1.1) saturate(1.15); }
+  0%   { opacity: 0; transform: scale(1.35); filter: brightness(0) blur(20px); }
+  40%  { opacity: 0.5; filter: brightness(0.4) blur(10px); }
+  100% { opacity: 1; transform: scale(1.1); filter: brightness(0.65) blur(0); }
 }
 
 /* ── CINEMATIC OVERLAYS ── */
@@ -58,27 +59,18 @@
 }
 
 /* Cinematic letterbox bars */
-.hero-immersive__overlay::before,
-.hero-immersive__overlay::after {
-  content: '';
+.hero-immersive__overlay--top,
+.hero-immersive__overlay--bottom {
   position: absolute;
   left: 0;
   width: 100%;
-  background: #030303;
-  z-index: 3;
+  background: #000;
+  z-index: 10;
+  animation: letterboxOpen 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.1s forwards;
 }
 
-.hero-immersive__overlay::before {
-  top: 0;
-  height: 0;
-  animation: letterboxOpen 2s cubic-bezier(0.19, 1, 0.22, 1) 0.1s forwards;
-}
-
-.hero-immersive__overlay::after {
-  bottom: 0;
-  height: 0;
-  animation: letterboxOpen 2s cubic-bezier(0.19, 1, 0.22, 1) 0.1s forwards;
-}
+.hero-immersive__overlay--top { top: 0; }
+.hero-immersive__overlay--bottom { bottom: 0; }
 
 @keyframes letterboxOpen {
   0%   { height: 50vh; }
@@ -148,9 +140,9 @@
   padding: 0.4rem 1.5rem;
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 2rem;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(212, 175, 55, 0.12);
+  backdrop-filter: blur(12px);
+  background: rgba(212, 175, 55, 0.06);
   opacity: 0;
   transform: translateZ(40px) translateY(20px); /* 3D pop */
   animation: fadeSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
@@ -188,8 +180,36 @@
     heroTitleAwwwardsReveal 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
     titleGradientFlow 12s ease-in-out 3s infinite;
   
-  filter: drop-shadow(0 8px 40px rgba(196, 113, 59, 0.25));
+  filter: drop-shadow(0 10px 50px rgba(0, 0, 0, 0.6));
+  position: relative;
 }
+
+/* ── LIGHT SWEEP — Shimmer effect on title ── */
+.hero-immersive__title::after {
+  content: "Naroa\AGutiérrez Gil";
+  position: absolute;
+  inset: 0;
+  white-space: pre-wrap;
+  background: linear-gradient(
+    -45deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 55%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lightSweep 6s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes lightSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 
 @keyframes heroTitleAwwwardsReveal {
   0% { 
@@ -269,9 +289,10 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(212, 175, 55, 0.08);
+  /* Glassmorphism */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;

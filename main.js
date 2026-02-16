@@ -34,6 +34,7 @@ import { Router } from './js/core/router.js';
 import { RankingSystem } from './js/core/ranking-system.js';
 import { MicaSystem } from './js/core/mica-orchestrator.js';
 import { initEnhancements } from './js/core/enhancements.js';
+import { transition as PageTransition } from './js/core/transitions.js';
 
 class NaroaApp {
   constructor() {
@@ -49,6 +50,7 @@ class NaroaApp {
       this.systems.router = new Router();
       this.systems.rankings = RankingSystem;
       this.systems.mica = new MicaSystem();
+      this.systems.transitions = PageTransition;
       
       // 2. Routing Setup (Migrated from app.js)
       this.setupRouting();
@@ -74,14 +76,14 @@ class NaroaApp {
   setupRouting() {
     const r = this.systems.router;
 
-    r.register('#/', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    r.register('#/galeria', () => this.loadFeature('gallery', 'loadArchive'));
-    r.register('#/archivo', () => this.loadFeature('gallery', 'loadArchive'));
-    r.register('#/contacto', () => this.loadFeature('videocall', 'init', 'contacto-container'));
+    r.register('#/', () => this.systems.transitions.play(() => window.scrollTo({ top: 0, behavior: 'instant' })));
+    r.register('#/galeria', () => this.systems.transitions.play(() => this.loadFeature('gallery', 'loadArchive')));
+    r.register('#/archivo', () => this.systems.transitions.play(() => this.loadFeature('gallery', 'loadArchive')));
+    r.register('#/contacto', () => this.systems.transitions.play(() => this.loadFeature('videocall', 'init', 'contacto-container')));
     
     // Games Overlay
-    r.register('#/juegos', () => r.showView('view-juegos'));
-    r.register('#/juego', () => { r.showView('view-juego'); this.loadFeature('oca', 'init'); });
+    r.register('#/juegos', () => this.systems.transitions.play(() => r.showView('view-juegos')));
+    r.register('#/juego', () => this.systems.transitions.play(() => { r.showView('view-juego'); this.loadFeature('oca', 'init'); }));
     
     // Auto-init router
     r.init();
@@ -114,11 +116,13 @@ class NaroaApp {
           const targetId = `view-${href.replace('#/', '') || 'home'}`;
           const target = document.getElementById(targetId);
           if (target) {
-            window.scrollTo({
-              top: target.offsetTop - 80,
-              behavior: 'smooth'
+            this.systems.transitions.play(() => {
+              window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: 'instant'
+              });
+              history.pushState(null, null, href);
             });
-            history.pushState(null, null, href);
           }
         }
       });

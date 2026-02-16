@@ -158,11 +158,9 @@ class KineticText {
   }
 }
 
-// Export for module systems and global usage
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = KineticText;
-}
-
+// Export for module systems
+export { KineticText };
+/*
 window.KineticText = KineticText;
 
 // Auto-initialize on DOMContentLoaded
@@ -173,3 +171,4 @@ document.addEventListener('DOMContentLoaded', () => {
     staggerDelay: 0.02
   }).init('.kinetic-text');
 });
+*/

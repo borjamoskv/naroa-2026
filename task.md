@@ -6,17 +6,18 @@
 
 # Tasks
 
-- [ ] **Wave 1: Foundation & Smoothness** <!-- id: 10 -->
-  - [x] Install dependencies (Lenis, GSAP) <!-- id: 11 -->
-  - [x] Create `js/core/scroll.js` (Lenis implementation) <!-- id: 12 -->
-  - [ ] Update `css/base.css` (Hide scrollbar) <!-- id: 13 -->
-  - [ ] Integrate scroll loop in `js/core/app.js` <!-- id: 14 -->
+- [x] **Wave 1: Foundation & Smoothness**
+   - [x] Install dependencies (Lenis, GSAP, OGL)
+   - [x] Create `js/core/scroll.js` (Lenis implementation)
+   - [x] Update `css/base.css` (Hide scrollbar & Lenis styles)
+   - [x] Integrate scroll loop in `js/core/app.js`
 - [x] **Wave 2: Liquid Distortion**
-  - [x] Install `ogl`
-  - [x] Create `js/effects/liquid-distortion.js`
-  - [x] Connect to Hero Section
-- [/] **Wave 3: Micro-Interactions**
-  - [/] Magnetic Notch (Spring physics)
-  - [ ] Hover states & Cursors/components/notch.js` (Magnetic effect) <!-- id: 31 -->
-- [ ] **Wave 4: Polish** <!-- id: 40 -->
-  - [ ] Implement Page Transitions <!-- id: 41 -->
+   - [x] Create `js/effects/liquid-distortion.js`
+   - [x] Connect to Hero Section in `index.html`
+- [x] **Wave 3: Micro-Interactions**
+   - [x] Magnetic Notch (Spring physics in `notch-island.js`)
+   - [x] Custom Cursor (Glow trail in `js/core/cursor.js`)
+- [/] **Wave 4: Polish & Transitions**
+   - [ ] Implement Cinematic Page Transitions (GSAP + Clip-path)
+   - [ ] Add Performance Optimizations (Lazy loading, WebGL cleanup)
+   - [ ] Final QA & Award-Ready Audit

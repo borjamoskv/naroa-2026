@@ -95,11 +95,9 @@ class MagneticButton {
   }
 }
 
-// Export for module systems and global usage
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = MagneticButton;
-}
-
+// Export for module systems
+export { MagneticButton };
+/*
 window.MagneticButton = MagneticButton;
 
 // Auto-initialize on DOMContentLoaded
@@ -108,3 +106,4 @@ document.addEventListener('DOMContentLoaded', () => {
     attraction: 0.2
   }).init('.magnetic-btn');
 });
+*/

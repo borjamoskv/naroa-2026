@@ -84,3 +84,31 @@
     transform: none;
   }
 }
+/* Cinematic Page Transitions */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--black-bg);
+  z-index: 10000;
+  pointer-events: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transform: translateY(100%);
+}
+
+.transition-active {
+  pointer-events: auto;
+}
+
+/* Luxury Card Enhancement */
+.premium-card {
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7);
+}
