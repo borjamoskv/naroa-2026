@@ -4,7 +4,12 @@
   "outputDirectory": "dist",
   "framework": "vite",
   
+  "redirects": [
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "www.naroa.online" }], "destination": "https://naroa.online/$1", "permanent": true }
+  ],
+
   "rewrites": [
+    { "source": "/retratos-hiperrealistas-bilbao", "destination": "/retratos-hiperrealistas-bilbao.html" },
     { "source": "/galeria", "destination": "/galeria.html" },
     { "source": "/((?!assets/|images/|css/|js/|.*\\..*).*)", "destination": "/index.html" }
   ],
@@ -48,7 +53,8 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" }
       ]
     }
   ],
