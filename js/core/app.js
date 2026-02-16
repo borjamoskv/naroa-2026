@@ -224,12 +224,24 @@
       ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(onScrollUpdate);
-        ticking = true;
+    // Use Lenis for scroll loop if active (ultra-smooth sync)
+    // Retry finding instance if module loaded late
+    const bindScroll = () => {
+      if (window.NaroaScroll) {
+        window.NaroaScroll.on('scroll', onScrollUpdate);
+        console.log('[App] Synced with NaroaScroll');
+      } else {
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(onScrollUpdate);
+            ticking = true;
+          }
+        }, { passive: true });
       }
-    }, { passive: true });
+    };
+    
+    // Attempt binding slightly delayed to ensure module init
+    setTimeout(bindScroll, 100);
 
     // Scroll reveal for sections (IntersectionObserver — already efficient)
     const revealObserver = new IntersectionObserver((entries) => {

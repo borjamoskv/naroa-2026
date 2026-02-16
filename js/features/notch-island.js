@@ -265,4 +265,57 @@
 
   window.MagicNotch = { expand, collapse, navigateToSection, updateLabel };
 
+  // ─── MAGNETIC PHYSICS ───
+  function initMagneticPhysics() {
+    const threshold = 150; // Distance to trigger magnetic effect
+    const magneticPower = 0.3; // Strength of attraction
+
+    window.addEventListener('mousemove', (e) => {
+      if (isExpanded || !notchEl) return; // Disable when expanded
+
+      const rect = notchEl.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const dx = e.clientX - centerX;
+      const dy = e.clientY - centerY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < threshold) {
+        // Move notch towards mouse
+        const moveX = dx * magneticPower;
+        const moveY = dy * magneticPower;
+
+        gsap.to(notchEl, {
+          x: moveX,
+          y: moveY,
+          duration: 0.5,
+          ease: 'power3.out'
+        });
+      } else {
+        // Snap back
+        gsap.to(notchEl, {
+          x: 0,
+          y: 0,
+          duration: 1.2,
+          ease: 'elastic.out(1, 0.3)'
+        });
+      }
+    });
+
+    // Reset on mouse leave window
+    document.addEventListener('mouseleave', () => {
+      if (!isExpanded && notchEl) {
+        gsap.to(notchEl, { x: 0, y: 0, duration: 1.2, ease: 'elastic.out(1, 0.3)' });
+      }
+    });
+  }
+
+  // Initialize physics after creation
+  const originalInit = init;
+  init = function() {
+    originalInit();
+    initMagneticPhysics();
+  };
+
 })();

@@ -69,7 +69,6 @@ class ObservabilityService {
 
         // También al console
         const color = level === 'ERROR' || level === 'REJECTION' ? 'red' : level === 'WARN' ? 'orange' : 'cyan';
-        console.log(`%c[${level}] ${message}`, `color: ${color}; font-weight: bold;`, context);
     }
 
     /**

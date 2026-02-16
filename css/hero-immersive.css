@@ -133,6 +133,8 @@
   max-width: 1000px;
   padding: 2rem;
   gap: 1.2rem;
+  perspective: 1200px; /* Crucial for 3D JS tilt */
+  transform-style: preserve-3d;
 }
 
 /* ── EYEBROW LABEL ── */
@@ -142,16 +144,16 @@
   font-weight: 500;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: rgba(212, 175, 55, 0.85);
+  color: var(--highlight);
   padding: 0.4rem 1.5rem;
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 2rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(212, 175, 55, 0.06);
+  background: rgba(212, 175, 55, 0.12);
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+  transform: translateZ(40px) translateY(20px); /* 3D pop */
+  animation: fadeSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
 }
 
 /* ── MAIN TITLE — Massive dramatic type ── */
@@ -168,9 +170,9 @@
     165deg,
     #ffffff 0%,
     #f5f0e8 20%,
-    var(--gold-metallic, #d4af37) 40%,
+    var(--highlight, #d4af37) 40%,
     #ffffff 55%,
-    rgba(196, 113, 59, 0.85) 75%,
+    var(--naroa-orange, #c4713b) 75%,
     #ffffff 100%
   );
   background-size: 400% 100%;
@@ -178,15 +180,30 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   
-  /* Entrance */
+  /* Entrance: Masked Reveal */
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
   opacity: 0;
-  transform: translateY(60px) scale(0.92);
+  transform: translateZ(100px) scale(0.95); /* Heavy 3D pop */
   animation: 
-    heroTitleIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards,
-    titleGradientFlow 12s ease-in-out 2.5s infinite;
+    heroTitleAwwwardsReveal 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
+    titleGradientFlow 12s ease-in-out 3s infinite;
   
-  filter: drop-shadow(0 8px 40px rgba(196, 113, 59, 0.15));
+  filter: drop-shadow(0 8px 40px rgba(196, 113, 59, 0.25));
 }
+
+@keyframes heroTitleAwwwardsReveal {
+  0% { 
+    opacity: 0; 
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    transform: translateZ(100px) scale(0.85) translateY(50px);
+  }
+  100% { 
+    opacity: 1; 
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateZ(100px) scale(1) translateY(0);
+  }
+}
+
 
 .hero-immersive__title span {
   display: block;
@@ -350,8 +367,8 @@
   z-index: 10;
   padding: 0.6rem 1rem;
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 0.5rem;
   font-family: var(--font-family-main, 'Outfit', sans-serif);

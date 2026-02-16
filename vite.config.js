@@ -13,6 +13,7 @@
  * - audio:   audio modules (defer-loaded, not critical path)
  * - effects: visual effects (defer-loaded, enhance experience)
  * - webgl:   WebGL shaders/renderers (heaviest, lazy-loaded)
+ * - motion:  GSAP + Lenis (Awards-level interactions)
  * 
  * @see https://vitejs.dev/config/
  */

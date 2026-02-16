@@ -102,14 +102,12 @@ class NaroaApiClient {
     if (!forceRefresh && config.method?.toUpperCase() === 'GET' && cacheKey) {
       const cached = this.cache.get(cacheKey);
       if (cached) {
-        console.log(`[API] Cache hit: ${cacheKey}`);
         return { data: cached, fromCache: true };
       }
     }
 
     // 2. Deduplicate concurrent requests
     if (dedupe && this.pendingRequests.has(key)) {
-      console.log(`[API] Deduplicating: ${key}`);
       return this.pendingRequests.get(key);
     }
 

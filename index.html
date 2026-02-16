@@ -174,7 +174,16 @@
   </style>
 
   <!-- Modular CSS: Core -->
+  <link rel="stylesheet" href="css/custom-cursor.css">
   <link rel="stylesheet" href="css/variables.css">
+
+<!-- ... -->
+
+  <!-- Design Award Core -->
+  <script type="module" src="js/core/scroll.js"></script>
+  <script type="module" src="js/effects/liquid-distortion.js"></script>
+  <script type="module" src="js/core/cursor.js"></script>
+  <script type="module" src="js/core/cursor.js"></script>
   <link rel="stylesheet" href="css/naroa-palette.css">
   <link rel="stylesheet" href="css/typography-2026.css">
   <link rel="stylesheet" href="css/base.css">
@@ -191,6 +200,7 @@
   <link rel="stylesheet" href="css/deep-zoom.css">
   <link rel="stylesheet" href="css/mobile-fixes.css">
   <link rel="stylesheet" href="css/scroll-to-top.css">
+  <link rel="stylesheet" href="css/nav.css">
 
   <!-- Effects CSS -->
   <link rel="stylesheet" href="css/soty-effects.css">
@@ -200,6 +210,7 @@
   <link rel="stylesheet" href="css/wow-effects-2026.css">
   <link rel="stylesheet" href="css/hero-immersive.css">
   <link rel="stylesheet" href="css/polish.css">
+  <link rel="stylesheet" href="css/divinity-awards.css">
   <link rel="stylesheet" href="css/stitch-process.css">
 
   <!-- Deferred CSS (Games - load on interaction) -->
@@ -316,19 +327,27 @@
   <!-- ═══ MICA NOTCH ══════════════════════════ -->
   <nav class="notch-container" aria-label="Navegación principal">
     <div class="notch">
-      <div class="notch__logo">N</div>
-      <div class="notch__content">
-        <a href="#view-home" class="notch__link active">Home</a>
-        <a href="#view-destacada" class="notch__link">Obra</a>
-        <a href="#view-about" class="notch__link">Sobre mí</a>
-      </div>
-      <div class="notch__status" title="En línea"></div>
+  <!-- ── NAVIGATION (Restore Premium) ── -->
+  <nav class="nav" id="main-nav">
+    <div class="nav__logo">
+      <a href="#/" class="nav__brand">N</a>
     </div>
+    
+    <ul class="nav__links">
+      <li><a href="#/" class="nav__link active">Home</a></li>
+      <li><a href="#/obra" class="nav__link">Obra</a></li>
+      <li><a href="#/sobre-mi" class="nav__link">Sobre mí</a></li>
+      <li><a href="#/contacto" class="nav__link nav__link--cta">Contacto</a></li>
+    </ul>
+
+    <button class="nav__toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 
-  <!-- Skip to content (a11y) -->
-  <a href="#main-content" class="skip-to-content">Ir al contenido</a>
-
+  <a href="#content" class="skip-to-content">Ir al contenido</a>
   <!-- ═══ SCROLL PROGRESS ════════════════════ -->
   <div class="scroll-progress-container">
     <div class="scroll-progress-bar" id="scroll-thread">
@@ -794,16 +813,20 @@
     obs.init();
   </script>
 
+  <script type="module" src="js/core/scroller.js"></script>
+  <script type="module" src="js/core/scroll.js"></script>
+  <script type="module" src="js/effects/liquid-distortion.js"></script>
   <!-- Effects (deferred for performance) -->
   <script src="js/effects/kinetic-text.js" defer></script>
   <script src="js/effects/magnetic-button.js" defer></script>
-  <script src="js/effects/reveal-observer.js" defer></script>
-  <script src="js/effects/cursor-trail.js" defer></script>
-  <script src="js/effects/palindrome-hero.js" defer></script>
-  <script src="js/effects/wave-background.js" defer></script>
-  <script src="js/effects/organic-particles.js" defer></script>
-  <script src="js/effects/eyes-follow.js" defer></script>
-  <script src="js/effects/hero-parallax.js" defer></script>
+  <script src="js/effects/reveal-observer.js" type="module" defer></script>
+  <script src="js/effects/cursor-trail.js" type="module" defer></script>
+  <script src="js/effects/cursor-spotlight.js" type="module" defer></script>
+  <script src="js/effects/palindrome-hero.js" type="module" defer></script>
+  <script src="js/effects/wave-background.js" type="module" defer></script>
+  <script src="js/effects/organic-particles.js" type="module" defer></script>
+  <script src="js/effects/eyes-follow.js" type="module" defer></script>
+  <script src="js/effects/hero-parallax.js" type="module" defer></script>
 
   <!-- Core Systems (deferred) -->
   <script src="js/core/soty-effects.js" defer></script>

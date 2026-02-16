@@ -1,0 +1,56 @@
+/* 
+   DIVINITY — Awards Level Polish 
+   Overrides for that 0.1% extra quality.
+*/
+
+:root {
+  --gold-premium: #d4af37;
+  --black-void: #030303;
+}
+
+/* 1. Ultra-Premium Selection */
+::selection {
+  background: var(--gold-premium);
+  color: #000;
+  text-shadow: none;
+}
+
+/* 2. Scrollbar (Desktop) - Gold Thread */
+::-webkit-scrollbar {
+  width: 6px;
+  background: var(--black-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-premium);
+  border-radius: 4px;
+}
+
+/* 3. Text Rendering Upgrade */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--black-void) !important; /* Deeper black */
+}
+
+/* 4. Lenis smooth scroll layout fix */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

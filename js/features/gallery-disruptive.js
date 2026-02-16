@@ -1122,7 +1122,6 @@ const GalleryDisruptive = {
     // 5. Reset State
     this.artworks = [];
     this.initialized = false;
-    console.log('[GalleryDisruptive] Destroyed and cleaned up.');
   }
 };
 

@@ -85,7 +85,6 @@ const MICA = {
   // INITIALIZATION
   // ═══════════════════════════════════════════
   init() {
-    console.log('💎 MICA v7.0 — Portrait Sales Edition');
     this.calculateMood();
     this.setupUI();
     this.setupEventListeners();

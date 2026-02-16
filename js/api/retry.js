@@ -71,7 +71,6 @@ export async function retryWithBackoff(fn, options = {}) {
         onRetry({ attempt: attempt + 1, maxRetries, delay, error });
       }
 
-      console.log(`[API] Retry ${attempt + 1}/${maxRetries} after ${Math.round(delay)}ms`);
       await sleep(delay);
     }
   }

@@ -1,66 +1,131 @@
 /* ==========================================================================
-   NAROA PALETTE — CYBER-POP EDITION
-   Legacy compat with dark+red+fluor palette
+   NAROA PALETTE — AWARDS EDITION
+   Restoring rich MICA effects and organic textures
    ========================================================================== */
 
-/* Disable the global border-radius madness */
-/* All organic geometry rules removed for minimalism */
-
-/* Legacy variable compat — map to variables.css tokens */
 :root {
-  --naroa-cream: var(--white);
-  --naroa-black: var(--black);
-  --naroa-orange: var(--red-pop);
-  --bg-primary: var(--black);
-  --bg-secondary: var(--black-soft);
-  --bg-elevated: var(--black-card);
-  --text-primary: var(--white);
-  --text-secondary: var(--white-muted);
-  --highlight: var(--gold-metallic, #d4af37);
-  --gradient-subtle: none;
-  --gradient-dark: none;
-  --gradient-warm: none;
-  --shadow-soft: var(--shadow-subtle);
-  --shadow-medium: var(--shadow-card);
-  --shadow-strong: var(--shadow-elevated);
-  --shadow-orange: 0 0 20px var(--red-glow);
+  --naroa-cream: #f5f0e8;
+  --naroa-black: #030303;
+  --naroa-orange: #c4713b;
+  --red-pop: #ff003c;
+  --bg-primary: #030303;
+  --bg-secondary: #0a0a0a;
+  --bg-elevated: #121212;
+  --text-primary: #ededed;
+  --text-secondary: rgba(237, 237, 237, 0.6);
+  --highlight: #d4af37; /* Gold Metallic */
+  --highlight-glow: rgba(212, 175, 55, 0.4);
+  
+  --gradient-subtle: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+  --gradient-gold: linear-gradient(145deg, #d4af37 0%, #a67c00 100%);
+  
+  --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
+  --shadow-medium: 0 12px 40px rgba(0,0,0,0.5);
+  --shadow-strong: 0 20px 60px rgba(0,0,0,0.7);
+  --shadow-highlight: 0 0 30px var(--highlight-glow);
 }
 
-/* Pigment effects — disabled */
-.pigment-canvas, .pigment-stain::before, .pigment-orange::after,
-.watercolor::before, .brushstroke-border, .pigment-shadow { display: none; }
+/* ── MICA CORE SYSTEMS ── */
 
-/* MICA filter effects — disabled */
-.mica-filter::before { display: none !important; }
-.mica-shimmer::after { display: none !important; }
-.mica-glow { box-shadow: none; animation: none; }
-.mica-mood-indicator { display: none; }
+/* Pigment effects — RESTORED */
+.pigment-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+}
 
-/* MICA glass — simplified */
+.pigment-stain::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--naroa-orange) 0%, transparent 70%);
+  filter: blur(80px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+/* MICA filter effects — RESTORED & ENHANCED */
+.mica-filter {
+  position: relative;
+  isolation: isolate;
+}
+
+.mica-filter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.mica-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255,255,255,0.05) 40%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.05) 60%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: micaShimmer 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes micaShimmer {
+  to { background-position: -200% 0; }
+}
+
+/* MICA glass — PREMIUM REDESIGN */
 .mica-glass {
-  background: rgba(255,255,255,0.03);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 0, 60, 0.1);
-  box-shadow: none;
+  background: rgba(255,255,255,0.02);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 8px 32px rgba(0,0,0,0.4);
 }
 
-/* MICA frosted — simplified */
-.mica-frosted {
-  background: rgba(0,0,0,0.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: none;
+.mica-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-/* MICA interactive */
+/* MICA interactive — WOW HOVER */
+.mica-interactive {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .mica-interactive:hover {
-  background: rgba(212, 175, 55, 0.04);
-  box-shadow: none;
-  transform: none;
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.1);
+  transform: translateY(-4px);
 }
 
-/* Mood states — disabled for minimal */
-[data-mica-mood] { filter: none; }
-[data-mica-mood] .mica-filter::before { display: none; }
+/* Mood states — Dynamic Atmospheric Changes */
+[data-mica-mood="energetic"] {
+  --highlight: #ff003c;
+  --highlight-glow: rgba(255, 0, 60, 0.3);
+}
+
+[data-mica-mood="calm"] {
+  --highlight: #7ec8e3;
+  --highlight-glow: rgba(126, 200, 227, 0.3);
+}
+

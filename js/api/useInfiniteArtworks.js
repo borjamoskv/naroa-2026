@@ -190,7 +190,6 @@ export class InfiniteArtworksLoader {
         });
         
         // Cache is already populated by artworksApi.list
-        console.log('[InfiniteLoader] Preloaded next page');
       } catch (e) {
         // Silent fail on preload
       }
