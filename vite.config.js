@@ -62,9 +62,9 @@ export default defineConfig({
           if (id.includes('/audio/')) {
             return 'audio';
           }
-          if (id.includes('/effects/')) {
-            return 'effects';
-          }
+          // if (id.includes('/effects/')) {
+          //   return 'effects';
+          // }
           if (id.includes('/webgl/')) {
             return 'webgl';
           }
