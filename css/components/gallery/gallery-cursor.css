@@ -1,0 +1,59 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CUSTOM CURSOR CONTEXTUAL - Gallery Specialized
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.gallery-cursor {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  opacity: 0;
+  transform: scale(0);
+  transition: 
+    opacity var(--duration-instant) var(--ease-expo-out),
+    transform var(--duration-instant) var(--ease-spring),
+    background var(--duration-instant);
+  mix-blend-mode: difference;
+}
+
+@supports (-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px)) {
+  .gallery-cursor {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    mix-blend-mode: normal;
+  }
+}
+
+.gallery-cursor.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gallery-cursor--zoom {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gallery-gold);
+}
+
+.gallery-cursor--drag {
+  background: rgba(255, 255, 255, 0.15);
+  cursor: grabbing;
+}
+
+/* Hide default cursor on gallery items */
+@media (hover: hover) and (pointer: fine) {
+  .gallery-massive__item,
+  .gallery-hero__artwork {
+    cursor: none;
+  }
+}

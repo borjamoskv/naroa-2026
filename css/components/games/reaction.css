@@ -1,0 +1,109 @@
+/* ============================================
+   REACTION GAME
+   ============================================ */
+
+.reaction-game {
+  text-align: center;
+}
+
+.reaction-zone {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.reaction-zone.reaction-ready {
+  background: linear-gradient(145deg, #2a1a1a, #1a0a0a);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.reaction-zone.reaction-go {
+  background: linear-gradient(145deg, #1a2a1a, #0a1a0a);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.reaction-zone.reaction-early {
+  background: linear-gradient(145deg, #2a1a1a, #1a0a0a);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.reaction-zone.reaction-result {
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.reaction-content h3 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.reaction-content p {
+  color: #888;
+}
+
+.reaction-artwork {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+}
+
+.reaction-time {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.reaction-time span {
+  font-size: 1.5rem;
+  color: #888;
+  margin-left: 0.25rem;
+}
+
+.reaction-rating {
+  font-size: 1.3rem;
+  color: #a855f7;
+  margin: 0.5rem 0 1rem;
+}
+
+.reaction-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.reaction-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 1rem;
+}
+
+.reaction-stat {
+  text-align: center;
+}
+
+.reaction-label {
+  display: block;
+  color: #666;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.reaction-value {
+  font-size: 1.3rem;
+  color: #fff;
+  font-weight: 600;
+}

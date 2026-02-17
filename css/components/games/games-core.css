@@ -1,0 +1,42 @@
+/* ============================================
+   GAMES CORE — Shared Layout & Base Styles
+   ============================================ */
+
+.game-view {
+  min-height: 100vh;
+  padding: 6rem 2rem;
+  background: var(--black);
+  color: var(--white);
+}
+
+.game-container {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid var(--white-subtle);
+  background: var(--black-card);
+  padding: 2rem;
+  position: relative;
+  box-shadow: 12px 12px 0 var(--black-elevated);
+}
+
+.game-btn {
+  background: var(--gold-metallic, #d4af37);
+  color: var(--black);
+  font-family: var(--font-family-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--gold-metallic, #d4af37);
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.game-btn:hover {
+  background: transparent;
+  color: var(--gold-metallic, #d4af37);
+  box-shadow: 0 0 15px var(--fluor-glow);
+}
+
+@media (max-width: 600px) {
+  .game-container { padding: 1rem; }
+}

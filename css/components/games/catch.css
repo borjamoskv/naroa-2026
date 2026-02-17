@@ -1,0 +1,16 @@
+/* ============================================
+   CATCH GAME
+   ============================================ */
+
+.catch-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+#catch-canvas {
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+}

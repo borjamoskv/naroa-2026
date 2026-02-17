@@ -1,0 +1,59 @@
+/* ============================================
+   ARCADE LEADERBOARD & MEDALS
+   ============================================ */
+
+.leaderboard-section {
+  margin-top: 4rem;
+  padding: 3rem;
+  background: var(--black-elevated);
+  border: 1px solid var(--white-subtle);
+  border-radius: 12px;
+}
+
+.leaderboard-title {
+  font-family: var(--font-family-display);
+  color: var(--gold-metallic, #d4af37);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-row {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.leaderboard-cell {
+  padding: 1rem;
+  color: #fff;
+  font-family: var(--font-family-mono);
+}
+
+.rank-badge {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.rank-1 { background: var(--gold-metallic, #d4af37); color: #000; }
+.rank-2 { background: #c0c0c0; color: #000; }
+.rank-3 { background: #cd7f32; color: #000; }
+
+/* Medal Badges */
+.game-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  z-index: 5;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}

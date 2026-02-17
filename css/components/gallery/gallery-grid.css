@@ -1,0 +1,76 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   MASSIVE GRID WITH VARIABLE SIZES & SUBGRID
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.gallery-massive {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(200px, 1fr);
+  gap: 4px;
+  background: var(--gallery-bg);
+  padding: 4px;
+}
+
+@supports (grid-template-rows: subgrid) {
+  .gallery-massive {
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .gallery-massive__item--colossal { grid-row: span 4 / subgrid; }
+  .gallery-massive__item--large { grid-row: span 3 / subgrid; }
+  .gallery-massive__item--medium,
+  .gallery-massive__item--small { grid-row: span 2 / subgrid; }
+}
+
+/* Size variants */
+.gallery-massive__item--colossal { grid-column: span 8; grid-row: span 4; }
+.gallery-massive__item--large { grid-column: span 6; grid-row: span 3; }
+.gallery-massive__item--medium { grid-column: span 4; grid-row: span 2; }
+.gallery-massive__item--small { grid-column: span 3; grid-row: span 2; }
+
+/* GALLERY ITEM - WITH CHROMATIC ABERRATION & 3D TILT */
+.gallery-massive__item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  contain: layout paint;
+}
+
+.gallery-massive__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 
+    transform var(--duration-slow) var(--ease-ultra-smooth),
+    filter var(--duration-base) var(--ease-expo-out);
+  will-change: transform, filter;
+}
+
+/* Chromatic aberration effect on hover */
+.gallery-massive__item::before,
+.gallery-massive__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: 
+    opacity var(--duration-base) var(--ease-expo-out),
+    transform var(--duration-base) var(--ease-expo-out);
+  mix-blend-mode: screen;
+  z-index: 2;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+.gallery-massive__item::before { background: inherit; filter: url('#chromatic-red'); }
+.gallery-massive__item::after { background: inherit; filter: url('#chromatic-blue'); }
+
+.gallery-massive__item:hover::before { opacity: 0.5; transform: translate(-3px, -1px); }
+.gallery-massive__item:hover::after { opacity: 0.5; transform: translate(3px, 1px); }
+.gallery-massive__item:hover .gallery-massive__img { transform: scale(1.08); }

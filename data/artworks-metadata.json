@@ -172,12 +172,12 @@
     },
     {
       "id": "amy-rocks",
-      "title": "Amy Rocks (HQ)",
+      "title": "Amy Rocks",
       "series": "rocks",
       "technique": "acrilico-pizarra",
       "year": 2023,
       "featured": true,
-      "description": "Retrato hiperrealista de Amy Winehouse. Acrílico y papel de seda sobre pizarra natural. (Versión Alta Calidad)",
+      "description": "Retrato hiperrealista de Amy Winehouse. Acrílico y papel de seda sobre pizarra natural.",
       "image": "images/artworks/hq-amy.webp",
       "altText": "Retrato hiperrealista de Amy Winehouse en acrílico sobre pizarra negra natural, con texturas de piedra visibles. Su mirada melancólica contrasta con el eyeliner marcado y labios rojos vibrantes.",
       "metaDescription": "Amy Rocks - Retrato hiperrealista de Amy Winehouse por Naroa Gutiérrez Gil. Acrílico y papel de seda sobre pizarra natural. Arte contemporáneo Bilbao, técnica mixta.",
@@ -195,7 +195,7 @@
     },
     {
       "id": "james-rocks",
-      "title": "James Rocks (HQ)",
+      "title": "James Rocks",
       "series": "rocks",
       "technique": "acrilico-pizarra",
       "year": 2023,
@@ -218,7 +218,7 @@
     },
     {
       "id": "johnny-rocks",
-      "title": "Johnny Rocks (HQ)",
+      "title": "Johnny Rocks",
       "series": "rocks",
       "technique": "acrilico-pizarra",
       "year": 2023,
@@ -241,7 +241,7 @@
     },
     {
       "id": "marilyn-rocks",
-      "title": "Marilyn Rocks (HQ)",
+      "title": "Marilyn Rocks",
       "series": "rocks",
       "technique": "acrilico-pizarra",
       "year": 2023,
@@ -382,7 +382,7 @@
       "series": "tributos-musicales",
       "technique": "mixed-media",
       "year": 2022,
-      "image": "images/artworks/placeholder.webp",
+      "image": "images/artworks/hq-portrait-1.webp",
       "altText": "Composición en técnica mixta dedicada a David Bowie con elementos musicales. Clarinetes estilizados en colores vibrantes que evocan la constante transformación del artista.",
       "metaDescription": "Los Clarinetes de Bowie - Homenaje musical de Naroa Gutiérrez Gil. Técnica mixta con elementos pop art. Arte contemporáneo Bilbao, arte inspirado en música.",
       "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Los Clarinetes de Bowie\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2022\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\",\"about\":\"David Bowie\"}",
@@ -403,7 +403,7 @@
       "series": "tributos-musicales",
       "technique": "mixed-media",
       "year": 2022,
-      "image": "images/artworks/placeholder.webp",
+      "image": "images/artworks/hq-portrait-2.webp",
       "altText": "Retrato conceptual de David Bowie en técnica mixta. Composición que celebra su legado eterno con gesto íntimo y paleta de colores que evocan su estética cambiante.",
       "metaDescription": "Bowie Shhh..till Alive - Tributo a David Bowie por Naroa Gutiérrez Gil. Arte conceptual en técnica mixta. Arte contemporáneo Bilbao, retratos de iconos musicales.",
       "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Bowie Shhh..till Alive\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2022\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\",\"about\":\"David Bowie\"}",
@@ -973,23 +973,23 @@
       ]
     },
     {
-      "id": "me-parto-de-risa",
-      "title": "Me Parto de Risa",
-      "series": "amor",
+      "id": "el-grito-de-modernidad",
+      "title": "El Grito de Modernidad",
+      "series": "contemporanea",
       "technique": "mixed-media",
-      "year": 2021,
-      "image": "images/artworks/me-parto-de-risa.webp",
-      "altText": "Obra de la serie Amor con humor español en técnica mixta. Expresión de alegría desbordante con elementos cómicos y colores que celebran la risa y el buen humor.",
-      "metaDescription": "Me Parto de Risa - Serie Amor de Naroa Gutiérrez Gil. Técnica mixta con humor español. Arte contemporáneo Bilbao, arte divertido, obra original alegre 2021.",
-      "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Me Parto de Risa\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2021\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
-      "category": "Love Series",
-      "style": "Expressive",
+      "year": 2023,
+      "image": "images/artworks/hq-portrait-7.webp",
+      "altText": "Obra de la serie Contemporánea que representa un grito de modernidad. Técnica mixta con elementos abstractos y figurativos que exploran la tensión entre tradición y vanguardia.",
+      "metaDescription": "El Grito de Modernidad - Serie Contemporánea de Naroa Gutiérrez Gil. Técnica mixta. Arte contemporáneo Bilbao, arte moderno, obra original 2023.",
+      "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"El Grito de Modernidad\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2023\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
+      "category": "Contemporary",
+      "style": "Abstract",
       "materials": [
         "Mixed Media"
       ],
       "tags": [
-        "amor",
-        "Expressive"
+        "contemporanea",
+        "Abstract"
       ]
     },
     {
@@ -1059,7 +1059,7 @@
       "technique": "mixed-media",
       "year": 2021,
       "image": "images/artworks/denbora-nora-zoaz.webp",
-      "altText": "Obra de la serie Amor con título en euskera en técnica mixta. '¿A dónde vas, tiempo?' pregunta existencial sobre el amor y el paso del tiempo en composición emotiva.",
+      "altText": "'¿A dónde vas, tiempo?' pregunta existencial sobre el amor y el paso del tiempo en composición emotiva. Obra de la serie Amor con título en euskera en técnica mixta.",
       "metaDescription": "Denbora Nora Zoaz - Serie Amor de Naroa Gutiérrez Gil. Técnica mixta con título en euskera. Arte contemporáneo Bilbao, arte vasco, obra sobre tiempo y amor.",
       "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Denbora Nora Zoaz\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2021\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
       "category": "Love Series",
@@ -1366,7 +1366,7 @@
       "series": "retratos",
       "technique": "mixed-media",
       "year": 2020,
-      "image": "images/artworks/placeholder.webp",
+      "image": "images/artworks/hq-portrait-3.webp",
       "altText": "Retrato personalizado en técnica mixta de la serie dedicada. Captura la esencia del sujeto con estilo único que combina realismo con elementos expresivos contemporáneos.",
       "metaDescription": "Marian de Miranda - Retrato personalizado de Naroa Gutiérrez Gil. Serie dedicada en técnica mixta. Arte contemporáneo Bilbao, retratos especiales, obra 2020.",
       "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Marian de Miranda\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2020\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
@@ -1405,15 +1405,15 @@
       ]
     },
     {
-      "id": "patxiko-listo",
-      "title": "Patxiko Listo",
+      "id": "portrait-of-soul-1",
+      "title": "Portrait of Soul I",
       "series": "retratos",
       "technique": "mixed-media",
-      "year": 2022,
-      "image": "images/artworks/patxiko-listo.webp",
-      "altText": "Retrato personalizado en técnica mixta con nombre vasco. Composición que celebra la identidad vasca con elementos culturales y expresión de astucia y carácter personal.",
-      "metaDescription": "Patxiko Listo - Retrato personalizado de Naroa Gutiérrez Gil. Técnica mixta con identidad vasca. Arte contemporáneo Bilbao, retratos vascos, obra personalizada 2022.",
-      "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Patxiko Listo\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2022\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
+      "year": 2021,
+      "image": "images/artworks/hq-portrait-5.webp",
+      "altText": "Retrato de alma en técnica mixta, primera pieza de la serie. Captura la esencia interior del sujeto con una paleta de colores emotiva y texturas que evocan profundidad espiritual.",
+      "metaDescription": "Portrait of Soul I - Serie Retratos de Naroa Gutiérrez Gil. Técnica mixta. Arte contemporáneo Bilbao, retratos espirituales, obra original 2021.",
+      "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Portrait of Soul I\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2021\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
       "category": "Portraits",
       "style": "Realism",
       "materials": [
@@ -1454,7 +1454,7 @@
       "series": "retratos",
       "technique": "mixed-media",
       "year": 2021,
-      "image": "images/artworks/placeholder.webp",
+      "image": "images/artworks/hq-portrait-4.webp",
       "altText": "Retrato en técnica mixta inspirado en la canción de UB40. Paleta de colores vino tinto y elementos que evocan relajación, celebración y momentos de disfrute vital.",
       "metaDescription": "Red Red Wine - Retrato musical de Naroa Gutiérrez Gil. Técnica mixta inspirada en UB40. Arte contemporáneo Bilbao, arte musical, retratos con temática vino 2021.",
       "schemaLD": "{\"@context\":\"https://schema.org\",\"@type\":\"VisualArtwork\",\"name\":\"Red Red Wine\",\"artist\":{\"@type\":\"Person\",\"name\":\"Naroa Gutiérrez Gil\"},\"artMedium\":\"Técnica mixta\",\"dateCreated\":\"2021\",\"artform\":\"Pintura\",\"artworkSurface\":\"Lienzo\"}",
@@ -1988,8 +1988,8 @@
       "category": "Rocks"
     },
     {
-      "id": "johnny-rocks-hq-4",
-      "title": "Johnny Rocks Hq 4",
+      "id": "johnny-rocks-4",
+      "title": "Johnny Rocks",
       "series": "Rocks",
       "technique": "Mixed Media",
       "year": 2026,
@@ -2001,8 +2001,8 @@
       "category": "Rocks"
     },
     {
-      "id": "johnny-rocks-hq-5",
-      "title": "Johnny Rocks Hq 5",
+      "id": "johnny-rocks-5",
+      "title": "Johnny Rocks",
       "series": "Rocks",
       "technique": "Mixed Media",
       "year": 2026,
@@ -2014,8 +2014,8 @@
       "category": "Rocks"
     },
     {
-      "id": "johnny-rocks-hq-6",
-      "title": "Johnny Rocks Hq 6",
+      "id": "johnny-rocks-6",
+      "title": "Johnny Rocks",
       "series": "Rocks",
       "technique": "Mixed Media",
       "year": 2026,
@@ -2040,8 +2040,8 @@
       "category": "Rocks"
     },
     {
-      "id": "marilyn-rocks-hq-5",
-      "title": "Marilyn Rocks Hq 5",
+      "id": "marilyn-rocks-5",
+      "title": "Marilyn Rocks",
       "series": "Rocks",
       "technique": "Mixed Media",
       "year": 2026,

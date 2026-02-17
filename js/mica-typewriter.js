@@ -26,7 +26,11 @@ class NaroaTypewriter {
     
     async escribir(texto) {
         this.estaEscribiendo = true;
-        this.elemento.innerHTML = '';
+        this.limpiar();
+        
+        // Crear un nodo de texto persistente para el contenido
+        const textNode = document.createTextNode('');
+        this.elemento.appendChild(textNode);
         
         // Añadir variaciones aleatorias al estilo Naroa
         texto = this.aplicarEstiloNaroa(texto);
@@ -40,6 +44,7 @@ class NaroaTypewriter {
         }
         
         let i = 0;
+        let txtActual = '';
         while (i < texto.length) {
             // Velocidad variable (más rápido en palabras comunes, lento en énfasis)
             let delay = this.velocidadBase + (Math.random() * 50 - 25);
@@ -52,16 +57,17 @@ class NaroaTypewriter {
             // Simular error tipográfico ocasional (5% probabilidad)
             if (Math.random() < 0.05 && texto[i] !== ' ') {
                 const error = this.generarError(texto[i]);
-                this.elemento.innerHTML += error;
+                textNode.textContent = txtActual + error;
                 await this.esperar(delay);
                 
                 // Borrar error
-                this.elemento.innerHTML = this.elemento.innerHTML.slice(0, -1);
+                textNode.textContent = txtActual;
                 await this.esperar(100);
             }
             
             // Escribir caracter correcto
-            this.elemento.innerHTML += texto[i];
+            txtActual += texto[i];
+            textNode.textContent = txtActual;
             
             // Scroll automático
             this.elemento.scrollTop = this.elemento.scrollHeight;
@@ -112,7 +118,7 @@ class NaroaTypewriter {
     iniciarCursorIdle() {
         const cursor = document.createElement('span');
         cursor.className = 'cursor-idle';
-        cursor.innerHTML = '|';
+        cursor.textContent = '|';
         cursor.style.cssText = `
             animation: parpadeo 1s infinite;
             color: #FFD700;

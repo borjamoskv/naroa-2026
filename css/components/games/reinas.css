@@ -1,0 +1,142 @@
+/* ============================================
+   REPÓKER DE REINAS
+   ============================================ */
+
+.reinas-header {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.reinas-card {
+  background: linear-gradient(145deg, #2a1a4a, #1a0a2e);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.reinas-portrait {
+  width: 200px;
+  height: 250px;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+}
+
+.reinas-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reinas-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: #fff;
+  transition: clip-path 0.5s, opacity 0.5s;
+}
+
+.reinas-question {
+  color: #ffd700;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.reinas-hints {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.reinas-hint {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reinas-hint:hover:not(:disabled) {
+  background: rgba(168, 85, 247, 0.3);
+}
+
+.reinas-hint:disabled {
+  cursor: default;
+  border-color: #a855f7;
+}
+
+.reinas-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.reinas-option {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.reinas-option:hover:not(:disabled) {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+.reinas-option.correct {
+  background: rgba(34, 197, 94, 0.5);
+  border-color: #22c55e;
+}
+
+.reinas-option.wrong {
+  background: rgba(239, 68, 68, 0.5);
+  border-color: #ef4444;
+}
+
+.reinas-results {
+  text-align: center;
+  padding: 3rem;
+}
+
+.reinas-results h3 {
+  font-size: 2rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.reinas-score {
+  font-size: 3rem;
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.reinas-message {
+  color: #fff;
+  margin: 1rem 0 2rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .reinas-options {
+    grid-template-columns: 1fr;
+  }
+}

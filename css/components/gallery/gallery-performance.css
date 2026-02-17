@@ -1,0 +1,26 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   PERFORMANCE & GPU ACCELERATION
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.gallery-massive__img,
+.gallery-hero__image,
+.gallery-cinematic__artwork,
+.gallery-lightbox__image {
+  will-change: transform;
+  contain: layout paint;
+  content-visibility: auto;
+}
+
+.gallery-parallax,
+.gallery-massive__item,
+.gallery-hero__artwork,
+.gallery-lightbox__container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Off-screen optimization */
+.gallery-massive__item:not(.visible) {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}

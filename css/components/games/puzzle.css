@@ -1,0 +1,62 @@
+/* ============================================
+   PUZZLE GAME
+   ============================================ */
+
+.puzzle-info {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.puzzle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 75px);
+  gap: 2px;
+  justify-content: center;
+  background: #333;
+  padding: 2px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.puzzle-tile {
+  width: 75px;
+  height: 75px;
+  background: #1a1a2e;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.puzzle-tile:hover:not(.puzzle-tile--empty) {
+  transform: scale(0.95);
+}
+
+.puzzle-tile > div {
+  width: 75px;
+  height: 75px;
+  background-size: 300px 300px;
+}
+
+.puzzle-tile--empty {
+  background: transparent;
+}
+
+.puzzle-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .puzzle-grid {
+    grid-template-columns: repeat(4, 60px);
+  }
+  
+  .puzzle-tile,
+  .puzzle-tile > div {
+    width: 60px;
+    height: 60px;
+    background-size: 240px 240px;
+  }
+}

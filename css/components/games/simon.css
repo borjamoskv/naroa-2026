@@ -1,0 +1,48 @@
+/* ============================================
+   SIMON GAME
+   ============================================ */
+
+.simon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.simon-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 300px;
+  margin: 0 auto 1rem;
+}
+
+.simon-btn {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: transform 0.1s, filter 0.2s;
+  filter: brightness(0.6);
+  border: 2px solid transparent;
+}
+
+.simon-btn:hover {
+  transform: scale(1.02);
+}
+
+.simon-btn.active {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255,255,255,0.5);
+  border-color: var(--white);
+  box-shadow: 0 0 20px currentColor;
+}
+
+#simon-status {
+  color: #fff;
+  font-size: 1.1rem;
+}

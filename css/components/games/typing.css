@@ -1,0 +1,86 @@
+/* ============================================
+   TYPING GAME
+   ============================================ */
+
+.typing-game {
+  text-align: center;
+}
+
+.typing-header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+.typing-stat {
+  text-align: center;
+}
+
+.typing-label {
+  display: block;
+  color: #666;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.typing-value {
+  font-size: 1.5rem;
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.typing-area {
+  margin-bottom: 1.5rem;
+}
+
+.typing-word {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.typing-word.typing-correct {
+  color: #22c55e;
+  transform: scale(1.1);
+}
+
+.typing-input-wrap {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.typing-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  color: #fff;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.typing-input:focus {
+  outline: none;
+  border-color: #a855f7;
+}
+
+.typing-input.typing-error {
+  border-color: #ef4444;
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}

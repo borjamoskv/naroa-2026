@@ -1,0 +1,17 @@
+/* ============================================
+   SNAKE GAME
+   ============================================ */
+
+.snake-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+#snake-canvas {
+  border: 4px solid var(--gold-metallic, #d4af37);
+  background: var(--black);
+  border-radius: 8px;
+}

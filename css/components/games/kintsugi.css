@@ -1,0 +1,133 @@
+/* ============================================
+   KINTSUGI EMOCIONAL — Golden Repair Effects
+   ============================================ */
+
+.kintsugi-experience {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.kintsugi-frame {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+  transition: all 0.5s ease;
+}
+
+.kintsugi-frame.complete {
+  box-shadow: 
+    0 15px 50px rgba(0,0,0,0.5),
+    0 0 60px rgba(255, 215, 0, 0.4);
+}
+
+.kintsugi-base {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%);
+  transition: filter 0.5s;
+}
+
+.kintsugi-frame.complete .kintsugi-base {
+  filter: grayscale(0%);
+}
+
+.kintsugi-canvas,
+.kintsugi-cracks,
+.kintsugi-gold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.crack-path {
+  cursor: pointer;
+  transition: filter 0.2s, stroke 0.2s;
+  pointer-events: auto;
+}
+
+.crack-path:hover {
+  stroke: rgba(100, 50, 0, 0.9);
+}
+
+.gold-path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes gold-flow {
+  to { stroke-dashoffset: 0; }
+}
+
+.kintsugi-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gold-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ffd700, #daa520);
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffd700;
+}
+
+@keyframes gold-burst {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+.kintsugi-info {
+  text-align: center;
+  max-width: 300px;
+}
+
+.kintsugi-info h3 { font-size: 1.4rem; color: #ffd700; margin-bottom: 0.5rem; }
+.kintsugi-info p { color: #aaa; font-size: 0.9rem; }
+
+.kintsugi-progress {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.kintsugi-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #daa520, #ffd700, #ffec8b);
+  width: 0%;
+  transition: width 0.5s ease;
+  border-radius: 4px;
+}
+
+.kintsugi-wisdom {
+  font-style: italic;
+  color: #ffd700;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s ease;
+  min-height: 2rem;
+}
+
+.kintsugi-wisdom.visible { opacity: 1; transform: translateY(0); }
+.kintsugi-controls { display: flex; gap: 1rem; }
+
+@media (max-width: 600px) {
+  .kintsugi-frame { width: 260px; height: 350px; }
+}

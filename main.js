@@ -17,7 +17,6 @@ import './css/components/bento-grid.css';
 import './css/lightbox-premium.css';
 import './css/scroll-to-top.css';
 import './css/gallery.css';
-import './css/gallery-disruptive.css';
 import './css/about-contact.css';
 import './css/footer.css';
 import './css/animations.css';

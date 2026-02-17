@@ -1,0 +1,129 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   SECTION HERO - COLOSSAL FEATURED ARTWORK
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.gallery-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--gallery-bg);
+  perspective: 2000px;
+}
+
+.gallery-hero__artwork {
+  position: relative;
+  width: 90vw;
+  max-width: 1800px;
+  aspect-ratio: 4/3;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.gallery-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: var(--shadow-volumetric);
+  transform-style: preserve-3d;
+  transform: rotateX(2deg) translateZ(0);
+  transition: 
+    transform var(--duration-slow) var(--ease-ultra-smooth),
+    box-shadow var(--duration-base) var(--ease-expo-out);
+  contain: layout paint;
+}
+
+/* 3D Tilt effect on hover */
+.gallery-hero__artwork:hover .gallery-hero__image {
+  transform: rotateX(0deg) translateZ(50px) scale(1.02);
+  box-shadow: 
+    0 50px 100px rgba(0, 0, 0, 0.8),
+    0 0 200px var(--gallery-glow);
+}
+
+/* Golden frame decorative */
+.gallery-hero__artwork::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--gallery-gold);
+  border-radius: 6px;
+  opacity: 0.3;
+  pointer-events: none;
+  transition: opacity var(--duration-base) var(--ease-expo-out);
+}
+
+.gallery-hero__artwork:hover::before {
+  opacity: 0.6;
+}
+
+/* Mirror reflection effect */
+.gallery-hero__artwork::after {
+  content: '';
+  position: absolute;
+  bottom: -60%;
+  left: 5%;
+  right: 5%;
+  height: 60%;
+  background: inherit;
+  transform: scaleY(-1);
+  filter: blur(8px);
+  opacity: 0.15;
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Title overlay with kinetic typography */
+.gallery-hero__info {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  animation: heroReveal 1.2s var(--ease-ultra-smooth) 0.8s forwards;
+}
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-20px);
+    filter: blur(0);
+  }
+}
+
+.gallery-hero__title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  transition: letter-spacing var(--duration-base) var(--ease-ultra-smooth);
+}
+
+.gallery-hero__artwork:hover ~ .gallery-hero__info .gallery-hero__title,
+.gallery-hero__info:hover .gallery-hero__title {
+  letter-spacing: 0.25em;
+}
+
+.gallery-hero__year {
+  font-size: 1rem;
+  color: var(--gallery-gold);
+  letter-spacing: 0.3em;
+  transition: letter-spacing var(--duration-base) var(--ease-expo-out);
+}
+
+.gallery-hero__artwork:hover ~ .gallery-hero__info .gallery-hero__year,
+.gallery-hero__info:hover .gallery-hero__year {
+  letter-spacing: 0.5em;
+}

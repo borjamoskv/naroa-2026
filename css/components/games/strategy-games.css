@@ -1,0 +1,235 @@
+/* ============================================
+   STRATEGY GAMES — Premium Board Styles 2026
+   Chess, Checkers, Connect4, Reversi
+   ============================================ */
+
+.strategy-game {
+  position: relative;
+  padding: 2rem;
+  background: linear-gradient(145deg, #0a0a12, #0d0d1a);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* MICA NEBLINA NEGRA - Fog overlay */
+.strategy-game::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: 
+    radial-gradient(ellipse at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.3) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.strategy-game__header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.strategy-game__title { font-size: 1.5rem; font-weight: 600; }
+.strategy-game__status {
+  padding: 0.5rem 1rem;
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  color: rgba(139, 92, 246, 1);
+}
+
+/* Chess Board */
+.chess-board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 3px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.chess-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chess-cell--light { background: linear-gradient(145deg, #e8d4b8, #d4c4a8); }
+.chess-cell--dark { background: linear-gradient(145deg, #6b4c3a, #5a3d2e); }
+.chess-cell:hover { filter: brightness(1.1); }
+.chess-cell.selected { box-shadow: inset 0 0 0 3px rgba(139, 92, 246, 0.8); }
+.chess-cell.valid-move::after {
+  content: '';
+  width: 30%;
+  height: 30%;
+  background: rgba(139, 92, 246, 0.6);
+  border-radius: 50%;
+}
+
+/* Checkers Board */
+.checkers-board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 3px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.checkers-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkers-cell--light { background: #f5e6d3; }
+.checkers-cell--dark { background: #2d5016; }
+
+.checkers-piece {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    inset 0 2px 5px rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.checkers-piece--red { background: linear-gradient(145deg, #ef4444, #b91c1c); }
+.checkers-piece--black { background: linear-gradient(145deg, #1f1f1f, #0a0a0a); }
+.checkers-piece--king::after { content: '👑'; font-size: 0.8rem; }
+.checkers-cell.selected .checkers-piece {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+}
+
+/* Connect4 Board */
+.connect4-board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #1e40af, #1e3a8a);
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+}
+
+.connect4-cell {
+  aspect-ratio: 1;
+  background: #0a0a12;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.connect4-cell:hover { background: rgba(255, 255, 255, 0.1); }
+.connect4-cell--yellow {
+  background: linear-gradient(145deg, #fbbf24, #d97706);
+  box-shadow: 
+    inset 0 -3px 5px rgba(0, 0, 0, 0.2),
+    0 4px 15px rgba(251, 191, 36, 0.4);
+}
+.connect4-cell--red {
+  background: linear-gradient(145deg, #ef4444, #b91c1c);
+  box-shadow: 
+    inset 0 -3px 5px rgba(0, 0, 0, 0.2),
+    0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Reversi/Othello Board */
+.reversi-board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #0f5a0f;
+  padding: 4px;
+  border-radius: 8px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.reversi-cell {
+  aspect-ratio: 1;
+  background: #0d4d0d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reversi-cell:hover { background: #0a6a0a; }
+.reversi-cell.valid-move { background: rgba(139, 92, 246, 0.3); }
+
+.reversi-piece {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.reversi-piece--black { background: linear-gradient(145deg, #2d2d2d, #0a0a0a); }
+.reversi-piece--white { background: linear-gradient(145deg, #ffffff, #d4d4d4); }
+.reversi-piece.flip { animation: reversi-flip 0.5s ease-in-out; }
+
+@keyframes reversi-flip {
+  0% { transform: rotateY(0deg) scale(1); }
+  50% { transform: rotateY(90deg) scale(0.8); }
+  100% { transform: rotateY(0deg) scale(1); }
+}
+
+.strategy-controls {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .chess-board, .checkers-board, .reversi-board { max-width: 320px; }
+  .connect4-board { max-width: 300px; padding: 0.5rem; gap: 4px; }
+  .chess-cell { font-size: 1.5rem; }
+}
