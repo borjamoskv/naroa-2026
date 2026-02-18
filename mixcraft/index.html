@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIXCRAFT — The Sovereign DJ DAW</title>
+  <meta name="description" content="Professional DJ DAW in your browser. Timeline editing, automix, effects, stem isolation, sample pads, hot cues, and WebGL visualization. Free. No installation." />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- LOADING SCREEN -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <span class="loading-icon">◈</span>
+        <span class="loading-text">MIXCRAFT</span>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-fill"></div>
+      </div>
+      <span class="loading-status">Initializing audio engine...</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- HEADER -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <header id="app-header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">MIXCRAFT</span>
+        <span class="logo-version">v1</span>
+      </div>
+    </div>
+    <div class="header-center">
+      <div id="transport" class="transport-bar">
+        <button id="btn-stop" class="transport-btn" title="Stop (Esc)">
+          <svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1" fill="currentColor"/></svg>
+        </button>
+        <button id="btn-play" class="transport-btn transport-play" title="Play/Pause (Space)">
+          <svg width="18" height="18" viewBox="0 0 18 18"><polygon points="4,2 16,9 4,16" fill="currentColor"/></svg>
+        </button>
+        <button id="btn-record" class="transport-btn transport-rec" title="Record (R)">
+          <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="currentColor"/></svg>
+        </button>
+        <div class="transport-time">
+          <span id="current-time" class="time-display">00:00.0</span>
+          <span class="time-sep">/</span>
+          <span id="total-time" class="time-display dim">00:00.0</span>
+        </div>
+        <div class="transport-bpm">
+          <span class="bpm-label">MASTER BPM</span>
+          <div class="bpm-control">
+            <button id="bpm-down" class="bpm-btn">−</button>
+            <span id="master-bpm" class="bpm-value">128.0</span>
+            <button id="bpm-up" class="bpm-btn">+</button>
+          </div>
+        </div>
+        <div class="master-meter">
+          <div class="meter-bar">
+            <div id="master-meter-l" class="meter-fill"></div>
+          </div>
+          <div class="meter-bar">
+            <div id="master-meter-r" class="meter-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btn-sync" class="action-btn" title="Sync Decks">
+        <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h4l-2-3zm10 0H8l2 3zM7 2v10" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+        Sync
+      </button>
+      <button id="btn-automix" class="action-btn accent" title="Automix — AI ordering">
+        <svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 7h2l2-4 2 8 2-4h2" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Automix
+      </button>
+      <button id="btn-save" class="action-btn" title="Save Session (Ctrl+S)">💾</button>
+      <button id="btn-export" class="action-btn" title="Export Mix">
+        <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1v8m-3-3l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Export
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- MAIN CONTENT -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <main id="app-main">
+    <!-- DECK AREA -->
+    <section id="deck-area">
+      <!-- DECK A -->
+      <div id="deck-a" class="deck" data-deck="A">
+        <div class="deck-header">
+          <span class="deck-label deck-label-a">A</span>
+          <span class="deck-track-name" id="deck-a-name">Drop a track here</span>
+          <div class="deck-info">
+            <span class="deck-bpm" id="deck-a-bpm">— BPM</span>
+            <span class="deck-key" id="deck-a-key">—</span>
+            <span class="deck-duration" id="deck-a-dur">0:00</span>
+          </div>
+        </div>
+        <canvas id="waveform-a" class="waveform-canvas"></canvas>
+        <!-- Hot Cues -->
+        <div class="hot-cues" id="hot-cues-a">
+          <button class="cue-btn" data-cue="1" data-deck="A" style="--cue-color: #EF476F">1</button>
+          <button class="cue-btn" data-cue="2" data-deck="A" style="--cue-color: #FFD166">2</button>
+          <button class="cue-btn" data-cue="3" data-deck="A" style="--cue-color: #06D6A0">3</button>
+          <button class="cue-btn" data-cue="4" data-deck="A" style="--cue-color: #118AB2">4</button>
+          <button class="cue-btn" data-cue="5" data-deck="A" style="--cue-color: #6600FF">5</button>
+          <button class="cue-btn" data-cue="6" data-deck="A" style="--cue-color: #CCFF00">6</button>
+          <button class="cue-btn" data-cue="7" data-deck="A" style="--cue-color: #FF6B6B">7</button>
+          <button class="cue-btn" data-cue="8" data-deck="A" style="--cue-color: #C77DFF">8</button>
+        </div>
+        <div class="deck-controls">
+          <!-- Pitch/Tempo -->
+          <div class="pitch-control">
+            <span class="control-label">PITCH</span>
+            <input type="range" id="pitch-a" class="pitch-slider" min="-8" max="8" step="0.1" value="0" />
+            <span class="pitch-value" id="pitch-a-val">0.0%</span>
+          </div>
+          <!-- Volume -->
+          <div class="vol-control">
+            <span class="control-label">VOL</span>
+            <input type="range" id="vol-a" class="vol-slider vertical-slider" min="0" max="1.5" step="0.01" value="1" orient="vertical" />
+            <div class="deck-meter">
+              <div class="meter-bar vertical"><div id="meter-a" class="meter-fill"></div></div>
+            </div>
+          </div>
+          <!-- EQ -->
+          <div class="eq-group">
+            <div class="eq-channel">
+              <span class="eq-label">HI</span>
+              <input type="range" id="eq-hi-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <button class="eq-kill" data-band="hi" data-deck="A">K</button>
+            </div>
+            <div class="eq-channel">
+              <span class="eq-label">MID</span>
+              <input type="range" id="eq-mid-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <button class="eq-kill" data-band="mid" data-deck="A">K</button>
+            </div>
+            <div class="eq-channel">
+              <span class="eq-label">LO</span>
+              <input type="range" id="eq-lo-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <button class="eq-kill" data-band="lo" data-deck="A">K</button>
+            </div>
+          </div>
+          <!-- Loop -->
+          <div class="loop-controls">
+            <span class="control-label">LOOP</span>
+            <div class="loop-buttons">
+              <button class="loop-btn" data-beats="1" data-deck="A">1</button>
+              <button class="loop-btn" data-beats="2" data-deck="A">2</button>
+              <button class="loop-btn" data-beats="4" data-deck="A">4</button>
+              <button class="loop-btn" data-beats="8" data-deck="A">8</button>
+              <button class="loop-btn" data-beats="16" data-deck="A">16</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CROSSFADER + VISUALIZER -->
+      <div id="crossfader-area">
+        <canvas id="visualizer-canvas" class="viz-canvas"></canvas>
+        <div class="cf-section">
+          <div class="crossfader-labels"><span>A</span><span>MIX</span><span>B</span></div>
+          <input type="range" id="crossfader" class="crossfader-slider" min="0" max="1" step="0.005" value="0.5" />
+        </div>
+        <!-- Master Volume -->
+        <div class="master-vol">
+          <span class="control-label">MASTER</span>
+          <input type="range" id="master-vol" min="0" max="1.5" step="0.01" value="1" />
+        </div>
+      </div>
+
+      <!-- DECK B -->
+      <div id="deck-b" class="deck" data-deck="B">
+        <div class="deck-header">
+          <span class="deck-label deck-label-b">B</span>
+          <span class="deck-track-name" id="deck-b-name">Drop a track here</span>
+          <div class="deck-info">
+            <span class="deck-bpm" id="deck-b-bpm">— BPM</span>
+            <span class="deck-key" id="deck-b-key">—</span>
+            <span class="deck-duration" id="deck-b-dur">0:00</span>
+          </div>
+        </div>
+        <canvas id="waveform-b" class="waveform-canvas"></canvas>
+        <!-- Hot Cues -->
+        <div class="hot-cues" id="hot-cues-b">
+          <button class="cue-btn" data-cue="1" data-deck="B" style="--cue-color: #EF476F">1</button>
+          <button class="cue-btn" data-cue="2" data-deck="B" style="--cue-color: #FFD166">2</button>
+          <button class="cue-btn" data-cue="3" data-deck="B" style="--cue-color: #06D6A0">3</button>
+          <button class="cue-btn" data-cue="4" data-deck="B" style="--cue-color: #118AB2">4</button>
+          <button class="cue-btn" data-cue="5" data-deck="B" style="--cue-color: #6600FF">5</button>
+          <button class="cue-btn" data-cue="6" data-deck="B" style="--cue-color: #CCFF00">6</button>
+          <button class="cue-btn" data-cue="7" data-deck="B" style="--cue-color: #FF6B6B">7</button>
+          <button class="cue-btn" data-cue="8" data-deck="B" style="--cue-color: #C77DFF">8</button>
+        </div>
+        <div class="deck-controls">
+          <div class="pitch-control">
+            <span class="control-label">PITCH</span>
+            <input type="range" id="pitch-b" class="pitch-slider" min="-8" max="8" step="0.1" value="0" />
+            <span class="pitch-value" id="pitch-b-val">0.0%</span>
+          </div>
+          <div class="vol-control">
+            <span class="control-label">VOL</span>
+            <input type="range" id="vol-b" class="vol-slider vertical-slider" min="0" max="1.5" step="0.01" value="1" orient="vertical" />
+            <div class="deck-meter">
+              <div class="meter-bar vertical"><div id="meter-b" class="meter-fill"></div></div>
+            </div>
+          </div>
+          <div class="eq-group">
+            <div class="eq-channel">
+              <span class="eq-label">HI</span>
+              <input type="range" id="eq-hi-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <button class="eq-kill" data-band="hi" data-deck="B">K</button>
+            </div>
+            <div class="eq-channel">
+              <span class="eq-label">MID</span>
+              <input type="range" id="eq-mid-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <button class="eq-kill" data-band="mid" data-deck="B">K</button>
+            </div>
+            <div class="eq-channel">
+              <span class="eq-label">LO</span>
+              <input type="range" id="eq-lo-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <button class="eq-kill" data-band="lo" data-deck="B">K</button>
+            </div>
+          </div>
+          <div class="loop-controls">
+            <span class="control-label">LOOP</span>
+            <div class="loop-buttons">
+              <button class="loop-btn" data-beats="1" data-deck="B">1</button>
+              <button class="loop-btn" data-beats="2" data-deck="B">2</button>
+              <button class="loop-btn" data-beats="4" data-deck="B">4</button>
+              <button class="loop-btn" data-beats="8" data-deck="B">8</button>
+              <button class="loop-btn" data-beats="16" data-deck="B">16</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FX RACK -->
+    <section id="fx-rack">
+      <div class="fx-rack-header">
+        <span class="panel-title">FX RACK</span>
+        <div class="fx-routing">
+          <button class="fx-route-btn active" data-route="master" title="FX on Master">M</button>
+          <button class="fx-route-btn" data-route="a" title="FX on Deck A">A</button>
+          <button class="fx-route-btn" data-route="b" title="FX on Deck B">B</button>
+        </div>
+      </div>
+      <div class="fx-slots">
+        <!-- FX Slot 1: Reverb -->
+        <div class="fx-slot" data-fx="reverb">
+          <div class="fx-slot-header">
+            <button class="fx-power" id="fx-reverb-power" title="Toggle">⚡</button>
+            <span class="fx-name">REVERB</span>
+          </div>
+          <div class="fx-knobs">
+            <div class="knob-group">
+              <label>WET</label>
+              <input type="range" id="fx-reverb-wet" min="0" max="1" step="0.01" value="0" />
+              <span class="knob-val" id="fx-reverb-wet-val">0%</span>
+            </div>
+            <div class="knob-group">
+              <label>DECAY</label>
+              <input type="range" id="fx-reverb-decay" min="0.1" max="10" step="0.1" value="2" />
+              <span class="knob-val" id="fx-reverb-decay-val">2.0s</span>
+            </div>
+            <div class="knob-group">
+              <label>DAMP</label>
+              <input type="range" id="fx-reverb-damp" min="1000" max="18000" step="100" value="8000" />
+              <span class="knob-val" id="fx-reverb-damp-val">8kHz</span>
+            </div>
+          </div>
+        </div>
+        <!-- FX Slot 2: Delay -->
+        <div class="fx-slot" data-fx="delay">
+          <div class="fx-slot-header">
+            <button class="fx-power" id="fx-delay-power">⚡</button>
+            <span class="fx-name">DELAY</span>
+          </div>
+          <div class="fx-knobs">
+            <div class="knob-group">
+              <label>TIME</label>
+              <input type="range" id="fx-delay-time" min="0.01" max="2" step="0.01" value="0.3" />
+              <span class="knob-val" id="fx-delay-time-val">300ms</span>
+            </div>
+            <div class="knob-group">
+              <label>FDBK</label>
+              <input type="range" id="fx-delay-feedback" min="0" max="0.95" step="0.01" value="0.4" />
+              <span class="knob-val" id="fx-delay-feedback-val">40%</span>
+            </div>
+            <div class="knob-group">
+              <label>WET</label>
+              <input type="range" id="fx-delay-wet" min="0" max="1" step="0.01" value="0" />
+              <span class="knob-val" id="fx-delay-wet-val">0%</span>
+            </div>
+          </div>
+        </div>
+        <!-- FX Slot 3: Filter -->
+        <div class="fx-slot" data-fx="filter">
+          <div class="fx-slot-header">
+            <button class="fx-power" id="fx-filter-power">⚡</button>
+            <span class="fx-name">FILTER</span>
+            <select id="fx-filter-type" class="fx-type-select">
+              <option value="lowpass">LP</option>
+              <option value="highpass">HP</option>
+              <option value="bandpass">BP</option>
+              <option value="notch">NOTCH</option>
+            </select>
+          </div>
+          <div class="fx-knobs">
+            <div class="knob-group">
+              <label>FREQ</label>
+              <input type="range" id="fx-filter-freq" min="20" max="20000" step="1" value="1000" />
+              <span class="knob-val" id="fx-filter-freq-val">1kHz</span>
+            </div>
+            <div class="knob-group">
+              <label>RES</label>
+              <input type="range" id="fx-filter-res" min="0" max="25" step="0.1" value="1" />
+              <span class="knob-val" id="fx-filter-res-val">1.0</span>
+            </div>
+          </div>
+        </div>
+        <!-- FX Slot 4: Distortion -->
+        <div class="fx-slot" data-fx="distortion">
+          <div class="fx-slot-header">
+            <button class="fx-power" id="fx-dist-power">⚡</button>
+            <span class="fx-name">CRUSH</span>
+          </div>
+          <div class="fx-knobs">
+            <div class="knob-group">
+              <label>DRIVE</label>
+              <input type="range" id="fx-dist-drive" min="0" max="100" step="1" value="0" />
+              <span class="knob-val" id="fx-dist-drive-val">0</span>
+            </div>
+            <div class="knob-group">
+              <label>MIX</label>
+              <input type="range" id="fx-dist-mix" min="0" max="1" step="0.01" value="0" />
+              <span class="knob-val" id="fx-dist-mix-val">0%</span>
+            </div>
+          </div>
+        </div>
+        <!-- FX Slot 5: Phaser -->
+        <div class="fx-slot" data-fx="phaser">
+          <div class="fx-slot-header">
+            <button class="fx-power" id="fx-phaser-power">⚡</button>
+            <span class="fx-name">PHASER</span>
+          </div>
+          <div class="fx-knobs">
+            <div class="knob-group">
+              <label>RATE</label>
+              <input type="range" id="fx-phaser-rate" min="0.1" max="10" step="0.1" value="1" />
+              <span class="knob-val" id="fx-phaser-rate-val">1.0</span>
+            </div>
+            <div class="knob-group">
+              <label>DEPTH</label>
+              <input type="range" id="fx-phaser-depth" min="0" max="1" step="0.01" value="0.5" />
+              <span class="knob-val" id="fx-phaser-depth-val">50%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE PADS -->
+    <section id="sample-pads-section">
+      <div class="pads-header">
+        <span class="panel-title">SAMPLE PADS</span>
+        <select id="pad-bank-select" class="pad-bank-select">
+          <option value="drums">Drums</option>
+          <option value="fx">FX Hits</option>
+          <option value="vocals">Vocals</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+      <div class="pad-grid" id="pad-grid">
+        <button class="pad" data-pad="1" data-key="Q" style="--pad-hue: 60">
+          <span class="pad-key">Q</span><span class="pad-name">Kick</span>
+        </button>
+        <button class="pad" data-pad="2" data-key="W" style="--pad-hue: 80">
+          <span class="pad-key">W</span><span class="pad-name">Snare</span>
+        </button>
+        <button class="pad" data-pad="3" data-key="E" style="--pad-hue: 100">
+          <span class="pad-key">E</span><span class="pad-name">Hi-Hat</span>
+        </button>
+        <button class="pad" data-pad="4" data-key="R" style="--pad-hue: 120">
+          <span class="pad-key">R</span><span class="pad-name">Clap</span>
+        </button>
+        <button class="pad" data-pad="5" data-key="A" style="--pad-hue: 200">
+          <span class="pad-key">A</span><span class="pad-name">Tom</span>
+        </button>
+        <button class="pad" data-pad="6" data-key="S" style="--pad-hue: 220">
+          <span class="pad-key">S</span><span class="pad-name">Ride</span>
+        </button>
+        <button class="pad" data-pad="7" data-key="D" style="--pad-hue: 270">
+          <span class="pad-key">D</span><span class="pad-name">FX 1</span>
+        </button>
+        <button class="pad" data-pad="8" data-key="F" style="--pad-hue: 300">
+          <span class="pad-key">F</span><span class="pad-name">FX 2</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SPECTRUM ANALYZER -->
+    <section id="spectrum-section">
+      <canvas id="spectrum-canvas" class="spectrum-canvas"></canvas>
+    </section>
+
+    <!-- MASTER CHANNEL STRIP -->
+    <section id="master-channel" class="master-channel">
+      <div class="master-channel-header">
+        <span class="panel-title">MASTER CHANNEL</span>
+        <button id="mc-bypass" class="fx-power active" title="Bypass Master Chain">⚡</button>
+      </div>
+      <div class="master-modules">
+        <!-- COMPRESSOR -->
+        <div class="mc-module" data-module="compressor">
+          <span class="mc-label">COMP <small>SSL G-Bus</small></span>
+          <div class="mc-knobs">
+            <div class="knob-group">
+              <label>THR</label>
+              <input type="range" id="mc-comp-threshold" min="-60" max="0" step="0.5" value="-18" />
+              <span class="knob-val" id="mc-comp-thr-val">-18dB</span>
+            </div>
+            <div class="knob-group">
+              <label>RATIO</label>
+              <input type="range" id="mc-comp-ratio" min="1" max="20" step="0.5" value="3" />
+              <span class="knob-val" id="mc-comp-ratio-val">3:1</span>
+            </div>
+            <div class="knob-group">
+              <label>ATK</label>
+              <input type="range" id="mc-comp-attack" min="0.001" max="0.1" step="0.001" value="0.003" />
+              <span class="knob-val" id="mc-comp-atk-val">3ms</span>
+            </div>
+            <div class="knob-group">
+              <label>REL</label>
+              <input type="range" id="mc-comp-release" min="0.01" max="1" step="0.01" value="0.15" />
+              <span class="knob-val" id="mc-comp-rel-val">150ms</span>
+            </div>
+            <div class="knob-group">
+              <label>MKUP</label>
+              <input type="range" id="mc-comp-makeup" min="0.5" max="3" step="0.05" value="1.2" />
+              <span class="knob-val" id="mc-comp-mkup-val">+1.6dB</span>
+            </div>
+          </div>
+          <div class="mc-meter">
+            <span class="mc-meter-label">GR</span>
+            <div class="meter-bar"><div id="mc-comp-gr" class="meter-fill gr"></div></div>
+            <span id="mc-comp-gr-val" class="mc-meter-val">0dB</span>
+          </div>
+        </div>
+
+        <!-- PARAMETRIC EQ -->
+        <div class="mc-module mc-eq-module" data-module="eq">
+          <span class="mc-label">PARA EQ <small>8-Band</small></span>
+          <div class="mc-eq-bands" id="mc-eq-bands">
+            <!-- Las bandas se generan via JS -->
+          </div>
+        </div>
+
+        <!-- IR CONVOLUTION -->
+        <div class="mc-module" data-module="convolver">
+          <span class="mc-label">IR CONVOLVE <small>Analog Clone</small></span>
+          <div class="mc-ir-controls">
+            <div class="ir-upload">
+              <button id="mc-ir-upload" class="tool-btn" title="Load IR file (.wav)">📂 Load IR</button>
+              <input type="file" id="mc-ir-file" accept=".wav,.aif,.aiff,.flac" class="hidden" />
+              <span id="mc-ir-name" class="ir-name">No IR loaded</span>
+            </div>
+            <div class="ir-presets">
+              <button class="ir-preset-btn" data-ir="tape" title="Studer Tape">🎞️ Tape</button>
+              <button class="ir-preset-btn" data-ir="room" title="Room Reverb">🏠 Room</button>
+              <button class="ir-preset-btn" data-ir="plate" title="Plate Reverb">📡 Plate</button>
+              <button class="ir-preset-btn" data-ir="console" title="SSL/Neve Console">🎛️ Console</button>
+            </div>
+            <div class="knob-group">
+              <label>WET</label>
+              <input type="range" id="mc-ir-wet" min="0" max="1" step="0.01" value="0" />
+              <span class="knob-val" id="mc-ir-wet-val">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DYNAMIC SPECTRAL EQ (Soothe2 Clone) -->
+        <div class="mc-module" data-module="dynEQ">
+          <span class="mc-label">DYN SPECTRAL EQ <small>Soothe2</small></span>
+          <div class="mc-knobs">
+            <div class="knob-group">
+              <button id="mc-dyneq-toggle" class="fx-power" title="Enable Dynamic EQ">⚡</button>
+            </div>
+            <div class="knob-group">
+              <label>SENS</label>
+              <input type="range" id="mc-dyneq-threshold" min="1.5" max="8" step="0.1" value="3" />
+              <span class="knob-val" id="mc-dyneq-thr-val">3.0×</span>
+            </div>
+            <div class="knob-group">
+              <label>DEPTH</label>
+              <input type="range" id="mc-dyneq-atten" min="0.1" max="0.9" step="0.05" value="0.5" />
+              <span class="knob-val" id="mc-dyneq-atten-val">-6dB</span>
+            </div>
+            <div class="knob-group">
+              <label>BANDS</label>
+              <select id="mc-dyneq-bands" class="fx-type-select">
+                <option value="8">8</option>
+                <option value="16" selected>16</option>
+                <option value="32">32</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIMITER -->
+        <div class="mc-module" data-module="limiter">
+          <span class="mc-label">LIMITER <small>Brickwall</small></span>
+          <div class="mc-knobs">
+            <div class="knob-group">
+              <label>CEIL</label>
+              <input type="range" id="mc-limiter-ceiling" min="-6" max="0" step="0.1" value="-1" />
+              <span class="knob-val" id="mc-limiter-ceil-val">-1.0 dBFS</span>
+            </div>
+          </div>
+          <div class="mc-meter">
+            <span class="mc-meter-label">GR</span>
+            <div class="meter-bar"><div id="mc-limiter-gr" class="meter-fill gr"></div></div>
+            <span id="mc-limiter-gr-val" class="mc-meter-val">0dB</span>
+          </div>
+        </div>
+
+        <!-- METERING PRO -->
+        <div class="mc-module mc-metering" data-module="metering">
+          <span class="mc-label">METERING <small>Pro</small></span>
+          <div class="mc-meter-grid">
+            <div class="meter-readout">
+              <span class="meter-tag">RMS</span>
+              <span id="mc-rms" class="meter-number">—</span>
+            </div>
+            <div class="meter-readout">
+              <span class="meter-tag">PEAK</span>
+              <span id="mc-peak" class="meter-number">—</span>
+            </div>
+            <div class="meter-readout">
+              <span class="meter-tag">LUFS</span>
+              <span id="mc-lufs" class="meter-number">—</span>
+            </div>
+            <div class="meter-readout">
+              <span class="meter-tag">CREST</span>
+              <span id="mc-crest" class="meter-number">—</span>
+            </div>
+            <div class="meter-readout">
+              <span class="meter-tag">CENTROID</span>
+              <span id="mc-centroid" class="meter-number">—</span>
+            </div>
+            <div class="meter-readout">
+              <span class="meter-tag">ROLLOFF</span>
+              <span id="mc-rolloff" class="meter-number">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline-section">
+      <div class="timeline-toolbar">
+        <span class="panel-title">TIMELINE</span>
+        <div class="timeline-actions">
+          <button class="tool-btn" id="btn-snap" title="Snap to Grid">⊞</button>
+          <button class="tool-btn" id="btn-zoom-in" title="Zoom In (+)">+</button>
+          <button class="tool-btn" id="btn-zoom-out" title="Zoom Out (−)">−</button>
+          <span id="zoom-level" class="zoom-display">100%</span>
+          <button class="tool-btn" id="btn-zoom-fit" title="Fit All">⊟</button>
+        </div>
+      </div>
+      <div id="timeline-container" class="timeline-scroll">
+        <canvas id="timeline-ruler" class="timeline-ruler"></canvas>
+        <div id="timeline-tracks" class="timeline-tracks"></div>
+        <div id="timeline-playhead" class="timeline-playhead"></div>
+      </div>
+    </section>
+
+    <!-- DROP ZONE OVERLAY -->
+    <div id="drop-overlay" class="drop-overlay hidden">
+      <div class="drop-content">
+        <div class="drop-icon-ring">
+          <svg width="48" height="48" viewBox="0 0 48 48"><path d="M24 6v24m-9-9l9 9 9-9M12 36h24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p>Drop audio files to mix</p>
+        <span class="drop-formats">MP3 · WAV · OGG · FLAC · AAC · M4A</span>
+      </div>
+    </div>
+
+    <!-- EXPORT MODAL -->
+    <div id="export-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>⬇ Export Mix</h2>
+          <button id="btn-close-modal" class="modal-close">✕</button>
+        </div>
+        <div class="export-progress">
+          <div class="progress-bar"><div id="export-progress-fill" class="progress-fill"></div></div>
+          <span id="export-status">Ready</span>
+        </div>
+        <div class="export-options">
+          <div class="option-group">
+            <label>Format</label>
+            <select id="export-format">
+              <option value="wav">WAV 16-bit (Lossless)</option>
+              <option value="wav32">WAV 32-bit Float</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Sample Rate</label>
+            <select id="export-samplerate">
+              <option value="44100">44.1 kHz</option>
+              <option value="48000">48 kHz</option>
+              <option value="96000">96 kHz</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>Include Tracklist</label>
+            <input type="checkbox" id="export-tracklist" checked />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="btn-start-export" class="action-btn accent">⬇ Export</button>
+          <button id="btn-cancel-export" class="action-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TRACK LIST SIDEBAR -->
+  <aside id="track-list-panel" class="track-list-panel">
+    <div class="panel-header">
+      <span class="panel-title">LIBRARY</span>
+      <div class="panel-actions">
+        <button id="btn-add-tracks" class="tool-btn" title="Add Tracks">+</button>
+        <button id="btn-close-library" class="tool-btn" title="Close">✕</button>
+      </div>
+    </div>
+    <div class="library-search">
+      <input type="text" id="library-search" placeholder="Search tracks..." />
+    </div>
+    <div class="library-sort">
+      <button class="sort-btn active" data-sort="name">Name</button>
+      <button class="sort-btn" data-sort="bpm">BPM</button>
+      <button class="sort-btn" data-sort="key">Key</button>
+    </div>
+    <ul id="track-list" class="track-list"></ul>
+    <input type="file" id="file-input" multiple accept="audio/*" class="hidden" />
+  </aside>
+
+  <!-- KEYBOARD SHORTCUTS OVERLAY -->
+  <div id="shortcuts-modal" class="modal hidden">
+    <div class="modal-content shortcuts-modal">
+      <div class="modal-header">
+        <h2>⌨ Keyboard Shortcuts</h2>
+        <button class="modal-close" onclick="document.getElementById('shortcuts-modal').classList.add('hidden')">✕</button>
+      </div>
+      <div class="shortcuts-grid">
+        <div class="shortcut"><kbd>Space</kbd> Play / Pause</div>
+        <div class="shortcut"><kbd>Esc</kbd> Stop</div>
+        <div class="shortcut"><kbd>R</kbd> Record</div>
+        <div class="shortcut"><kbd>+</kbd> <kbd>−</kbd> Zoom</div>
+        <div class="shortcut"><kbd>Ctrl+S</kbd> Save Session</div>
+        <div class="shortcut"><kbd>Ctrl+Z</kbd> Undo</div>
+        <div class="shortcut"><kbd>Q-R</kbd> Sample Pads Row 1</div>
+        <div class="shortcut"><kbd>A-F</kbd> Sample Pads Row 2</div>
+        <div class="shortcut"><kbd>L</kbd> Toggle Library</div>
+        <div class="shortcut"><kbd>?</kbd> This Help</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

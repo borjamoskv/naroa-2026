@@ -1,11 +1,11 @@
 /**
- * 🖼️ Image Loader — Dual Strategy (CDN + IPFS)
+ * 🖼️ Cargador de Imágenes — Estrategia Dual (CDN + IPFS)
  * 
- * Strategy:
- * 1. Try Primary CDN (Vercel/Cloudflare) - Fast, optimized APIs
- * 2. Fallback to IPFS Gateway (Pinata) - Permanent, decentralized
+ * Estrategia:
+ * 1. Intentar Primary CDN (Vercel/Cloudflare) - APIs rápidas y optimizadas
+ * 2. Fallback a IPFS Gateway (Pinata) - Permanente, descentralizado
  * 
- * Usage:
+ * Uso:
  *   const img = await ImageLoader.load('espejos-del-alma');
  *   document.body.appendChild(img);
  */
@@ -15,10 +15,10 @@ const ImageLoader = {
   manifestUrl: 'data/ipfs-manifest.json',
 
   /**
-   * Load an artwork image with fallback
-   * @param {string} artworkId - ID of the artwork (filename without extension)
-   * @param {string} format - 'webp' (default)
-   * @returns {Promise<HTMLImageElement>} Loaded image element
+   * Cargar una imagen de obra de arte con respaldo (fallback)
+   * @param {string} artworkId - ID de la obra (nombre de archivo sin extensión)
+   * @param {string} format - 'webp' (por defecto)
+   * @returns {Promise<HTMLImageElement>} Elemento de imagen cargado
    */
   async load(artworkId, format = 'webp') {
     const cdnUrl = `images/gallery/${artworkId}.${format}`;

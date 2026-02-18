@@ -1,0 +1,192 @@
+/* ═══════════════════════════════════════════════════
+   EUSKAI MIXER — Industrial Noir v2
+   Liquid Glass / Cyber Lime / Abyssal Black
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  /* 🎨 Palette */
+  --c-bg: #050505;
+  --c-panel: rgba(20, 20, 20, 0.4); /* Glass base */
+  --c-panel-border: rgba(255, 255, 255, 0.08);
+  
+  --c-accent: #CCFF00; /* Cyber Lime */
+  --c-accent-glow: rgba(204, 255, 0, 0.4);
+  
+  --c-secondary: #7B2FFF; /* Electric Violet */
+  --c-secondary-glow: rgba(123, 47, 255, 0.4);
+
+  --c-text: #eee;
+  --c-text-dim: #666;
+
+  /* 📏 Spacing */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  
+  /* 🔮 Glass */
+  --glass-blur: blur(20px);
+  --glass-border: 1px solid var(--c-panel-border);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  
+  /* ⚡ Animation */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Inter', 'Menlo', monospace;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── LOADING SCREEN ─────────────────────────── */
+#loading-screen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--c-bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.5s ease;
+}
+#loading-screen.loaded { opacity: 0; pointer-events: none; }
+
+/* ─── LAYOUT ─────────────────────────────────── */
+#app-header {
+  height: 60px;
+  flex-shrink: 0; /* Prevent header shrinking */
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--space-m);
+  border-bottom: var(--glass-border);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  z-index: 100;
+}
+
+.header-center {
+  flex: 1; display: flex; justify-content: center;
+  overflow: hidden; /* Prevent spill */
+}
+
+#app-main {
+  flex: 1;
+  height: calc(100vh - 60px); /* Strict height */
+  display: grid;
+  grid-template-columns: 260px 1fr 260px; /* Fixed sidebars */
+  grid-template-rows: 1fr 220px; /* Main vs Timeline */
+  gap: var(--space-s);
+  padding: var(--space-s);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sections reorganized for grid */
+#deck-area { 
+  grid-column: 2; grid-row: 1; 
+  display: flex; flex-direction: column; gap: var(--space-s);
+  min-width: 0; /* Prevent flex blowout */
+}
+#fx-rack { grid-column: 1; grid-row: 1/3; display: flex; flex-direction: column; overflow: hidden; }
+#master-channel { grid-column: 3; grid-row: 1/3; display: flex; flex-direction: column; overflow: hidden; }
+#timeline-section { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; }
+
+/* Panel Style */
+section {
+  background: var(--c-panel);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 12px;
+  padding: var(--space-s); /* Reduced padding */
+  display: flex; flex-direction: column;
+  box-shadow: var(--glass-shadow);
+}
+
+/* ─── DECKS (A/B) ────────────────────────────── */
+.deck {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.3);
+  padding: var(--space-m); /* More padding inside deck */
+  display: flex; flex-direction: column;
+  gap: var(--space-s);
+  min-height: 0; /* Allow shrinking */
+}
+
+canvas.waveform { 
+  width: 100%; 
+  height: 60px; 
+  background: #111; /* Dark background for visibility */
+  border-radius: 4px; 
+  cursor: crosshair; 
+  display: block; /* Remove inline whitespace */
+}
+
+/* ─── CROSSFADER + VISUALIZER ────────────────── */
+#crossfader-area {
+  flex: 0 0 80px; /* Fixed height for crossfader area */
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--space-m);
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  position: relative; /* For absolute visualizer if needed */
+}
+
+/* VISUALIZER - FIXED */
+#visualizer-canvas {
+  position: fixed; /* Background of the app */
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -1; 
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+
+/* ─── TRANSPORT (Header Fix) ────────────────── */
+.transport-bar {
+  display: flex; align-items: center; gap: var(--space-m);
+  background: rgba(0,0,0,0.3);
+  padding: 4px 12px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.transport-time, .transport-bpm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  display: flex; flex-direction: column; align-items: center;
+  line-height: 1.1;
+  min-width: 80px;
+}
+.bpm-label { font-size: 9px; color: var(--c-text-dim); }
+
+/* ─── METERS ────────────────────────────────── */
+.meter-v {
+  width: 6px; height: 200px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.meter-fill {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, var(--c-accent), var(--c-secondary));
+  transition: height 0.1s linear;
+}
+
+/* ─── UTILS ─────────────────────────────────── */
+.hidden { display: none !important; }
+.scroll-y { overflow-y: auto; }
+
+/* ─── DROP OVERLAY ──────────────────────────── */
+#drop-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--c-accent); font-size: 24px; font-weight: bold;
+  border: 4px dashed var(--c-accent);
+}

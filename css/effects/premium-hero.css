@@ -163,7 +163,7 @@
 
 /* MEGA TITLE */
 .hero__title-mega {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(4rem, 14vw, 14rem);
   font-weight: 800;
   line-height: 0.85;

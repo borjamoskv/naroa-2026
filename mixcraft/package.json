@@ -1,0 +1,15 @@
+{
+  "name": "mixcraft",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MIXCRAFT — The Sovereign DJ DAW. Web-based. Free. Superior.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
+  }
+}

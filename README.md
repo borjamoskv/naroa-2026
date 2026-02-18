@@ -1,57 +1,57 @@
-# Naroa 2026 - Static Portfolio
+# Naroa 2026 - Portafolio Estático
 
 > 🎨 Portafolio digital de Naroa Gutiérrez Gil | Artista Visual | Bilbao
 
-## 🚀 Deploy
+## 🚀 Despliegue
 
-Desplegado automáticamente en [Vercel](https://vercel.com) cada push a `main`.
+Desplegado automáticamente en [Vercel](https://vercel.com) con cada push a `main`.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/D0mainsale/naroa-2026)
 
-## 📁 Estructura
+## 📁 Estructura del Proyecto
 
 ```
 naroa-2026/
-├── css/                   # Estilos modulares
-│   ├── variables.css      # Custom properties
-│   ├── typography-2026.css # Satoshi + Switzer
-│   ├── soty-effects.css   # Efectos premium
-│   └── wow-effects.css    # Interacciones WOW
+├── css/                   # Estilos modulares (Sistema Stitch)
+│   ├── variables.css      # Design Tokens (YInMn)
+│   ├── typography-2026.css # Tipografía Satoshi + Switzer
+│   ├── soty-effects.css   # Efectos Premium
+│   └── wow-effects.css    # Interacciones de Alto Impacto
 ├── js/
-│   ├── core/              # Router, App
-│   ├── features/          # Gallery, Lightbox
-│   └── effects/           # Kinetic, Magnetic, Cursor
+│   ├── core/              # Router, App Core
+│   ├── features/          # Galería, Lightbox
+│   └── effects/           # Efectos Cinéticos, Magnéticos, Cursor
 ├── images/artworks/       # 64 obras optimizadas (.webp)
 ├── data/                  # JSON de obras y taxonomía
-└── index.html             # SPA entry point
+└── index.html             # Punto de entrada SPA
 ```
 
-## ⚡ Performance
+## ⚡ Rendimiento (Soberanía de Velocidad)
 
 | Métrica | Objetivo | Estrategia |
 |---------|----------|------------|
-| LCP | < 2.5s | WebP optimizados, lazy loading |
-| FID | < 100ms | JS modular, defer scripts |
-| CLS | < 0.1 | Aspect ratios definidos |
-| Cache | 1 año | Immutable assets con hash |
+| LCP | < 2.5s | WebP optimizados, carga perezosa (lazy loading) |
+| FID | < 100ms | JS modular, scripts diferidos |
+| CLS | < 0.1 | Ratios de aspecto definidos explícitamente |
+| Cache | 1 año | Activos inmutables con hash |
 
 ## 🎨 Tipografía 2026
 
 - **Display:** Switzer (Fontshare)
-- **Body:** Satoshi (Fontshare)
+- **Cuerpo:** Satoshi (Fontshare)
 - **Fallback:** system-ui, sans-serif
 
 ## 🔧 Desarrollo Local
 
 ```bash
-# Servidor local
+# Servidor local con Node
 npx serve .
 
-# O con Python
+# O alternativa con Python
 python3 -m http.server 8000
 ```
 
-## 📦 Deploy Manual
+## 📦 Despliegue Manual
 
 ```bash
 # Con Vercel CLI

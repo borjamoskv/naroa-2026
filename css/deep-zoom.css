@@ -107,7 +107,7 @@
 
 /* Zoom level indicator in toolbar */
 .dz-zoom-level {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   color: rgba(255, 255, 255, 0.45);
   padding: 0 8px;

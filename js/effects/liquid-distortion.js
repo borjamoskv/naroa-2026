@@ -39,7 +39,6 @@ export class LiquidDistortion {
         this.update(0);
         
         this.img.style.opacity = '0';
-        console.log('💧 [Divinity] Liquid Engine v2.0 Active');
     }
 
     createRenderer() {

@@ -2,27 +2,55 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const artworkDir = 'public/images/artworks';
-const files = [
-  'source-amy.png',
-  'source-james.png', 
-  'source-marilyn.png',
-  'source-johnny.png',
-  'source-portrait-1.png',
-  'source-portrait-2.png'
-];
+// Recursive function to get all images
+function getImages(dir) {
+  let results = [];
+  const list = fs.readdirSync(dir);
+  
+  list.forEach(file => {
+    file = path.join(dir, file);
+    const stat = fs.statSync(file);
+    if (stat && stat.isDirectory()) {
+      results = results.concat(getImages(file));
+    } else {
+      if (file.match(/\.(png|jpg|jpeg)$/i)) {
+        results.push(file);
+      }
+    }
+  });
+  return results;
+}
 
-files.forEach(file => {
-  const input = path.join(artworkDir, file);
-  if (!fs.existsSync(input)) return;
-  
-  const name = file.replace('source-', '').replace('.png', '');
-  const output = path.join(artworkDir, `hq-${name}.webp`);
-  
-  sharp(input)
-    .resize(2560, null, { withoutEnlargement: true })
-    .webp({ quality: 90, smartSubsample: true })
-    .toFile(output)
-    .then(info => console.log(`Converted ${file} to ${output}`))
-    .catch(err => console.error(`Error converting ${file}:`, err));
-});
+const publicDir = 'public/images';
+if (!fs.existsSync(publicDir)) {
+    console.error(`Directory ${publicDir} not found!`);
+    process.exit(1);
+}
+
+console.log(`Scanning ${publicDir} for images...`);
+const files = getImages(publicDir);
+console.log(`Found ${files.length} images to process.`);
+
+(async () => {
+    for (const file of files) {
+        const dir = path.dirname(file);
+        const ext = path.extname(file);
+        const name = path.basename(file, ext);
+        const output = path.join(dir, `${name}.webp`);
+
+        if (fs.existsSync(output)) {
+            // console.log(`Skipping ${name}, .webp already exists.`);
+            continue;
+        }
+
+        try {
+            await sharp(file)
+                .webp({ quality: 85, smartSubsample: true, effort: 6 }) // Effort 6 = proper compression
+                .toFile(output);
+            console.log(`✅ Converted: ${name}${ext} -> .webp`);
+        } catch (err) {
+            console.error(`❌ Error converting ${file}:`, err);
+        }
+    }
+    console.log("✨ Asset Sovereignty: Image optimization complete.");
+})();

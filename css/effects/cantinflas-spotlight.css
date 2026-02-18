@@ -99,7 +99,7 @@
 }
 
 .cantinflas-title p {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-primary);
   font-size: 0.9rem;
   color: #fff;
   text-transform: uppercase;

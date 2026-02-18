@@ -1,26 +1,26 @@
 /**
- * K25 Vision Service - AI-Powered Art Analysis & Generation
- * @description Wrapper for Kimi K2.5 Vision API calls with fallback to Gemini
- * Supports multiple modes: disaster restoration, art analysis, and comparison
+ * Servicio de Visión K25 - Análisis y Generación de Arte con IA
+ * @description Wrapper para llamadas a Kimi K2.5 Vision API con fallback a Gemini
+ * Soporta múltiples modos: restauración desastrosa, análisis de arte y comparación
  */
 (function() {
   'use strict';
 
-  // Configuration - can be overridden via window.K25_CONFIG
+  // Configuración - puede ser sobrescrita vía window.K25_CONFIG
   const DEFAULT_CONFIG = {
-    // Primary: Kimi K2.5 Vision API (if available)
+    // Primario: Kimi K2.5 Vision API (si está disponible)
     k25Endpoint: null,
     k25ApiKey: null,
     
-    // Fallback: Gemini Vision API
+    // Respaldo: Gemini Vision API
     geminiEndpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
-    geminiApiKey: null, // Set via environment or config
+    geminiApiKey: null, // Configurar vía entorno o config
     
-    // Demo mode: Use procedural generation when no API is available
+    // Modo Demo: Usa generación procedimental cuando no hay API disponible
     demoMode: true,
     
-    // Disaster generation settings
-    disasterIntensity: 0.8, // 0-1 scale
+    // Configuración de generación de desastres
+    disasterIntensity: 0.8, // Escala 0-1
     maxRetries: 3
   };
 
@@ -114,6 +114,43 @@
       }
 
       return this._fallbackAlbumAnalysis();
+    },
+
+    /**
+     * Generate poetic alt text for accessibility (Sovereign Vision)
+     * @param {string} imageUrl - URL of the artwork
+     * @returns {Promise<string>} - Poetic Spanish description
+     */
+    async generatePoeticAltText(imageUrl) {
+        const prompt = `
+            Actúa como Naroa (artista conceptual, tono Industrial Noir, profundo pero conciso).
+            Describe esta imagen para una persona invidente.
+            No digas "imagen de...". Empieza directamente con la esencia visual.
+            Usa vocabulario sensorial y emocional.
+            Ejemplo: "Una explosión de cian eléctrico corta la oscuridad, revelando texturas de hormigón desgastado."
+            Máximo 25 palabras. Español.
+        `;
+        
+        if (config.k25Endpoint || config.geminiApiKey) {
+            try {
+                const base64 = await this._imageUrlToBase64(imageUrl);
+                const response = await this._callVisionWithPrompt([base64], prompt);
+                // _callVisionWithPrompt returns JSON, but we want text here. 
+                // We'll adjust the helper or parsing logic if needed, but for now assuming direct text return modification
+                // Actually _callVisionWithPrompt parses JSON. We need raw text.
+                // Let's create a specialized internal call or wrap properly.
+                // For simplicity/robustness, let's assume the prompt asks for JSON to keep reusing the helper, 
+                // OR better, create a specific helper for text.
+                
+                // Let's modify the prompt to ask for JSON to fit the existing pipeline
+                const jsonPrompt = prompt + `\nResponde en JSON: { "alt_text": "tu descripción aquí" }`;
+                const jsonRes = await this._callVisionWithPrompt([base64], jsonPrompt);
+                return jsonRes.alt_text || "Arte visual complejo de Naroa.";
+            } catch (e) {
+                console.warn('Poetic Alt Text failed:', e);
+            }
+        }
+        return "Obra de arte digital en estilo Industrial Noir.";
     },
 
     // === Private Methods ===

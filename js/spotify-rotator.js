@@ -9,7 +9,8 @@ class SpotifyRotator {
     
     // Solo un álbum fijo - Lo Inmanente
     this.embeds = [
-      { type: 'album', id: '7HTxaYpcYV5sVDlj2kzx7y', name: 'Lo Inmanente - Borja Moskv' }
+      { type: 'album', id: '7HTxaYpcYV5sVDlj2kzx7y', name: 'Lo Inmanente - Borja Moskv' },
+      { type: 'album', id: '77JwyzmB3ttPtXZfQTq2ab', name: 'Se nos lleva el aire - Robe' }
     ];
     
     this.init();

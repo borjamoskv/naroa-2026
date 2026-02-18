@@ -161,7 +161,7 @@
 }
 
 .canvas360__coords {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: rgba(255, 215, 0, 0.7);
   background: rgba(0, 0, 0, 0.5);

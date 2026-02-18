@@ -15,6 +15,13 @@
   --stitch-hover-lift: -10px;
   --stitch-hover-scale: 1.025;
   --stitch-glow-spread: 35px;
+  --stitch-music-spin: 12s linear infinite;
+  --stitch-vinyl-groove: repeating-radial-gradient(
+    #111 0,
+    #111 2px,
+    #222 3px,
+    #222 4px
+  );
 }
 
 /* ── BASE CARD — Layered Glass ── */
@@ -339,7 +346,7 @@
 
 .gallery-filter__count {
   font-size: 0.68rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   opacity: 0.45;
   padding: 1px 7px;
   background: rgba(255, 255, 255, 0.06);
@@ -393,7 +400,7 @@
   font-size: 0.65rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.6);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   border: 1px solid rgba(255, 255, 255, 0.05);
   opacity: 0;
   transform: translateY(4px);
@@ -502,3 +509,121 @@ body.collector .tech-specs {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MUSIC CARD — Vinyl & Waveform
+   ═══════════════════════════════════════════════════════════ */
+
+.stitch-card--music {
+  --vinyl-size: 90%;
+}
+
+.stitch-media-wrapper--music {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+  perspective: 1000px;
+}
+
+/* Vinyl Disc */
+.stitch-vinyl {
+  width: var(--vinyl-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--stitch-vinyl-groove);
+  position: relative;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.5),
+    inset 0 0 0 2px rgba(255,255,255,0.05);
+  transition: transform 0.8s var(--stitch-transition);
+}
+
+.stitch-vinyl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: 
+    conic-gradient(
+      from 0deg,
+      transparent 0%,
+      rgba(255,255,255,0.1) 20%,
+      transparent 40%,
+      transparent 60%,
+      rgba(255,255,255,0.1) 80%,
+      transparent 100%
+    );
+  mix-blend-mode: overlay;
+}
+
+.stitch-vinyl-label {
+  position: absolute;
+  inset: 35%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.stitch-vinyl-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Spin Animation on Play/Hover */
+.stitch-card--music:hover .stitch-vinyl,
+.stitch-card--music.playing .stitch-vinyl {
+  animation: vinyl-spin var(--stitch-music-spin);
+}
+
+@keyframes vinyl-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Waveform Bar Overlay */
+.stitch-waveform {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 1.5rem 1.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s var(--stitch-transition);
+  -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%);
+  mask-image: linear-gradient(to top, black 50%, transparent 100%);
+}
+
+.stitch-card--music:hover .stitch-waveform {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stitch-wave-bar {
+  flex: 1;
+  background: var(--series-color, var(--fluor, #39ff14));
+  border-radius: 2px;
+  animation: wave-bounce 1s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.stitch-card--music:hover .stitch-wave-bar {
+  animation-play-state: running;
+}
+
+@keyframes wave-bounce {
+  0% { height: 10%; opacity: 0.3; }
+  100% { height: 100%; opacity: 0.8; }
+}
+
+/* Staggered animation delays for bars */
+.stitch-wave-bar:nth-child(2n) { animation-duration: 0.8s; }
+.stitch-wave-bar:nth-child(3n) { animation-duration: 1.2s; }
+.stitch-wave-bar:nth-child(5n) { animation-duration: 0.6s; }
+
