@@ -59,7 +59,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--fluor, #d4af37), transparent);
+  background: linear-gradient(90deg, var(--color-industrial-gold, #d4af37), transparent);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -104,7 +104,7 @@
 }
 
 .game-card:hover .game-card__title {
-  color: var(--fluor, #d4af37);
+  color: var(--color-industrial-gold, #d4af37);
   text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
@@ -188,7 +188,7 @@
   font-family: var(--font-family-mono, monospace);
   font-size: 0.6rem;
   font-weight: 800;
-  background: var(--fluor, #d4af37);
+  background: var(--color-industrial-gold, #d4af37);
   color: #000;
   padding: 3px 8px;
   border-radius: 4px;
@@ -228,7 +228,7 @@
   font-family: var(--font-family-display, 'Space Grotesk', sans-serif);
   font-size: clamp(2.5rem, 6vw, 5rem);
   text-transform: uppercase;
-  background: linear-gradient(135deg, #fff 0%, #d4af37 50%, #ff003c 100%);
+  background: linear-gradient(135deg, #fff 0%, #d4af37 50%, var(--color-interaction-red, #ff003c) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -270,7 +270,7 @@
 
 /* ===== GAME BUTTON UPGRADE ===== */
 .game-btn {
-  background: linear-gradient(135deg, var(--fluor, #d4af37), #c49b30);
+  background: linear-gradient(135deg, var(--color-industrial-gold, #d4af37), #c49b30);
   color: #000;
   font-family: var(--font-family-mono, monospace);
   font-weight: 800;
@@ -407,7 +407,7 @@
 
 @keyframes scoreFlash {
   0%, 100% { color: #fff; }
-  50% { color: var(--fluor, #d4af37); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+  50% { color: var(--color-industrial-gold, #d4af37); text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
 }
 
 /* ===== GRID RESPONSIVENESS ===== */

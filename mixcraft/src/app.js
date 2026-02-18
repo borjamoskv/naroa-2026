@@ -11,106 +11,13 @@ import { Timeline } from './timeline/timeline.js';
 import { Visualizer } from './viz/visualizer.js';
 import { Exporter } from './export/exporter.js';
 import { UIManager } from './ui/UIManager.js';
+import { SamplePadEngine } from './audio/sample-engine.js';
+import { DataEngine } from './data/data-engine.js'; // The Brain
+import { state, EVENTS } from './state/state-manager.js';
 
-// ─── BUILT-IN SAMPLE DRUMS ───────────────────────
-// (Kept here for now, could be moved to src/audio/sample-engine.js)
-class SamplePadEngine {
-  constructor(audioCtx, destination) {
-    this.ctx = audioCtx;
-    this.dest = destination;
-    this.samples = {};
-  }
-  generateDrumSamples() {
-    this.samples = {
-      1: () => this._kick(),
-      2: () => this._snare(),
-      3: () => this._hihat(),
-      4: () => this._clap(),
-      5: () => this._tom(),
-      6: () => this._ride(),
-      7: () => this._fx1(),
-      8: () => this._fx2(),
-    };
-  }
-  trigger(padId) { if (this.samples[padId]) this.samples[padId](); }
-  
-  // Synthesis methods (Compact for brevity in this refactor)
-  _kick() { this._tone(150, 0.01, 0.5); }
-  _tom() { this._tone(200, 50, 0.3); }
-  _fx1() { this._tone(4000, 100, 0.3, 'sawtooth'); }
-  _fx2() { this._tone(200, 2000, 0.5, 'sine', 'linear'); }
-  
-  _tone(freqStart, freqEnd, dur, type='sine', ramp='exponential') {
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freqStart, this.ctx.currentTime);
-    if (ramp === 'exponential') osc.frequency.exponentialRampToValueAtTime(freqEnd, this.ctx.currentTime + dur);
-    else osc.frequency.linearRampToValueAtTime(freqEnd, this.ctx.currentTime + dur);
-    gain.gain.setValueAtTime(1, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
-    osc.connect(gain); gain.connect(this.dest);
-    osc.start(); osc.stop(this.ctx.currentTime + dur);
-  }
+// SamplePadEngine extracted to src/audio/sample-engine.js
 
-  _snare() { this._noise(0.2, 1000, 'highpass'); this._tone(200, 0.01, 0.1, 'triangle'); }
-  _hihat() { this._noise(0.05, 7000, 'highpass'); }
-  _ride() { this._noise(0.4, 10000, 'bandpass'); }
-  
-  _noise(dur, freq, type) {
-    const noise = this.ctx.createBufferSource();
-    const buf = this.ctx.createBuffer(1, this.ctx.sampleRate * dur, this.ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    noise.buffer = buf;
-    const fil = this.ctx.createBiquadFilter(); fil.type = type; fil.frequency.value = freq;
-    const gain = this.ctx.createGain();
-    gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
-    noise.connect(fil); fil.connect(gain); gain.connect(this.dest);
-    noise.start();
-  }
-  
-  _clap() {
-     // Multi-burst
-     for(let i=0; i<3; i++) {
-         setTimeout(() => this._noise(0.02, 2500, 'bandpass'), i*10);
-     }
-  }
-}
-
-// ─── SPECTRUM ANALYZER (Visual Helper) ────────────────────────────
-class SpectrumAnalyzer {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this._resizeObserver = new ResizeObserver(() => this._resize());
-    if(canvas) this._resizeObserver.observe(canvas);
-  }
-  _resize() {
-    if(!this.canvas) return;
-    const rect = this.canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    this.canvas.width = rect.width * dpr;
-    this.canvas.height = rect.height * dpr;
-    this.ctx.scale(dpr, dpr);
-    this.width = rect.width;
-    this.height = rect.height;
-  }
-  draw(frequencyData) {
-    if (!this.canvas || !frequencyData) return;
-    const { ctx, width, height } = this;
-    ctx.clearRect(0, 0, width, height);
-    const barCount = Math.min(frequencyData.length, 64); // Reduced for cleaner look
-    const barWidth = width / barCount;
-    for (let i = 0; i < barCount; i++) {
-        const val = frequencyData[i] / 255;
-        const h = val * height;
-        ctx.fillStyle = `hsla(${120 + i*2}, 100%, 50%, 0.8)`; // Cyber Lime gradient
-        ctx.fillRect(i * barWidth, height - h, barWidth - 2, h);
-    }
-  }
-}
+import { SpectrumAnalyzer } from './viz/spectrum-analyzer.js';
 
 // ═══════════════════════════════════════════════════
 // MAIN APP
@@ -119,10 +26,10 @@ class MixcraftApp {
   constructor() {
     // 1. Core Engine
     this.audioEngine = new AudioEngine();
+    this.dataEngine = new DataEngine(); // The Brain (Sovereign Data Science)
     
     // 2. State
     this.isInitialized = false;
-    this.isPlaying = false;
     this.nextDeck = 'A';
     this.hotCues = { A: {}, B: {} };
     
@@ -164,7 +71,8 @@ class MixcraftApp {
     await this._loadDemoTracks();
 
     // Done
-    this.ui.toggleLoading(false);
+    // this.ui.toggleLoading(false); // DEPRECATED: Direct UI call
+    state.emit(EVENTS.UI.LOADING, false);
     
     console.log(
       '%c◈ EUSKAI MIXER V1 ◈ %cLiquid Glass Engine Ready',
@@ -191,6 +99,7 @@ class MixcraftApp {
         await this.loadTrack(track.id, file);
       } catch (err) {
         console.warn(`[Demo] Could not load track ${track.name}:`, err);
+        state.emit(EVENTS.AUDIO.ERROR, { message: `Failed to load demo track ${track.name}`, error: err });
       }
     }
   }
@@ -209,7 +118,7 @@ class MixcraftApp {
       this.audioEngine.masterChain = this.masterChain;
       
       this.samplePads = new SamplePadEngine(ctx, this.audioEngine.masterGain);
-      this.samplePads.generateDrumSamples();
+      // generateDrumSamples is called in constructor now
       
       // Wire Master Chain: MasterGain -> MasterChain -> Destination
       this.audioEngine.masterGain.disconnect();
@@ -217,6 +126,7 @@ class MixcraftApp {
       this.masterChain.output.connect(ctx.destination);
       
       this.isInitialized = true;
+      state.emit(EVENTS.APP.READY);
     }
   }
 
@@ -248,11 +158,16 @@ class MixcraftApp {
     if (this.audioEngine.isPlaying) {
       this.audioEngine.pause();
       this.visualizer?.stop();
+      state.emit(EVENTS.PLAYBACK.STOP);
     } else {
       this.audioEngine.play();
-      this.visualizer?.start();
+      this.visualizer?.start(
+        () => this.audioEngine.getAnalyserData(),
+        () => this.audioEngine.getAnalyserTimeData()
+      );
+      state.emit(EVENTS.PLAYBACK.START);
     }
-    // UIManager updates UI based on engine state in update loop
+    // UIManager interactions handled via events in UIManager.js
   }
 
   async toggleRecording() {
@@ -262,7 +177,7 @@ class MixcraftApp {
 
   // ─── FILE HANDLING ──────────────────────────────────
   async handleFileDrop(files) {
-    // Logic called by UIManager
+    // Logic called by UIManager (will need refactor to event based later)
     for (const file of files) {
        await this.loadTrack(this.nextDeck, file);
        this.nextDeck = this.nextDeck === 'A' ? 'B' : 'A';
@@ -270,11 +185,9 @@ class MixcraftApp {
   }
 
   async loadTrack(deckId, file) {
+    state.emit(EVENTS.AUDIO.LOAD_START, { deckId });
     await this._ensureAudio();
     try {
-      // Clean this up: UIManager should show "Loading..."
-      // For now, accessed via DOM directly or events? 
-      // Ideally App emits events, but direct DOM access for MVP is faster.
       const deck = await this.audioEngine.loadTrack(deckId, file);
       
       // Update Waveform
@@ -283,11 +196,28 @@ class MixcraftApp {
       // Add to Timeline
       this.timeline?.addTrack(deck);
       
-      // Notification
-      console.log(`Loaded ${deck.name} to Deck ${deckId}`);
+      // Emit Success Event
+      state.emit(EVENTS.AUDIO.LOAD_COMPLETE, { 
+          deckId, 
+          deck: { 
+              name: deck.name, 
+              duration: deck.duration, 
+              bpm: deck.bpm,
+              key: deck.key,
+              camelot: deck.camelot
+          } 
+      });
+      
+      // Sovereign Analysis (The Brain) — off-thread spectral analysis
+      if (deck.buffer) {
+        this.dataEngine.analyzeAudio(deck.buffer).then(analysis => {
+           state.emit(EVENTS.TRACK.LOADED, { deckId, analysis });
+        });
+      }
       
     } catch (err) {
       console.error(err);
+      state.emit(EVENTS.AUDIO.ERROR, { message: `Failed to load track`, error: err });
     }
   }
 
@@ -306,14 +236,21 @@ class MixcraftApp {
       }
       
       // 2. Update Visuals
-      if (this.visualizer && this.audioEngine.isPlaying) {
-         this.visualizer.draw(freqData, timeData);
-      }
+      // Visualizer is now running in a Worker (The Eye). No main thread draw call needed.
       if (this.spectrum) {
          this.spectrum.draw(freqData);
       }
       
-      // 3. Update UI (Meters, Playhead, Time)
+      // 3. Emit VIZ Data for decoupled components
+      if (this.audioEngine.isPlaying) {
+          state.emit(EVENTS.VIZ.DATA, {
+              freqData,
+              timeData,
+              analysis
+          });
+      }
+      
+      // 4. Update UI (Legacy direct coupling - to be refactored)
       this.ui.update(analysis);
       
       requestAnimationFrame(loop);

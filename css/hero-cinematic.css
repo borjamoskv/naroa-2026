@@ -12,8 +12,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: var(--black, #050505);
-    color: var(--white, #ededed);
+    background: var(--color-void, #050505);
+    color: var(--color-text-white, #ededed);
 }
 
 /* ── BACKGROUND LAYER ── */
@@ -56,8 +56,8 @@
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(5, 5, 5, 0.4) 50%, var(--black, #050505) 85%),
-        linear-gradient(180deg, rgba(5, 5, 5, 0.3) 0%, transparent 30%, transparent 70%, var(--black, #050505) 100%);
+        radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(5, 5, 5, 0.4) 50%, var(--color-void, #050505) 85%),
+        linear-gradient(180deg, rgba(5, 5, 5, 0.3) 0%, transparent 30%, transparent 70%, var(--color-void, #050505) 100%);
     z-index: 2;
 }
 
@@ -68,7 +68,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    background: var(--black, #050505);
+    background: var(--color-void, #050505);
     z-index: 3;
     transition: height 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -135,7 +135,7 @@
 
 /* ── TITLE — The name in lights ── */
 .hero-cinematic__title {
-    font-family: var(--font-family-display, 'Satoshi', 'Outfit', sans-serif);
+    font-family: var(--font-display, 'Satoshi', 'Outfit', sans-serif);
     font-size: clamp(3.5rem, 12vw, 10rem);
     font-weight: 900;
     line-height: 0.85;
@@ -148,7 +148,7 @@
         160deg,
         #fff 0%,
         #fff 25%,
-        var(--gold-metallic, #d4af37) 45%,
+        var(--color-industrial-gold, #d4af37) 45%,
         #fff 65%,
         rgba(212, 175, 55, 0.8) 100%
     );
@@ -170,7 +170,7 @@
 
 /* ── SUBTITLE — Whispered tagline ── */
 .hero-cinematic__subtitle {
-    font-family: var(--font-family-main, 'Outfit', sans-serif);
+    font-family: var(--font-sans, 'Outfit', sans-serif);
     font-size: clamp(0.85rem, 2.2vw, 1.3rem);
     font-weight: var(--font-weight-light, 300);
     letter-spacing: 0.5em;
@@ -189,7 +189,7 @@
     width: 60px;
     height: 1px;
     margin: 1.5rem auto 0;
-    background: linear-gradient(90deg, transparent, var(--gold-metallic, #d4af37), transparent);
+    background: linear-gradient(90deg, transparent, var(--color-industrial-gold, #d4af37), transparent);
     opacity: 0;
     animation: heroLineReveal 1s ease 1.2s forwards;
 }
@@ -213,14 +213,14 @@
 }
 
 .hero-cinematic__scroll:hover {
-    color: var(--gold-metallic, #d4af37);
+    color: var(--color-industrial-gold, #d4af37);
 }
 
 .hero-cinematic__scroll span {
     font-size: 0.65rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    font-family: var(--font-family-main, 'Outfit', sans-serif);
+    font-family: var(--font-sans, 'Outfit', sans-serif);
 }
 
 .hero-cinematic__scroll-line {
@@ -237,7 +237,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--gold-metallic, #d4af37));
+    background: linear-gradient(to bottom, transparent, var(--color-industrial-gold, #d4af37));
     animation: scrollLineDrop 2.5s cubic-bezier(0.4, 0, 0, 1) infinite;
 }
 
@@ -251,7 +251,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--gold-metallic, #d4af37);
+    background: var(--color-industrial-gold, #d4af37);
     opacity: 0.6;
     animation: scrollPulse 2.5s ease-in-out infinite;
 }
@@ -351,7 +351,7 @@
     .hero-cinematic__scroll-line::before {
         animation: none;
         top: 0;
-        background: var(--gold-metallic, #d4af37);
+        background: var(--color-industrial-gold, #d4af37);
         opacity: 0.3;
     }
 }

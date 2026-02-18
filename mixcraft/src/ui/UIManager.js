@@ -1,11 +1,13 @@
 /* ═══════════════════════════════════════════════════
-   UIManager v1 — Sovereign Interface Orchestrator
+   UIManager v1.5 — Sovereign Interface Orchestrator
    Central command for EuskAI Mixer DOM & Visuals
+   Reactive to State Events (Decoupled)
    ═══════════════════════════════════════════════════ */
 
 import { Transport } from './components/Transport.js';
 import { Mixer } from './components/Mixer.js';
 import { FXRack } from './components/FXRack.js';
+import { state, EVENTS } from '../state/state-manager.js';
 
 export class UIManager {
   constructor(app) {
@@ -32,6 +34,7 @@ export class UIManager {
     // 2. Setup Global Listeners
     this._setupGlobalKeys();
     this._setupDragDrop();
+    this._setupStateListeners(); // NEw State Subscription
 
     // 3. Initialize Sub-components
     await this.components.transport.init();
@@ -42,6 +45,29 @@ export class UIManager {
     this.update();
     
     console.log('[UIManager] Interface Ready.');
+  }
+
+  // ─── STATE REACTIVITY ────────────────────────────────
+  _setupStateListeners() {
+      // Loading Screen
+      state.on(EVENTS.UI.LOADING, (isLoading) => {
+          this.toggleLoading(isLoading);
+      });
+
+      // Errors
+      state.on(EVENTS.AUDIO.ERROR, (error) => {
+          console.error('🔴 [UI] Error Notification:', error);
+          // TODO: Implement Toast notification system in Wave 2
+          alert(`Error: ${error.message || 'Unknown error'}`);
+      });
+      
+      // Playback State (Optional: Components handle this too, but UI manager can coordinate)
+      state.on(EVENTS.PLAYBACK.START, () => {
+          document.body.classList.add('is-playing');
+      });
+      state.on(EVENTS.PLAYBACK.STOP, () => {
+          document.body.classList.remove('is-playing');
+      });
   }
 
   // Called 60fps from App animation loop
@@ -95,13 +121,17 @@ export class UIManager {
 
   toggleLoading(show) {
     if (show) {
-      this.dom.loading.classList.remove('loaded');
-      this.dom.loading.style.visibility = 'visible';
+      if (this.dom.loading) {
+          this.dom.loading.classList.remove('loaded');
+          this.dom.loading.style.visibility = 'visible';
+      }
     } else {
-      this.dom.loading.classList.add('loaded');
-      setTimeout(() => {
-        this.dom.loading.style.visibility = 'hidden';
-      }, 800);
+      if (this.dom.loading) {
+          this.dom.loading.classList.add('loaded');
+          setTimeout(() => {
+            if (this.dom.loading) this.dom.loading.style.visibility = 'hidden';
+          }, 800);
+      }
     }
   }
 }

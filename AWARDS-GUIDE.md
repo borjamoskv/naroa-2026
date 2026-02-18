@@ -15,10 +15,10 @@
 
 | Criterio | Peso | Estado Actual | Mejoras Necesarias |
 |----------|------|---------------|-------------------|
-| **Design** | 40% | 🟡 Base | Tipografía premium, grid dinámico |
-| **Usability** | 30% | 🟡 Base | Navegación fluida, feedback táctil |
-| **Creativity** | 20% | 🟢 Alto | Shaders WebGL, concepto artístico |
-| **Content** | 10% | 🟡 Medio | Textos poéticos, storytelling |
+| **Diseño** | 40% | 🟡 Base | Tipografía premium, grid dinámico |
+| **Usabilidad** | 30% | 🟡 Base | Navegación fluida, feedback táctil |
+| **Creatividad** | 20% | 🟢 Alto | Shaders WebGL, concepto artístico |
+| **Contenido** | 10% | 🟡 Medio | Textos poéticos, narrativa |
 
 ---
 
@@ -28,23 +28,23 @@
 - [ ] **Lighthouse Score 90+** (Performance, Accessibility, SEO)
 - [ ] **WCAG 2.2 Compliance** (contraste, teclado, screen reader)
 - [ ] **Mobile-first** responsive design
-- [ ] **Page Transitions** suaves entre vistas
+- [ ] **Transiciones de Página** suaves entre vistas
 - [ ] **Smooth Scroll** implementado
 - [ ] **Microinteracciones** en todos los elementos interactivos
 
 ### Diferenciadores 🚀
 - [ ] **WebGL/Shaders** originales
 - [ ] **Parallax** sutil
-- [ ] **Cursor Effects** personalizados
-- [ ] **Staggered Animations** en listas/grid
-- [ ] **Loading States** creativos
+- [ ] **Efectos de Cursor** personalizados
+- [ ] **Animaciones Escalonadas** en listas/grid
+- [ ] **Estados de Carga** creativos
 - [ ] **Easter Eggs** ocultos
 
 ### Tendencias 2025 (Awwwards)
-- [ ] **Ethical Design** — hosting bajo en carbono
-- [ ] **Low-energy Animations** — optimizadas para batería
-- [ ] **Transparent AI Integration** — si aplica
-- [ ] **Scroll-driven Storytelling** — narrativa con scroll
+- [ ] **Diseño Ético** — hosting bajo en carbono
+- [ ] **Animaciones Low-Energy** — optimizadas para batería
+- [ ] **Integración IA Transparente** — si aplica
+- [ ] **Narrativa Scroll-driven** — historia al hacer scroll
 
 ---
 
@@ -141,13 +141,13 @@ html {
 3. Parallax paper texture
 4. Staggered animations
 
-### Semana 3: Polish
+### Semana 3: Pulido (Polish)
 1. Loading states
 2. Easter eggs
 3. Contenido narrativo
 4. Testing cross-browser
 
-### Semana 4: Submission
+### Semana 4: Entrega (Submission)
 1. Screenshots de alta calidad
 2. Video demo (opcional)
 3. Descripción del proyecto

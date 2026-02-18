@@ -12,10 +12,10 @@
   z-index: 99999;
 
   /* Pill shape */
-  background: rgba(8, 8, 12, 0.85);
+  background: var(--glass-surface);
   -webkit-backdrop-filter: blur(24px) saturate(1.8);
   backdrop-filter: blur(24px) saturate(1.8);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
   border-radius: 28px;
   
   /* Size transitions */
@@ -37,7 +37,7 @@
   
   /* Glow */
   box-shadow: 
-    0 4px 24px rgba(0, 0, 0, 0.4),
+    var(--shadow-subtle),
     0 0 0 0.5px rgba(255, 255, 255, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
@@ -50,7 +50,7 @@
   border-radius: 24px;
   padding: 12px 20px;
   flex-wrap: wrap;
-  background: rgba(8, 8, 12, 0.92);
+  background: var(--glass-surface);
 }
 
 /* ─── Active glow pulse ─── */
@@ -79,7 +79,7 @@
 
 /* ─── Current Section Label ─── */
 .notch__label {
-  font-family: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -100,7 +100,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ffd700;
+  background: var(--color-industrial-gold);
   flex-shrink: 0;
   animation: notch-pulse 3s ease-in-out infinite;
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
@@ -119,7 +119,7 @@
   gap: 2px;
   margin-top: 8px;
   padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--color-border);
 }
 
 .notch.expanded .notch__nav {
@@ -138,7 +138,7 @@
   border-radius: 14px;
   color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -191,7 +191,7 @@
   width: 100%;
   margin-top: 6px;
   padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid var(--color-border);
 }
 
 .notch.expanded .notch__mica {
@@ -201,12 +201,12 @@
 .notch__mica-input {
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 10px 14px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   outline: none;
   transition: all 0.3s ease;
 }
@@ -231,13 +231,13 @@
 
 .notch__progress-circle {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: var(--color-border);
   stroke-width: 2.5;
 }
 
 .notch__progress-bar {
   fill: none;
-  stroke: #ffd700;
+  stroke: var(--color-industrial-gold);
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-dasharray: 44;
@@ -260,7 +260,6 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 16px;
   cursor: pointer;
-  display: none;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;

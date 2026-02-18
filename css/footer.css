@@ -5,10 +5,10 @@
 .site-footer {
   position: relative;
   padding: 5rem 2rem 3rem;
-  background: var(--black);
+  background: var(--color-void);
   border-top: 1px solid rgba(212, 175, 55, 0.08);
   color: rgba(255,255,255,0.4);
-  font-family: var(--font-family-main, 'Outfit', sans-serif);
+  font-family: var(--font-sans, 'Outfit', sans-serif);
 }
 
 /* Gold accent line at top */
@@ -45,18 +45,18 @@
 }
 
 .footer__logo {
-  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: 0.1em;
-  color: var(--white);
+  color: var(--color-text-white);
   text-transform: uppercase;
   cursor: pointer;
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .footer__logo:hover {
-  color: var(--gold-metallic, #d4af37);
+  color: var(--color-industrial-gold, #d4af37);
   text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
@@ -64,7 +64,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-metallic, #d4af37);
+  color: var(--color-industrial-gold, #d4af37);
   opacity: 0.5;
 }
 
@@ -82,12 +82,12 @@
 }
 
 .footer__col-title {
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono, monospace);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gold-metallic, #d4af37);
+  color: var(--color-industrial-gold, #d4af37);
   opacity: 0.6;
   margin-bottom: 0.5rem;
 }
@@ -101,7 +101,7 @@
 }
 
 .footer__link:hover {
-  color: var(--gold-metallic, #d4af37);
+  color: var(--color-industrial-gold, #d4af37);
   transform: translateX(4px);
 }
 
@@ -128,7 +128,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold-metallic, #d4af37);
+  color: var(--color-industrial-gold, #d4af37);
   opacity: 0.5;
 }
 
@@ -148,7 +148,7 @@
 
 .footer__copy {
   font-size: 0.7rem;
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono, monospace);
   opacity: 0.3;
   letter-spacing: 0.05em;
 }

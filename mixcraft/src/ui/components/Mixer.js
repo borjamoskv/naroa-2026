@@ -24,8 +24,13 @@ export class Mixer {
     this._bindKnob('#mc-comp-ratio', (v) => this.masterChain?.setCompressorParams({ ratio: parseFloat(v) }));
     
     // EQ Controls (Mid/High/Air)
-    // Assuming UI has these specific IDs
-    // We might need to generate them dynamically in Phase 2 for full "God Mode"
+    // Dynamic binding for sovereign control
+    this._bindKnob('#mc-eq-low', (v) => this.masterChain?.setEQParams({ low: parseFloat(v) }));
+    this._bindKnob('#mc-eq-mid', (v) => this.masterChain?.setEQParams({ mid: parseFloat(v) }));
+    this._bindKnob('#mc-eq-high', (v) => this.masterChain?.setEQParams({ high: parseFloat(v) }));
+    
+    // Gain Makeup
+    this._bindKnob('#mc-gain', (v) => this.masterChain?.setGain(parseFloat(v)));
   }
 
   _setupCrossfader() {
@@ -63,10 +68,36 @@ export class Mixer {
     const lufsDisplay = document.getElementById('mc-lufs-val');
     if (lufsDisplay) lufsDisplay.textContent = lufsEstimate.toFixed(1);
     
-    // Update Compression Reduction Meter
-    // Requires getting reduction value from compressor node (if supported by browser)
-    // const reduction = this.masterChain?.getCompressorReduction() || 0;
-    // this._updateReductionMeter(reduction);
+    // Update Compression Reduction Meter (Simulated for visuals if node doesn't support reduction property)
+    // In a real sovereign audio engine, we'd use an AudioWorklet to measure reduction.
+    // For now, we simulate visual feedback based on threshold breach.
+    const reduction = this._simulateReduction(rmsDb);
+    this._updateReductionMeter(reduction);
+  }
+
+  _simulateReduction(rmsDb) {
+    // Simple visual simulation: if RMS > Threshold, show reduction
+    if (!this.masterChain || !this.masterChain.compressor) return 0;
+    const thresh = this.masterChain.compressor.threshold.value;
+    const ratio = this.masterChain.compressor.ratio.value;
+    
+    if (rmsDb > thresh) {
+       const over = rmsDb - thresh;
+       return over * (1 - 1/ratio); // Approx reduction in dB
+    }
+    return 0;
+  }
+
+  _updateReductionMeter(reductionDb) {
+    const meter = document.getElementById('mc-comp-reduction');
+    if (!meter) return;
+    const fill = meter.querySelector('.meter-fill');
+    if (fill) {
+       // Reduction is usually 0 to -20dB. Visual scale 0-100%
+       const height = Math.min(100, (reductionDb / 20) * 100);
+       fill.style.height = `${height}%`;
+       fill.style.opacity = height > 0 ? 1 : 0.2;
+    }
   }
 
   _updateMeter(id, rmsDb, peakDb) {

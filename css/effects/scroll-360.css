@@ -92,7 +92,7 @@ html {
   right: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
-  font-family: var(--font-family-mono, monospace);
+  font-family: var(--font-mono, monospace);
   font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -108,8 +108,8 @@ html {
 }
 
 .scroll-indicator__dot--active {
-  background: var(--fluor, #d4af37);
-  border-color: var(--fluor, #d4af37);
+  background: var(--color-industrial-gold);
+  border-color: var(--color-industrial-gold);
   transform: scale(1.4);
   box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }

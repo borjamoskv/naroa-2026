@@ -45,6 +45,7 @@
 .aspect-golden-portrait  { aspect-ratio: 1 / var(--phi); }
 
 /* The Golden Toggle Button */
+/* The Golden Toggle Button */
 .phi-toggle {
   position: fixed;
   bottom: 2rem;
@@ -52,31 +53,31 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--gold-metallic, #d4af37);
-  background: rgba(0,0,0,0.4);
-  color: var(--gold-metallic, #d4af37);
-  font-family: serif;
+  border: 1px solid var(--color-industrial-gold);
+  background: rgba(10, 10, 10, 0.8); /* Void with opacity */
+  color: var(--color-industrial-gold);
+  font-family: var(--font-mono);
   font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10000;
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--ease-snappy, ease);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
 .phi-toggle:hover {
-  background: var(--gold-metallic, #d4af37);
-  color: #000;
+  background: var(--color-industrial-gold);
+  color: var(--color-void);
   transform: scale(1.1);
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
 .phi-toggle.active {
-  background: var(--gold-metallic, #d4af37);
-  color: #000;
+  background: var(--color-industrial-gold);
+  color: var(--color-void);
 }
 
 /* Golden Overlay Canvas */

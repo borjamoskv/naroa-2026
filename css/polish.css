@@ -37,7 +37,7 @@
   text-align: center;
   padding: 6rem 2rem 4rem;
   position: relative;
-  background: var(--gallery-bg, #050505);
+  background: var(--color-void, #050505);
   overflow: hidden;
 }
 
@@ -56,11 +56,11 @@
 
 .gallery-section-header__eyebrow {
   display: inline-block;
-  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gallery-gold, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   opacity: 0.7;
   margin-bottom: 1.5rem;
   position: relative;
@@ -70,10 +70,10 @@
 }
 
 .gallery-section-header__title {
-  font-family: var(--font-family-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Playfair Display', serif);
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 300;
-  color: var(--white, #fff);
+  color: var(--color-text-primary, #fff);
   line-height: 1.05;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
@@ -81,14 +81,14 @@
 
 .gallery-section-header__title em {
   font-style: italic;
-  background: linear-gradient(135deg, #D4AF37 0%, #F0C040 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #D4AF37 0%, #E0C060 50%, #D4AF37 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gallery-section-header__subtitle {
-  font-family: var(--font-family-sans, 'Outfit', sans-serif);
+  font-family: var(--font-sans, 'Outfit', sans-serif);
   font-size: 1.15rem;
   color: rgba(255, 255, 255, 0.45);
   font-weight: 300;
@@ -100,7 +100,7 @@
 .gallery-section-header__line {
   width: 60px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gallery-gold, #D4AF37), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-industrial-gold, #D4AF37), transparent);
   margin: 0 auto;
   opacity: 0.5;
 }
@@ -129,7 +129,7 @@
 }
 
 .section-divider__diamond {
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   font-size: 0.6rem;
   opacity: 0.5;
   animation: diamondPulse 3s ease-in-out infinite;
@@ -146,11 +146,11 @@
 
 .contact__eyebrow {
   display: block;
-  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   opacity: 0.6;
   margin-bottom: 1rem;
 }
@@ -178,7 +178,7 @@
 .contact__card:hover .contact__icon {
   background: rgba(212, 175, 55, 0.12);
   border-color: rgba(212, 175, 55, 0.35);
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   transform: scale(1.08);
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
 }
@@ -196,7 +196,7 @@
 }
 
 .contact__card:hover .contact__card-arrow {
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   transform: translateX(6px);
 }
 
@@ -255,16 +255,16 @@
   top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: var(--font-family-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Playfair Display', serif);
   font-size: 6rem;
   line-height: 1;
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   opacity: 0.15;
   pointer-events: none;
 }
 
 .contact__quote p {
-  font-family: var(--font-family-display, 'Playfair Display', serif);
+  font-family: var(--font-display, 'Playfair Display', serif);
   font-size: 1.35rem;
   font-style: italic;
   color: rgba(255, 255, 255, 0.7);
@@ -275,10 +275,10 @@
 .contact__quote cite {
   display: block;
   margin-top: 1.5rem;
-  font-family: var(--font-family-mono, 'JetBrains Mono', monospace);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.8rem;
   font-style: normal;
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   opacity: 0.5;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -323,7 +323,7 @@
 }
 
 .footer__link:hover {
-  color: var(--gold-metallic, #D4AF37);
+  color: var(--color-industrial-gold, #D4AF37);
   transform: translateX(4px);
 }
 
@@ -451,7 +451,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #D4AF37, #F0C040, #D4AF37);
+  background: linear-gradient(90deg, #D4AF37, #E0C060, #D4AF37);
   z-index: 10000;
   transform-origin: left;
   transform: scaleX(0);

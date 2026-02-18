@@ -48,12 +48,28 @@ export class AudioEngine {
     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
 
     // Master chain
+    // Master chain nodes
     this.masterGain = this.ctx.createGain();
     this.analyser = this.ctx.createAnalyser();
     this.analyser.fftSize = 2048;
     this.analyser.smoothingTimeConstant = 0.85;
 
-    this.masterGain.connect(this.analyser);
+    // Load Sovereign Processor (The Metal)
+    try {
+      // Path assumes serving from root. Adjust if needed.
+      await this.ctx.audioWorklet.addModule('./mixcraft/src/audio/processor.worklet.js');
+      this.sovereignProcessor = new AudioWorkletNode(this.ctx, 'sovereign-processor');
+      console.log('🤘 The Metal (AudioWorklet) is active.');
+      
+      // Route: MasterGain -> SovereignProcessor -> Analyser -> Destination
+      this.masterGain.connect(this.sovereignProcessor);
+      this.sovereignProcessor.connect(this.analyser);
+    } catch (err) {
+      console.error('Failed to load AudioWorklet. Fallback to standard chain.', err);
+      // Fallback Route: MasterGain -> Analyser
+      this.masterGain.connect(this.analyser);
+    }
+
     this.analyser.connect(this.ctx.destination);
 
     // Inicializar decks

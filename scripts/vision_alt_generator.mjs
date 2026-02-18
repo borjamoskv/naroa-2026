@@ -2,10 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
+import 'dotenv/config';
 
 // Configuration
 const DATA_FILE = path.join(process.cwd(), 'data', 'artworks-metadata.json');
-const IMAGES_DIR = path.join(process.cwd(), 'public');
+const IMAGES_DIR = process.cwd();
 
 // Sovereign Persona Prompt
 const SYSTEM_PROMPT = `
@@ -23,6 +24,7 @@ async function main() {
     console.error('❌ ERROR: GOOGLE_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY environment variable is missing.');
     process.exit(1);
   }
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY = apiKey; // Ensure SDK finds it
 
   console.log('👁️  VISION-FOR-ALT: Sovereign Protocol Initiated...');
 
@@ -64,7 +66,7 @@ async function main() {
       const imageBuffer = fs.readFileSync(imagePath);
       
       const { text } = await generateText({
-        model: google('gemini-2.0-flash-001'), // Or gemini-1.5-flash if 2.0 not avail
+        model: google('gemini-2.0-flash-001'), // Back to 2.0
         system: SYSTEM_PROMPT,
         messages: [
           {
@@ -89,7 +91,14 @@ async function main() {
 
     } catch (error) {
       console.error(`❌ Failed to generate for ${artwork.id}:`, error.message);
+      if (error.message.includes('429') || error.message.includes('Quota')) {
+        console.log('⏳ Quota hit. Sleeping for 60s...');
+        await new Promise(resolve => setTimeout(resolve, 60000));
+      }
     }
+    
+    // Rate limit: Sleep 10s always to be safe
+    await new Promise(resolve => setTimeout(resolve, 10000));
   }
 
   // 3. Final Save

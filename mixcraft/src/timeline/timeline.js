@@ -73,8 +73,10 @@ export class Timeline {
     region.className = 'timeline-region';
     region.style.left = `${track.startTime * effectivePxPerSec}px`;
     region.style.width = `${track.duration * effectivePxPerSec}px`;
-    region.style.borderColor = track.color;
-    region.style.background = `linear-gradient(180deg, ${track.color}15 0%, #1E1E1E 100%)`;
+    region.style.background = `linear-gradient(180deg, ${track.color}20 0%, ${track.color}05 100%)`;
+    region.style.border = `1px solid ${track.color}60`;
+    region.style.boxShadow = `0 0 10px ${track.color}10`;
+    region.style.borderRadius = '2px';
 
     // Nombre de la región
     const regionName = document.createElement('div');
@@ -116,8 +118,13 @@ export class Timeline {
     const step = data.length / width;
     for (let x = 0; x < width; x++) {
       const idx = Math.floor(x * step);
-      const amplitude = (data[idx] || 0) * centerY * 0.85;
-      ctx.fillRect(x, centerY - amplitude, 1, amplitude * 2);
+      const amplitude = (data[idx] || 0) * centerY * 0.95;
+      
+      // Mirror effect for sovereign look
+      ctx.globalAlpha = 0.8;
+      ctx.fillRect(x, centerY - amplitude, 1, amplitude);
+      ctx.globalAlpha = 0.4;
+      ctx.fillRect(x, centerY, 1, amplitude);
     }
   }
 

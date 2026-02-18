@@ -28,7 +28,7 @@ describe('TetrisSardinas Logic', () => {
 
   beforeAll(async () => {
     // Dynamic import to ensure global mocks are active when module loads
-    const module = await import('../js/incredible-crisis-games.js');
+    const module = await import('../js/minigames/games/Volume1.js');
     TetrisSardinas = module.TetrisSardinas;
   });
 

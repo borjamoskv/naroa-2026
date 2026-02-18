@@ -143,7 +143,7 @@
   transition: color 0.2s;
 }
 
-.c4-col-header:hover { color: #d4af37; }
+.c4-col-header:hover { color: var(--color-industrial-gold, #d4af37); }
 
 .c4-cell {
   aspect-ratio: 1;
@@ -238,13 +238,13 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-.tetris-info strong { color: #d4af37; }
+.tetris-info strong { color: var(--color-industrial-gold, #d4af37); }
 
 /* Game buttons */
 .game-btn {
   background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
   border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #d4af37;
+  color: var(--color-industrial-gold, #d4af37);
   padding: 10px 24px;
   border-radius: 8px;
   font-family: 'Satoshi', sans-serif;

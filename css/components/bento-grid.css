@@ -4,12 +4,12 @@
 */
 
 :root {
-  --bento-gap: 24px;
+  --bento-gap: var(--space-u4);
   --bento-radius: 24px;
-  --bento-bg: rgba(20, 20, 20, 0.4);
-  --bento-border: rgba(255, 255, 255, 0.05);
+  --bento-bg: var(--glass-surface);
+  --bento-border: var(--color-border);
   --bento-hover-border: rgba(255, 255, 255, 0.15);
-  --bento-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --bento-ease: var(--ease-liquid);
 }
 
 .about__bento-grid {
@@ -97,7 +97,7 @@
 }
 
 .bento-portrait__name {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 3rem;
   font-weight: 800;
   line-height: 0.9;
@@ -108,7 +108,7 @@
 }
 
 .bento-portrait__role {
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
@@ -124,7 +124,7 @@
   display: block;
   width: 24px;
   height: 1px;
-  background: #00ff41; /* Signal Green */
+  background: var(--color-cyber-lime); /* Signal Green */
 }
 
 /* 2. MANIFESTO (Large Wide) */
@@ -139,7 +139,7 @@
 }
 
 .bento-manifesto__title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -149,7 +149,7 @@
 }
 
 .bento-manifesto__text {
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: 1.15rem;
   line-height: 1.6;
   color: #ccc;
@@ -198,7 +198,7 @@
 }
 
 .bento-stat__num {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 4rem;
   font-weight: 900;
   line-height: 1;
@@ -224,7 +224,7 @@
 }
 
 .bento-cell__title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 1.2rem;
   font-weight: 600;
   color: #fff;
@@ -256,7 +256,7 @@
   border: 1px solid transparent;
   border-radius: 12px;
   color: #aaa;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   transition: all 0.3s;
 }

@@ -1,43 +1,58 @@
 /**
- * Restaurador Web3 - Mint Your Fail
- * @description Web3 integration for minting disaster art as NFTs on Base
+ * Restaurador Web3 - Mint Your Fail (Sovereign Module)
+ * @description Web3 integration for minting disaster art as NFTs on Base.
+ * Refactored to ES Module for Naroa-2026 architecture.
  */
-(function() {
-  'use strict';
 
-  // Base Mainnet configuration
-  const CONFIG = {
-    CHAIN_ID: 8453, // Base Mainnet
-    CHAIN_HEX: '0x2105',
-    RPC_URL: 'https://mainnet.base.org',
-    CHAIN_NAME: 'Base',
-    EXPLORER: 'https://basescan.org',
-    // Contract will be deployed - placeholder for now
-    CONTRACT_ADDRESS: null,
-    // Pinata IPFS Gateway
-    PINATA_GATEWAY: 'https://gateway.pinata.cloud/ipfs/'
-  };
+// Base Mainnet configuration
+export const WEB3_CONFIG = {
+  CHAIN_ID: 8453, // Base Mainnet
+  CHAIN_HEX: '0x2105',
+  RPC_URL: 'https://mainnet.base.org',
+  CHAIN_NAME: 'Base',
+  EXPLORER: 'https://basescan.org',
+  // Contract will be deployed - placeholder for now
+  CONTRACT_ADDRESS: null,
+  // Pinata IPFS Gateway
+  PINATA_GATEWAY: 'https://gateway.pinata.cloud/ipfs/',
+  // Simulation Mode (Default to true to prevent accidental gas usage)
+  SIMULATION_MODE: true
+};
 
-  let state = {
-    provider: null,
-    signer: null,
-    address: null,
-    isConnected: false
-  };
+class RestauradorWeb3 {
+  constructor() {
+    this.state = {
+      provider: null,
+      signer: null,
+      address: null,
+      isConnected: false
+    };
+    
+    // Bind methods
+    this.connectWallet = this.connectWallet.bind(this);
+    this.mintNFT = this.mintNFT.bind(this);
+  }
 
   /**
    * Check if wallet is available
    */
-  function hasWallet() {
+  hasWallet() {
     return typeof window.ethereum !== 'undefined';
   }
 
   /**
    * Connect wallet
    */
-  async function connectWallet() {
-    if (!hasWallet()) {
-      showToast('🦊 Instala MetaMask para mintear tu NFT', 'warning');
+  async connectWallet() {
+    if (WEB3_CONFIG.SIMULATION_MODE) {
+      this.state.address = '0xSIMULATED_WALLET_' + Math.floor(Math.random() * 10000);
+      this.state.isConnected = true;
+      this.showToast('⚠️ MODO SIMULACIÓN: Wallet conectada', 'warning');
+      return true;
+    }
+
+    if (!this.hasWallet()) {
+      this.showToast('🦊 Instala MetaMask para mintear tu NFT', 'warning');
       window.open('https://metamask.io/download/', '_blank');
       return false;
     }
@@ -48,28 +63,28 @@
         method: 'eth_requestAccounts' 
       });
       
-      state.address = accounts[0];
-      state.isConnected = true;
+      this.state.address = accounts[0];
+      this.state.isConnected = true;
 
       // Check network
       const chainId = await window.ethereum.request({ method: 'eth_chainId' });
       
-      if (chainId !== CONFIG.CHAIN_HEX) {
-        await switchToBase();
+      if (chainId !== WEB3_CONFIG.CHAIN_HEX) {
+        await this.switchToBase();
       }
 
       // Create provider (ethers v6 style if available, fallback to basic)
       if (window.ethers) {
-        state.provider = new window.ethers.BrowserProvider(window.ethereum);
-        state.signer = await state.provider.getSigner();
+        this.state.provider = new window.ethers.BrowserProvider(window.ethereum);
+        this.state.signer = await this.state.provider.getSigner();
       }
 
-      showToast('✅ Wallet conectada: ' + formatAddress(state.address), 'success');
+      this.showToast('✅ Wallet conectada: ' + this.formatAddress(this.state.address), 'success');
       return true;
 
     } catch (error) {
       console.error('Wallet connection error:', error);
-      showToast('❌ Error conectando wallet', 'error');
+      this.showToast('❌ Error conectando wallet', 'error');
       return false;
     }
   }
@@ -77,11 +92,11 @@
   /**
    * Switch to Base network
    */
-  async function switchToBase() {
+  async switchToBase() {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: CONFIG.CHAIN_HEX }]
+        params: [{ chainId: WEB3_CONFIG.CHAIN_HEX }]
       });
     } catch (switchError) {
       // Network not added, try to add it
@@ -90,11 +105,11 @@
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
-              chainId: CONFIG.CHAIN_HEX,
-              chainName: CONFIG.CHAIN_NAME,
+              chainId: WEB3_CONFIG.CHAIN_HEX,
+              chainName: WEB3_CONFIG.CHAIN_NAME,
               nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-              rpcUrls: [CONFIG.RPC_URL],
-              blockExplorerUrls: [CONFIG.EXPLORER]
+              rpcUrls: [WEB3_CONFIG.RPC_URL],
+              blockExplorerUrls: [WEB3_CONFIG.EXPLORER]
             }]
           });
         } catch (addError) {
@@ -109,15 +124,22 @@
   /**
    * Upload image to IPFS via Pinata
    */
-  async function uploadToIPFS(imageDataURL) {
+  async uploadToIPFS(imageDataURL) {
+    if (WEB3_CONFIG.SIMULATION_MODE) {
+      await new Promise(r => setTimeout(r, 1500)); // Simulate delay
+      return {
+        success: true,
+        hash: 'QmSimulatedHash' + Date.now(),
+        url: imageDataURL // Return local URL for preview
+      };
+    }
+
     // Check for Pinata API key in localStorage or prompt
-    // SECURITY NOTE: Storing keys in localStorage is not secure for production apps with backend.
-    // This is a client-side only MVP. User assumes risk of local key storage.
     let apiKey = localStorage.getItem('pinata_api_key');
     let apiSecret = localStorage.getItem('pinata_api_secret');
 
     if (!apiKey || !apiSecret) {
-      showToast('⚠️ Necesitas configurar Pinata para IPFS', 'warning');
+      this.showToast('⚠️ Necesitas configurar Pinata para IPFS', 'warning');
       
       // For MVP, offer direct download as alternative
       const useLocal = confirm(
@@ -174,7 +196,7 @@
         return { 
           success: true, 
           hash: result.IpfsHash,
-          url: CONFIG.PINATA_GATEWAY + result.IpfsHash
+          url: WEB3_CONFIG.PINATA_GATEWAY + result.IpfsHash
         };
       }
 
@@ -189,7 +211,12 @@
   /**
    * Create NFT metadata and upload
    */
-  async function createMetadata(imageHash) {
+  async createMetadata(imageHash) {
+    if (WEB3_CONFIG.SIMULATION_MODE) {
+      await new Promise(r => setTimeout(r, 800));
+      return 'QmSimulatedMetadataHash';
+    }
+
     const apiKey = localStorage.getItem('pinata_api_key');
     const apiSecret = localStorage.getItem('pinata_api_secret');
 
@@ -228,61 +255,59 @@
   /**
    * Mint NFT (placeholder until contract is deployed)
    */
-  async function mintNFT(imageDataURL) {
-    showToast('🔄 Conectando wallet...', 'info');
+  async mintNFT(imageDataURL) {
+    this.showToast('🔄 Conectando wallet...', 'info');
 
     // Connect wallet
-    const connected = await connectWallet();
+    const connected = await this.connectWallet();
     if (!connected) return;
 
-    showToast('📤 Subiendo a IPFS...', 'info');
+    this.showToast('📤 Subiendo a IPFS...', 'info');
 
     // Upload image to IPFS
-    const imageResult = await uploadToIPFS(imageDataURL);
+    const imageResult = await this.uploadToIPFS(imageDataURL);
     
     if (imageResult.fallback) {
       // User chose to download instead
-      downloadImage(imageDataURL);
+      this.downloadImage(imageDataURL);
       return;
     }
 
     if (!imageResult.success) {
-      showToast('❌ Error subiendo imagen', 'error');
+      this.showToast('❌ Error subiendo imagen', 'error');
       return;
     }
 
-    showToast('📝 Creando metadata...', 'info');
+    this.showToast('📝 Creando metadata...', 'info');
 
     // Create and upload metadata
-    const metadataHash = await createMetadata(imageResult.hash);
+    const metadataHash = await this.createMetadata(imageResult.hash);
     
     if (!metadataHash) {
-      showToast('❌ Error creando metadata', 'error');
+      this.showToast('❌ Error creando metadata', 'error');
       return;
     }
 
     // For MVP without deployed contract, show success and save IPFS link
-    showToast('✅ ¡Arte subido a IPFS!', 'success');
+    this.showToast('✅ ¡Arte subido a IPFS! (Simulado)', 'success');
     
-    const ipfsUrl = CONFIG.PINATA_GATEWAY + metadataHash;
+    const ipfsUrl = WEB3_CONFIG.SIMULATION_MODE 
+      ? 'https://ipfs.io/ipfs/' + metadataHash 
+      : WEB3_CONFIG.PINATA_GATEWAY + metadataHash;
     
     // Show result modal with IPFS link
-    showMintResult({
+    this.showMintResult({
       imageUrl: imageResult.url,
       metadataUrl: ipfsUrl,
-      address: state.address
+      address: this.state.address,
+      isSimulation: WEB3_CONFIG.SIMULATION_MODE
     });
-
-    // TODO: When contract is deployed, add actual minting:
-    // const contract = new ethers.Contract(CONFIG.CONTRACT_ADDRESS, ABI, state.signer);
-    // const tx = await contract.mintFail(`ipfs://${metadataHash}`);
-    // await tx.wait();
   }
 
   /**
    * Show mint result modal
    */
-  function showMintResult(result) {
+  showMintResult(result) {
     const modal = document.getElementById('result-modal');
     if (!modal) return;
 
@@ -290,7 +315,7 @@
     if (!content) return;
 
     content.innerHTML = `
-      <h3 class="result-title">🎉 ¡Arte Inmorttalizado!</h3>
+      <h3 class="result-title">🎉 ¡Arte Inmorttalizado! ${result.isSimulation ? '(SIM)' : ''}</h3>
       <p class="result-subtitle">Tu crimen artístico está en la blockchain (IPFS)</p>
       
       <div class="result-preview">
@@ -299,12 +324,12 @@
       
       <div class="mint-details">
         <a href="${result.metadataUrl}" target="_blank" class="ipfs-link">
-          🔗 Ver en IPFS
+          🔗 Ver Metadata en IPFS
         </a>
       </div>
       
       <div class="result-actions">
-        <button class="action-btn action-share" onclick="window.RestauradorWeb3.shareNFT('${result.imageUrl}')">
+        <button class="action-btn action-share" onclick="window.shareNFT('${result.imageUrl}')">
           🐦 Compartir en X
         </button>
         <button class="action-btn action-retry" onclick="location.reload()">
@@ -312,12 +337,17 @@
         </button>
       </div>
     `;
+    
+    // Make helper globally available for the onclick
+    window.shareNFT = this.shareNFT;
+    
+    modal.classList.add('active');
   }
 
   /**
    * Share NFT to Twitter
    */
-  function shareNFT(imageUrl) {
+  shareNFT(imageUrl) {
     const text = encodeURIComponent(
       `🎨💀 ¡Acabo de crear un NFT con mi "restauración desastrosa" de @NaroaGutierrezG!\n\n` +
       `Mi crimen artístico ahora es eterno 🪙\n\n` +
@@ -330,31 +360,37 @@
   /**
    * Helper: format address
    */
-  function formatAddress(address) {
+  formatAddress(address) {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   }
 
   /**
    * Helper: download image locally
    */
-  function downloadImage(dataURL) {
+  downloadImage(dataURL) {
     const link = document.createElement('a');
     link.download = `restaurador-desastroso-${Date.now()}.png`;
     link.href = dataURL;
     link.click();
-    showToast('💾 Imagen descargada', 'success');
+    this.showToast('💾 Imagen descargada', 'success');
   }
 
   /**
    * Helper: show toast notification
    */
-  function showToast(message, type = 'info') {
+  showToast(message, type = 'info') {
     // Remove existing toasts
     document.querySelectorAll('.web3-toast').forEach(t => t.remove());
 
     const toast = document.createElement('div');
     toast.className = `web3-toast web3-toast--${type}`;
     toast.textContent = message;
+    
+    // Add simulation badge
+    if (WEB3_CONFIG.SIMULATION_MODE && type !== 'warning') {
+      toast.textContent += ' (SIM)';
+    }
+
     toast.style.cssText = `
       position: fixed;
       bottom: 20px;
@@ -367,6 +403,7 @@
       font-weight: 600;
       z-index: 9999;
       animation: toast-in 0.3s ease-out;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     `;
 
     document.body.appendChild(toast);
@@ -376,35 +413,7 @@
       setTimeout(() => toast.remove(), 300);
     }, 3000);
   }
+}
 
-  // Add toast animations
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes toast-in {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    @keyframes toast-out {
-      from { opacity: 1; transform: translateX(-50%) translateY(0); }
-      to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-    }
-    .mint-details { margin: 16px 0; }
-    .ipfs-link {
-      color: #4dabf7;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .ipfs-link:hover { text-decoration: underline; }
-  `;
-  document.head.appendChild(style);
-
-  // Export
-  window.RestauradorWeb3 = {
-    connectWallet,
-    mintNFT,
-    shareNFT,
-    hasWallet,
-    get isConnected() { return state.isConnected; },
-    get address() { return state.address; }
-  };
-})();
+// Export singleton instance
+export const web3Manager = new RestauradorWeb3();

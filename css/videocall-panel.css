@@ -8,16 +8,16 @@
    CSS VARIABLES
    ============================================ */
 .videocall-panel {
-    --vc-bg: #000;
-    --vc-surface: rgba(255, 255, 255, 0.03);
-    --vc-border: rgba(255, 255, 255, 0.08);
-    --vc-green: #32CD32;
-    --vc-green-glow: rgba(50, 205, 50, 0.4);
-    --vc-red: #8B0000;
-    --vc-text: #fff;
-    --vc-text-muted: rgba(255, 255, 255, 0.5);
-    --vc-whatsapp: #25D366;
-    --vc-email: #EA4335;
+    --vc-bg: var(--color-void);
+    --vc-surface: var(--color-surface);
+    --vc-border: var(--color-border);
+    --vc-green: var(--color-cyber-lime);
+    --vc-green-glow: rgba(204, 255, 0, 0.4);
+    --vc-red: var(--color-interaction-red);
+    --vc-text: var(--color-text-primary);
+    --vc-text-muted: var(--color-text-muted);
+    --vc-whatsapp: #25D366; /* Brand color kept */
+    --vc-email: var(--color-interaction-red);
 }
 
 /* ============================================
@@ -62,7 +62,7 @@
 }
 
 .hero-title {
-    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-family: var(--font-sans);
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
     margin: 0;
@@ -217,7 +217,7 @@
 }
 
 .scheduler-title {
-    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-family: var(--font-sans);
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0 2rem;
@@ -462,7 +462,7 @@
 }
 
 .success-card h2 {
-    font-family: var(--font-display, 'Switzer', sans-serif);
+    font-family: var(--font-sans);
     font-size: 2rem;
     font-weight: 700;
     margin: 0 0 1rem;

@@ -1,0 +1,61 @@
+/* 
+ * 🎨 Naroa 2026 — Sovereign Design Tokens
+ * Estética: Industrial Noir / Piel Bajo Carboncillo
+ * Sistema: CSS Variables (Sovereign Level)
+ */
+
+:root {
+  /* 🌑 Paleta Base (Industrial Noir) */
+  --color-void: #0A0A0A;        /* Abyssal Black */
+  --color-surface: #121212;     /* Dark Surface */
+  --color-surface-hover: #1E1E1E;
+  --color-border: #333333;      /* Subtle Borders */
+  
+  /* ⚡ Acentos (Sovereign) */
+  --color-cyber-lime: #CCFF00;  /* Laser Green */
+  --color-electric-violet: #6600FF;
+  --color-yinmn-blue: #2E5090;  /* Rarest Pigment */
+  --color-industrial-gold: #D4AF37;
+  --color-interaction-red: #FF003C;
+  --color-void-purple: #A855F7;
+  
+  /* 🌫️ Textos (Hierarchy) */
+  --color-text-primary: #EDEDED;
+  --color-text-secondary: #A1A1A1;
+  --color-text-muted: #666666;
+  
+  /* 📐 Espaciado (Golden Ratio) */
+  --space-u1: 4px;
+  --space-u2: 8px;
+  --space-u3: 16px;
+  --space-u4: 24px;
+  --space-u5: 32px;
+  --space-u6: 48px;
+  --space-u8: 64px;
+  --space-u12: 96px;
+  
+  /* 🖋️ Tipografía */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* 🎭 Motion (Sovereign Springs) */
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* 💎 Efectos */
+  --glass-surface: rgba(18, 18, 18, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --blur-md: 12px;
+  --shadow-subtle: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --glow-lime: 0 0 20px rgba(204, 255, 0, 0.15);
+}
+
+/* Utilitarios de Texto */
+.text-void { color: var(--color-void); }
+.text-lime { color: var(--color-cyber-lime); }
+.text-gold { color: var(--color-industrial-gold); }
+
+/* Utilitarios de Fondo */
+.bg-void { background-color: var(--color-void); }
+.bg-surface { background-color: var(--color-surface); }

@@ -5,10 +5,10 @@
   right: 2rem;
   width: 48px;
   height: 48px;
-  background: var(--naroa-black-galaxy);
-  border: 1px solid var(--naroa-gold-accent);
+  background: var(--color-void);
+  border: 1px solid var(--color-industrial-gold);
   border-radius: 50%;
-  color: var(--naroa-gold-accent);
+  color: var(--color-industrial-gold);
   font-size: 1.5rem;
   cursor: pointer;
   opacity: 0;
@@ -30,8 +30,8 @@
 }
 
 .scroll-to-top:hover {
-  background: var(--naroa-gold-accent);
-  color: var(--naroa-black-deep);
+  background: var(--color-industrial-gold);
+  color: var(--color-surface);
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
 }
