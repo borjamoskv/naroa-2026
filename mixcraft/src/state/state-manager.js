@@ -12,7 +12,11 @@ export const EVENTS = {
         LOAD_START: 'AUDIO:LOAD_START',
         LOAD_COMPLETE: 'AUDIO:LOAD_COMPLETE',
         ERROR: 'AUDIO:ERROR',
-        DECODED: 'AUDIO:DECODED'
+        DECODED: 'AUDIO:DECODED',
+        STEGO_MODE: 'AUDIO:STEGO_MODE'
+    },
+    TRACK: {
+        LOADED: 'TRACK:LOADED'
     },
     PLAYBACK: {
         START: 'PLAYBACK:START',

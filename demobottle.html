@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DemoBottle — Modelo Opaco de Pitching</title>
+  <meta name="description" content="Genera presentaciones ciegas de obra artística. Evaluación por mérito, sin sesgos de identidad." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/demobottle.css" />
+
+  <style>
+    /* Reset mínimo para standalone */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050505;
+      color: #ededed;
+      font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    ::selection {
+      background: rgba(212, 175, 55, 0.3);
+      color: #fff;
+    }
+
+    /* Loading state */
+    .db-loading {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .db-loading__bottle {
+      font-size: 4rem;
+      animation: db-float 2s ease-in-out infinite;
+    }
+    .db-loading__text {
+      font-size: 0.875rem;
+      color: #737373;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    @keyframes db-float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="demobottle" class="db-app">
+    <!-- Loading state -->
+    <div class="db-loading">
+      <div class="db-loading__bottle">🍾</div>
+      <p class="db-loading__text">Cargando DemoBottle…</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { DemoBottle } from '/js/features/demobottle.js';
+    
+    const container = document.getElementById('demobottle');
+    new DemoBottle(container);
+  </script>
+
+</body>
+</html>

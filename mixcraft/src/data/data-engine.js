@@ -62,6 +62,14 @@ export class DataEngine {
   }
 
   /**
+   * Generates Neural Tokens (Encodec simulation) for AI processing.
+   */
+  async tokenize(audioBuffer) {
+    const channelData = audioBuffer.getChannelData(0);
+    return this.send('TOKENIZE', { audioData: channelData });
+  }
+
+  /**
    * Almacena un blob en OPFS (Origin Private File System).
    */
   async store(filename, blob) {

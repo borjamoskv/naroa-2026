@@ -210,8 +210,19 @@ class MixcraftApp {
       
       // Sovereign Analysis (The Brain) — off-thread spectral analysis
       if (deck.buffer) {
+        // 1. Spectral Analysis
         this.dataEngine.analyzeAudio(deck.buffer).then(analysis => {
            state.emit(EVENTS.TRACK.LOADED, { deckId, analysis });
+        });
+
+        // 2. Beta Squad: Fingerprinting → HUD
+        this.dataEngine.fingerprint(deck.buffer).then(fp => {
+          state.emit('DATA:FINGERPRINT', fp);
+        });
+
+        // 3. Delta Squad: Neural Tokens → HUD
+        this.dataEngine.tokenize(deck.buffer).then(tok => {
+          state.emit('DATA:TOKENS', tok);
         });
       }
       

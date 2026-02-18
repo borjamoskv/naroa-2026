@@ -90,7 +90,7 @@ body {
   padding: 0 var(--space-m);
   background: rgba(10,10,10,0.95);
   border-bottom: 1px solid var(--c-border);
-  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   z-index: 100;
 }
 
@@ -214,10 +214,10 @@ body {
 }
 
 #deck-area       { grid-area: decks; display: flex; flex-direction: column; gap: var(--space-s); min-width: 0; overflow: hidden; }
-#fx-rack         { grid-area: fx; overflow-y: auto; overflow-x: hidden; }
-#master-channel  { grid-area: master; overflow-y: auto; overflow-x: hidden; }
-#timeline-section{ grid-area: tl; }
-#sample-pads-section { grid-area: pads; }
+#fx-rack         { grid-area: fx; overflow-y: auto; overflow-x: hidden; gap: var(--space-s); }
+#master-channel  { grid-area: master; overflow-y: auto; overflow-x: hidden; gap: var(--space-s); }
+#timeline-section{ grid-area: tl; gap: var(--space-s); }
+#sample-pads-section { grid-area: pads; gap: var(--space-s); }
 #spectrum-section { display: none; /* hidden for now, spectrum in master */ }
 
 /* ─── Panel Base ────────────────────────────────── */
@@ -487,7 +487,7 @@ button:active { transform: scale(0.95); }
 /* ═══════════════════════════════════════════════════
    FX RACK
    ═══════════════════════════════════════════════════ */
-#fx-rack { gap: var(--space-s); }
+/* gap merged into grid-area declaration above */
 
 .fx-rack-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -540,7 +540,7 @@ button:active { transform: scale(0.95); }
   background: var(--c-panel); border: 1px solid var(--c-border);
   color: var(--c-text); font-size: 10px; font-family: var(--font-mono);
   padding: 2px 6px; border-radius: var(--radius-s);
-  appearance: none; -webkit-appearance: none;
+  -webkit-appearance: none; appearance: none;
 }
 
 .fx-knobs, .mc-knobs {
@@ -563,7 +563,7 @@ button:active { transform: scale(0.95); }
 /* ═══════════════════════════════════════════════════
    SAMPLE PADS
    ═══════════════════════════════════════════════════ */
-#sample-pads-section { gap: var(--space-s); }
+/* gap merged into grid-area declaration above */
 
 .pads-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -573,7 +573,7 @@ button:active { transform: scale(0.95); }
   background: var(--c-surface); border: 1px solid var(--c-border);
   color: var(--c-text); font-size: 10px; font-family: var(--font-mono);
   padding: 2px 8px; border-radius: var(--radius-s);
-  appearance: none; -webkit-appearance: none;
+  -webkit-appearance: none; appearance: none;
 }
 
 .pad-grid {
@@ -615,7 +615,7 @@ button:active { transform: scale(0.95); }
 /* ═══════════════════════════════════════════════════
    MASTER CHANNEL STRIP
    ═══════════════════════════════════════════════════ */
-#master-channel { gap: var(--space-s); }
+/* gap merged into grid-area declaration above */
 
 .master-channel-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -690,7 +690,7 @@ button:active { transform: scale(0.95); }
 .tool-btn:hover { color: var(--c-text); border-color: var(--c-border-bright); }
 
 /* Metering Pro */
-.mc-metering { }
+/* .mc-metering — no additional styles needed */
 .mc-meter-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 4px;
@@ -712,7 +712,7 @@ button:active { transform: scale(0.95); }
 /* ═══════════════════════════════════════════════════
    TIMELINE
    ═══════════════════════════════════════════════════ */
-#timeline-section { gap: var(--space-s); }
+/* gap merged into grid-area declaration above */
 
 .timeline-toolbar {
   display: flex; align-items: center; justify-content: space-between;
@@ -754,7 +754,7 @@ button:active { transform: scale(0.95); }
   border-radius: var(--radius-l) var(--radius-l) 0 0;
   padding: var(--space-m);
   background: rgba(16,16,16,0.95);
-  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   border-top: 1px solid var(--c-border);
   transform: translateY(calc(100% - 40px)); /* Collapsed by default */
   transition: transform 0.3s var(--ease);
@@ -811,6 +811,7 @@ button:active { transform: scale(0.95); }
   position: fixed; inset: 0; z-index: 200;
   display: flex; align-items: center; justify-content: center;
   background: rgba(0,0,0,0.7);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 .modal.hidden { display: none !important; }
@@ -892,6 +893,7 @@ kbd {
 .drop-overlay {
   position: fixed; inset: 0; z-index: 300;
   background: rgba(0,0,0,0.85);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   display: flex; align-items: center; justify-content: center;
 }

@@ -7,6 +7,7 @@
 import { Transport } from './components/Transport.js';
 import { Mixer } from './components/Mixer.js';
 import { FXRack } from './components/FXRack.js';
+import { DataHUD } from './DataHUD.js';
 import { state, EVENTS } from '../state/state-manager.js';
 
 export class UIManager {
@@ -30,6 +31,7 @@ export class UIManager {
     this.components.transport = new Transport(this.app);
     this.components.mixer = new Mixer(this.app);
     this.components.fxRack = new FXRack(this.app);
+    this.components.dataHud = new DataHUD();
 
     // 2. Setup Global Listeners
     this._setupGlobalKeys();

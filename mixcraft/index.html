@@ -123,13 +123,13 @@
           <!-- Pitch/Tempo -->
           <div class="pitch-control">
             <span class="control-label">PITCH</span>
-            <input type="range" id="pitch-a" class="pitch-slider" min="-8" max="8" step="0.1" value="0" />
+            <input type="range" id="pitch-a" class="pitch-slider" min="-8" max="8" step="0.1" value="0" title="Pitch Deck A" />
             <span class="pitch-value" id="pitch-a-val">0.0%</span>
           </div>
           <!-- Volume -->
           <div class="vol-control">
             <span class="control-label">VOL</span>
-            <input type="range" id="vol-a" class="vol-slider vertical-slider" min="0" max="1.5" step="0.01" value="1" orient="vertical" />
+            <input type="range" id="vol-a" class="vol-slider vertical-slider" min="0" max="1.5" step="0.01" value="1" orient="vertical" title="Volume Deck A" />
             <div class="deck-meter">
               <div class="meter-bar vertical"><div id="meter-a" class="meter-fill"></div></div>
             </div>
@@ -138,17 +138,17 @@
           <div class="eq-group">
             <div class="eq-channel">
               <span class="eq-label">HI</span>
-              <input type="range" id="eq-hi-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <input type="range" id="eq-hi-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" title="EQ High Deck A" />
               <button class="eq-kill" data-band="hi" data-deck="A">K</button>
             </div>
             <div class="eq-channel">
               <span class="eq-label">MID</span>
-              <input type="range" id="eq-mid-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <input type="range" id="eq-mid-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" title="EQ Mid Deck A" />
               <button class="eq-kill" data-band="mid" data-deck="A">K</button>
             </div>
             <div class="eq-channel">
               <span class="eq-label">LO</span>
-              <input type="range" id="eq-lo-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <input type="range" id="eq-lo-a" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" title="EQ Low Deck A" />
               <button class="eq-kill" data-band="lo" data-deck="A">K</button>
             </div>
           </div>
@@ -171,12 +171,12 @@
         <canvas id="visualizer-canvas" class="viz-canvas"></canvas>
         <div class="cf-section">
           <div class="crossfader-labels"><span>A</span><span>MIX</span><span>B</span></div>
-          <input type="range" id="crossfader" class="crossfader-slider" min="0" max="1" step="0.005" value="0.5" />
+          <input type="range" id="crossfader" class="crossfader-slider" min="0" max="1" step="0.005" value="0.5" title="Crossfader A/B" />
         </div>
         <!-- Master Volume -->
         <div class="master-vol">
           <span class="control-label">MASTER</span>
-          <input type="range" id="master-vol" min="0" max="1.5" step="0.01" value="1" />
+          <input type="range" id="master-vol" min="0" max="1.5" step="0.01" value="1" title="Master Volume" />
         </div>
       </div>
 
@@ -206,12 +206,12 @@
         <div class="deck-controls">
           <div class="pitch-control">
             <span class="control-label">PITCH</span>
-            <input type="range" id="pitch-b" class="pitch-slider" min="-8" max="8" step="0.1" value="0" />
+            <input type="range" id="pitch-b" class="pitch-slider" min="-8" max="8" step="0.1" value="0" title="Pitch Deck B" />
             <span class="pitch-value" id="pitch-b-val">0.0%</span>
           </div>
           <div class="vol-control">
             <span class="control-label">VOL</span>
-            <input type="range" id="vol-b" class="vol-slider vertical-slider" min="0" max="1.5" step="0.01" value="1" orient="vertical" />
+            <input type="range" id="vol-b" class="vol-slider vertical-slider" min="0" max="1.5" step="0.01" value="1" orient="vertical" title="Volume Deck B" />
             <div class="deck-meter">
               <div class="meter-bar vertical"><div id="meter-b" class="meter-fill"></div></div>
             </div>
@@ -219,17 +219,17 @@
           <div class="eq-group">
             <div class="eq-channel">
               <span class="eq-label">HI</span>
-              <input type="range" id="eq-hi-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <input type="range" id="eq-hi-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" title="EQ High Deck B" />
               <button class="eq-kill" data-band="hi" data-deck="B">K</button>
             </div>
             <div class="eq-channel">
               <span class="eq-label">MID</span>
-              <input type="range" id="eq-mid-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <input type="range" id="eq-mid-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" title="EQ Mid Deck B" />
               <button class="eq-kill" data-band="mid" data-deck="B">K</button>
             </div>
             <div class="eq-channel">
               <span class="eq-label">LO</span>
-              <input type="range" id="eq-lo-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" />
+              <input type="range" id="eq-lo-b" class="eq-knob vertical-slider" min="-12" max="12" step="0.5" value="0" orient="vertical" title="EQ Low Deck B" />
               <button class="eq-kill" data-band="lo" data-deck="B">K</button>
             </div>
           </div>
@@ -266,18 +266,18 @@
           </div>
           <div class="fx-knobs">
             <div class="knob-group">
-              <label>WET</label>
-              <input type="range" id="fx-reverb-wet" min="0" max="1" step="0.01" value="0" />
+              <label for="fx-reverb-wet">WET</label>
+              <input type="range" id="fx-reverb-wet" min="0" max="1" step="0.01" value="0" title="Reverb Wet" />
               <span class="knob-val" id="fx-reverb-wet-val">0%</span>
             </div>
             <div class="knob-group">
-              <label>DECAY</label>
-              <input type="range" id="fx-reverb-decay" min="0.1" max="10" step="0.1" value="2" />
+              <label for="fx-reverb-decay">DECAY</label>
+              <input type="range" id="fx-reverb-decay" min="0.1" max="10" step="0.1" value="2" title="Reverb Decay" />
               <span class="knob-val" id="fx-reverb-decay-val">2.0s</span>
             </div>
             <div class="knob-group">
-              <label>DAMP</label>
-              <input type="range" id="fx-reverb-damp" min="1000" max="18000" step="100" value="8000" />
+              <label for="fx-reverb-damp">DAMP</label>
+              <input type="range" id="fx-reverb-damp" min="1000" max="18000" step="100" value="8000" title="Reverb Damping" />
               <span class="knob-val" id="fx-reverb-damp-val">8kHz</span>
             </div>
           </div>
@@ -290,18 +290,18 @@
           </div>
           <div class="fx-knobs">
             <div class="knob-group">
-              <label>TIME</label>
-              <input type="range" id="fx-delay-time" min="0.01" max="2" step="0.01" value="0.3" />
+              <label for="fx-delay-time">TIME</label>
+              <input type="range" id="fx-delay-time" min="0.01" max="2" step="0.01" value="0.3" title="Delay Time" />
               <span class="knob-val" id="fx-delay-time-val">300ms</span>
             </div>
             <div class="knob-group">
-              <label>FDBK</label>
-              <input type="range" id="fx-delay-feedback" min="0" max="0.95" step="0.01" value="0.4" />
+              <label for="fx-delay-feedback">FDBK</label>
+              <input type="range" id="fx-delay-feedback" min="0" max="0.95" step="0.01" value="0.4" title="Delay Feedback" />
               <span class="knob-val" id="fx-delay-feedback-val">40%</span>
             </div>
             <div class="knob-group">
-              <label>WET</label>
-              <input type="range" id="fx-delay-wet" min="0" max="1" step="0.01" value="0" />
+              <label for="fx-delay-wet">WET</label>
+              <input type="range" id="fx-delay-wet" min="0" max="1" step="0.01" value="0" title="Delay Wet" />
               <span class="knob-val" id="fx-delay-wet-val">0%</span>
             </div>
           </div>
@@ -311,7 +311,7 @@
           <div class="fx-slot-header">
             <button class="fx-power" id="fx-filter-power">⚡</button>
             <span class="fx-name">FILTER</span>
-            <select id="fx-filter-type" class="fx-type-select">
+            <select id="fx-filter-type" class="fx-type-select" title="Filter Type">
               <option value="lowpass">LP</option>
               <option value="highpass">HP</option>
               <option value="bandpass">BP</option>
@@ -320,13 +320,13 @@
           </div>
           <div class="fx-knobs">
             <div class="knob-group">
-              <label>FREQ</label>
-              <input type="range" id="fx-filter-freq" min="20" max="20000" step="1" value="1000" />
+              <label for="fx-filter-freq">FREQ</label>
+              <input type="range" id="fx-filter-freq" min="20" max="20000" step="1" value="1000" title="Filter Frequency" />
               <span class="knob-val" id="fx-filter-freq-val">1kHz</span>
             </div>
             <div class="knob-group">
-              <label>RES</label>
-              <input type="range" id="fx-filter-res" min="0" max="25" step="0.1" value="1" />
+              <label for="fx-filter-res">RES</label>
+              <input type="range" id="fx-filter-res" min="0" max="25" step="0.1" value="1" title="Filter Resonance" />
               <span class="knob-val" id="fx-filter-res-val">1.0</span>
             </div>
           </div>
@@ -339,13 +339,13 @@
           </div>
           <div class="fx-knobs">
             <div class="knob-group">
-              <label>DRIVE</label>
-              <input type="range" id="fx-dist-drive" min="0" max="100" step="1" value="0" />
+              <label for="fx-dist-drive">DRIVE</label>
+              <input type="range" id="fx-dist-drive" min="0" max="100" step="1" value="0" title="Distortion Drive" />
               <span class="knob-val" id="fx-dist-drive-val">0</span>
             </div>
             <div class="knob-group">
-              <label>MIX</label>
-              <input type="range" id="fx-dist-mix" min="0" max="1" step="0.01" value="0" />
+              <label for="fx-dist-mix">MIX</label>
+              <input type="range" id="fx-dist-mix" min="0" max="1" step="0.01" value="0" title="Distortion Mix" />
               <span class="knob-val" id="fx-dist-mix-val">0%</span>
             </div>
           </div>
@@ -358,13 +358,13 @@
           </div>
           <div class="fx-knobs">
             <div class="knob-group">
-              <label>RATE</label>
-              <input type="range" id="fx-phaser-rate" min="0.1" max="10" step="0.1" value="1" />
+              <label for="fx-phaser-rate">RATE</label>
+              <input type="range" id="fx-phaser-rate" min="0.1" max="10" step="0.1" value="1" title="Phaser Rate" />
               <span class="knob-val" id="fx-phaser-rate-val">1.0</span>
             </div>
             <div class="knob-group">
-              <label>DEPTH</label>
-              <input type="range" id="fx-phaser-depth" min="0" max="1" step="0.01" value="0.5" />
+              <label for="fx-phaser-depth">DEPTH</label>
+              <input type="range" id="fx-phaser-depth" min="0" max="1" step="0.01" value="0.5" title="Phaser Depth" />
               <span class="knob-val" id="fx-phaser-depth-val">50%</span>
             </div>
           </div>
@@ -376,7 +376,7 @@
     <section id="sample-pads-section">
       <div class="pads-header">
         <span class="panel-title">SAMPLE PADS</span>
-        <select id="pad-bank-select" class="pad-bank-select">
+        <select id="pad-bank-select" class="pad-bank-select" title="Sample Pad Bank">
           <option value="drums">Drums</option>
           <option value="fx">FX Hits</option>
           <option value="vocals">Vocals</option>
@@ -428,28 +428,28 @@
           <span class="mc-label">COMP <small>SSL G-Bus</small></span>
           <div class="mc-knobs">
             <div class="knob-group">
-              <label>THR</label>
-              <input type="range" id="mc-comp-threshold" min="-60" max="0" step="0.5" value="-18" />
+              <label for="mc-comp-threshold">THR</label>
+              <input type="range" id="mc-comp-threshold" min="-60" max="0" step="0.5" value="-18" title="Compressor Threshold" />
               <span class="knob-val" id="mc-comp-thr-val">-18dB</span>
             </div>
             <div class="knob-group">
-              <label>RATIO</label>
-              <input type="range" id="mc-comp-ratio" min="1" max="20" step="0.5" value="3" />
+              <label for="mc-comp-ratio">RATIO</label>
+              <input type="range" id="mc-comp-ratio" min="1" max="20" step="0.5" value="3" title="Compressor Ratio" />
               <span class="knob-val" id="mc-comp-ratio-val">3:1</span>
             </div>
             <div class="knob-group">
-              <label>ATK</label>
-              <input type="range" id="mc-comp-attack" min="0.001" max="0.1" step="0.001" value="0.003" />
+              <label for="mc-comp-attack">ATK</label>
+              <input type="range" id="mc-comp-attack" min="0.001" max="0.1" step="0.001" value="0.003" title="Compressor Attack" />
               <span class="knob-val" id="mc-comp-atk-val">3ms</span>
             </div>
             <div class="knob-group">
-              <label>REL</label>
-              <input type="range" id="mc-comp-release" min="0.01" max="1" step="0.01" value="0.15" />
+              <label for="mc-comp-release">REL</label>
+              <input type="range" id="mc-comp-release" min="0.01" max="1" step="0.01" value="0.15" title="Compressor Release" />
               <span class="knob-val" id="mc-comp-rel-val">150ms</span>
             </div>
             <div class="knob-group">
-              <label>MKUP</label>
-              <input type="range" id="mc-comp-makeup" min="0.5" max="3" step="0.05" value="1.2" />
+              <label for="mc-comp-makeup">MKUP</label>
+              <input type="range" id="mc-comp-makeup" min="0.5" max="3" step="0.05" value="1.2" title="Compressor Makeup Gain" />
               <span class="knob-val" id="mc-comp-mkup-val">+1.6dB</span>
             </div>
           </div>
@@ -474,7 +474,7 @@
           <div class="mc-ir-controls">
             <div class="ir-upload">
               <button id="mc-ir-upload" class="tool-btn" title="Load IR file (.wav)">📂 Load IR</button>
-              <input type="file" id="mc-ir-file" accept=".wav,.aif,.aiff,.flac" class="hidden" />
+              <input type="file" id="mc-ir-file" accept=".wav,.aif,.aiff,.flac" class="hidden" title="Load IR File" />
               <span id="mc-ir-name" class="ir-name">No IR loaded</span>
             </div>
             <div class="ir-presets">
@@ -484,8 +484,8 @@
               <button class="ir-preset-btn" data-ir="console" title="SSL/Neve Console">🎛️ Console</button>
             </div>
             <div class="knob-group">
-              <label>WET</label>
-              <input type="range" id="mc-ir-wet" min="0" max="1" step="0.01" value="0" />
+              <label for="mc-ir-wet">WET</label>
+              <input type="range" id="mc-ir-wet" min="0" max="1" step="0.01" value="0" title="IR Convolver Wet" />
               <span class="knob-val" id="mc-ir-wet-val">0%</span>
             </div>
           </div>
@@ -499,18 +499,18 @@
               <button id="mc-dyneq-toggle" class="fx-power" title="Enable Dynamic EQ">⚡</button>
             </div>
             <div class="knob-group">
-              <label>SENS</label>
-              <input type="range" id="mc-dyneq-threshold" min="1.5" max="8" step="0.1" value="3" />
+              <label for="mc-dyneq-threshold">SENS</label>
+              <input type="range" id="mc-dyneq-threshold" min="1.5" max="8" step="0.1" value="3" title="Dynamic EQ Sensitivity" />
               <span class="knob-val" id="mc-dyneq-thr-val">3.0×</span>
             </div>
             <div class="knob-group">
-              <label>DEPTH</label>
-              <input type="range" id="mc-dyneq-atten" min="0.1" max="0.9" step="0.05" value="0.5" />
+              <label for="mc-dyneq-atten">DEPTH</label>
+              <input type="range" id="mc-dyneq-atten" min="0.1" max="0.9" step="0.05" value="0.5" title="Dynamic EQ Depth" />
               <span class="knob-val" id="mc-dyneq-atten-val">-6dB</span>
             </div>
             <div class="knob-group">
-              <label>BANDS</label>
-              <select id="mc-dyneq-bands" class="fx-type-select">
+              <label for="mc-dyneq-bands">BANDS</label>
+              <select id="mc-dyneq-bands" class="fx-type-select" title="Dynamic EQ Bands">
                 <option value="8">8</option>
                 <option value="16" selected>16</option>
                 <option value="32">32</option>
@@ -524,8 +524,8 @@
           <span class="mc-label">LIMITER <small>Brickwall</small></span>
           <div class="mc-knobs">
             <div class="knob-group">
-              <label>CEIL</label>
-              <input type="range" id="mc-limiter-ceiling" min="-6" max="0" step="0.1" value="-1" />
+              <label for="mc-limiter-ceiling">CEIL</label>
+              <input type="range" id="mc-limiter-ceiling" min="-6" max="0" step="0.1" value="-1" title="Limiter Ceiling" />
               <span class="knob-val" id="mc-limiter-ceil-val">-1.0 dBFS</span>
             </div>
           </div>
@@ -612,23 +612,23 @@
         </div>
         <div class="export-options">
           <div class="option-group">
-            <label>Format</label>
-            <select id="export-format">
+            <label for="export-format">Format</label>
+            <select id="export-format" title="Export Format">
               <option value="wav">WAV 16-bit (Lossless)</option>
               <option value="wav32">WAV 32-bit Float</option>
             </select>
           </div>
           <div class="option-group">
-            <label>Sample Rate</label>
-            <select id="export-samplerate">
+            <label for="export-samplerate">Sample Rate</label>
+            <select id="export-samplerate" title="Export Sample Rate">
               <option value="44100">44.1 kHz</option>
               <option value="48000">48 kHz</option>
               <option value="96000">96 kHz</option>
             </select>
           </div>
           <div class="option-group">
-            <label>Include Tracklist</label>
-            <input type="checkbox" id="export-tracklist" checked />
+            <label for="export-tracklist">Include Tracklist</label>
+            <input type="checkbox" id="export-tracklist" checked title="Include tracklist in export" />
           </div>
         </div>
         <div class="modal-actions">
@@ -657,7 +657,7 @@
       <button class="sort-btn" data-sort="key">Key</button>
     </div>
     <ul id="track-list" class="track-list"></ul>
-    <input type="file" id="file-input" multiple accept="audio/*" class="hidden" />
+    <input type="file" id="file-input" multiple accept="audio/*" class="hidden" title="Add audio files" />
   </aside>
 
   <!-- KEYBOARD SHORTCUTS OVERLAY -->

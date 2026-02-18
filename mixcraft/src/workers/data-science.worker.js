@@ -33,6 +33,11 @@ self.onmessage = async (e) => {
         reply(id, 'FINGERPRINT_COMPLETE', fp);
         break;
 
+      case 'TOKENIZE':
+        const tokens = await generateNeuralTokens(payload.audioData);
+        reply(id, 'TOKENIZE_COMPLETE', tokens);
+        break;
+
       case 'STORE_BLOB':
         await storeToOPFS(payload.filename, payload.blob);
         reply(id, 'STORE_COMPLETE', { filename: payload.filename });
@@ -295,6 +300,35 @@ function nearestPow2(n) {
   let p = 1;
   while (p < n) p <<= 1;
   return p;
+}
+
+// ═══════════════════════════════════════════════════
+// DELTA SQUAD — Neural Token Interface (Encodec Prep)
+// ═══════════════════════════════════════════════════
+
+async function generateNeuralTokens(float32Array) {
+  // Placeholder for Encodec / SoundStream inference
+  // In a real scenario, this would load a .wasm or .onnx model
+  
+  // Simulation: Discretize audio into "tokens" based on energy quantiles
+  const tokens = [];
+  const frameSize = 320; // 24kHz / 75Hz frame rate
+  
+  for (let i = 0; i < float32Array.length; i += frameSize) {
+    let energy = 0;
+    for (let j = 0; j < frameSize && (i + j) < float32Array.length; j++) {
+      energy += Math.abs(float32Array[i + j]);
+    }
+    const token = Math.floor(Math.min(energy * 100, 1023)); // 10-bit vocabulary
+    tokens.push(token);
+  }
+  
+  return {
+    model: 'sovereign-neural-v1',
+    tokenCount: tokens.length,
+    tokens: tokens.slice(0, 100), // Return preview
+    timestamp: Date.now()
+  };
 }
 
 // ═══════════════════════════════════════════════════
