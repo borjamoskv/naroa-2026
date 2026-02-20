@@ -1,0 +1,124 @@
+# Naroa Gutiérrez Gil — Artista Visual
+
+> Artivista (artista + activista) y artesana emocional. Bilbao y Uribe Kosta, País Vasco, España.
+
+## Identidad
+
+Naroa Gutiérrez Gil es una artista multidisciplinar vasca especializada en pintura, collage, reciclaje artístico e intervención urbana. Su obra transforma materiales cotidianos — pizarra natural, papel de cocina, latas de conserva, textiles — en piezas de arte con significado emocional profundo.
+
+Su filosofía se basa en tres pilares:
+- **El Kintsugi y el Trampolín**: Las grietas no se ocultan, se doran. El problema se convierte en trampolín.
+- **La Manipulación del Caos**: El error y lo inesperado son precursores esenciales de la creación.
+- **El ReCreo**: Volver a elegirse, volver a crearse, volver a sonreír.
+
+## Series Principales
+
+### DiviNos / Obras Maestras
+Retratos de iconos culturales con técnicas mixtas sobre lienzo 3D. Obras destacadas:
+- Asúcar (Celia Cruz) — Acrílico y collage con sobres de azúcar, 2020
+- Cantiflowers (Mario Moreno) — Collage textil y acrílico
+- AmazOna — Pintura sobre lienzo y reproducción
+
+### Rocks
+Iconos pintados sobre pizarra natural del País Vasco con acrílico y Posca:
+- Amy Rocks (Amy Winehouse), 2022
+- Johnny Rocks (Johnny Cash)
+- Marilyn Rocks (Marilyn Monroe)
+- James Rocks (James Dean)
+
+### Tributos Musicales
+Homenajes a leyendas de la música:
+- Mr. Fahrenheit (Freddie Mercury) — Pintura sobre pizarra/tabla
+- Baroque Farrokh — Serie Queen
+- Starchild — Serie Bowie
+- Tedás Queen, Can-dy Queen
+
+### En.lata (Latas y Conservas)
+Reciclaje artístico: intervenciones sobre latas de conserva:
+- Amor en Conserva
+- Dar la Lata
+- En.lata.das
+
+### Facefood
+Fusión entre arte y gastronomía con chaquetas de chef intervenidas:
+- El Cocinero Emplatado
+- Piel de Chef
+
+### Espejos del Alma
+Serie de retratos psicológicos, desde 2015.
+
+### Walking Gallery
+Intervención urbana en el Bilbao Art District (participaciones: 2013, 2017, 2021, 2022).
+
+### Artivismos
+Proyectos de arte social y comunitario, incluyendo el retrato colectivo Covid "I Got You Babe".
+
+### Vaivenes
+Obras creadas durante la pandemia, expuestas en Artelista y Bilbao.
+
+### Bodas
+Arte decorativo personalizado para celebraciones: Candy Wedding, ¡Viva la Novia!
+
+### Técnica Propia
+Flores de papel de cocina ("Tissukaldeko Loreak") — escultura en papel que nunca se marchita.
+
+### Audiovisual
+"El Poblema" — Cortometraje, 2025.
+
+## Exposiciones Destacadas (Selección)
+
+| Año  | Exposición | Lugar | Tipo |
+|------|-----------|-------|------|
+| 2025 | DiviNos VaiVenes | Politena, Sopela | Individual |
+| 2025 | Verhoeven x12 | Online | Online |
+| 2024 | Siarte y El Bosque de Oma | Espacio Siarte, Bilbao | Individual |
+| 2023 | Alicia Crece | Espacio Siarte, Bilbao | Individual |
+| 2023 | Emakumeen arteaN | Harilka, Bilbao La Vieja | Colectiva |
+| 2022 | REPÓKER DE REINAS | Siarte Leku, Bilbao | Individual |
+| 2022 | Euskal Harriak | Espacio Siarte, Bilbao | Individual |
+| 2022 | Walking Gallery Bilbao | Art District | Colectiva |
+| 2021 | Delirios de color | Espacio Siarte, Bilbao | Individual |
+| 2021 | Colegio de Abogados | Bizkaia | Individual |
+| 2021 | CP Magazine Gold | Publicación | Publicación |
+| 2020 | VAIVENES | Artelista, Bilbao | Individual |
+| 2020 | Recicl-ARTE | Espacio Siarte, Bilbao | Individual |
+| 2019 | facefood en Algorta | Algorta, Getxo | Individual |
+| 2017 | Holy Wood: REtpLATOS & aMOREs | Bilbao | Individual |
+| 2015 | Espejos del Alma | Lamiak, Bilbao | Individual |
+
+## Materiales y Técnicas
+
+- **Pizarra natural vasca**: Base terrenal, simboliza el refugio y la vuelta a casa
+- **Mica mineral**: Brillo celestial, dimensionalidad que simula el latido en los ojos
+- **Papel de cocina**: Resiliencia cotidiana, flores que nunca se marchitan
+- **Acrílico y collage**: Técnica principal sobre lienzo y lienzo 3D
+- **Latas de conserva**: Reciclaje artístico
+- **Textiles y alambre**: Collage dimensional
+
+## Ubicación
+
+- **Estudio**: Bilbao y Uribe Kosta, País Vasco, España
+- **Galería habitual**: Espacio Siarte, Bilbao
+- **Mercados artesanales**: Lataska (Sopela), Urban Market
+- **Comunidad**: Harilka elkartea, Calle Cortes, Bilbao La Vieja
+
+## Enlaces
+
+- Web: https://naroa.online
+- Instagram: https://instagram.com/naroagutierrezgil
+- Facebook: https://www.facebook.com/naroa.gutierrezgil
+
+## WebMCP Tools (Native Agent Support)
+
+Esta web es agéntica y expone las siguientes herramientas via `navigator.modelContext`:
+- `explorarGaleria`: Filtrado semántico de obras.
+- `infoArtista`: Contexto técnico y biográfico para IA.
+- `iniciarContacto`: Guía al usuario hacia la sección de encargo.
+
+## Contacto
+
+Para encargos, exposiciones, colaboraciones o prensa: contacto a través de la web naroa.online o email naroa@naroa.eu
+
+## Sobre este archivo
+
+Este archivo sigue el estándar llms.txt para optimización de contenido destinado a agentes de inteligencia artificial y modelos de lenguaje. Última actualización: febrero 2026.

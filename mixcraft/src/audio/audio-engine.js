@@ -59,7 +59,7 @@ export class AudioEngine {
       // Path assumes serving from root. Adjust if needed.
       await this.ctx.audioWorklet.addModule('./mixcraft/src/audio/processor.worklet.js');
       this.sovereignProcessor = new AudioWorkletNode(this.ctx, 'sovereign-processor');
-      console.log('🤘 The Metal (AudioWorklet) is active.');
+      Logger.debug('🤘 The Metal (AudioWorklet) is active.');
       
       // Route: MasterGain -> SovereignProcessor -> Analyser -> Destination
       this.masterGain.connect(this.sovereignProcessor);

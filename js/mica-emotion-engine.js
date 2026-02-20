@@ -226,7 +226,7 @@ class MICAEmotionEngine {
     try {
       localStorage.setItem('mica_state', JSON.stringify(this.state));
     } catch (e) {
-      console.warn('Failed to persist MICA state', e);
+      Logger.warn('Failed to persist MICA state', e);
     }
   }
 
@@ -246,7 +246,7 @@ class MICAEmotionEngine {
 
       return state;
     } catch (e) {
-      console.warn('Failed to load MICA state', e);
+      Logger.warn('Failed to load MICA state', e);
       return null;
     }
   }

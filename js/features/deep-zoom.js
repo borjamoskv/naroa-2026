@@ -175,7 +175,7 @@
         </div>` : ''}
       `;
     } catch (err) {
-      console.warn('[DeepZoom] AI insights failed, showing fallback', err);
+      Logger.warn('[DeepZoom] AI insights failed, showing fallback', err);
       aiContainer.innerHTML = `
         <div class="dz-insight-card">
           <div class="dz-insight-label">Zoom</div>
@@ -223,7 +223,7 @@
   function openZoom(imagePath, artworkData) {
     // Check OpenSeadragon is available
     if (typeof OpenSeadragon === 'undefined') {
-      console.warn('[DeepZoom] OpenSeadragon not loaded. Falling back to lightbox.');
+      Logger.warn('[DeepZoom] OpenSeadragon not loaded. Falling back to lightbox.');
       return false;
     }
 

@@ -47,7 +47,7 @@ class SoulConsole {
       this.setupAccessControl();
       
     } catch (e) {
-      console.error('Soul Link Failed:', e);
+      Logger.error('Soul Link Failed:', e);
       document.getElementById('soul-content').innerHTML = `<div class="error">Connection Lost: ${e.message}</div>`;
     }
   }

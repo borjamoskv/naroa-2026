@@ -22,13 +22,13 @@ class AssetOptimizer {
   async processAll() {
     const files = await glob(`${this.inputDir}/**/*.{jpg,png,webp}`);
     
-    console.log(`🖼️ Procesando ${files.length} imágenes...`);
+    Logger.debug(`🖼️ Procesando ${files.length} imágenes...`);
     
     await Promise.all(files.map(file => this.processImage(file)));
     
     await this.generateManifest();
     
-    console.log('✅ Optimización completa');
+    Logger.debug('✅ Optimización completa');
   }
 
   async processImage(inputPath) {
@@ -106,7 +106,9 @@ class AssetOptimizer {
         if (stat.isDirectory()) {
           manifest.games[game] = await this.scanGameAssets(gamePath);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error(`⚠️ Error al escanear directorio del juego ${game}:`, e.message);
+      }
     }
 
     await fs.writeFile(

@@ -13,7 +13,7 @@ const FILES = [
 ];
 
 async function optimizeHero() {
-  console.log('🚀 Starting Lossless Optimization for Hero Images...');
+  Logger.debug('🚀 Starting Lossless Optimization for Hero Images...');
 
   for (const file of FILES) {
     const inputPath = path.join(SRC_DIR, file);
@@ -21,12 +21,12 @@ async function optimizeHero() {
     const outputPath = path.join(SRC_DIR, outputFilename);
 
     if (!fs.existsSync(inputPath)) {
-      console.warn(`⚠️ Source file not found: ${inputPath}`);
+      Logger.warn(`⚠️ Source file not found: ${inputPath}`);
       continue;
     }
 
     try {
-      console.log(`Processing ${file} ...`);
+      Logger.debug(`Processing ${file} ...`);
       await sharp(inputPath)
         .webp({ 
           lossless: true, 
@@ -38,7 +38,7 @@ async function optimizeHero() {
       const originalSize = fs.statSync(inputPath).size / (1024 * 1024);
       const newSize = fs.statSync(outputPath).size / (1024 * 1024);
       
-      console.log(`✅ Optimized ${outputFilename}: ${originalSize.toFixed(2)}MB -> ${newSize.toFixed(2)}MB`);
+      Logger.debug(`✅ Optimized ${outputFilename}: ${originalSize.toFixed(2)}MB -> ${newSize.toFixed(2)}MB`);
     } catch (err) {
       console.error(`❌ Error processing ${file}:`, err);
     }

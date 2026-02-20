@@ -17,7 +17,7 @@ async function convert() {
       .resize(32, 32, { fit: 'inside' }) // Standard cursor size
       .toFile(output);
     
-    console.log(`Converted ${input} to ${output}`);
+    Logger.debug(`Converted ${input} to ${output}`);
   } catch (error) {
     console.error('Error converting:', error);
   }

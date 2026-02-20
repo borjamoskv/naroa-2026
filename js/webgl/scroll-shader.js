@@ -215,7 +215,7 @@
             });
             
             if(!this.gl) {
-                console.warn('WebGL not supported, skipping scroll shader');
+                Logger.warn('WebGL not supported, skipping scroll shader');
                 return;
             }
             

@@ -49,7 +49,7 @@ class DisplacementDepthParallax {
     this.gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
     
     if (!this.gl) {
-      console.warn('DisplacementParallax: WebGL not supported, falling back to CSS');
+      Logger.warn('DisplacementParallax: WebGL not supported, falling back to CSS');
       this.useCSSFallback();
       return;
     }

@@ -43,6 +43,12 @@
   --ease-liquid: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   
+  /* MOSKV-1 Semantic Springs */
+  --snappy: cubic-bezier(0.25, 1, 0.5, 1);      /* DS.NotchSpring.snappy */
+  --liquid: cubic-bezier(0.3, 0.8, 0.1, 1);     /* DS.NotchSpring.liquid */
+  --heavyBounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* DS.NotchSpring.heavyBounce */
+  --breath: cubic-bezier(0.42, 0, 0.58, 1);     /* DS.NotchSpring.breath */
+  
   /* 💎 Efectos */
   --glass-surface: rgba(18, 18, 18, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);

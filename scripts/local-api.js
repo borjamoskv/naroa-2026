@@ -57,5 +57,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`🔮 Local API Server running at http://localhost:${PORT}`);
+  Logger.debug(`🔮 Local API Server running at http://localhost:${PORT}`);
 });

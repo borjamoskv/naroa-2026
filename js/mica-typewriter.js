@@ -7,7 +7,7 @@ class NaroaTypewriter {
     constructor(elementId = 'chat-output') {
         this.elemento = document.getElementById(elementId);
         if (!this.elemento) {
-            console.error('Elemento no encontrado:', elementId);
+            Logger.error('Elemento no encontrado:', elementId);
             return;
         }
         

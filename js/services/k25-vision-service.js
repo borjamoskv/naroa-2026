@@ -79,7 +79,7 @@
             prompt
           );
         } catch (e) {
-          console.warn('Vision comparison failed, using fallback scoring');
+          Logger.warn('Vision comparison failed, using fallback scoring');
         }
       }
 
@@ -109,7 +109,7 @@
           const base64 = await this._imageUrlToBase64(imageUrl);
           return await this._callVisionWithPrompt([base64], prompt);
         } catch (e) {
-          console.warn('Album art analysis failed:', e);
+          Logger.warn('Album art analysis failed:', e);
         }
       }
 
@@ -147,7 +147,7 @@
                 const jsonRes = await this._callVisionWithPrompt([base64], jsonPrompt);
                 return jsonRes.alt_text || "Arte visual complejo de Naroa.";
             } catch (e) {
-                console.warn('Poetic Alt Text failed:', e);
+                Logger.warn('Poetic Alt Text failed:', e);
             }
         }
         return "Obra de arte digital en estilo Industrial Noir.";

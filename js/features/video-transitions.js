@@ -87,7 +87,7 @@ class VideoTransitionManager {
                 };
             });
         } catch (e) {
-            console.warn(`[Transitions] Failed to play bridge ${filename}:`, e);
+            Logger.warn(`[Transitions] Failed to play bridge ${filename}:`, e);
             // Fallback: just do the callback and reset
             if (onHalfway) onHalfway();
             this.container.classList.remove('active');

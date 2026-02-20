@@ -22,12 +22,12 @@ const MANIFEST_PATH = path.join(__dirname, '../public/data/ipfs-manifest.json');
 const pinata = new pinataSDK(process.env.PINATA_API_KEY, process.env.PINATA_SECRET_KEY);
 
 async function uploadImages() {
-  console.log('🚀 Starting IPFS Upload via Pinata...');
+  Logger.debug('🚀 Starting IPFS Upload via Pinata...');
   
   // 1. Check auth
   try {
     const auth = await pinata.testAuthentication();
-    console.log(`✅ Authenticated: ${auth.message}`);
+    Logger.debug(`✅ Authenticated: ${auth.message}`);
   } catch (err) {
     console.error('❌ Auth failed. Check PINATA_API_KEY and PINATA_SECRET_KEY');
     process.exit(1);
@@ -40,16 +40,16 @@ async function uploadImages() {
   }
   
   const files = fs.readdirSync(GALLERY_DIR).filter(f => f.endsWith('.webp'));
-  console.log(`📂 Found ${files.length} .webp images to upload`);
+  Logger.debug(`📂 Found ${files.length} .webp images to upload`);
 
   // 3. Load existing manifest (to avoid re-uploading)
   let manifest = { artworks: {} };
   if (fs.existsSync(MANIFEST_PATH)) {
     try {
       manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
-      console.log(`📘 Loaded existing manifest with ${Object.keys(manifest.artworks).length} entries`);
+      Logger.debug(`📘 Loaded existing manifest with ${Object.keys(manifest.artworks).length} entries`);
     } catch (e) {
-      console.warn('⚠️ Could not parse existing manifest, starting fresh');
+      Logger.warn('⚠️ Could not parse existing manifest, starting fresh');
     }
   }
 
@@ -61,7 +61,7 @@ async function uploadImages() {
     
     // Skip if already has CID
     if (manifest.artworks[id] && manifest.artworks[id].cid) {
-      // console.log(`⏭️  Skipping ${id} (already pinned)`);
+      // Logger.debug(`⏭️  Skipping ${id} (already pinned)`);
       continue;
     }
 
@@ -69,7 +69,7 @@ async function uploadImages() {
     const readableStream = fs.createReadStream(filePath);
 
     try {
-      console.log(`📤 Uploading ${file}...`);
+      Logger.debug(`📤 Uploading ${file}...`);
       const options = {
         pinataMetadata: {
           name: `naroa-gallery-${id}`,
@@ -94,7 +94,7 @@ async function uploadImages() {
         timestamp: new Date().toISOString()
       };
       
-      console.log(`✅ Pinned: ${result.IpfsHash}`);
+      Logger.debug(`✅ Pinned: ${result.IpfsHash}`);
       newUploads++;
       
       // Save incrementally (safety first)
@@ -105,8 +105,8 @@ async function uploadImages() {
     }
   }
 
-  console.log(`\n🎉 Done! ${newUploads} new files uploaded.`);
-  console.log(`📄 Manifest saved to ${MANIFEST_PATH}`);
+  Logger.debug(`\n🎉 Done! ${newUploads} new files uploaded.`);
+  Logger.debug(`📄 Manifest saved to ${MANIFEST_PATH}`);
 }
 
 uploadImages().catch(err => console.error('FATAL ERROR:', err));

@@ -27,7 +27,7 @@ export class ArtworkDetail {
         this.container = document.getElementById('view-obra');
         
         if (!this.container) {
-            console.error('[ArtworkDetail] Container #view-obra not found');
+            Logger.error('[ArtworkDetail] Container #view-obra not found');
             return;
         }
 
@@ -45,7 +45,7 @@ export class ArtworkDetail {
             this.initEffects();
             
         } catch (error) {
-            console.error('[ArtworkDetail] Error:', error);
+            Logger.error('[ArtworkDetail] Error:', error);
             this.renderError();
         }
     }

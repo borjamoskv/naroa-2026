@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "name": "DemoBottle — Modelo Opaco de Pitching",
+    "description": "Configuración de campos visibles/ocultos y presets por tipo de destinatario",
+    "generatedAt": "2026-02-18T21:00:00Z"
+  },
+  "opacity_model": {
+    "always_visible": ["image", "opaque_id"],
+    "configurable": ["title", "technique", "year", "series", "note"],
+    "always_hidden": ["artist_name", "bio", "cv", "price", "social_links", "source_url"]
+  },
+  "presets": {
+    "galeria": {
+      "label": "Galería de Arte",
+      "icon": "🖼️",
+      "visible_fields": ["image", "opaque_id", "title", "technique", "year"],
+      "note_placeholder": "Presento esta selección de obra para su consideración expositiva..."
+    },
+    "sello": {
+      "label": "Sello Discográfico",
+      "icon": "🎵",
+      "visible_fields": ["image", "opaque_id", "title"],
+      "note_placeholder": "Adjunto maqueta para valoración del sello..."
+    },
+    "curador": {
+      "label": "Curador / Comisario",
+      "icon": "🔍",
+      "visible_fields": ["image", "opaque_id", "title", "technique", "series"],
+      "note_placeholder": "Propuesta curatorial para su programa..."
+    },
+    "festival": {
+      "label": "Festival / Convocatoria",
+      "icon": "🎪",
+      "visible_fields": ["image", "opaque_id", "title", "technique", "year", "series"],
+      "note_placeholder": "Propuesta para la convocatoria abierta..."
+    },
+    "blind": {
+      "label": "Evaluación Ciega Total",
+      "icon": "🫣",
+      "visible_fields": ["image", "opaque_id"],
+      "note_placeholder": ""
+    }
+  },
+  "field_labels": {
+    "image": "Imagen",
+    "opaque_id": "Código de referencia",
+    "title": "Título",
+    "technique": "Técnica",
+    "year": "Año",
+    "series": "Serie / Categoría",
+    "note": "Nota del artista",
+    "artist_name": "Artista",
+    "bio": "Biografía",
+    "cv": "Currículum",
+    "price": "Precio",
+    "social_links": "Redes sociales",
+    "source_url": "Enlace original"
+  },
+  "branding": {
+    "watermark": false,
+    "footer_text": "Generado con DemoBottle — Evaluación por mérito",
+    "accent_color": "#d4af37"
+  }
+}

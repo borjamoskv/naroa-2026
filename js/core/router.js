@@ -4,6 +4,8 @@
  * game/secondary views are overlay-based
  * @module core/router
  */
+import { Logger } from './logger.js';
+
 
 class Router {
   constructor() {

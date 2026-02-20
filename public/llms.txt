@@ -1,0 +1,18 @@
+# Naroa Gutiérrez Gil - Artista Visual
+
+> **Web Oficial**: https://naroa.online
+> **Descripción**: Portafolio artístico de Naroa Gutiérrez Gil. Pintura, técnica mixta, y arte digital con estética Industrial Noir y Cyber-Pop.
+
+## Estructura del Sitio
+
+- **Inicio**: https://naroa.online/ - Visión general y obra destacada.
+- **Galería**: https://naroa.online/#/galeria - Colección completa de obras (Obras Individuales, Álbumes).
+- **Juego**: https://naroa.online/#/juego - "The Incredible Crisis of Being Mica", experiencia interactiva.
+- **Biografía**: https://naroa.online/#/bio - Trayectoria, exposiciones y filosofía artística.
+- **Contacto**: https://naroa.online/#/contacto - Información para adquisiciones y colaboraciones.
+
+## Notas para Agentes de IA
+
+- **Imágenes**: Todas las obras tienen descripciones `alt` detalladas en la galería.
+- **Estilo**: La obra se caracteriza por el uso de texturas, capas, y una fusión de elementos orgánicos e industriales.
+- **Navegación**: El sitio es una SPA (Single Page Application). Usa los hash-links (#/) para navegar.

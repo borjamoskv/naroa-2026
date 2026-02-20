@@ -136,7 +136,7 @@ class MicaNaroaPersonality {
       
     } catch (error) {
       // Fallback graceful a templates
-      console.warn('HF API fail, using templates:', error);
+      Logger.warn('HF API fail, using templates:', error);
       return this.applyStyle("Exploremos eso...", window.MICA?.getState()?.mood || 'NEUTRAL');
     }
   }

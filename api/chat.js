@@ -61,7 +61,7 @@ export default async function handler(request) {
       throw new Error('No valid API Key found (GROQ_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY)');
     }
 
-    console.log(`[MICA Brain] Using Provider: ${providerName}`);
+    Logger.debug(`[MICA Brain] Using Provider: ${providerName}`);
 
     // 3. Generate Response
     const response = await generateText({

@@ -16,6 +16,14 @@
   let FILTERS = [];
   let currentFilter = 'todos';
 
+  // Helper for XSS prevention
+  function escapeHTML(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
   /**
    * Load artwork metadata and taxonomy from JSON
    * Only includes artworks that have corresponding images
@@ -63,7 +71,7 @@
       
       return true;
     } catch (err) {
-      console.warn('[Gallery] Using fallback data:', err);
+      Logger.warn('[Gallery] Using fallback data:', err);
       return false;
     }
   }
@@ -209,10 +217,10 @@
         </div>
         ${isFeatured ? '<span class="stitch-badge stitch-badge--featured">★ Destacada</span>' : ''}
         <div class="stitch-content">
-          <h3 class="stitch-title">${artwork.title}</h3>
+          <h3 class="stitch-title">${escapeHTML(artwork.title)}</h3>
           <div class="stitch-subtitle">
-            <span>${artwork.technique || 'Obra original'}</span>
-            ${artwork.year ? `<span class="stitch-badge">${artwork.year}</span>` : ''}
+            <span>${escapeHTML(artwork.technique) || 'Obra original'}</span>
+            ${artwork.year ? `<span class="stitch-badge">${escapeHTML(artwork.year)}</span>` : ''}
           </div>
           <a href="#contacto" class="stitch-card__cta" onclick="event.stopPropagation();">✦ Consultar</a>
         </div>
@@ -222,18 +230,18 @@
         <div class="stitch-media-wrapper shimmer">
           <img 
             data-src="${artwork.file.startsWith('/') ? artwork.file : '/images/artworks/' + artwork.file}" 
-            alt="${artwork.description || artwork.title}"
+            alt="${escapeHTML(artwork.description || artwork.title)}"
             loading="lazy"
             class="stitch-media-content gallery__img--hq"
-            onerror="this.style.display='none'; console.warn('Missing image:', this.dataset.src || this.src);"
+            onerror="this.style.display='none'; Logger.warn('Missing image:', this.dataset.src || this.src);"
           >
         </div>
         ${isFeatured ? '<span class="stitch-badge stitch-badge--featured">★ Destacada</span>' : ''}
         <div class="stitch-content">
-          <h3 class="stitch-title">${artwork.title}</h3>
+          <h3 class="stitch-title">${escapeHTML(artwork.title)}</h3>
           <div class="stitch-subtitle">
-            <span>${artwork.technique || 'Obra original'}</span>
-            ${artwork.year ? `<span class="stitch-badge">${artwork.year}</span>` : ''}
+            <span>${escapeHTML(artwork.technique) || 'Obra original'}</span>
+            ${artwork.year ? `<span class="stitch-badge">${escapeHTML(artwork.year)}</span>` : ''}
           </div>
           <a href="#contacto" class="stitch-card__cta" onclick="event.stopPropagation();">✦ Consultar</a>
         </div>
@@ -260,9 +268,7 @@
       }
       
       // Default: open lightbox
-      if (window.Lightbox) {
-        window.Lightbox.open(artwork, ARTWORKS);
-      }
+      window.Naroa.systems.lightbox.open(artwork, ARTWORKS);
     });
 
     return item;
@@ -301,8 +307,8 @@
       const emoji = filter.emoji || '🎨';
       
       btn.innerHTML = `
-        <span class="gallery-filter__emoji">${emoji}</span>
-        <span class="gallery-filter__label">${filter.label}</span>
+        <span class="gallery-filter__emoji">${escapeHTML(emoji)}</span>
+        <span class="gallery-filter__label">${escapeHTML(filter.label)}</span>
         <span class="gallery-filter__count">${count}</span>
       `;
       

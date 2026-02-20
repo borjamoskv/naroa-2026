@@ -58,7 +58,7 @@ class StateManager {
             loading: true
         };
 
-        console.log('%c[State] Manager Initialized (Sovereign Level 5)', 'color: #CCFF00; background: #111; padding: 2px 4px;');
+        Logger.debug('%c[State] Manager Initialized (Sovereign Level 5)', 'color: #CCFF00; background: #111; padding: 2px 4px;');
     }
 
     // ─── Event Bus ─────────────────────────────────────────────

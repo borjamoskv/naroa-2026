@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naroa Gutiérrez Gil — El Arte que Respira</title>
+  <meta name="description" content="Naroa Gutiérrez Gil — Artista visual en Bilbao. Hiperrealismo POP sobre pizarra y mica mineral.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=editorial+new:ital,wght@0,200;0,400;1,200;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET & FOUNDATION ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #000000;
+      --black-soft: #0A0A0A;
+      --white: #ffffff;
+      --white-dim: rgba(255,255,255,0.55);
+      --accent: #CCFF00;
+      --red: #FF2020;
+      --transition-base: cubic-bezier(0.76, 0, 0.24, 1);
+      --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
+    #cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s var(--transition-base),
+                  height 0.3s var(--transition-base),
+                  background 0.3s ease;
+      mix-blend-mode: difference;
+    }
+    #cursor.expanded {
+      width: 60px;
+      height: 60px;
+      background: rgba(204, 255, 0, 0.15);
+      border: 1px solid var(--accent);
+    }
+    #cursor-trail {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(204,255,0,0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, opacity 0.3s ease;
+    }
+
+    /* ─── LOADING SCREEN ─── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 8888;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transition: opacity 0.8s ease, transform 0.8s var(--transition-base);
+    }
+    #loader.hidden {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+    .loader-name {
+      font-family: 'Inter', serif;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+    .loader-bar-wrap {
+      width: 200px;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 2s var(--transition-base);
+    }
+    .loader-pct {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ─── HERO SECTION ─── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem clamp(1.5rem, 6vw, 6rem);
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      z-index: 0;
+    }
+    .hero-video.active { opacity: 1; }
+
+    /* Cinematic vignette */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 40%, transparent 70%),
+        linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 2.2s var(--transition-base) forwards;
+    }
+
+    .hero-title {
+      font-family: 'Inter', serif;
+      font-size: clamp(3rem, 8vw, 7.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1.2s 2.4s var(--transition-base) forwards;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+      font-style: normal;
+      font-weight: 200;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      font-weight: 300;
+      color: var(--white-dim);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 2.7s var(--transition-base) forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 3s var(--transition-base) forwards;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 0.3s var(--transition-bounce), box-shadow 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(204,255,0,0.3);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white-dim);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 0.2rem;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      right: clamp(1.5rem, 6vw, 6rem);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s 3.5s ease forwards;
+    }
+    .scroll-hint span {
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollPulse 2s 3.5s ease-in-out infinite;
+    }
+
+    /* Video selector dots */
+    .video-nav {
+      position: absolute;
+      top: 50%;
+      right: clamp(1.5rem, 3vw, 3rem);
+      transform: translateY(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .video-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.4s var(--transition-base);
+      border: none;
+      padding: 0;
+    }
+    .video-dot.active {
+      background: var(--accent);
+      height: 30px;
+      border-radius: 3px;
+    }
+    .video-dot:hover:not(.active) { background: rgba(255,255,255,0.5); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 2rem clamp(1.5rem, 6vw, 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeIn 0.8s 2s ease forwards;
+    }
+    nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+      pointer-events: none;
+    }
+    .nav-logo {
+      font-family: 'Inter', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ─── REEL SECTION ─── */
+    #reel {
+      background: var(--black-soft);
+      padding: clamp(5rem, 10vh, 10rem) 0;
+      overflow: hidden;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+    }
+
+    .reel-title {
+      font-family: 'Inter', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      font-style: italic;
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      margin-bottom: 4rem;
+      line-height: 1.1;
+    }
+
+    /* Horizontal scroll reel */
+    .reel-track {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 clamp(1.5rem, 6vw, 6rem);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+    .reel-track::-webkit-scrollbar { display: none; }
+    .reel-track.grabbing { cursor: grabbing; }
+
+    .reel-card {
+      flex-shrink: 0;
+      width: clamp(280px, 40vw, 500px);
+      aspect-ratio: 9/16;
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: start;
+      group: true;
+    }
+    .reel-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--transition-base);
+    }
+    .reel-card:hover video { transform: scale(1.04); }
+    .reel-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .reel-card:hover .reel-card-overlay { opacity: 1; }
+    .reel-card-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    /* ─── FULLSCREEN REVEAL SECTION ─── */
+    #reveal {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #reveal video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.3) brightness(0.4);
+    }
+    .reveal-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+    }
+    .reveal-quote {
+      font-family: 'Inter', serif;
+      font-size: clamp(1.8rem, 5vw, 4.5rem);
+      font-weight: 200;
+      font-style: italic;
+      line-height: 1.2;
+      max-width: 800px;
+      color: var(--white);
+    }
+    .reveal-quote em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .reveal-attr {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-top: 2rem;
+    }
+
+    /* ─── ABOUT SECTION ─── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 80vh;
+    }
+    @media (max-width: 768px) {
+      #about { grid-template-columns: 1fr; }
+    }
+    .about-video-col {
+      position: relative;
+      overflow: hidden;
+      min-height: 60vh;
+    }
+    .about-video-col video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+    .about-text-col {
+      background: var(--black-soft);
+      padding: clamp(4rem, 8vw, 8rem) clamp(2rem, 6vw, 6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-text-col .section-label { padding: 0; margin-bottom: 1.5rem; }
+    .about-heading {
+      font-family: 'Inter', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+    .about-body {
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      line-height: 1.9;
+      color: var(--white-dim);
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+
+    /* ─── CTA SECTION ─── */
+    #cta {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #cta video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.25);
+    }
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .cta-headline {
+      font-family: 'Inter', serif;
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 200;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 3rem clamp(1.5rem, 6vw, 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Inter', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 0.3; }
+      50% { transform: scaleY(0.5); opacity: 0.8; }
+    }
+
+    /* Scroll-reveal utility */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s var(--transition-base), transform 0.9s var(--transition-base);
+    }
+    .reveal-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-on-scroll.delay-1 { transition-delay: 0.15s; }
+    .reveal-on-scroll.delay-2 { transition-delay: 0.3s; }
+    .reveal-on-scroll.delay-3 { transition-delay: 0.45s; }
+
+    /* ─── GLITCH TEXT ─── */
+    .glitch {
+      position: relative;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    .glitch::before {
+      color: var(--accent);
+      animation: glitch1 4s 4s infinite;
+      transform: translateX(-3px);
+    }
+    .glitch::after {
+      color: var(--red);
+      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+      animation: glitch2 4s 4s infinite;
+      transform: translateX(3px);
+    }
+    @keyframes glitch1 {
+      0%, 95%, 100% { transform: translateX(-3px); clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%); opacity: 0; }
+      96% { transform: translateX(-6px); clip-path: polygon(0 10%, 100% 10%, 100% 45%, 0 45%); opacity: 1; }
+      98% { transform: translateX(2px); clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%); opacity: 1; }
+    }
+    @keyframes glitch2 {
+      0%, 95%, 100% { transform: translateX(3px); opacity: 0; }
+      97% { transform: translateX(6px); opacity: 1; }
+      99% { transform: translateX(-2px); opacity: 1; }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .video-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-trail"></div>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-name">Naroa Gutiérrez Gil</div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="loaderBar"></div>
+    </div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="https://naroa.online" class="nav-logo">Naroa</a>
+    <ul class="nav-links">
+      <li><a href="https://naroa.online/#galeria">Galería</a></li>
+      <li><a href="https://naroa.online/#proceso">Proceso</a></li>
+      <li><a href="https://naroa.online/#encargo">Encargar</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+
+    <!-- Video backgrounds — cycling -->
+    <video class="hero-video active" id="heroV1"
+      src="./videos/scene-dramatic-loop.mp4"
+      autoplay muted loop playsinline preload="auto"
+      poster="./videos/scene-dramatic-poster.jpg">
+    </video>
+    <video class="hero-video" id="heroV2"
+      src="./videos/hot-scene-love.webm"
+      muted loop playsinline preload="none"
+      poster="./videos/hot-scene-love-poster.jpg">
+    </video>
+    <video class="hero-video" id="heroV3"
+      src="./videos/wardrobe-swap.webm"
+      muted loop playsinline preload="none"
+      poster="./videos/wardrobe-swap-poster.jpg">
+    </video>
+
+    <!-- Video selector dots -->
+    <div class="video-nav" aria-label="Seleccionar vídeo">
+      <button class="video-dot active" data-index="0" aria-label="Vídeo 1"></button>
+      <button class="video-dot" data-index="1" aria-label="Vídeo 2"></button>
+      <button class="video-dot" data-index="2" aria-label="Vídeo 3"></button>
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+      <p class="hero-eyebrow">Bilbao · Hiperrealismo POP · Mica Mineral</p>
+      <h1 class="hero-title glitch" data-text="Arte que">
+        Arte que<br><span>respira.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Retratos únicos en acrílico sobre pizarra y mica mineral. 
+        Cada pincelada captura lo que la fotografía no puede ver.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://naroa.online/#encargo" class="btn-primary">Encargar retrato</a>
+        <a href="#reel" class="btn-ghost">Ver el proceso ↓</a>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+
+  </section>
+
+  <!-- ═══ REEL HORIZONTAL ═══ -->
+  <section id="reel">
+    <p class="section-label reveal-on-scroll">Proceso en movimiento</p>
+    <h2 class="reel-title reveal-on-scroll delay-1">Cada obra,<br>una historia viva.</h2>
+
+    <div class="reel-track" id="reelTrack">
+      <div class="reel-card">
+        <video src="./videos/naroa-showcase-2min.mp4" muted loop playsinline preload="none"
+          data-reveal></video>
+        <div class="reel-card-overlay">
+          <span class="reel-card-label">Showcase completo</span>
+        </div>
+      </div>
+      <div class="reel-card">
+        <video src="./videos/living-photograph.webm" muted loop playsinline preload="none"
+          data-reveal></video>
+        <div class="reel-card-overlay">
+          <span class="reel-card-label">Fotografía viva</span>
+        </div>
+      </div>
+      <div class="reel-card">
+        <video src="./videos/wardrobe-swap.webm" muted loop playsinline preload="none"
+          data-reveal></video>
+        <div class="reel-card-overlay">
+          <span class="reel-card-label">Transformación</span>
+        </div>
+      </div>
+      <div class="reel-card">
+        <video src="./videos/hot-scene-love.webm" muted loop playsinline preload="none"
+          data-reveal></video>
+        <div class="reel-card-overlay">
+          <span class="reel-card-label">Pasión</span>
+        </div>
+      </div>
+      <div class="reel-card">
+        <video src="./videos/scene-dramatic.webm" muted loop playsinline preload="none"
+          data-reveal></video>
+        <div class="reel-card-overlay">
+          <span class="reel-card-label">Drama</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FULLSCREEN QUOTE ═══ -->
+  <section id="reveal">
+    <video src="./videos/living-photograph-loop.mp4" autoplay muted loop playsinline></video>
+    <div class="reveal-content">
+      <blockquote class="reveal-quote reveal-on-scroll">
+        "Pinto lo que las cámaras olvidan:<br>
+        <em>el alma que hay detrás de los ojos.</em>"
+      </blockquote>
+      <p class="reveal-attr reveal-on-scroll delay-1">— Naroa Gutiérrez Gil</p>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT SPLIT ═══ -->
+  <section id="about">
+    <div class="about-video-col">
+      <video src="./videos/living-photograph-loop.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="about-text-col">
+      <p class="section-label reveal-on-scroll">La artista</p>
+      <h2 class="about-heading reveal-on-scroll delay-1">
+        No copias.<br>Interpretaciones<br>únicas.
+      </h2>
+      <p class="about-body reveal-on-scroll delay-2">
+        Con sede en Bilbao, Naroa Gutiérrez Gil trabaja sobre superficies que el 
+        ojo común ignora: pizarra negra, mica mineral, texturas que viven y respiran. 
+        Su hiperrealismo POP transforma iconos —Amy Winehouse, Marilyn Monroe, Johnny 
+        Depp— en símbolos personales para quien encarga la obra.
+      </p>
+      <a href="https://naroa.online/#galeria" class="btn-primary reveal-on-scroll delay-3" 
+         style="display:inline-block;width:fit-content;">
+        Ver galería
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ CTA FINAL ═══ -->
+  <section id="cta">
+    <video src="./videos/wardrobe-swap-loop.mp4" autoplay muted loop playsinline></video>
+    <div class="cta-content">
+      <h2 class="cta-headline reveal-on-scroll">
+        El tuyo está<br>esperando.
+      </h2>
+      <div class="hero-ctas reveal-on-scroll delay-2" style="justify-content:center;">
+        <a href="https://naroa.online/#encargo" class="btn-primary">Encargar ahora</a>
+        <a href="https://www.instagram.com/naro.art" class="btn-ghost" target="_blank" rel="noopener">
+          Instagram →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-logo">Naroa</div>
+    <p class="footer-copy">© 2026 Naroa Gutiérrez Gil — Bilbao, España</p>
+    <nav class="footer-links">
+      <a href="https://naroa.online">Web principal</a>
+      <a href="mailto:naroa@naroa.online">Contacto</a>
+    </nav>
+  </footer>
+
+  <script>
+    // ─── CURSOR ───
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursor-trail');
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+
+    document.addEventListener('mousemove', e => {
+      cx = e.clientX; cy = e.clientY;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+    });
+
+    // Trail with lerp
+    function animateTrail() {
+      tx += (cx - tx) * 0.12;
+      ty += (cy - ty) * 0.12;
+      trail.style.left = tx + 'px';
+      trail.style.top = ty + 'px';
+      requestAnimationFrame(animateTrail);
+    }
+    animateTrail();
+
+    document.querySelectorAll('a, button, .reel-card, .video-dot').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+    });
+
+    // ─── LOADER ───
+    const loaderBar = document.getElementById('loaderBar');
+    const loaderPct = document.getElementById('loaderPct');
+    const loader = document.getElementById('loader');
+
+    let pct = 0;
+    const loaderInterval = setInterval(() => {
+      pct += Math.random() * 15;
+      if (pct >= 100) {
+        pct = 100;
+        clearInterval(loaderInterval);
+        setTimeout(() => loader.classList.add('hidden'), 300);
+      }
+      loaderBar.style.width = pct + '%';
+      loaderPct.textContent = Math.floor(pct) + '%';
+    }, 120);
+
+    // ─── HERO VIDEO SWITCHER ───
+    const heroVideos = document.querySelectorAll('.hero-video');
+    const dots = document.querySelectorAll('.video-dot');
+    let currentVideo = 0;
+    let autoSwitchTimer = null;
+
+    function switchVideo(index) {
+      heroVideos[currentVideo].classList.remove('active');
+      heroVideos[currentVideo].pause();
+      dots[currentVideo].classList.remove('active');
+
+      currentVideo = index;
+
+      heroVideos[currentVideo].classList.add('active');
+      heroVideos[currentVideo].load();
+      heroVideos[currentVideo].play().catch(() => {});
+      dots[currentVideo].classList.add('active');
+
+      // Reset auto timer
+      clearTimeout(autoSwitchTimer);
+      startAutoSwitch();
+    }
+
+    function startAutoSwitch() {
+      autoSwitchTimer = setTimeout(() => {
+        switchVideo((currentVideo + 1) % heroVideos.length);
+      }, 8000);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        switchVideo(parseInt(dot.dataset.index));
+      });
+    });
+
+    startAutoSwitch();
+
+    // ─── SCROLL-REVEAL ───
+    const revealEls = document.querySelectorAll('.reveal-on-scroll');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // ─── LAZY VIDEO LOAD in REEL ───
+    const lazyVideos = document.querySelectorAll('[data-reveal]');
+    const videoObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const v = e.target;
+          v.load();
+          v.play().catch(() => {});
+          videoObs.unobserve(v);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    lazyVideos.forEach(v => videoObs.observe(v));
+
+    // ─── REEL DRAG SCROLL ───
+    const track = document.getElementById('reelTrack');
+    let isDown = false, startX, scrollLeft;
+
+    track.addEventListener('mousedown', e => {
+      isDown = true;
+      track.classList.add('grabbing');
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+    track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+    track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
+    track.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      track.scrollLeft = scrollLeft - walk;
+    });
+
+    // ─── PARALLAX on REVEAL quote ───
+    const revealSection = document.getElementById('reveal');
+    const revealContent = revealSection.querySelector('.reveal-content');
+    window.addEventListener('scroll', () => {
+      const rect = revealSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const pct = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        revealContent.style.transform = `translateY(${(pct - 0.5) * -40}px)`;
+      }
+    }, { passive: true });
+
+    // ─── VIDEO ABOUT lazy ───
+    const aboutVideo = document.querySelector('#about video');
+    const aboutObs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        aboutVideo.load();
+        aboutVideo.play().catch(() => {});
+        aboutObs.disconnect();
+      }
+    }, { threshold: 0.2 });
+    aboutObs.observe(aboutVideo);
+  </script>
+</body>
+</html>

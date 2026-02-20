@@ -14,4 +14,4 @@ globalThis.MicaMinigames = {
   ...Vol2
 };
 
-console.log('🎮 Mica Crisis: Módulos cargados correctamente [Sovereign Architecture]');
+Logger.debug('🎮 Mica Crisis: Módulos cargados correctamente [Sovereign Architecture]');

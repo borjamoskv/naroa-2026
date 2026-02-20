@@ -304,15 +304,4 @@ const WOWEffects2026 = {
   },
 };
 
-// Export for module integration
 export { WOWEffects2026 };
-/*
-// Auto-init
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => WOWEffects2026.initAll());
-} else {
-  WOWEffects2026.initAll();
-}
-
-window.WOWEffects2026 = WOWEffects2026;
-*/

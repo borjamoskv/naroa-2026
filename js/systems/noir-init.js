@@ -22,7 +22,7 @@
         window.PaperParallax.init(document.body);
         // PaperParallax initialized
       } catch (e) {
-        console.warn('[Noir] PaperParallax error:', e.message);
+        Logger.warn('[Noir] PaperParallax error:', e.message);
       }
     }
 
@@ -32,7 +32,7 @@
         window.PigmentTrail.init(document.body);
         // PigmentTrail initialized
       } catch (e) {
-        console.warn('[Noir] PigmentTrail error:', e.message);
+        Logger.warn('[Noir] PigmentTrail error:', e.message);
       }
     }
 
@@ -43,7 +43,7 @@
         window.MicaReactive.init(notch);
         // MicaReactive initialized
       } catch (e) {
-        console.warn('[Noir] MicaReactive error:', e.message);
+        Logger.warn('[Noir] MicaReactive error:', e.message);
       }
     }
 
@@ -70,7 +70,7 @@
             try {
               if (window.CharcoalShader.init) window.CharcoalShader.init(canvas);
               if (window.CharcoalShader.apply) window.CharcoalShader.apply(img);
-            } catch (e) { console.warn('[Noir] CharcoalShader init error:', e.message); }
+            } catch (e) { Logger.warn('[Noir] CharcoalShader init error:', e.message); }
           };
 
           if (img.complete) applyShader();

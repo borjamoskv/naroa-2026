@@ -11,16 +11,7 @@
 // UTILIDADES CRIPTO
 // ═══════════════════════════════════════════
 
-function generateOpaqueId(title) {
-  let hash = 0;
-  const str = title + Date.now().toString(36);
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash |= 0;
-  }
-  return 'DB-' + Math.abs(hash).toString(16).toUpperCase().slice(0, 4).padEnd(4, '0');
-}
+// generateOpaqueId eliminado — no se usaba (dead code)
 
 function generateStableId(title) {
   let hash = 5381;
@@ -98,7 +89,7 @@ export class DemoBottle {
         opaqueId: generateStableId(w.titulo),
       }));
     } catch (err) {
-      console.error('[DemoBottle] Error cargando catálogo:', err);
+      Logger.error('[DemoBottle] Error cargando catálogo:', err);
       this.catalog = [];
     }
   }
@@ -313,7 +304,7 @@ export class DemoBottle {
     searchInput.addEventListener('input', (e) => {
       this.searchQuery = e.target.value.toLowerCase().trim();
       this._renderCatalogGrid();
-      this._rebindGridEvents();
+      // Grid usa delegación, no necesita re-bind
     });
 
     // Presets
@@ -323,12 +314,12 @@ export class DemoBottle {
       this._applyPreset(btn.dataset.preset);
       this._renderPresets();
       this._renderFieldToggles();
-      this._rebindFieldEvents();
+      this._bindFieldEvents();
       noteInput.placeholder = this._getNotePlaceholder();
     });
 
     // Fields toggles
-    this._rebindFieldEvents();
+    this._bindFieldEvents();
 
     // Nota
     noteInput.addEventListener('input', (e) => {
@@ -341,13 +332,13 @@ export class DemoBottle {
     });
   }
 
-  _rebindGridEvents() {
-    const grid = this.container.querySelector('#db-grid');
-    // Los eventos se manejan por delegación, no necesita re-bind
-  }
+  // _rebindGridEvents eliminado — delegación hace esto innecesario
 
-  _rebindFieldEvents() {
+  _bindFieldEvents() {
+    // Delegación en el contenedor de fields — un solo listener
     const fieldsEl = this.container.querySelector('#db-fields');
+    if (fieldsEl._dbBound) return; // Prevenir duplicación
+    fieldsEl._dbBound = true;
     fieldsEl.addEventListener('change', (e) => {
       const input = e.target;
       if (!input.dataset.field) return;

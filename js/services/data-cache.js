@@ -62,13 +62,13 @@ const DataCache = {
         return data;
       } catch (err) {
         if (err.name === 'AbortError') {
-          console.warn(`[DataCache] Timeout fetching ${url} (${timeout}ms)`);
+          Logger.warn(`[DataCache] Timeout fetching ${url} (${timeout}ms)`);
         } else {
-          console.warn(`[DataCache] Error fetching ${url}:`, err.message);
+          Logger.warn(`[DataCache] Error fetching ${url}:`, err.message);
         }
         // Return stale cache if available
         if (this._cache.has(url)) {
-          console.info(`[DataCache] Serving stale cache for ${url}`);
+          Logger.info(`[DataCache] Serving stale cache for ${url}`);
           return this._cache.get(url).data;
         }
         throw err;
@@ -103,9 +103,9 @@ const DataCache = {
   async preload() {
     try {
       await this.getArtworks();
-      console.info('[DataCache] Artworks preloaded ✓');
+      Logger.info('[DataCache] Artworks preloaded ✓');
     } catch (e) {
-      console.warn('[DataCache] Preload failed, will retry on demand');
+      Logger.warn('[DataCache] Preload failed, will retry on demand');
     }
   }
 };

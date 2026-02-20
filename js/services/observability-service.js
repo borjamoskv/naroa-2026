@@ -63,7 +63,7 @@ class ObservabilityService {
         try {
             localStorage.setItem('naroa_logs', JSON.stringify(this.logs));
         } catch (e) {
-            console.warn('Obs: LocalStorage full, clearing logs');
+            Logger.warn('Obs: LocalStorage full, clearing logs');
             localStorage.removeItem('naroa_logs');
         }
 

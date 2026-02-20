@@ -18,7 +18,7 @@
       artworksData = await res.json();
       return artworksData;
     } catch (e) {
-      console.warn('[ArtworkLoader] Failed to load metadata:', e);
+      Logger.warn('[ArtworkLoader] Failed to load metadata:', e);
       return null;
     }
   }

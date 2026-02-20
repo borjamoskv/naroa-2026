@@ -26,7 +26,7 @@ export class VideoCallPanel {
         this.container = document.getElementById(containerId);
         
         if (!this.container) {
-            console.error('[VideoCallPanel] Container not found:', containerId);
+            Logger.error('[VideoCallPanel] Container not found:', containerId);
             return;
         }
 

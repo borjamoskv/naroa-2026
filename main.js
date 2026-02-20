@@ -41,6 +41,7 @@ import { KineticText } from './js/effects/kinetic-text.js';
 import { MagneticButton } from './js/effects/magnetic-button.js';
 import { ScrollToTop } from './js/features/scroll-to-top.js';
 import { SpotifyRotator } from './js/spotify-rotator.js';
+import { LightboxEngine } from './js/core/lightbox-engine.js';
 
 class NaroaApp {
   constructor() {
@@ -57,6 +58,7 @@ class NaroaApp {
       this.systems.rankings = RankingSystem;
       this.systems.mica = new MicaSystem();
       this.systems.transitions = PageTransition;
+      this.systems.lightbox = new LightboxEngine();
       
       // 2. Routing Setup (Migrated from app.js)
       this.setupRouting();
@@ -81,7 +83,7 @@ class NaroaApp {
       // Sync Logic
       this.ensurePremiumStructuralHarmony();
       
-      console.log('✅ [APOTHEOSIS] System Soul active.');
+      Logger.debug('✅ [APOTHEOSIS] System Soul active.');
     } catch (error) {
       console.error('❌ [VOID] Critical system failure:', error);
     }
@@ -158,7 +160,7 @@ class NaroaApp {
       const module = await importFn();
       this.systems[name] = module.default || module;
     } catch (e) {
-      console.warn(`⚠️ [${name}] Launch inhibited:`, e);
+      Logger.warn(`⚠️ [${name}] Launch inhibited:`, e);
     }
   }
 

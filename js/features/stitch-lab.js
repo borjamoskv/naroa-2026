@@ -73,7 +73,7 @@ import stitchService from '../services/stitch-service.js';
         showToast('✅ UI generada con Stitch API', 'success');
       }
     } catch (err) {
-      console.error('🧵 Stitch Lab Error:', err);
+      Logger.error('🧵 Stitch Lab Error:', err);
       showToast('❌ Error generando UI', 'error');
     } finally {
       labActive = false;

@@ -84,9 +84,8 @@
   z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 50% 40% at 30% 50%, rgba(196, 113, 59, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 50% at 75% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 55%);
-  animation: glowPulse 8s ease-in-out infinite alternate;
+    radial-gradient(ellipse 50% 40% at 30% 50%, rgba(102, 0, 255, 0.15) 0%, transparent 60%), /* Electric Violet */
+    radial-gradient(ellipse 40% 50% at 75% 40%, rgba(46, 80, 144, 0.15) 0%, transparent 55%); /* YInMn Blue */
   opacity: 0;
   animation: glowFadeIn 3s ease 1s forwards, glowPulse 8s ease-in-out 3s infinite alternate;
 }
@@ -164,7 +163,7 @@
     #f5f0e8 20%,
     var(--highlight, #d4af37) 40%,
     #ffffff 55%,
-    var(--naroa-orange, #c4713b) 75%,
+    var(--color-cyber-lime, #CCFF00) 75%,
     #ffffff 100%
   );
   background-size: 400% 100%;
@@ -178,10 +177,16 @@
   transform: translateZ(100px) scale(0.95); /* Heavy 3D pop */
   animation: 
     heroTitleAwwwardsReveal 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
-    titleGradientFlow 12s ease-in-out 3s infinite;
+    titleGradientFlow 12s ease-in-out 3s infinite,
+    titleSubtleBreath 6s ease-in-out 3s infinite alternate;
   
   filter: drop-shadow(0 10px 50px rgba(0, 0, 0, 0.6));
   position: relative;
+}
+
+@keyframes titleSubtleBreath {
+  0% { transform: translateZ(100px) scale(1) translateY(0); }
+  100% { transform: translateZ(100px) scale(1.04) translateY(-8px); filter: drop-shadow(0 15px 60px rgba(212, 175, 55, 0.4)); }
 }
 
 /* ── LIGHT SWEEP — Shimmer effect on title ── */
@@ -230,7 +235,7 @@
 }
 
 .hero-immersive__title .hero-immersive__title-accent {
-  background: linear-gradient(90deg, rgba(196, 113, 59, 0.9), var(--gold-metallic, #d4af37));
+  background: linear-gradient(90deg, var(--color-cyber-lime, #CCFF00), var(--color-electric-violet, #6600FF));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -265,7 +270,7 @@
 .hero-immersive__divider {
   width: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-metallic, #d4af37), rgba(196, 113, 59, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-electric-violet, #6600FF), var(--color-cyber-lime, #CCFF00), transparent);
   animation: lineExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
   margin: 0.5rem 0;
 }
@@ -306,18 +311,18 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(196, 113, 59, 0.1));
+  background: linear-gradient(135deg, rgba(102, 0, 255, 0.2), rgba(204, 255, 0, 0.1));
   opacity: 0;
   transition: opacity 0.5s ease;
   border-radius: inherit;
 }
 
 .hero-immersive__cta:hover {
-  border-color: var(--gold-metallic, #d4af37);
-  transform: translateY(-2px);
+  border-color: var(--color-cyber-lime, #CCFF00);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 
-    0 8px 32px rgba(212, 175, 55, 0.2),
-    0 0 60px rgba(196, 113, 59, 0.08);
+    0 8px 32px rgba(102, 0, 255, 0.2),
+    0 0 60px rgba(204, 255, 0, 0.15);
 }
 
 .hero-immersive__cta:hover::before {
@@ -370,7 +375,7 @@
   top: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--gold-metallic, #d4af37));
+  background: linear-gradient(to bottom, transparent, var(--color-cyber-lime, #CCFF00));
   animation: scrollDrop 2.5s cubic-bezier(0.4, 0, 0, 1) infinite;
 }
 
@@ -378,7 +383,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--gold-metallic, #d4af37);
+  background: var(--color-cyber-lime, #CCFF00);
   animation: dotPulse 2.5s ease-in-out infinite;
 }
 
@@ -398,19 +403,21 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
   opacity: 0;
-  animation: metaFloat 1s ease 2.5s forwards;
+  animation: 
+    metaFloat 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    metaBreath 6s ease-in-out infinite alternate;
 }
 
 .hero-immersive__meta--left {
   bottom: 18%;
   left: 5%;
-  animation-delay: 2.5s;
+  animation-delay: 2.5s, 3.7s;
 }
 
 .hero-immersive__meta--right {
   top: 20%;
   right: 5%;
-  animation-delay: 2.8s;
+  animation-delay: 2.8s, 4.0s;
 }
 
 .hero-immersive__meta-value {
@@ -422,8 +429,13 @@
 }
 
 @keyframes metaFloat {
-  0%   { opacity: 0; transform: translateY(10px); }
+  0%   { opacity: 0; transform: translateY(15px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes metaBreath {
+  0%   { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-10px) scale(1.05); box-shadow: 0 10px 20px rgba(102, 0, 255, 0.2); }
 }
 
 /* ── SHARED ANIMATIONS ── */

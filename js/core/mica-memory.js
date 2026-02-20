@@ -37,7 +37,7 @@ class MICAMemory {
       // Run aging on startup
       await this.runAgingProtocol();
     } catch (e) {
-      console.warn('🧠 MICA Memory: IndexedDB failed, using localStorage fallback', e);
+      Logger.warn('🧠 MICA Memory: IndexedDB failed, using localStorage fallback', e);
       this.useFallback = true;
     }
   }
@@ -100,7 +100,7 @@ class MICAMemory {
                 ...metadata
             });
         } catch (e) {
-            console.warn('🧠 Chat save failed:', e);
+            Logger.warn('🧠 Chat save failed:', e);
         }
     }
 
@@ -120,7 +120,7 @@ class MICAMemory {
             const store = tx.objectStore('facts');
             await store.add(fact);
         } catch (e) {
-            console.warn('🧠 Fact remember failed:', e);
+            Logger.warn('🧠 Fact remember failed:', e);
         }
     }
   }
@@ -169,7 +169,7 @@ class MICAMemory {
       
       return topResults;
     } catch (e) {
-      console.warn('🧠 Recall failed:', e);
+      Logger.warn('🧠 Recall failed:', e);
       return [];
     }
   }
@@ -295,7 +295,7 @@ class MICAMemory {
         }
       }
     } catch (e) {
-      console.warn('🧠 Aging failed:', e);
+      Logger.warn('🧠 Aging failed:', e);
     }
   }
   

@@ -1,13 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Inter:wght@300;400;500;700&display=swap');
 
 /* ==========================================================================
-   TYPOGRAPHY 2026 — CYBER-POP EDITION
-   Mono accents, aggressive headings + SERIF SOUL (TWOC)
+   TYPOGRAPHY 2026 — CYBER-POP EDITION (Industrial Noir)
+   Humanist Sans, Mono accents, aggressive headings
    ========================================================================== */
 
 /* Base */
 :root {
-  --font-family-serif: 'Playfair Display', Georgia, serif;
+  --font-family-main: 'Inter', sans-serif;
+  --font-family-display: 'Outfit', sans-serif;
+  --font-family-serif: 'Outfit', sans-serif; /* Reused for bold statements */
 }
 
 body {

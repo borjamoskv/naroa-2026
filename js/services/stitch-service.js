@@ -26,10 +26,10 @@ class StitchService {
             if (this.initialized) {
                 // Stitch Service initialized
             } else {
-                console.warn('⚠️ Stitch API key not found in env. UI generation disabled.');
+                Logger.warn('⚠️ Stitch API key not found in env. UI generation disabled.');
             }
         } catch (e) {
-            console.warn('⚠️ Stitch Service: Running without API key');
+            Logger.warn('⚠️ Stitch Service: Running without API key');
         }
         
         return this.initialized;
@@ -43,7 +43,7 @@ class StitchService {
      */
     async generateUI(prompt, options = {}) {
         if (!this.initialized) {
-            console.warn('Stitch not initialized. Returning mock response.');
+            Logger.warn('Stitch not initialized. Returning mock response.');
             return this._getMockResponse(prompt);
         }
 
@@ -76,7 +76,7 @@ class StitchService {
 
             return await response.json();
         } catch (error) {
-            console.error('Stitch generation failed:', error);
+            Logger.error('Stitch generation failed:', error);
             return this._getMockResponse(prompt);
         }
     }
@@ -96,7 +96,7 @@ class StitchService {
             });
             return await response.json();
         } catch (error) {
-            console.error('Failed to list Stitch projects:', error);
+            Logger.error('Failed to list Stitch projects:', error);
             return [];
         }
     }
@@ -117,7 +117,7 @@ class StitchService {
             });
             return await response.json();
         } catch (error) {
-            console.error('Failed to export Stitch project:', error);
+            Logger.error('Failed to export Stitch project:', error);
             return null;
         }
     }

@@ -83,7 +83,7 @@ class RestauradorWeb3 {
       return true;
 
     } catch (error) {
-      console.error('Wallet connection error:', error);
+      Logger.error('Wallet connection error:', error);
       this.showToast('❌ Error conectando wallet', 'error');
       return false;
     }
@@ -203,7 +203,7 @@ class RestauradorWeb3 {
       throw new Error('IPFS upload failed');
 
     } catch (error) {
-      console.error('IPFS upload error:', error);
+      Logger.error('IPFS upload error:', error);
       return { success: false, error: error.message };
     }
   }
@@ -247,7 +247,7 @@ class RestauradorWeb3 {
       return result.IpfsHash;
 
     } catch (error) {
-      console.error('Metadata upload error:', error);
+      Logger.error('Metadata upload error:', error);
       return null;
     }
   }

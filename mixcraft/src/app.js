@@ -53,7 +53,7 @@ class MixcraftApp {
   }
 
   async _boot() {
-    console.log('[EuskAI mixer] Booting...');
+    Logger.debug('[EuskAI mixer] Booting...');
     
     // Initialize UI first (it handles DOM event binding)
     await this.ui.init();
@@ -74,7 +74,7 @@ class MixcraftApp {
     // this.ui.toggleLoading(false); // DEPRECATED: Direct UI call
     state.emit(EVENTS.UI.LOADING, false);
     
-    console.log(
+    Logger.debug(
       '%c◈ EUSKAI MIXER V1 ◈ %cLiquid Glass Engine Ready',
       'color: #CCFF00; font-weight: bold; font-size: 16px; background: #000; padding: 4px;',
       'color: #7B2FFF; background: #000; padding: 4px;'
@@ -82,7 +82,7 @@ class MixcraftApp {
   }
 
   async _loadDemoTracks() {
-    console.log('[Demo] Loading Robe Remix Stems...');
+    Logger.debug('[Demo] Loading Robe Remix Stems...');
     // Simulating file load from path - in a real browser app this requires
     // fetching the file as a Blob/File object.
     const demoTracks = [
@@ -98,7 +98,7 @@ class MixcraftApp {
         const file = new File([blob], track.name, { type: 'audio/wav' });
         await this.loadTrack(track.id, file);
       } catch (err) {
-        console.warn(`[Demo] Could not load track ${track.name}:`, err);
+        Logger.warn(`[Demo] Could not load track ${track.name}:`, err);
         state.emit(EVENTS.AUDIO.ERROR, { message: `Failed to load demo track ${track.name}`, error: err });
       }
     }
@@ -172,7 +172,7 @@ class MixcraftApp {
 
   async toggleRecording() {
     // Basic implementation for now
-    console.log('[App] Recording toggle requested');
+    Logger.debug('[App] Recording toggle requested');
   }
 
   // ─── FILE HANDLING ──────────────────────────────────

@@ -67,7 +67,7 @@ class SwarmCurator extends SwarmAgent {
     images.forEach(img => {
       img.onerror = () => {
         img.style.display = 'none';
-        console.warn(`[Swarm Curator] Failed to load: ${img.src}`);
+        Logger.warn(`[Swarm Curator] Failed to load: ${img.src}`);
       };
       img.src = img.dataset.src;
       img.removeAttribute('data-src');

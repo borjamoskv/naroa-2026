@@ -1,0 +1,10 @@
+export { PelaPatatas } from './pela-patatas.js';
+export { TetrisSardinas } from './tetris-sardinas.js';
+export { RhythmCarcajada } from './rhythm-carcajada.js';
+export { CarreraAbsurda } from './carrera-absurda.js';
+export { EquilibrioLata } from './equilibrio-lata.js';
+export { RecogeLagrimas } from './recoge-lagrimas.js';
+export { MaquillajeExtremo } from './maquillaje-extremo.js';
+export { HuyeDelDragon } from './huye-del-dragon.js';
+export { BaileSincronizado } from './baile-sincronizado.js';
+export { DarLaLata } from './dar-la-lata.js';

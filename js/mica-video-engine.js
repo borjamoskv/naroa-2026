@@ -65,7 +65,7 @@ class MICAVideoEngine {
 
   initHLS(player) {
     if (typeof Hls === 'undefined') {
-      console.warn('HLS.js not loaded, falling back to native');
+      Logger.warn('HLS.js not loaded, falling back to native');
       this.initNative(player);
       return;
     }

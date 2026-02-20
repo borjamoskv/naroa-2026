@@ -202,7 +202,7 @@ class AudioReactiveSystem {
 
 
     } catch (err) {
-      console.error('Mic access denied:', err);
+      Logger.error('Mic access denied:', err);
       alert('Por favor, permite el acceso al micrófono para que la web reaccione a la música');
     }
   }

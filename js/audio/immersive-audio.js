@@ -85,7 +85,7 @@ const ImmersiveAudio = {
 
       return true;
     } catch (err) {
-      console.warn('Audio not available:', err);
+      Logger.warn('Audio not available:', err);
       return false;
     }
   },
@@ -197,7 +197,7 @@ const ImmersiveAudio = {
       const arrayBuffer = await response.arrayBuffer();
       return await this.ctx.decodeAudioData(arrayBuffer);
     } catch (err) {
-      console.warn(`Failed to load audio: ${url}`);
+      Logger.warn(`Failed to load audio: ${url}`);
       return null;
     }
   },

@@ -1,4 +1,16 @@
-// Export as module
+/**
+ * Sistema de Rankings — Naroa 2026
+ * Gestión soberana de puntuaciones con persistencia localStorage.
+ * @module core/ranking-system
+ */
+
+/** Previene inyección XSS en templates innerHTML */
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 export const RankingSystem = {
   // ... (keeping internal state as local constants within module scope)
   storageKey: 'naroa-games-rankings',
@@ -34,7 +46,7 @@ export const RankingSystem = {
       const parsed = JSON.parse(data);
       return { ...this.getDefaultRankings(), ...parsed };
     } catch (e) {
-      console.warn('Rankings load error:', e);
+      Logger.warn('Rankings load error:', e);
       return this.getDefaultRankings();
     }
   },
@@ -43,7 +55,7 @@ export const RankingSystem = {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(rankings));
     } catch (e) {
-      console.warn('Rankings save error:', e);
+      Logger.warn('Rankings save error:', e);
     }
   },
 
@@ -97,7 +109,11 @@ export const RankingSystem = {
     const scores = this.getTopScores(gameId, 10);
     
     if (scores.length === 0) {
-      container.innerHTML = `<div class="ranking-empty"><p>🏆 Aún no hay puntuaciones</p><p class="ranking-subtitle">¡Sé el primero!</p></div>`;
+      container.textContent = '';
+      const emptyDiv = document.createElement('div');
+      emptyDiv.className = 'ranking-empty';
+      emptyDiv.innerHTML = `<p>🏆 Aún no hay puntuaciones</p><p class="ranking-subtitle">¡Sé el primero!</p>`;
+      container.appendChild(emptyDiv);
       return;
     }
 
@@ -108,7 +124,7 @@ export const RankingSystem = {
         ${scores.map((s, i) => `
           <div class="ranking-entry ${i < 3 ? 'ranking-entry--top' : ''}">
             <span class="ranking-pos">${medals[i] || (i + 1)}</span>
-            <span class="ranking-name">${s.name}</span>
+            <span class="ranking-name">${escapeHTML(s.name)}</span>
             <span class="ranking-score">${s.score.toLocaleString()}</span>
             <span class="ranking-date">${this.formatDate(s.date)}</span>
           </div>

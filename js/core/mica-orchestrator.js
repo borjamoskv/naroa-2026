@@ -123,7 +123,7 @@ export class MicaSystem {
     const orb = document.createElement('button');
     orb.id = 'mica-orb';
     orb.className = 'mica-orb';
-    orb.innerHTML = '💎';
+    orb.textContent = '💎';
     document.body.appendChild(orb);
 
     const panel = document.createElement('div');
@@ -181,7 +181,10 @@ export class MicaSystem {
   appendMessage(role, text) {
     const msg = document.createElement('div');
     msg.className = `mica-msg mica-msg-${role}`;
-    msg.innerHTML = `<div class="mica-msg-text">${text}</div>`;
+    const textDiv = document.createElement('div');
+    textDiv.className = 'mica-msg-text';
+    textDiv.textContent = text;
+    msg.appendChild(textDiv);
     this.elements.messages.appendChild(msg);
     this.elements.messages.scrollTop = this.elements.messages.scrollHeight;
     return msg;
@@ -208,7 +211,7 @@ export class MicaSystem {
   }
 
   showQuickReplies() {
-    this.elements.quickReplies.innerHTML = '';
+    this.elements.quickReplies.textContent = '';
     this.personality.quickReplies.forEach(qr => {
       const btn = document.createElement('button');
       btn.className = 'mica-chip';

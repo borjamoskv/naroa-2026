@@ -33,7 +33,7 @@ class MICAOrchestrator {
       this.modules.emotion = window.MICA || new EmotionEngine.default();
       this.loaded.add('emotion');
     } catch (e) {
-      console.warn('[MICA] Emotion engine not available:', e);
+      Logger.warn('[MICA] Emotion engine not available:', e);
     }
   }
   
@@ -70,7 +70,7 @@ class MICAOrchestrator {
         this.loaded.add(moduleName);
         return this.modules[moduleName];
       } catch (e) {
-        console.warn(`[MICA] Failed to load ${moduleName}:`, e);
+        Logger.warn(`[MICA] Failed to load ${moduleName}:`, e);
         return null;
       }
     }

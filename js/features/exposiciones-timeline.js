@@ -34,17 +34,19 @@ class ExposicionesTimeline {
     async init(containerId = 'exposiciones-container') {
         this.container = document.getElementById(containerId);
         if (!this.container) {
-            console.error('[ExposicionesTimeline] Container not found');
+            Logger.error('[ExposicionesTimeline] Container not found');
             return;
         }
 
         // Premium loading state con shimmer
-        this.container.innerHTML = `
-            <div class="timeline-loading">
+        this.container.textContent = '';
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'timeline-loading';
+        loadingDiv.innerHTML = `
                 <div class="loading-shimmer"></div>
                 <span class="loading-text">Cargando trayectoria...</span>
-            </div>
         `;
+        this.container.appendChild(loadingDiv);
 
         await this.loadData();
         this.render();
@@ -62,7 +64,7 @@ class ExposicionesTimeline {
             this.data = await this.dataService.getExposiciones();
             this.data.sort((a, b) => b.year - a.year);
         } catch (error) {
-            console.error('Failed to load exhibitions:', error);
+            Logger.error('Failed to load exhibitions:', error);
             this.data = [];
         }
     }

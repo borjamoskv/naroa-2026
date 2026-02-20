@@ -44,7 +44,7 @@ self.onmessage = async (e) => {
         break;
 
       default:
-        console.warn('[The Brain] Unknown command:', type);
+        Logger.warn('[The Brain] Unknown command:', type);
     }
   } catch (err) {
     self.postMessage({ type: 'ERROR', id, error: err.message });
@@ -56,7 +56,7 @@ async function init() {
   
   if (navigator.storage && navigator.storage.getDirectory) {
     state.opfsRoot = await navigator.storage.getDirectory();
-    console.log('[The Brain] OPFS Mounted.');
+    Logger.debug('[The Brain] OPFS Mounted.');
   }
   
   state.isInitialized = true;
@@ -342,7 +342,7 @@ async function storeToOPFS(filename, blob) {
   const writable = await fileHandle.createWritable();
   await writable.write(blob);
   await writable.close();
-  console.log(`[The Brain] Saved ${filename} to Sovereign Storage.`);
+  Logger.debug(`[The Brain] Saved ${filename} to Sovereign Storage.`);
 }
 
 function reply(id, type, payload) {

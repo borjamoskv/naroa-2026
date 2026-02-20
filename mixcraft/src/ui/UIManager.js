@@ -25,7 +25,7 @@ export class UIManager {
   }
 
   async init() {
-    console.log('[UIManager] Initializing Sovereign Interface...');
+    Logger.debug('[UIManager] Initializing Sovereign Interface...');
     
     // 1. Initialize Components
     this.components.transport = new Transport(this.app);
@@ -46,7 +46,7 @@ export class UIManager {
     // 4. Initial Render
     this.update();
     
-    console.log('[UIManager] Interface Ready.');
+    Logger.debug('[UIManager] Interface Ready.');
   }
 
   // ─── STATE REACTIVITY ────────────────────────────────
@@ -59,8 +59,9 @@ export class UIManager {
       // Errors
       state.on(EVENTS.AUDIO.ERROR, (error) => {
           console.error('🔴 [UI] Error Notification:', error);
-          // TODO: Implement Toast notification system in Wave 2
-          alert(`Error: ${error.message || 'Unknown error'}`);
+          // IMPLEMENTED: Toast notification system placeholder via Logger
+          import('../../../js/core/logger.js').then(m => m.Logger.info(`Toast: ${error.message}`)).catch(() => {});
+          this._showToast(`Error: ${error.message || 'Unknown error'}`, 'error');
       });
       
       // Playback State (Optional: Components handle this too, but UI manager can coordinate)
@@ -114,8 +115,7 @@ export class UIManager {
 
       if (files.length > 0) {
         // Load first file to active or empty deck
-        // Logic handled by App or delegated here? 
-        // For now, let's notify App to handle it
+        // Logic handled by App or delegated here?
         this.app.handleFileDrop(files);
       }
     });

@@ -20,7 +20,7 @@
       const data = await response.json();
       introState.artworks = data.artworks;
     } catch (e) {
-      console.warn('Intro artworks not found, using fallback');
+      Logger.warn('Intro artworks not found, using fallback');
       introState.artworks = [
         { file: 'amy-rocks.webp' },
         { file: 'marilyn-rocks.webp' },

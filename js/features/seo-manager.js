@@ -106,7 +106,7 @@ window.SeoManager = {
         }
       }
     } catch (e) {
-      console.warn('SEO Manager: Could not load artwork data', e);
+      Logger.warn('SEO Manager: Could not load artwork data', e);
       this.setMeta(this.defaultTitle, this.defaultDescription, this.defaultImage);
     }
   },

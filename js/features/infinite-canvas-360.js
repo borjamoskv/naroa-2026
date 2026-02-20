@@ -85,7 +85,7 @@ class InfiniteCanvas360 {
       this.artworks = data.artworks || [];
       this.populateLayers();
     } catch (e) {
-      console.warn('Using fallback artworks');
+      Logger.warn('Using fallback artworks');
       this.artworks = [
         { id: 'amy-rocks', title: 'Amy Rocks' },
         { id: 'espejos-del-alma', title: 'Espejos del Alma' },

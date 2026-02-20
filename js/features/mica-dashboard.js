@@ -25,7 +25,7 @@ export class MicaDashboard {
         this.container = document.getElementById(containerId);
         
         if (!this.container) {
-            console.error('[MicaDashboard] Container not found:', containerId);
+            Logger.error('[MicaDashboard] Container not found:', containerId);
             return;
         }
 
@@ -92,7 +92,7 @@ export class MicaDashboard {
             this.initEffects(); // Re-bind effects
             
         } catch (e) {
-            console.warn('[MicaDashboard] Error loading stats:', e);
+            Logger.warn('[MicaDashboard] Error loading stats:', e);
         }
     }
 

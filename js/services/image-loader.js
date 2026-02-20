@@ -28,7 +28,7 @@ const ImageLoader = {
       const img = new Image();
       img.onload = () => resolve(img);
       img.onerror = () => {
-        console.warn(`[ImageLoader] CDN failed for ${artworkId}, trying IPFS fallback...`);
+        Logger.warn(`[ImageLoader] CDN failed for ${artworkId}, trying IPFS fallback...`);
         this._loadFromIPFS(artworkId, img, resolve, reject);
       };
       img.src = cdnUrl;
@@ -51,7 +51,7 @@ const ImageLoader = {
         throw new Error(`No IPFS entry for ${artworkId}`);
       }
 
-      console.info(`[ImageLoader] Serving ${artworkId} from IPFS: ${entry.cid}`);
+      Logger.info(`[ImageLoader] Serving ${artworkId} from IPFS: ${entry.cid}`);
       
       // Retry with IPFS Gateway URL
       imgObj.src = entry.gateway;
@@ -59,7 +59,7 @@ const ImageLoader = {
       imgObj.onerror = () => reject(new Error(`Both CDN and IPFS failed for ${artworkId}`));
 
     } catch (err) {
-      console.error('[ImageLoader] IPFS Fallback failed:', err);
+      Logger.error('[ImageLoader] IPFS Fallback failed:', err);
       reject(err);
     }
   },

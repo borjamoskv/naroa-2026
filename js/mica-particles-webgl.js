@@ -8,7 +8,7 @@ class MICAParticleSystem {
   constructor(canvasId = 'particle-canvas') {
     this.canvas = document.getElementById(canvasId);
     if (!this.canvas) {
-      console.warn('Canvas not found:', canvasId);
+      Logger.warn('Canvas not found:', canvasId);
       return;
     }
 

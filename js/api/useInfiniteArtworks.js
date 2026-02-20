@@ -228,7 +228,7 @@ export function useInfiniteArtworks(containerSelector, options = {}) {
     : containerSelector;
   
   if (!container) {
-    console.error(`[useInfiniteArtworks] Container not found: ${containerSelector}`);
+    Logger.error(`[useInfiniteArtworks] Container not found: ${containerSelector}`);
     return null;
   }
 

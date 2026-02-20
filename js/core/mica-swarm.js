@@ -110,7 +110,7 @@ class MICASwarmOrchestrator {
         this.artworkIndex = data.artworks || data;
       }
     } catch (e) {
-      console.warn('🐝 Swarm: Could not load artwork index');
+      Logger.warn('🐝 Swarm: Could not load artwork index');
     }
   }
   

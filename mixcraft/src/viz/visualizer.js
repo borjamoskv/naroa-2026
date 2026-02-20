@@ -41,7 +41,7 @@ export class Visualizer {
         }
       }, [offscreen]); // Transfer ownership
 
-      console.log('[The Eye] Visual Worker Online.');
+      Logger.debug('[The Eye] Visual Worker Online.');
     } catch (err) {
       console.error('[The Eye] Worker Init Failed:', err);
     }

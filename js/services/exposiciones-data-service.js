@@ -32,7 +32,7 @@ class ExposicionesDataService {
                 return data;
             }
         } catch (e) {
-            console.warn('[ExposicionesData] NotebookLM unavailable:', e.message);
+            Logger.warn('[ExposicionesData] NotebookLM unavailable:', e.message);
         }
 
         // 2. Fallback: JSON local
@@ -41,7 +41,7 @@ class ExposicionesDataService {
             this.setCache(data);
             return data;
         } catch (e) {
-            console.error('[ExposicionesData] Local JSON failed:', e);
+            Logger.error('[ExposicionesData] Local JSON failed:', e);
             return [];
         }
     }
